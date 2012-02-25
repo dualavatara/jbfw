@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit verbose="true" bootstrap="./bootstrap.php">
+	<filter>
+		<whitelist>
+			<directory suffix=".php">../lib</directory>
+			<directory suffix=".php">../sdk</directory>
+			<directory suffix=".php">../model</directory>
+			<directory suffix=".php">../ctl</directory>
+			<exclude>
+				<file>../lib/model.lib.php</file>
+				<file>../lib/field.lib.php</file>
+				<file>../lib/filter.lib.php</file>
+			</exclude>
+		</whitelist>
+	</filter>
+	<php>
+		<var name="DB_DSN" value="pgsql:dbname=test_db;host=localhost;port=5432"/>
+		<var name="DB_HOST" value="localhost"/>
+		<var name="DB_PORT" value="5432"/>
+		<var name="DB_USER" value="ivanov"/>
+		<var name="DB_PASSWD" value="qwerty"/>
+		<var name="DB_DBNAME" value="test_db"/>
+	</php>
+	<logging>
+        <log type="coverage-clover" target="coverage.xml"/>
+    </logging>
+</phpunit>

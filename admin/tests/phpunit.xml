@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit verbose="true">
+	<filter>
+		<whitelist>
+			<directory suffix=".php">../lib/Admin/</directory>
+		</whitelist>
+	</filter>
+	<logging>
+		<log type="coverage-html" target="coverage" charset="UTF-8"
+            yui="true" highlight="true" />
+    </logging>
+</phpunit>
