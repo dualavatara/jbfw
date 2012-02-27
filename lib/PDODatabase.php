@@ -57,4 +57,11 @@ class PDODatabase implements IDatabase {
 
 		$this->dbh = new PDO($dsn, $username, $password, $options);
 	}
+
+	/**
+	 *
+	 */
+	public function getLastInsertId() {
+		return $this->dbh->lastInsertId();
+	}
 }

@@ -272,5 +272,10 @@ class DateTimeWithTZField extends CommonDateField {
 		$nullDate = new DateTime('@0');
 		return $nullDate->format(self::FORMAT);
 	}
+
+	static function fromTimestamp($timestamp) {
+		$nullDate = new DateTime('@' . $timestamp);
+		return $nullDate->format(self::FORMAT);
+	}
 }
 ?>

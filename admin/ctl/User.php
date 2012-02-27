@@ -70,6 +70,7 @@ class User extends Admin\Controller {
 			$model->update()->exec();
 		} else {
 			unset($model[0]->id);
+			$model[0]->created = DateTimeWithTZField::fromTimestamp(time());
 			$model->insert()->exec();
 		}
         if(isset($routes) && $model->count()) {

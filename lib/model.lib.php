@@ -5,212 +5,16 @@ require_once('lib/field.lib.php');
 require_once('lib/filter.lib.php');
 require_once('lib/argument.lib.php');
 
-class ModelException extends Exception { }
-
-interface ISqlCmd {
-	public function sql(Model $model);
-	public function exec(Model $model, $async = false);
-}
-
 /**
- * @todo Create constructor and pass stored procedure name and arguments to it
+ * require SQL command wrappers
  */
-class CallSqlCmd implements ISqlCmd{
+require_once("lib/InsertSqlCmd.php");
+require_once("lib/UpdateSqlCmd.php");
+require_once("lib/DeleteSqlCmd.php");
+require_once("lib/SelectSqlCmd.php");
+require_once("lib/CallSqlCmd.php");
 
-	protected $stProsName;
-
-	public function __construct($stProsName) {
-		if (!$stProsName) throw new ModelException('Stored Prosedure name undefined');
-
-		$this->stProsName = $stProsName;
-
-		foreach(func_get_args() as $k => $v)
-			if ($k != 0)
-				$this->args[] = '\'' . $v . '\'';
-	}
-
-	public function sql(Model $model) {
-		$operator = 'SELECT ';
-		if (count($model->fields)) {
-			$fields = array();
-			foreach($model->fields as $field)
-				$fields[] = $model->getDb()->quot($field->name);
-			$operator .= implode(', ', $fields) . ' FROM ';
-		}
-		$sql = $operator . $model->getDb()->quot($this->stProsName) .
-			   '( ' . implode(', ', $this->args) . ');';
-		return $sql;
-	}
-
-	public function exec(Model $model, $async = false) {
-		$res = array();
-		$model->db->getQueryArray($this->sql($model), $async, $res);
-		$model->data = array();
-		foreach ($res as $row) {
-			$rec = array();
-			foreach($model->fields as $key => $field) $rec[$key] = $row[$field->name];
-			$model->data[] = $rec;
-		}
-	}
-}
-
-class InsertSqlCmd implements ISqlCmd{
-	public function sql(Model $model) {
-		$sql = '';
-		foreach ($model->data as $key => $row) $sql .= $this->insertSql($model, $row);
-		
-		return $sql;
-	}
-	
-	public function insertSql($model, $row) {
-		$sql = 'INSERT INTO ' . $model->db->quot($model->table);
-		$fields = array();
-		$values = array();
-		foreach ($model->fields as $key => &$field) {
-			if (!isset($row[$key])) continue;
-			$fields[] = $model->db->quot($field->name);
-			$values[] = $field->quotEscapeValue($model->db, $row[$key]);//$model->db->quot($model->db->escape($row[$key]), true);
-		}
-		if (!empty($fields)) $sql .= '(' . implode(', ', $fields) . ') VALUES(' . implode(', ', $values) . ')';
-		
-		$sql .= ' RETURNING *;';
-		return $sql;
-	}
-	
-	public function exec(Model $model, $async = false) {
-		$ret = array(); 
-		foreach ($model->data as $record) {
-			$res = array();
-			try {
-				$model->db->getQueryArray($this->insertSql($model, $record), $async, $res);
-			} catch (Exception $e) {
-				if ($model->silentCatchDBExceptions) continue;
-				throw $e;
-			}
-			foreach ($res as $row) {
-				$rec = array();
-				foreach($model->fields as $key => $field) $rec[$key] = $row[$field->name];
-				$ret[] = $rec;
-			}
-		}
-		$model->data = $ret;
-	}
-}
-
-class UpdateSqlCmd implements ISqlCmd{
-	public function sql(Model $model) {
-		$sql = '';
-		foreach ($model->data as $key => $row) $sql .= $this->updateSql($model, $row);
-		
-		return $sql;
-	}
-	/**
-	 * 
-	 * generate sql for each updated row
-	 * @param Model $model
-	 * @param array $row
-	 * @return string
-	 */
-	public function updateSql(Model $model, $row) {
-		$sql = 'UPDATE ' . $model->db->quot($model->table);
-		$fields = array();
-		foreach ($model->fields as $key => &$field) {
-			if (!isset($row[$key])) continue;
-			$fields[] = $model->db->quot($field->name) . ' = ' . $model->db->quot($model->db->escape($row[$key]), true);
-		}
-		
-		if (!empty($fields)) {
-			$sql .= ' SET ' . implode(', ', $fields);
-		}
-		$where = $model->getFilter()->sql($model, $row);
-		if ($where) $sql .= ' WHERE '.$where; 
-		$sql .= ' RETURNING *;';
-		return $sql;
-	}
-	
-	public function exec(Model $model, $async = false) {
-		$ret = array(); 
-		foreach ($model->data as $record) {
-			$res = array();
-			try {
-				$model->db->getQueryArray($this->updateSql($model, $record), $async, $res);
-			} catch (Exception $e) {
-				if ($model->silentCatchDBExceptions) continue;
-				throw $e;
-			}
-			foreach ($res as $row) {
-				$rec = array();
-				foreach($model->fields as $key => $field) $rec[$key] = $row[$field->name];
-				$ret[] = $rec;
-			}
-		}
-		$model->data = $ret;
-	}
-}
-
-
-class DeleteSqlCmd implements ISqlCmd{
-	public function sql(Model $model) {
-		if (!$model->getFilter()) throw new ModelException('Filter must be defined for DELETE operation.');
-		
-		$where = $model->getFilter()->sql($model, null);
-		$sql = 'DELETE FROM ' . $model->getDb()->quot($model->table);
-		if ($where) $sql .= ' WHERE '.$where; 
-		return $sql.';';
-	} 
-	
-	public function exec(Model $model, $async = false) {
-		$res = array(); 
-		$model->db->getQueryArray($this->sql($model), $async, $res);
-		$model->data = array();
-		foreach ($res as $row) {
-			$rec = array();
-			foreach($model->fields as $key => $field) $rec[$key] = $row[$field->name];
-			$model->data[] = $rec;
-		}
-	}
-}
-
-class SelectSqlCmd implements ISqlCmd {
-	public function sql(Model $model) {
-		if (!$model->getFilter()) throw new ModelException('Filter must be defined for SELECT operation.');
-		$where = $model->getFilter()->sql($model, null);
-		 
-		$fields = array();
-		foreach ($model->getFields() as $field) {
-			$fields[] = $model->getDb()->quot($field->name);
-		}
-
-		$distinct = ($model->distinct && $model->getField($model->distinct)) ? 'DISTINCT ON("'.$model->distinct.'") ' : '';
-		
-		$sql = 'SELECT '.$distinct. implode(', ', $fields) . " FROM " . $model->getDb()->quot($model->table);
-
-		if ($where) $sql .= ' WHERE '.$where;
-		
-		$ords = array();
-		foreach($model->orders as $order) {
-			if ($order['flag'] == Field::ORDER_ASC) {
-				$ords[] = $model->getDb()->quot($order['name']) . ' ASC';
-			} elseif ($order['flag'] == Field::ORDER_DESC) {
-				$ords[] = $model->getDb()->quot($order['name']) . ' DESC';
-			}
-		} 
-		if (!empty($ords)) $sql .= ' ORDER BY ' . implode(', ', $ords);
-		$sql .= ' LIMIT '.$model->_limit.' OFFSET '.$model->_offset;
-		return $sql.';'; 
-	}
-	
-	public function exec(Model $model, $async = false) {
-		$res = array(); 
-		$model->db->getQueryArray($this->sql($model), $async, $res);
-		$model->data = array();
-		foreach ($res as $row) {
-			$rec = array();
-			foreach($model->fields as $key => $field) $rec[$key] = $row[$field->name];
-			$model->data[] = $rec;
-		}
-	}
-}
+class ModelException extends Exception { }
 
 class ModelData implements arrayaccess, Iterator{
 	private $position = 0;
@@ -409,6 +213,8 @@ class Model extends ModelData {
 	public function __construct($table, IDatabase $db) {
 		$this->db = $db;
 		parent::__construct($table);
+		$this->field('id', new IntField('id', Field::PRIMARY_KEY));
+
 	}
 	
 	public function __clone() {
