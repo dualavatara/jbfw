@@ -12,6 +12,7 @@ class User extends Admin\Controller {
 
 	public function do_add() {
 		$this->data['routes'] = $this->getAllRoutes();
+		$this->data['access'] = array();
 		return $this->app['template']->render('User\FormTemplate', $this->data);
 	}
 

@@ -2,9 +2,9 @@
 
 namespace Admin\Extension\Database;
 
-require_once 'lib/db.pg.lib.php';
+require_once 'lib/PDODatabase.php';
 
 class Database
-	extends \PGDatabase
+	extends \PDODatabase
 	implements \Admin\Extension\Database\DatabaseInterface
 {}

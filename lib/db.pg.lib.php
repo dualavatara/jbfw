@@ -84,7 +84,7 @@ class PGDatabase implements IDatabase {
 
 	public function getQueryArray($sql, $async = false, &$result)  {
 		$result = array();
-		if (!($dbResult = $this->execSQL($sql))) return false;
+		if (!($dbResult  = $this->execSQL($sql))) return false;
 		while (is_array($row = pg_fetch_assoc($dbResult))) {
 			$result[] = $row;
 		}

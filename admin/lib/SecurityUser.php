@@ -84,7 +84,7 @@ class SecurityUser implements \Admin\Extension\Security\SecurityUserInterface {
 	 * @return Boolean true if the user is authenticated, false otherwise
 	 */
 	public function isAuthenticated() {
-		return null != $this->app['session']->read($this->key);
+		return  (null != $this->app['session']->read($this->key));
 	}
 
 	/**

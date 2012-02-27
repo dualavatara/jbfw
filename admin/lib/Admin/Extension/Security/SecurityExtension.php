@@ -46,9 +46,8 @@ class SecurityExtension implements \Admin\ExtensionInterface {
 			$login_url = $this->app->getUrl($options['login_route']);
 			return $this->app->redirect($login_url);
 		}
-		
-		if(!$this->app['user']->checkRoute($data['route'])) {
-			return new \Admin\Response('', 403);
+		else if(!$this->app['user']->checkRoute($data['route'])) {
+			return new \Admin\Response('Path restricted to user', 403);
 		}
 		
 		return null;

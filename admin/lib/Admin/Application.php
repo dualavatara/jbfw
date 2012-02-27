@@ -20,6 +20,8 @@ class Application extends Container {
 	 */
 	private $routes;
 
+	private $routesArr;
+
 	/**
 	 * Constructor.
 	 * Creates default services, registers routes from configuration.
@@ -45,11 +47,14 @@ class Application extends Container {
 			chdir($this->config->rootPath);
 
 		$this->routes = new RouteCollection();
-		
+		$this->routesArr = array();
 		if ($this->config->offsetExists('routes')) {
+
 			foreach ($this->config->routes as $name => $params) {
 				// add route name as first value in parameters array
 				array_unshift($params, $name);
+				$this->routesArr[$name] = $params[0];
+
 				// To not pass all arguments to function manually
 				call_user_func_array(array($this, 'registerController'), $params);
 			}
@@ -216,5 +221,9 @@ class Application extends Container {
 		}
 		
 		$extension->register($this);
+	}
+
+	public function getRoutesArr() {
+		return $this->routesArr;
 	}
 }

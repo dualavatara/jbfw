@@ -402,6 +402,10 @@ class Model extends ModelData {
 	 */
 	public $args = array();
 
+	public function __sleep() {
+		return array('data', 'fields', 'table');
+	}
+
 	public function __construct($table, IDatabase $db) {
 		$this->db = $db;
 		parent::__construct($table);

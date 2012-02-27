@@ -16,11 +16,14 @@ class DatabaseExtension implements \Admin\ExtensionInterface {
 			$className = isset($options['class']) ? $options['class'] : '\Admin\Extension\Database\Database';
 			
 			$db = new $className(
-				$options['host'],
-				$options['port'],
+//				$options['host'],
+//				$options['port'],
+//				$options['user'],
+//				$options['pass'],
+//				$options['name']
+				$options['dsn'],
 				$options['user'],
 				$options['pass'],
-				$options['name'],
 				$options['charset']
 			);
 			

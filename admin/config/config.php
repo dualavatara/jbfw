@@ -14,12 +14,13 @@ return array(
 	
 	/* Extension's options start */
 	'db.options' => array(
-		'host' => DB_HOST,
-		'port' => DB_PORT,
+//		'host' => DB_HOST,
+//		'port' => DB_PORT,
 		'user' => DB_USER,
 		'pass' => DB_PASS,
-		'name' => DB_NAME,
-		'charset' => CHARSET_DB,
+//		'name' => DB_NAME,
+		'dsn' => DB_DSN,
+		'charset' => DB_CHARSET,
 		//'class' => '\Admin\Extension\Database\Database',
 	),
 	
@@ -36,7 +37,7 @@ return array(
 	/* End */
 
 	'routes' => array(
-		'home'         => array('/', 'App', 'list'),
+		'home'         => array('/', 'User', 'list'),
 		
 		'login'        => array('/login',   'Auth', 'login'),
 		'logout'       => array('/logout',  'Auth', 'logout'),

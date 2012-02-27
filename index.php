@@ -1,4 +1,5 @@
 <?
+phpinfo();
 require_once('lib/dicontainer.lib.php');
 require_once('lib/logger.lib.php');
 

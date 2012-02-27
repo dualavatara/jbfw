@@ -1,5 +1,4 @@
 <?php
-
 require_once __DIR__ . '/lib/Admin/Application.php';
 
 $config = require dirname(__FILE__) . '/config/config.php';
