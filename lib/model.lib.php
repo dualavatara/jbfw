@@ -213,7 +213,7 @@ class Model extends ModelData {
 	public function __construct($table, IDatabase $db) {
 		$this->db = $db;
 		parent::__construct($table);
-		$this->field('id', new IntField('id', Field::PRIMARY_KEY));
+		$this->fields["id"] = new IntField('id', Field::PRIMARY_KEY);
 
 	}
 	
@@ -257,6 +257,7 @@ class Model extends ModelData {
 	}
 	
 	public function field($name, Field $field) {
+		if ($name == MODEL_ID_FIELD_NAME) throw new ModelException("Can`t use default ".MODEL_ID_FIELD_NAME);
 		$this->fields[$name] = $field;
 	}
 
@@ -515,7 +516,7 @@ class OSCollectionRequest implements ISqlFilter {
 		}
 	}
 
-	public function sql(Model $model, $row = null) {
+	public function sql(Model $model, $row) {
 		if (null == $this->filterBy)
 			return '(true)';
 		if (!isset($model->fields[$this->filterBy])) return '(false)';

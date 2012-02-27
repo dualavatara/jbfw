@@ -40,7 +40,7 @@ class InsertSqlCmd implements ISqlCmd {
 				throw $e;
 			}
 			$id = $model->db->getLastInsertId();
-			$model->db->getQueryArray("SELECT * FROM " . $model->db->quot($model->table) . " WHERE id = '" . $id . "'", $async, $res);
+			$model->db->getQueryArray("SELECT * FROM " . $model->db->quot($model->table) . " WHERE ".MODEL_ID_FIELD_NAME." = '" . $id . "'", $async, $res);
 			foreach ($res as $row) {
 				$rec = array();
 				foreach($model->fields as $key => $field) $rec[$key] = $row[$field->name];
