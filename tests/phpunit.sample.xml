@@ -3,14 +3,8 @@
 	<filter>
 		<whitelist>
 			<directory suffix=".php">../lib</directory>
-			<directory suffix=".php">../sdk</directory>
 			<directory suffix=".php">../model</directory>
 			<directory suffix=".php">../ctl</directory>
-			<exclude>
-				<file>../lib/model.lib.php</file>
-				<file>../lib/field.lib.php</file>
-				<file>../lib/filter.lib.php</file>
-			</exclude>
 		</whitelist>
 	</filter>
 	<php>
@@ -21,7 +15,4 @@
 		<var name="DB_PASSWD" value="qwerty"/>
 		<var name="DB_DBNAME" value="test_db"/>
 	</php>
-	<logging>
-        <log type="coverage-clover" target="coverage.xml"/>
-    </logging>
 </phpunit>
