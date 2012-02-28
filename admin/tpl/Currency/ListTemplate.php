@@ -14,29 +14,29 @@ class ListTemplate extends Template {
 	protected function show($data, $content = null) {
 		?>
 	<div class="submenubar">
-        <?php $this->showLink('[Список]','user_list')?>
-        <?php $this->showLink('[Добавить]','user_add')?>
+        <?php $this->showLink('[Список]','currency_list')?>
+        <?php $this->showLink('[Добавить]','currency_add')?>
 	</div>
 	<table class="list">
 		<tr>
-			<th width="1%">Id</th>
-			<th>Login</th>
-			<th>Name</th>
-			<th>Created</th>
-			<th width="1%"></th>
+			<th width="1%">id</th>
+			<th>Название</th>
+			<th>Обозначение</th>
+			<th>Курс</th>
+			<th width="1%">&nbsp;</th>
 		</tr>
 		<?php foreach ($data['model'] as $i => $item): ?>
 			<tr class="<?php echo ($i % 2) ? 'odd' : 'even'; ?>">
 				<td><?php echo $item->id; ?></td>
 				<td><?php
-                    if($this->app['user']->checkRoute('user_edit'))
-                        $this->showLink($item->login,'user_edit', array('id' => $item->id));
-                    else echo $item->login;?>
+                    if($this->app['user']->checkRoute('currency_edit'))
+                        $this->showLink($item->name,'currency_edit', array('id' => $item->id));
+                    else echo $item->name;?>
 				</td>
-				<td><?php echo $item->name; ?></td>
-				<td><?php echo $item->created; ?></td>
+				<td><?php echo $item->sign; ?></td>
+				<td><?php echo $item->course; ?></td>
 				<td>
-                    <?php $this->showLink('&nbsp;X&nbsp;','user_delete', array('id' => $item->id),
+                    <?php $this->showLink('&nbsp;X&nbsp;','currency_delete', array('id' => $item->id),
                                        'onClick="return AdminJS.deleteConfirmation();"');?>
 			</tr>
 		<?php endforeach; ?>
