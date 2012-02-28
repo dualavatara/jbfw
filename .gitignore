@@ -1,3 +1,7 @@
 logs/
 tmp/
 .idea/
+coverage/
+sessions/
+phpunit.xml
+bootstrap.php
