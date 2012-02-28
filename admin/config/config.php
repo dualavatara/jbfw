@@ -44,11 +44,11 @@ return array(
 		
 		'static'       => array('/s/{key}', 'Data', 'get'),
 		
-		'account_edit' => array('/account/edit/{id}',       'Account', 'edit'),
-		'account_list' => array('/account/list',            'Account', 'list'),
-        'account_add' => array('/account/add',              'Account', 'add'),
-		'account_delete' => array('/account/delete/{id}',   'Account', 'delete'),
-		'account_save' => array('/account/save',            'Account', 'save'),
+		'price_edit' => array('/price/edit/{id}',       'Price', 'edit'),
+		'price_list' => array('/price/list',            'Price', 'list'),
+        'price_add' => array('/price/add',              'Price', 'add'),
+		'price_delete' => array('/price/delete/{id}',   'Price', 'delete'),
+		'price_save' => array('/price/save',            'Price', 'save'),
 
 		'user_edit'    => array('/user/edit/{id}',      'User', 'edit'),
 		'user_delete'  => array('/user/delete/{id}',    'User', 'delete'),
@@ -61,7 +61,7 @@ return array(
 		'modules' => array(
 			'title' => 'Modules',
 			'sections' => array(
-				'account_list' => array('title' => 'Accounts',     'route' => 'account_list',   'params' => array()),
+				'price_list' => array('title' => 'Price', 'route' => 'price_list', 'params' => array()),
 			)
 		),
 		'sys' => array(
