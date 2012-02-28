@@ -50,12 +50,9 @@ class Currency extends Admin\Controller {
 		} else $routes = array();
 
 		$model = new CurrencyModel($this->app['db']);
-//		$model[0] = $form;
-		if ($form['id']) {
-			$model->saveFromForm($form);
-		} else {
-			$model->add($form["name"], $form["sign"], $form["cource"]);
-		}
+
+		if ($form['id']) $model->saveFromForm($form);
+		else $model->addFromForm($form);
 
 		$url = $this->app->getUrl('currency_list');
 		return $this->app->redirect($url);

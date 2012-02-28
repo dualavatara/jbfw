@@ -69,10 +69,10 @@ class CurrencyModelTest extends PHPUnit_PDO_Database_TestCase {
 	}
 
 	/**
-	 * @covers CurrencyModel::add
+	 * @covers CurrencyModel::addFromForm
 	 */
-	public function testAdd() {
-		$this->object->add('Йена','YEN',0.4032);
+	public function testAddFromForm() {
+		$this->object->addFromForm(array('name' => 'Йена', 'sign' => 'YEN', 'course' => 0.4032));
 		$queryTable = $this->getConnection()->createQueryTable(
 			'currency', 'SELECT name, sign, course FROM currency'
 		);

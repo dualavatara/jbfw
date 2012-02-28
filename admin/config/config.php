@@ -42,11 +42,9 @@ return array(
 		'login'        => array('/login',   'Auth', 'login'),
 		'logout'       => array('/logout',  'Auth', 'logout'),
 		
-		'static'       => array('/s/{key}', 'Data', 'get'),
-		
 		'currency_edit' => array('/currency/edit/{id}',       'Currency', 'edit'),
 		'currency_list' => array('/currency/list',            'Currency', 'list'),
-        'currency_add' => array('/currency/add',              'Currency', 'add'),
+		'currency_add' => array('/currency/add',              'Currency', 'add'),
 		'currency_delete' => array('/currency/delete/{id}',   'Currency', 'delete'),
 		'currency_save' => array('/currency/save',            'Currency', 'save'),
 
@@ -67,8 +65,8 @@ return array(
 		'modules' => array(
 			'title' => 'Modules',
 			'sections' => array(
-				'currency_list' => array('title' => 'Currencys',     'route' => 'currency_list',   'params' => array()),
-				'price_list' => array('title' => 'Price', 'route' => 'price_list', 'params' => array()),
+				'currency_list' => array('title' => 'Валюта',     'route' => 'currency_list',   'params' => array()),
+				'price_list' => array('title' => 'Цена', 'route' => 'price_list', 'params' => array()),
 			)
 		),
 		'sys' => array(

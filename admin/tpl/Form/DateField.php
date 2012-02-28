@@ -13,7 +13,7 @@ class DateField extends Template {
 	<input id="<?php echo $name; ?>" readonly="readonly" />
 	<input type="hidden" name="form[<?php echo $name; ?>]" value="<?php echo $value; ?>" />
 	<script type="text/javascript">
-		$('#<?php echo $name; ?>').datepicker({
+		<?php echo '$(\'#'. $name . '\')'; ?>.datepicker({
 			dateFormat: 'dd.mm.yy',
 			altField: 'input[name="form[<?php echo $name; ?>]"]',
 			altFormat: 'yy-mm-dd'
