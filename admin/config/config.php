@@ -44,11 +44,11 @@ return array(
 		
 		'static'       => array('/s/{key}', 'Data', 'get'),
 		
-		'account_edit' => array('/account/edit/{id}',       'Account', 'edit'),
-		'account_list' => array('/account/list',            'Account', 'list'),
-        'account_add' => array('/account/add',              'Account', 'add'),
-		'account_delete' => array('/account/delete/{id}',   'Account', 'delete'),
-		'account_save' => array('/account/save',            'Account', 'save'),
+		'currency_edit' => array('/currency/edit/{id}',       'Currency', 'edit'),
+		'currency_list' => array('/currency/list',            'Currency', 'list'),
+        'currency_add' => array('/currency/add',              'Currency', 'add'),
+		'currency_delete' => array('/currency/delete/{id}',   'Currency', 'delete'),
+		'currency_save' => array('/currency/save',            'Currency', 'save'),
 
 		'user_edit'    => array('/user/edit/{id}',      'User', 'edit'),
 		'user_delete'  => array('/user/delete/{id}',    'User', 'delete'),
@@ -61,7 +61,7 @@ return array(
 		'modules' => array(
 			'title' => 'Modules',
 			'sections' => array(
-				'account_list' => array('title' => 'Accounts',     'route' => 'account_list',   'params' => array()),
+				'currency_list' => array('title' => 'Currencys',     'route' => 'currency_list',   'params' => array()),
 			)
 		),
 		'sys' => array(

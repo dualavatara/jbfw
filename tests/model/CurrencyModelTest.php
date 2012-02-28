@@ -88,6 +88,54 @@ class CurrencyModelTest extends PHPUnit_PDO_Database_TestCase {
 		$this->assertTablesEqual($expectedTable, $queryTable);
 	}
 
+	/**
+	 * @covers CurrencyModel::getById
+	 */
+	public function testGetById() {
+		$this->assertEquals(
+			array('id' => 2, 'name' => 'Доллар', 'sign' => 'USD', 'course' => '31.2'),
+			$this->object->getById(2));
+
+		$this->assertFalse($this->object->getById(234));
+	}
+
+	/**
+	 * @covers CurrencyModel::saveFromForm
+	 */
+	public function testSaveFromForm() {
+		$form = array('id' => 2, 'name' => 'Доллар', 'sign' => 'USD', 'course' => '28.6');
+		$this->object->saveFromForm($form);
+		$queryTable = $this->getConnection()->createQueryTable(
+			'currency', 'SELECT name, sign, course FROM currency'
+		);
+		$ds = new PHPUnit_ArrayDataSet(array(
+			'currency' => array(
+				array('name' => 'Рубль', 'sign' => 'RUB', 'course' => '1'),
+				array('name' => 'Доллар', 'sign' => 'USD', 'course' => '28.6'),
+				array('name' => 'Евро', 'sign' => 'EUR', 'course' => '39.86'),
+			)
+		));
+		$expectedTable = $ds->getTable("currency");
+		$this->assertTablesEqual($expectedTable, $queryTable);
+	}
+
+	/**
+	 * @covers CurrencyModel::delById
+	 */
+	public function testDelById() {
+		$this->object->delById(2);
+		$queryTable = $this->getConnection()->createQueryTable(
+			'currency', 'SELECT name, sign, course FROM currency'
+		);
+		$ds = new PHPUnit_ArrayDataSet(array(
+			'currency' => array(
+				array('name' => 'Рубль', 'sign' => 'RUB', 'course' => '1'),
+				array('name' => 'Евро', 'sign' => 'EUR', 'course' => '39.86'),
+			)
+		));
+		$expectedTable = $ds->getTable("currency");
+		$this->assertTablesEqual($expectedTable, $queryTable);
+	}
 }
 
 ?>

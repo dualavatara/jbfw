@@ -16,6 +16,17 @@ class Layout extends Template {
 		<script src="<?=$config->baseUrl?>/static/jquery/jquery.js"></script>
 		<script src="<?=$config->baseUrl?>/static/jquery/jquery-ui-1.8.17.custom.min.js"></script>
 		<script src="<?=$config->baseUrl?>/static/admin.js"></script>
+		<script src="<?=$config->baseUrl?>/static/jquery/jqval/jquery.validate.js"></script>
+		<script src="<?=$config->baseUrl?>/static/jquery/jqval/localization/messages_ru.js"></script>
+
+		<style type="text/css">
+			* { font-family: Verdana; font-size: 96%; }
+			label { width: 10em; float: left; }
+			label.invalid { float: none; color: red; padding-left: .5em; vertical-align: middle; }
+			p { clear: both; }
+			.submit { margin-left: 12em; }
+			em { font-weight: bold; padding-right: 1em; vertical-align: top; }
+		</style>
 	</head>
 	<body>
 	<table style="width: 100%; height: 100%;">

@@ -36,4 +36,36 @@ class CurrencyModel extends Model {
 		$this[0] = array('name' => $name, 'sign' =>$sign, 'course' => $course);
 		$this->insert()->exec();
 	}
+
+	/**
+	 * Selects currency by id
+	 * @param $id
+	 * @return mixed	array if found, otherwise false
+	 */
+	public function getById($id) {
+		$this->get($id)->exec();
+		if ($this->count()) return $this[0]->all();
+		return false;
+	}
+
+	/**
+	 * Saves single elemet from form array as array('field' => 'value', ...)
+	 * $form['id'] is required
+	 * @param array $form
+	 */
+	public function saveFromForm($form) {
+		if (isset($form['id'])){
+			$this->clear();
+			$this[0] = $form;
+			$this->update()->exec();
+		}
+	}
+
+	/**
+	 * Deletes record with given id
+	 * @param $id
+	 */
+	public function delById($id) {
+		$this->get($id)->delete()->exec();
+	}
 }
