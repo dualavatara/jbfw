@@ -1,6 +1,5 @@
 <?
 //lib classes
-require_once('lib/language.lib.php');
 require_once('lib/requesthandler.web.lib.php');
 require_once('lib/dispatcher.lib.php');
 require_once('lib/session.lib.php');

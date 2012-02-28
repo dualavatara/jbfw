@@ -13,6 +13,12 @@ class PHPUnit_ArrayDataSet extends PHPUnit_Extensions_Database_DataSet_AbstractD
 	protected $tables = array();
 
 	/**
+	 * Table data format:
+	 * array(
+	 * 	'tablename' => array(
+	 * 		array('field1' => 'value1', 'field2' => 'value2'),
+	 * 		array('field1' => 'value1', 'field2' => 'value2'),
+	 * };
 	 * @param array $data
 	 */
 	public function __construct(array $data)

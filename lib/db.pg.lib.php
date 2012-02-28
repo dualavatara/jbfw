@@ -18,6 +18,7 @@ class PGDatabase implements IDatabase {
 	var $noPconnect = false;
 	
 	private $lastQuery = '';
+	private $lastOID = null;
 
 	private function connect() {
 		if ($this->dbh) return true;
@@ -51,9 +52,6 @@ class PGDatabase implements IDatabase {
 		pg_close($this->dbh);
 	}
 
-	private function init() {
-	}
-
 	// get last error
 	public function error() {
 		return $this->error;
@@ -82,68 +80,15 @@ class PGDatabase implements IDatabase {
 		return $result;
 	}
 
-	public function getQueryArray($sql, $async = false, &$result)  {
+	public function getQueryArray($sql, $async, &$result)  {
 		$result = array();
 		if (!($dbResult  = $this->execSQL($sql))) return false;
 		while (is_array($row = pg_fetch_assoc($dbResult))) {
 			$result[] = $row;
 		}
+		$this->lastOID = pg_getlastoid($dbResult);
 		pg_free_result($dbResult);
 		return true;
-	}
-
-	public function getQueryRow($sql, $async = false, &$result)  {
-		$result = array();
-		if (!($dbResult = $this->execSQL($sql))) return false;
-		if (is_array($row = pg_fetch_assoc($dbResult))) $result = $row;
-		pg_free_result($dbResult);
-		return true;
-	}
-	
-	public function getResultRow($result)  {
-		$row = pg_fetch_assoc($result);
-		pg_free_result($result);
-		return $row;
-	}
-
-	public function getQueryVal($sql, $async = false, &$result)  {
-		if (!($dbResult = $this->execSQL($sql))) return false;
-		$row = pg_fetch_assoc($dbResult);
-		pg_free_result($dbResult);
-		if (!$row) return false;
-		$row = array_values($row);
-		$result = $row[0];
-		return true;
-	}
-	
-	public function getQueryCol($sql, $async = false, &$result)  {
-		$result = array();
-		if (!($dbResult = $this->execSQL($sql))) return false;
-		while (is_array($row = pg_fetch_array($dbResult))) $result[] = $row[0];
-		pg_free_result($dbResult);
-		return true;
-	}
-
-	function callFunc ($name = '', $args=array()) {
-		$sql = '';
-	}
-
-	public function execQuery($sql)  {
-		if (!($dbResult = $this->execSQL($sql))) return false;
-		return $this->affectedRows($dbResult);
-	}
-
-	public function insertId($tableName, $result) {
-		global $tableInfo;
-		if ($tableInfo['noInsertId']) return 0;
-		if (!$result) return 0;
-		$sql = sprintf("select currval('%s_id_seq')", $tableName);
-		$this->getQueryRow($sql, $dbResult);
-		return intval($dbResult['currval']);
-	}
-
-	public function affectedRows($result) {
-		return $result ? pg_affected_rows($result) : 0;
 	}
 
 	public function getLimitStr($limit, $offset) {
@@ -157,20 +102,6 @@ class PGDatabase implements IDatabase {
 		return ' ILIKE ';
 	}
 	
-	// gets primary key
-	public function getPrimary ($tableName = '') {
-		$sql = sprintf("SELECT c2.relname, a.attname FROM pg_class c, pg_class c2, pg_index i, pg_attribute a WHERE 
-			c.relname = '%s' AND c.oid = i.indrelid AND i.indexrelid = c2.oid
-			AND i.indisprimary AND i.indisunique
-			AND a.attrelid=c2.oid AND a.attnum>0;", $tableName);
-		$this->getQueryRow($sql, $result);
-		return $result['attname'];
-	}
-	
-	public function getReturningStr() {
-		return ' RETURNING * ';
-	}
-	
 	public function escape($data) {
 		if (!$this->dbh && !$this->connect()) return false;
 		return pg_escape_string($this->dbh, $data);
@@ -181,6 +112,13 @@ class PGDatabase implements IDatabase {
 	public function quot($value, $valquot = false) { 
 		if ($valquot) return '\'' . $value . '\''; 
 		else return '"' . $value . '"';
+	}
+
+	/**
+	 *
+	 */
+	public function getLastInsertId() {
+		return $this->lastOID;
 	}
 }
 

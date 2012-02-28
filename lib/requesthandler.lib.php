@@ -1,6 +1,5 @@
 <?php
 require_once ('lib/abstract.lib.php');
-require_once ('lib/request.oauth.lib.php');
 
 interface IRequestHandler {
 	/**

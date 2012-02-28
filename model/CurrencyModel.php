@@ -18,4 +18,22 @@ class CurrencyModel extends Model {
 		$this->field('course', new RealField('course'));
 	}
 
+	/**
+	 * Select all currency rows from database
+	 */
+	public function getAll() {
+		$this->get()->all()->exec();
+	}
+
+	/**
+	 * Adds new currency record into database
+	 * @param string $name
+	 * @param string $sign
+	 * @param float $value
+	 */
+	public function add($name, $sign, $course) {
+		$this->clear();
+		$this[0] = array('name' => $name, 'sign' =>$sign, 'course' => $course);
+		$this->insert()->exec();
+	}
 }
