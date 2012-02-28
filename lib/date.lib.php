@@ -1,5 +1,5 @@
 <?
-require_once('lib/language.lib.php');
+//require_once('lib/language.lib.php');
 
 define('DATE_SHORT',             1);
 define('DATE_LONG',              2);
