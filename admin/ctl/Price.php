@@ -15,7 +15,7 @@ class Price extends \Admin\StdController {
 	public function __construct(\Admin\Application $app) {
 		parent::__construct('modules', 'price_list', 'Price', $app);
 		$cur = new \CurrencyModel($this->app['db']);
-		$cur->getAll();
+		$cur->get()->all()->exec();
 		;
 		foreach($cur as $row) {
 			$this->data['currencies'][$row->id] = $row->name;

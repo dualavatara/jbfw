@@ -24,7 +24,7 @@ class DateTimeField extends Template {
 		}
 		var date = '<?php echo $value; ?>';
 		date = ('' == date) ? null : new Date(date);
-		$('#<?php echo $name; ?>').datetimepicker({
+		<?php echo '$(\'#'.$name.'\')'; ?>.datetimepicker({
 			dateFormat:'dd.mm.yy',
 			altField:'input[name="form[<?php echo $name; ?>]"]',
 			altFormat:'yy-mm-dd',
