@@ -24,8 +24,8 @@ class User extends \Admin\Controller {
 		$model = new \AdminUserModel($this->app['db']);
 		$model->get($id)->delete()->exec();
 
-        $model = new AdminAccessModel($this->app['db']);
-        $filter = new FieldValueSqlFilter();
+        $model = new \AdminAccessModel($this->app['db']);
+        $filter = new \FieldValueSqlFilter();
         $filter->eq('user_id', $id);
         $model->get()->filter($filter)->delete()->exec();
 
@@ -72,7 +72,7 @@ class User extends \Admin\Controller {
 			$model->update()->exec();
 		} else {
 			unset($model[0]->id);
-			$model[0]->created = DateTimeWithTZField::fromTimestamp(time());
+			$model[0]->created = \DateTimeWithTZField::fromTimestamp(time());
 			$model->insert()->exec();
 		}
         if(isset($routes) && $model->count()) {
@@ -85,10 +85,10 @@ class User extends \Admin\Controller {
 	}
 
     public function save_access($user_id, $data) {
-        $model = new AdminAccessModel($this->app['db']);
+        $model = new \AdminAccessModel($this->app['db']);
 	    
 	    // First delete all routes
-        $filter = new FieldValueSqlFilter();
+        $filter = new \FieldValueSqlFilter();
         $filter->eq('user_id', $user_id);
         $model->delete()->filter($filter)->exec();
 	    

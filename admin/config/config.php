@@ -54,6 +54,12 @@ return array(
 		'price_delete' => array('/price/delete/{id}',   'Price', 'delete'),
 		'price_save' => array('/price/save',            'Price', 'save'),
 
+		'article_edit' => array('/article/edit/{id}',       'Article', 'edit'),
+		'article_list' => array('/article/list',            'Article', 'list'),
+		'article_add' => array('/article/add',              'Article', 'add'),
+		'article_delete' => array('/article/delete/{id}',   'Article', 'delete'),
+		'article_save' => array('/article/save',            'Article', 'save'),
+
 		'user_edit'    => array('/user/edit/{id}',      'User', 'edit'),
 		'user_delete'  => array('/user/delete/{id}',    'User', 'delete'),
 		'user_list'    => array('/user/list',           'User', 'list'),
@@ -65,8 +71,9 @@ return array(
 		'modules' => array(
 			'title' => 'Modules',
 			'sections' => array(
-				'currency_list' => array('title' => 'Валюта',     'route' => 'currency_list',   'params' => array()),
-				'price_list' => array('title' => 'Цена', 'route' => 'price_list', 'params' => array()),
+				'currency_list' => array('title' => 'Валюты',     'route' => 'currency_list',   'params' => array()),
+				'price_list' => array('title' => 'Цены', 'route' => 'price_list', 'params' => array()),
+				'article_list' => array('title' => 'Статьи', 'route' => 'article_list', 'params' => array()),
 			)
 		),
 		'sys' => array(

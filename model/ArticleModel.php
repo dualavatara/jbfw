@@ -14,6 +14,8 @@ class ArticleModel extends Model {
 	const TYPE_INFO 		= 4;
 	const TYPE_CONTACTS		= 5;
 	const TYPE_MISC 		= 6;
+
+	const FLAG_VISIBLE		= 0x0001;
 	/**
 	 * @param IDatabase $db
 	 */
@@ -21,8 +23,10 @@ class ArticleModel extends Model {
 		parent::__construct('article', $db);
 		$this->field('created', new DateTimeWithTZField('created'));
 		$this->field('name', new CharField('name'));
+		$this->field('photo', new CharField('photo'));
 		$this->field('content', new CharField('content'));
 		$this->field('type', new IntField('type'));
+		$this->field('ord', new IntField('ord'));
 		$this->field('flags', new IntField('flags'));
 	}
 
@@ -34,6 +38,12 @@ class ArticleModel extends Model {
 			self::TYPE_INFO => 'Информация',
 			self::TYPE_CONTACTS => 'Контакты',
 			self::TYPE_MISC => 'Другое'
+		);
+	}
+
+	public function getFlags() {
+		return array(
+			self::FLAG_VISIBLE => 'Видимый',
 		);
 	}
 }

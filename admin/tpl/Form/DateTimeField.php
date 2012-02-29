@@ -26,12 +26,13 @@ class DateTimeField extends Template {
 		date = ('' == date) ? null : new Date(date);
 		<?php echo '$(\'#'.$name.'\')'; ?>.datetimepicker({
 			dateFormat:'dd.mm.yy',
+			timeFormat: 'hh:mm:ss',
 			altField:'input[name="form[<?php echo $name; ?>]"]',
 			altFormat:'yy-mm-dd',
 			stepMinute: 15,
 			showButtonPanel: false,
 			altFieldTimeOnly:false
-		}).datetimepicker(
+		}).datetimepicker('setDate', (new Date())).datetimepicker(
 				'setDate', date
 		).keydown(function (e) {
 					if (e.which == 8 || e.which == 46) { // backspace or delete button pressed

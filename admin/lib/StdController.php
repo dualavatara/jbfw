@@ -41,6 +41,7 @@ class StdController extends Controller {
 	}
 
 	public function do_add() {
+		$this->data['model'] = $this->model;
 		return $this->app['template']->render($this->objectName.'\FormTemplate', $this->data);
 	}
 
@@ -77,6 +78,7 @@ class StdController extends Controller {
 
 	public function do_save(\Admin\Request $request) {
 		$form = $request['form'];
+		//var_dump($form); return;
 		if (count($form['routes'])) {
 			$routes = array_keys($form['routes']);
 			unset($form['routes']);
