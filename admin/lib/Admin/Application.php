@@ -6,6 +6,8 @@ require_once 'ClassLoader.php';
 
 $loader = new ClassLoader();
 $loader->registerNamespace('\Admin', __DIR__ . '/..');
+$loader->registerNamespace('\ctl', __DIR__ . '/../..');
+$loader->registerNamespace('\model', __DIR__ . '/../..');
 $loader->register();
 
 class Application extends Container {
@@ -97,6 +99,7 @@ class Application extends Container {
 		$defaults = $action ? array('action' => $action) : array();
 		$route = new Route($path, $defaults);
 		$callback = function($request) use ($app, $controller) {
+			$controller = '\\ctl\\' . $controller;
 			$ctl = new $controller($app);
 			if (!($ctl instanceof Controller)) {
 				throw new \UnexpectedValueException($controller . ' is not a controller');

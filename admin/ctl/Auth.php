@@ -1,6 +1,7 @@
 <?php
+namespace ctl;
 
-class Auth extends Admin\Controller {
+class Auth extends \Admin\Controller {
 	
 	public function do_login(\Admin\Request $request) {
 		if ($this->app['user']->isAuthenticated()) {

@@ -25,7 +25,7 @@ class ListTemplate extends Template {
 			<th>Курс</th>
 			<th width="1%">&nbsp;</th>
 		</tr>
-		<?php foreach ($data['model'] as $i => $item): ?>
+		<?php foreach ($data['model']->getModel() as $i => $item): ?>
 			<tr class="<?php echo ($i % 2) ? 'odd' : 'even'; ?>">
 				<td><?php echo $item->id; ?></td>
 				<td><?php
@@ -41,7 +41,7 @@ class ListTemplate extends Template {
 			</tr>
 		<?php endforeach; ?>
 	</table>
-	<?php if (0 == $data['model']->count()): ?>
+	<?php if (0 == $data['model']->getModel()->count()): ?>
 		<div class="list-empty">Список пуст!</div>
 		<?php endif; ?>
 	<?php

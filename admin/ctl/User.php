@@ -1,9 +1,11 @@
 <?php
 
+namespace ctl;
+
 require_once 'model/adminuser.model.php';
 require_once 'model/adminaccess.model.php';
 
-class User extends Admin\Controller {
+class User extends \Admin\Controller {
 
 	private $data = array(
 		'menu' => 'sys',
@@ -19,7 +21,7 @@ class User extends Admin\Controller {
 	public function do_delete(\Admin\Request $request) {
 		$id = $request['id'];
 
-		$model = new AdminUserModel($this->app['db']);
+		$model = new \AdminUserModel($this->app['db']);
 		$model->get($id)->delete()->exec();
 
         $model = new AdminAccessModel($this->app['db']);
@@ -34,7 +36,7 @@ class User extends Admin\Controller {
 	public function do_edit(\Admin\Request $request) {
 		$id = $request['id'];
 
-		$model = new AdminUserModel($this->app['db']);
+		$model = new \AdminUserModel($this->app['db']);
 		$model->get($id)->exec();
 		if (0 == $model->count()) {
 			return $this->app->error404();
@@ -47,7 +49,7 @@ class User extends Admin\Controller {
 	}
 
 	public function do_list() {
-		$model = new AdminUserModel($this->app['db']);
+		$model = new \AdminUserModel($this->app['db']);
 		$model->get()->all()->exec();
 
 		$this->data['model'] = $model;
@@ -64,7 +66,7 @@ class User extends Admin\Controller {
 
 		$form['password'] = ('' == $form['password']) ? null : md5($form['password']);
 
-		$model = new AdminUserModel($this->app['db']);
+		$model = new \AdminUserModel($this->app['db']);
 		$model[0] = $form;
 		if ($form['id']) {
 			$model->update()->exec();

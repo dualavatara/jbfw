@@ -5,10 +5,12 @@
  * Time: 3:50
  */
 
+namespace ctl;
+
 require_once("model/PriceModel.php");
 require_once("model/CurrencyModel.php");
 
-class Price extends Admin\Controller{
+class Price extends \Admin\Controller{
 	private $data = array(
 		'menu' => 'modules',
 		'section' => 'price_list'
