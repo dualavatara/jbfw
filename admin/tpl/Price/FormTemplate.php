@@ -12,7 +12,8 @@ class FormTemplate extends Template {
 	}
 
 	protected function show($data, $content = null) {
-		$price = isset($data['model']) ? $data['model'] : null;
+		$model = $data['model'];
+		$price = isset($data['object']) ? $data['object'] : null;
 		?>
 	<script type="text/javascript">
 		$(function () {
@@ -74,6 +75,17 @@ class FormTemplate extends Template {
 						<td>Цена</td>
 						<td><input name="form[value]" class="required"
 								   value="<?php echo floatval($price->value); ?>"/></td>
+					</tr>
+					<tr>
+						<td>&nbsp;</td>
+						<td><?php
+							$this->insertTemplate('Form\FlagsField', array(
+								'title'     => 'Опции',
+								'name'		=> 'form[flags]',
+								'value'		=> $price->flags,
+								'flags'		=> $model->getModel()->getFlags()
+							)); ?>
+						</td>
 					</tr>
 				</table>
 			</div>

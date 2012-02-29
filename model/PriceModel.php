@@ -9,8 +9,8 @@ require_once('lib/model.lib.php');
 
 class PriceModel extends Model{
 
-	const START_VALID	= 0x0001;
-	const END_VALID		= 0x0002;
+	const START_INVALID	= 0x0001;
+	const END_INVALID		= 0x0002;
 
 	public function __construct(IDatabase $db) {
 		parent::__construct("price", $db);
@@ -21,5 +21,12 @@ class PriceModel extends Model{
 		$this->field("value", new RealField("value"));
 
 		$this->field("flags", new IntField("flags"));
+	}
+
+	public function getFlags() {
+		return array(
+			self::START_INVALID => 'Без начала',
+			self::END_INVALID => 'Без конца'
+		);
 	}
 }

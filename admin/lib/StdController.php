@@ -61,7 +61,8 @@ class StdController extends Controller {
 		}
 
 		$m = $this->model->getModel();
-		$this->data['model'] = $m[0];
+		$this->data['object'] = $m[0];
+		$this->data['model'] = $this->model;
 
 		return $this->app['template']->render($this->objectName.'\FormTemplate', $this->data);
 	}
