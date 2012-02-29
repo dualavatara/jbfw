@@ -48,7 +48,7 @@ abstract class AdminModel implements IAdminModel {
 	 */
 	public function getById($id) {
 		$this->model->get($id)->exec();
-		if ($this->model->count()) return $this[0]->all();
+		if ($this->model->count()) return $this->model[0]->all();
 		return false;
 	}
 
@@ -60,7 +60,7 @@ abstract class AdminModel implements IAdminModel {
 	public function saveFromForm($form) {
 		if (isset($form['id'])){
 			$this->model->clear();
-			$this[0] = $form;
+			$this->model[0] = $form;
 			$this->model->update()->exec();
 		}
 	}

@@ -12,7 +12,7 @@ class FormTemplate extends Template {
 	}
 
 	protected function show($data, $content = null) {
-		$price = $data['model'];
+		$price = isset($data['model']) ? $data['model'] : null;
 		?>
 	<script type="text/javascript">
 		$(function () {

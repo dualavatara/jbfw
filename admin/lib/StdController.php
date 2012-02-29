@@ -18,7 +18,7 @@ class StdController extends Controller {
 	protected $objectName;
 
 	/**
-	 * @var AdminModel
+	 * @var \AdminModel
 	 */
 	protected $model;
 
@@ -60,7 +60,8 @@ class StdController extends Controller {
 			return $this->app->error404();
 		}
 
-		$this->data['model'] = $this->model[0];
+		$m = $this->model->getModel();
+		$this->data['model'] = $m[0];
 
 		return $this->app['template']->render($this->objectName.'\FormTemplate', $this->data);
 	}
