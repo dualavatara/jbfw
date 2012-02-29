@@ -56,6 +56,24 @@ class FormTemplate extends Template {
 						</td>
 					</tr>
 					<tr>
+						<td>Текст статьи</td>
+						<td>
+							<textarea rows="40" cols="40" name="form[content]"><?php echo $article->content; ?></textarea>
+						</td>
+					</tr>
+
+					<tr>
+						<td>Картинка</td>
+						<td>
+							<?php
+							$this->insertTemplate('Form\ImageField', array(
+								'name'     => 'photo',
+								'key'   => $article->photo,
+							));
+?>
+						</td>
+					</tr>
+					<tr>
 						<td>Дата создания</td>
 						<td>
 							<?php
@@ -76,6 +94,10 @@ class FormTemplate extends Template {
 								'flags'		=> $model->getModel()->getFlags()
 							)); ?>
 						</td>
+					</tr>
+					<tr>
+						<td>Вес сортировки</td>
+						<td><input name="form[ord]" class="required" value="<?php echo $article->ord; ?>"/></td>
 					</tr>
 				</table>
 			</div>

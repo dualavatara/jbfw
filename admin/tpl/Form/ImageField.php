@@ -24,7 +24,7 @@ class ImageField extends Template {
 		<input type="hidden" name="form[<?php echo $name; ?>]" value="<?php echo $key; ?>"/>
 		<input type="file" name="<?php echo $name; ?>"/>
 		<?php if ($key): ?>
-			<? $this->showLink($key, 'static', array('key' => $key),'class="lightbox"')?>
+			<? $this->showLink($key, 'static', array('key' => $key),'class="lightbox" target="_blank"')?>
 		<?php endif; ?>
 	<?
 	}

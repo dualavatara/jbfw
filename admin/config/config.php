@@ -41,6 +41,8 @@ return array(
 		
 		'login'        => array('/login',   'Auth', 'login'),
 		'logout'       => array('/logout',  'Auth', 'logout'),
+
+		'static'       => array('/s/{key}', 'Data', 'get'),
 		
 		'currency_edit' => array('/currency/edit/{id}',       'Currency', 'edit'),
 		'currency_list' => array('/currency/list',            'Currency', 'list'),

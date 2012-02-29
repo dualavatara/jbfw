@@ -78,11 +78,20 @@ class StdController extends Controller {
 
 	public function do_save(\Admin\Request $request) {
 		$form = $request['form'];
-		//var_dump($form); return;
+		//var_dump($request); var_dump($_FILES);return;
 		if (count($form['routes'])) {
 			$routes = array_keys($form['routes']);
 			unset($form['routes']);
 		} else $routes = array();
+
+		//if there uploaded files with names of model field, store them
+		foreach($_FILES as $key => $fparam) {
+			if ($this->model->getModel()->getField($key)) {
+				$is = new \ImageStorage(getcwd() . '/../' . PATH_DATA);
+				$imgkey = $is->storeImage($key);
+				if ($imgkey) $form[$key] = $imgkey;
+			}
+		}
 
 		if ($form['id']) $this->model->saveFromForm($form);
 		else $this->model->addFromForm($form);
