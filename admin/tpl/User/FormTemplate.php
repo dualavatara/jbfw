@@ -48,17 +48,38 @@ class FormTemplate extends Template {
                 </table>
             </div>
             <div id="access">
-                <?php foreach($data['routes'] as $name_controller => $controller): ?>
-                    <p><?php echo $name_controller; ?></p>
-                    <?php foreach($controller as $route_name => $action): ?>
+
+					<input type="checkbox" id="allcheck" onchange="onAllChange('allcheck');" />
+					<label for="allcheck">Все</label>
+                <?php $i = 0;
+				$k = 0;
+				foreach($data['routes'] as $name_controller => $controller):
+					$i++;
+					?>
+					<fieldset>
+                    <legend>
+						<input type="checkbox" id="allcheck_<?php echo $i;?>"
+							   onchange="onAllChange('allcheck\\_<?php echo $i;?>', 'allcheck');"
+							/>
+						<label for="allcheck_<?php echo $i;?>" ><?php echo $name_controller; ?></label></legend>
+                    <?php
+					foreach($controller as $route_name => $action):
+						$k++;
+					?>
                         <div class="user_access">
-	                        <input type="checkbox" name="form[routes][<?php echo $route_name; ?>]"
-                                <?php echo in_array($route_name, $data['access']->getRaw()) ? 'checked' : ''; ?> />
-	                        <?php echo $action; ?>
+	                        <input type="checkbox" id="allcheck_<?php echo $i;?>_<?php echo $k;?>"
+								   name="form[routes][<?php echo $route_name; ?>]"
+								   onchange="checkParent('allcheck\\_<?php echo $i;?>');checkParent('allcheck');"
+								<?php if(in_array($route_name, $data['access']->getRaw())) echo 'checked';  ?>
+								/>
+							<label for="allcheck_<?php echo $i;?>_<?php echo $k;?>" ><?php echo $action; ?></label>
                         </div>
                     <?php endforeach; ?>
                     <div class="user_access_clear"></div>
+						<script type="text/javascript">checkParent('allcheck\\_<?php echo $i;?>');</script>
+					</fieldset>
 	            <?php endforeach; ?>
+				<script type="text/javascript">checkParent('allcheck');</script>
             </div>
             <table>
                 <tr>
