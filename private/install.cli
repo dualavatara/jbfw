@@ -1,0 +1,82 @@
+#!/usr/bin/php
+
+<?php
+
+function readlined($prompt, $default) {
+	$p = sprintf("%s [%s]:", $prompt, $default);
+	$i = readline($p);
+	if (!$i) return $default;
+	return $i;
+}
+
+function inccpy($file, $dst, $text, $asphp = false) {
+	extract($GLOBALS);
+	ob_start();
+	include($file);
+	$data = ob_get_clean();
+	if ($asphp) $data = "<?php\n" . $data . "\n?>";
+	file_put_contents($dst, $data);
+
+	echo $text;
+}
+
+$nginxUser = readlined('Nginx virtual server user', trim(`whoami`));
+$group = explode(' ', trim(`groups`));
+$nginxGroup = readlined('Nginx virtual server group', $group[0]);
+$nginxPort = readlined('Virtual server port', 80);
+$nginxServer = readlined('Virtual server host', 'localhost');
+$path = readlined('System path to site root ', realpath(__DIR__ . '/../'));
+$logdir = readlined('System path to logs directory', realpath($path . '/logs'));
+$fpmhost = readlined('Php-fpm host', 'localhost');
+$fpmport = readlined('Php-fpm port', 9000);
+
+//DB section
+$dbhost = readlined('Production DB host', '127.0.0.1');
+$dbname = readlined('Production DB name', '');
+$dbuser = readlined('Production DB user', trim(`whoami`));
+$dbpass = readlined('Production DB password', '');
+$dbcharset = readlined('Production DB charset', 'utf8');
+
+$testdbhost = readlined('Test DB host', $dbhost);
+$testdbname = readlined('Test DB name', 'test_' . $dbname);
+$testdbuser = readlined('Test DB user', $dbuser);
+$testdbpass = readlined('Test DB password', $dbpass);
+$testdbcharset = readlined('Test DB charset', $dbcharset);
+
+@mkdir($path . '/tmp');
+@mkdir($path . '/sessions');
+@mkdir($path . '/logs');
+
+inccpy('nginx.conf', "$path/config/$nginxServer.nginx.conf", <<<EDT
+File $nginxServer.nginx.conf written to $path/config/.
+You can edit it manually or just copy it to your nginx sites-available directory
+and link to sites-available directory.
+
+EDT
+);
+
+inccpy('php-fpm.conf', "$path/config/$nginxServer.fpm.conf", <<<EDT
+File $nginxServer.fpm.conf written to $path/config/.
+You can edit it manually or just copy it to your php-fpm pool.d directory.
+
+EDT
+);
+
+inccpy('config.sample.php', "$path/config/config.php", <<<EDT
+File config.php written to $path/config/.
+
+EDT
+, true);
+
+inccpy('bootstrap.sample.php', "$path/tests/bootstrap.php", <<<EDT
+File bootstrap.php written to $path/tests/.
+
+EDT
+, true);
+
+inccpy('phpunit.sample.xml', "$path/tests/phpunit.xml", <<<EDT
+File phpunit.xml written to $path/tests/.
+
+EDT
+);
+?>

@@ -61,7 +61,7 @@ class ImageStorage extends DataStorageMedia {
 		}
 		
 		$hash = md5($imageName . rand());
-		$key = 'img/' . $hash . $extension;
+		$key = 'data/' . $hash . $extension;
 		
 		return $key;
 	}

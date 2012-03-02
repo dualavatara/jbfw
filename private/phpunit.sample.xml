@@ -1,0 +1,20 @@
+<?php
+        echo '<?xml version="1.0" encoding="UTF-8"?>';
+        echo "\n";
+?>
+<phpunit verbose="true" bootstrap="./bootstrap.php">
+	<filter>
+		<whitelist>
+			<directory suffix=".php">../lib</directory>
+			<directory suffix=".php">../model</directory>
+			<directory suffix=".php">../ctl</directory>
+		</whitelist>
+	</filter>
+	<php>
+		<var name="DB_DSN" value="mysql:dbname=<?php echo $testdbname; ?>;host=<?php echo $testdbhost; ?>"/>
+		<var name="DB_HOST" value="<?php echo $testdbhost; ?>"/>
+		<var name="DB_USER" value="<?php echo $testdbuser; ?>"/>
+		<var name="DB_PASSWD" value="<?php echo $testdbpass; ?>"/>
+		<var name="DB_DBNAME" value="<?php echo $testdbname; ?>"/>
+	</php>
+</phpunit>
