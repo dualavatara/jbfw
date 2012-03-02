@@ -71,7 +71,7 @@ return array(
 	
 	'menu' => array(
 		'modules' => array(
-			'title' => 'Modules',
+			'title' => 'Объекты',
 			'sections' => array(
 				'currency_list' => array('title' => 'Валюты',     'route' => 'currency_list',   'params' => array()),
 				'price_list' => array('title' => 'Цены', 'route' => 'price_list', 'params' => array()),
@@ -79,9 +79,9 @@ return array(
 			)
 		),
 		'sys' => array(
-			'title' => 'System',
+			'title' => 'Системные',
 			'sections' => array(
-				'user_list' => array('title' => 'Users', 'route' => 'user_list', 'params' => array()),
+				'user_list' => array('title' => 'Пользователи', 'route' => 'user_list', 'params' => array()),
 			)
 		),
 		'logout' => array(

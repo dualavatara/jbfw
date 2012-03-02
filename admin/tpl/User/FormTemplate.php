@@ -26,23 +26,23 @@ class FormTemplate extends Template {
 	<div class="group">
 		<div class="capture"><?php echo $user ? 'Редактирование пользователя' : 'Создание пользователя';?></div>
         <div id="tabs">
-        	<a href="#profile">Profile</a>
-            <a href="#access">Access</a>
+        	<a href="#profile">Профиль</a>
+            <a href="#access">Доступ</a>
         </div>
         <form method="post" action="<?php echo $this->getUrl('user_save'); ?>" enctype="multipart/form-data">
 			<input type="hidden" name="form[id]" value="<?php echo $user->id ?: ''; ?>"/>
             <div id="profile">
                 <table>
                     <tr>
-                        <td>Login</td>
+                        <td>Логин</td>
                         <td><input name="form[login]" value="<?php echo $user->login; ?>"/></td>
                     </tr>
                     <tr>
-                        <td>New Password</td>
+                        <td>Новый пароль</td>
                         <td><input type="password" name="form[password]" value=""/></td>
                     </tr>
                     <tr>
-                        <td>Name</td>
+                        <td>Имя</td>
                         <td><input name="form[name]" value="<?php echo $user->name; ?>" /></td>
                     </tr>
                 </table>
