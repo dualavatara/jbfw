@@ -80,6 +80,11 @@ return array(
 		'beach_delete' => array('/beach/delete/{id}',   'Beach', 'delete'),
 		'beach_save' => array('/beach/save',            'Beach', 'save'),
 
+		'setting_edit' => array('/setting/edit/{id}',       'Setting', 'edit'),
+		'setting_list' => array('/setting/list',            'Setting', 'list'),
+		'setting_add' => array('/setting/add',              'Setting', 'add'),
+		'setting_delete' => array('/setting/delete/{id}',   'Setting', 'delete'),
+		'setting_save' => array('/setting/save',            'Setting', 'save'),
 	),
 	
 	'menu' => array(
@@ -98,6 +103,7 @@ return array(
 			'title' => 'Системные',
 			'sections' => array(
 				'user_list' => array('title' => 'Пользователи', 'route' => 'user_list', 'params' => array()),
+				'setting_list' => array('title' => 'Настройки сайта',     'route' => 'setting_list',   'params' => array()),
 			)
 		),
 		'logout' => array(
