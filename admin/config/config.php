@@ -73,6 +73,13 @@ return array(
 		'user_list'    => array('/user/list',           'User', 'list'),
 		'user_save'    => array('/user/save',           'User', 'save'),
 		'user_add'     => array('/user/add',            'User', 'add'),
+
+		'beach_edit' => array('/beach/edit/{id}',       'Beach', 'edit'),
+		'beach_list' => array('/beach/list',            'Beach', 'list'),
+		'beach_add' => array('/beach/add',              'Beach', 'add'),
+		'beach_delete' => array('/beach/delete/{id}',   'Beach', 'delete'),
+		'beach_save' => array('/beach/save',            'Beach', 'save'),
+
 	),
 	
 	'menu' => array(
@@ -83,6 +90,8 @@ return array(
 				'price_list' => array('title' => 'Цены', 'route' => 'price_list', 'params' => array()),
 				'article_list' => array('title' => 'Статьи', 'route' => 'article_list', 'params' => array()),
 				'discount_list' => array('title' => 'Скидки', 'route' => 'discount_list', 'params' => array()),
+				'beach_list' => array('title' => 'Пляж',     'route' => 'beach_list',   'params' => array()),
+
 			)
 		),
 		'sys' => array(

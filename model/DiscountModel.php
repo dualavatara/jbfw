@@ -7,7 +7,7 @@
 
 require_once 'lib/model.lib.php';
 
-class DiscountModel  extends Model {
+class DiscountModel extends Model {
 	/**
 	 * @param IDatabase $db
 	 */
