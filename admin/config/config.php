@@ -62,6 +62,12 @@ return array(
 		'article_delete' => array('/article/delete/{id}',   'Article', 'delete'),
 		'article_save' => array('/article/save',            'Article', 'save'),
 
+		'discount_edit' => array('/discount/edit/{id}',       'Discount', 'edit'),
+		'discount_list' => array('/discount/list',            'Discount', 'list'),
+		'discount_add' => array('/discount/add',              'Discount', 'add'),
+		'discount_delete' => array('/discount/delete/{id}',   'Discount', 'delete'),
+		'discount_save' => array('/discount/save',            'Discount', 'save'),
+
 		'user_edit'    => array('/user/edit/{id}',      'User', 'edit'),
 		'user_delete'  => array('/user/delete/{id}',    'User', 'delete'),
 		'user_list'    => array('/user/list',           'User', 'list'),
@@ -76,6 +82,7 @@ return array(
 				'currency_list' => array('title' => 'Валюты',     'route' => 'currency_list',   'params' => array()),
 				'price_list' => array('title' => 'Цены', 'route' => 'price_list', 'params' => array()),
 				'article_list' => array('title' => 'Статьи', 'route' => 'article_list', 'params' => array()),
+				'discount_list' => array('title' => 'Скидки', 'route' => 'discount_list', 'params' => array()),
 			)
 		),
 		'sys' => array(

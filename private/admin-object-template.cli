@@ -1,0 +1,31 @@
+#!/usr/bin/php
+
+<?php
+
+function substitutetpl($className, $content) {
+	$content = preg_replace('/%CLASS_NAME%/um', $className, $content);
+	$content = preg_replace('/%CLASS_NAME_LC%/um', strtolower($className), $content);
+	return $content;
+}
+
+$path =  realpath(__DIR__ . '/../');
+
+$className = readline("Enter class name:");
+
+file_put_contents("$path/admin/ctl/$className.php",
+	substitutetpl($className, file_get_contents($path.'/private/admin-templates/ctl.tmpl')));
+
+file_put_contents("$path/admin/model/$className.php",
+	substitutetpl($className, file_get_contents($path.'/private/admin-templates/model.tmpl')));
+
+mkdir("$path/admin/tpl/$className");
+
+file_put_contents("$path/admin/tpl/$className/FormTemplate.php",
+	substitutetpl($className, file_get_contents($path.'/private/admin-templates/form.tmpl')));
+
+file_put_contents("$path/admin/tpl/$className/ListTemplate.php",
+	substitutetpl($className, file_get_contents($path.'/private/admin-templates/list.tmpl')));
+
+echo "Corresponding parts of config (Ctrl+c, Ctrl+v):\n";
+
+echo substitutetpl($className, file_get_contents($path.'/private/admin-templates/config.tmpl')) . "\n\n";

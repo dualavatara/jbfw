@@ -1,0 +1,11 @@
+<?php
+namespace ctl;
+
+require_once 'admin/lib/StdController.php';
+
+class %CLASS_NAME% extends \Admin\StdController {
+	public function __construct(\Admin\Application $app) {
+		parent::__construct('modules', '%CLASS_NAME_LC%_list', '%CLASS_NAME%', $app);
+	}
+
+}
