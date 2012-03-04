@@ -77,6 +77,11 @@ class FormTemplate extends Template {
 								<?php if(in_array($route_name, $data['access']->getRaw())) echo 'checked';  ?>
 								<?php echo $dis;?>
 								/>
+							<?php if ($dis) { ?>
+							<input type="hidden"
+								   name="form[routes][<?php echo $route_name; ?>]"
+								   value="true"/>
+						<?php }; ?>
 							<label for="allcheck_<?php echo $i;?>_<?php echo $k;?>" ><?php echo $action; ?></label>
                         </div>
                     <?php endforeach; ?>

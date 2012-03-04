@@ -16,7 +16,7 @@ CREATE TABLE `jbfw`.`admin_access` (
 )
 ENGINE = MyISAM;
 
-insert into admin_users(id, login, password) VALUES(1, "admin", MD5("admin"));
+insert into admin_users(id, login, password, created) VALUES(1, "admin", MD5("admin"), NOW());
 insert into admin_access(user_id, route_name) VALUES(1, "home");
 insert into admin_access(user_id, route_name) VALUES(1, "user_edit");
 insert into admin_access(user_id, route_name) VALUES(1, "user_delete");

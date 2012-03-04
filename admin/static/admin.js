@@ -151,7 +151,7 @@ function onAllChange(name, parent) {
     var chk = (cur.attr("checked") == 'checked');
     var sel = '[id^="' + name + '\\_"]';
     $(sel).each(function (i, obj) {
-        $(obj).attr("checked", chk);
+        if (!$(obj).attr("disabled")) $(obj).attr("checked", chk);
     });
     checkParent(parent);
 }
