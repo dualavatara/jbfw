@@ -91,6 +91,12 @@ return array(
 		'resort_add' => array('/resort/add',              'Resort', 'add'),
 		'resort_delete' => array('/resort/delete/{id}',   'Resort', 'delete'),
 		'resort_save' => array('/resort/save',            'Resort', 'save'),
+
+		'customer_edit' => array('/customer/edit/{id}',       'Customer', 'edit'),
+		'customer_list' => array('/customer/list',            'Customer', 'list'),
+		'customer_add' => array('/customer/add',              'Customer', 'add'),
+		'customer_delete' => array('/customer/delete/{id}',   'Customer', 'delete'),
+		'customer_save' => array('/customer/save',            'Customer', 'save'),
 	),
 	
 	'menu' => array(
@@ -103,6 +109,7 @@ return array(
 				'discount_list' => array('title' => 'Скидки', 'route' => 'discount_list', 'params' => array()),
 				'beach_list' => array('title' => 'Пляж',     'route' => 'beach_list',   'params' => array()),
 				'resort_list' => array('title' => 'Курорты',     'route' => 'resort_list',   'params' => array()),
+				'customer_list' => array('title' => 'Клиент',     'route' => 'customer_list',   'params' => array()),
 			)
 		),
 		'sys' => array(
