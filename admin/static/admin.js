@@ -156,4 +156,42 @@ function onAllChange(name, parent) {
     checkParent(parent);
 }
 
+$(document).ready(function () {
+    var inputs = $('input.searchselect');
+    inputs.after(
+        function () {
+            var hidden = $(document.createElement('input'));
+            hidden.attr('type', 'hidden');
+            hidden.attr('name', $(this).attr('name'));
+            hidden.attr('value', $(this).attr('value'));
+            return hidden;
+        }).after(function () {
+            var edit = $('<input type="text" />');
+            edit.attr('value', $(this).attr('display-value'));
 
+            var dropbox = $('<div style="visibility:visible; position: relative; background-color: #000000; color: white;">DROPDOWN</div>');
+            edit[0].dropbox = dropbox[0];
+            dropbox[0].edit = edit[0]
+            edit.keypress(
+                function () {
+                    var dropbox = this.dropbox;
+                    //$(dropbox).toggle(false);
+                }
+            ).focus(
+                function () {
+                    var dropbox = this.dropbox;
+                    dropbox.style.left = dropbox.edit.offsetLeft + 'px';
+                    dropbox.style.top = (dropbox.edit.offsetTop + dropbox.edit.offsetHeight)+ 'px';
+                    $(dropbox).toggle(true);
+                }
+            ).blur(
+                function () {
+                    var dropbox = this.dropbox;
+                    $(dropbox).toggle(false);
+                }
+            );
+            $(this).after(dropbox);
+            return edit;
+        });
+    inputs.remove();
+});

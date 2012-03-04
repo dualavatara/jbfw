@@ -87,6 +87,16 @@ class FormTemplate extends Template {
 							)); ?>
 						</td>
 					</tr>
+					<tr>
+						<td colspan="2"><?php
+							$this->insertTemplate('Form\SearchSelectField', array(
+								'name'		=> 'form[test]',
+								'value'		=> $price->currency_id,
+								'display_value' => 'test',
+								'label' => 'Тестовое поле'
+							)); ?>123
+						</td>
+					</tr>
 				</table>
 			</div>
 
