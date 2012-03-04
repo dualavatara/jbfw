@@ -1,5 +1,7 @@
 define('PATH_DATA', 'static/data');
 
+define('MAITENANCE_LOCK', false);
+
 define('DB_NAME', '<?php echo $dbname; ?>');
 define('DB_USER', '<?php echo $dbuser; ?>');
 define('DB_PASS', '<?php echo $dbpass; ?>');
