@@ -91,6 +91,12 @@ return array(
 		'resort_add' => array('/resort/add',              'Resort', 'add'),
 		'resort_delete' => array('/resort/delete/{id}',   'Resort', 'delete'),
 		'resort_save' => array('/resort/save',            'Resort', 'save'),
+
+		'carrentoffice_edit' => array('/carrentoffice/edit/{id}',       'CarRentOffice', 'edit'),
+		'carrentoffice_list' => array('/carrentoffice/list',            'CarRentOffice', 'list'),
+		'carrentoffice_add' => array('/carrentoffice/add',              'CarRentOffice', 'add'),
+		'carrentoffice_delete' => array('/carrentoffice/delete/{id}',   'CarRentOffice', 'delete'),
+		'carrentoffice_save' => array('/carrentoffice/save',            'CarRentOffice', 'save'),
 	),
 	
 	'menu' => array(
@@ -103,6 +109,7 @@ return array(
 				'discount_list' => array('title' => 'Скидки', 'route' => 'discount_list', 'params' => array()),
 				'beach_list' => array('title' => 'Пляж',     'route' => 'beach_list',   'params' => array()),
 				'resort_list' => array('title' => 'Курорты',     'route' => 'resort_list',   'params' => array()),
+				'carrentoffice_list' => array('title' => 'Конторы по прокату авто',     'route' => 'carrentoffice_list',   'params' => array()),
 			)
 		),
 		'sys' => array(
