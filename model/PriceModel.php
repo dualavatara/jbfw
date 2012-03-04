@@ -15,12 +15,12 @@ class PriceModel extends Model{
 	public function __construct(IDatabase $db) {
 		parent::__construct("price", $db);
 
-		$this->field("start", new DateTimeWithTZField("start"));
-		$this->field("end", new DateTimeWithTZField("end"));
-		$this->field("currency_id", new IntField("currency_id"));
-		$this->field("value", new RealField("value"));
+		$this->field(new DateTimeWithTZField("start"));
+		$this->field(new DateTimeWithTZField("end"));
+		$this->field(new IntField("currency_id"));
+		$this->field(new RealField("value"));
 
-		$this->field("flags", new IntField("flags"));
+		$this->field(new IntField("flags"));
 	}
 
 	public function getFlags() {

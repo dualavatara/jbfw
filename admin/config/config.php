@@ -85,6 +85,12 @@ return array(
 		'setting_add' => array('/setting/add',              'Setting', 'add'),
 		'setting_delete' => array('/setting/delete/{id}',   'Setting', 'delete'),
 		'setting_save' => array('/setting/save',            'Setting', 'save'),
+
+		'resort_edit' => array('/resort/edit/{id}',       'Resort', 'edit'),
+		'resort_list' => array('/resort/list',            'Resort', 'list'),
+		'resort_add' => array('/resort/add',              'Resort', 'add'),
+		'resort_delete' => array('/resort/delete/{id}',   'Resort', 'delete'),
+		'resort_save' => array('/resort/save',            'Resort', 'save'),
 	),
 	
 	'menu' => array(
@@ -96,7 +102,7 @@ return array(
 				'article_list' => array('title' => 'Статьи', 'route' => 'article_list', 'params' => array()),
 				'discount_list' => array('title' => 'Скидки', 'route' => 'discount_list', 'params' => array()),
 				'beach_list' => array('title' => 'Пляж',     'route' => 'beach_list',   'params' => array()),
-
+				'resort_list' => array('title' => 'Название объекта',     'route' => 'resort_list',   'params' => array()),
 			)
 		),
 		'sys' => array(

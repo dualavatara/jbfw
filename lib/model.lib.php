@@ -256,8 +256,9 @@ class Model extends ModelData {
 		return $fields;
 	}
 	
-	public function field($name, Field $field) {
+	public function field(Field $field, $name = null) {
 		if ($name == MODEL_ID_FIELD_NAME) throw new ModelException("Can`t use default ".MODEL_ID_FIELD_NAME);
+		if (!isset($name)) $name = $field->name;
 		$this->fields[$name] = $field;
 	}
 

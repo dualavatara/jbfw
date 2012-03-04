@@ -21,13 +21,13 @@ class ArticleModel extends Model {
 	 */
 	public function __construct(IDatabase $db) {
 		parent::__construct('article', $db);
-		$this->field('created', new DateTimeWithTZField('created'));
-		$this->field('name', new CharField('name'));
-		$this->field('photo', new CharField('photo'));
-		$this->field('content', new CharField('content'));
-		$this->field('type', new IntField('type'));
-		$this->field('ord', new IntField('ord'));
-		$this->field('flags', new IntField('flags'));
+		$this->field(new DateTimeWithTZField('created'));
+		$this->field(new CharField('name'));
+		$this->field(new CharField('photo'));
+		$this->field(new CharField('content'));
+		$this->field(new IntField('type'));
+		$this->field(new IntField('ord'));
+		$this->field(new IntField('flags'));
 	}
 
 	public function getTypes() {
