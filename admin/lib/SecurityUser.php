@@ -110,11 +110,12 @@ class SecurityUser implements \Admin\Extension\Security\SecurityUserInterface {
 	}
 
 	public function getRoutes($user_id = null) {
-		if (null == $user_id) {
-			return $this->isAuthenticated()
-					? $this->app['session']->read(self::ROUTES)
-					: $this->defaultRoutes;
+		if ((null == $user_id) && (!$this->isAuthenticated())){
+			return $this->defaultRoutes;
 		} else {
+//			$user_id = 2;
+//			var_dump($user);
+			if (null == $user_id) $user_id = $this->id;
 			$accessModel = new \AdminAccessModel($this->app['db']);
 			$route_names = $accessModel->getRouteNames($user_id);
 			return array_merge($route_names->route_name, $this->defaultRoutes);

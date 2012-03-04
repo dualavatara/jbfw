@@ -13,8 +13,8 @@ class CurrencyModel extends Model {
 	 */
 	public function __construct(IDatabase $db) {
 		parent::__construct('currency', $db);
-		$this->field('name', new CharField('name'));
-		$this->field('sign', new CharField('sign'));
-		$this->field('course', new RealField('course'));
+		$this->field(new CharField('name'));
+		$this->field(new CharField('sign'));
+		$this->field(new RealField('course'));
 	}
 }

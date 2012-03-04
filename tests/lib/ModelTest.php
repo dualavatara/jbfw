@@ -104,7 +104,7 @@ class ModelTest extends PHPUnit_Framework_TestCase {
 	 * @covers Model::field
 	 */
 	public function testField() {
-		$this->object->field("testfield", new IntField("testfield", Field::PRIMARY_KEY));
+		$this->object->field(new IntField("testfield", Field::PRIMARY_KEY));
 		$this->assertInstanceOf("Field", $this->object->getField("testfield"));
 	}
 
@@ -113,7 +113,7 @@ class ModelTest extends PHPUnit_Framework_TestCase {
 	 * @expectedException ModelException
 	 */
 	public function testFieldNamedIdExcept() {
-		$this->object->field("id", new IntField("id", Field::PRIMARY_KEY));
+		$this->object->field(new IntField("id", Field::PRIMARY_KEY));
 	}
 
 	/**

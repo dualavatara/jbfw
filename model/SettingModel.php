@@ -14,7 +14,7 @@ class SettingModel extends Model {
 	public function __construct(IDatabase $db) {
 		parent::__construct('settings', $db);
 
-		$this->field('name', new CharField('name'));
-		$this->field('value', new Charfield('value'));
+		$this->field(new CharField('name'));
+		$this->field(new Charfield('value'));
 	}
 }

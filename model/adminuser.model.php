@@ -8,9 +8,9 @@ class AdminUserModel extends Model {
 	 */
 	public function __construct(IDatabase $db) {
 		parent::__construct('admin_users', $db);
-		$this->field('login', new CharField('login'));
-		$this->field('password', new CharField('password'));
-		$this->field('name', new CharField('name'));
-		$this->field('created', new DateTimeWithTZField('created'));
+		$this->field(new CharField('login'));
+		$this->field(new CharField('password'));
+		$this->field(new CharField('name'));
+		$this->field(new DateTimeWithTZField('created'));
 	}
 }

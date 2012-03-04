@@ -55,11 +55,15 @@ class FormTemplate extends Template {
 				$k = 0;
 				foreach($data['routes'] as $name_controller => $controller):
 					$i++;
+
+					if (($user->id == $this->app["user"]->id) && ($name_controller == 'User')) $dis = 'disabled';
+					else $dis = '';
 					?>
 					<fieldset>
                     <legend>
 						<input type="checkbox" id="allcheck_<?php echo $i;?>"
 							   onchange="onAllChange('allcheck\\_<?php echo $i;?>', 'allcheck');"
+							<?php echo $dis;?>
 							/>
 						<label for="allcheck_<?php echo $i;?>" ><?php echo $name_controller; ?></label></legend>
                     <?php
@@ -71,6 +75,7 @@ class FormTemplate extends Template {
 								   name="form[routes][<?php echo $route_name; ?>]"
 								   onchange="checkParent('allcheck\\_<?php echo $i;?>');checkParent('allcheck');"
 								<?php if(in_array($route_name, $data['access']->getRaw())) echo 'checked';  ?>
+								<?php echo $dis;?>
 								/>
 							<label for="allcheck_<?php echo $i;?>_<?php echo $k;?>" ><?php echo $action; ?></label>
                         </div>

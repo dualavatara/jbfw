@@ -9,8 +9,8 @@ class AdminAccessModel extends Model{
      */
     public function __construct(IDatabase $db) {
         parent::__construct('admin_access', $db);
-        $this->field('user_id', new IntField('user_id'));
-        $this->field('route_name', new CharField('route_name'));
+        $this->field(new IntField('user_id'));
+        $this->field(new CharField('route_name'));
     }
 
     public function getRouteNames($user_id) {

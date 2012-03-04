@@ -13,7 +13,7 @@ class DiscountModel extends Model {
 	 */
 	public function __construct(IDatabase $db) {
 		parent::__construct('discount', $db);
-		$this->field('description', new CharField('description'));
-		$this->field('percent', new RealField('percent'));
+		$this->field(new CharField('description'));
+		$this->field(new RealField('percent'));
 	}
 }
