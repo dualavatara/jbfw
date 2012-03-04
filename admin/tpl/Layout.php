@@ -14,7 +14,7 @@ class Layout extends Template {
 		<link rel="stylesheet" href="<?=$config->baseUrl?>/static/admin.css"/>
 		<link rel="stylesheet" href="<?=$config->baseUrl?>/static/jquery/smoothness/jquery-ui-1.8.17.custom.css"/>
 		<script src="<?=$config->baseUrl?>/static/jquery/jquery.js"></script>
-		<script src="<?=$config->baseUrl?>/static/jquery/jquery-ui-1.8.17.custom.js"></script>
+		<script src="<?=$config->baseUrl?>/static/jquery/jquery-ui-1.8.17.custom.min.js"></script>
 		<script src="<?=$config->baseUrl?>/static/admin.js"></script>
 		<script src="<?=$config->baseUrl?>/static/jquery/jqval/jquery.validate.js"></script>
 		<script src="<?=$config->baseUrl?>/static/jquery/jqval/localization/messages_ru.js"></script>

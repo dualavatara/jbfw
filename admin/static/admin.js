@@ -169,7 +169,7 @@ $(document).ready(function () {
             var edit = $('<input type="text" />');
             edit.attr('value', $(this).attr('display-value'));
 
-            var dropbox = $('<div style="visibility:visible; position: relative; background-color: #000000; color: white;">DROPDOWN</div>');
+            var dropbox = $('<div class="searchselect">DROPDOWN</div>');
             edit[0].dropbox = dropbox[0];
             dropbox[0].edit = edit[0]
             edit.keypress(
@@ -180,8 +180,11 @@ $(document).ready(function () {
             ).focus(
                 function () {
                     var dropbox = this.dropbox;
-                    dropbox.style.left = dropbox.edit.offsetLeft + 'px';
-                    dropbox.style.top = (dropbox.edit.offsetTop + dropbox.edit.offsetHeight)+ 'px';
+                    var eo = $(this).offset();
+                    eo.top += $(this).outerHeight();
+                    eo["min-width"] = $(this).outerWidth();
+                    //eo["visibility"] = 'visible';
+                    $(dropbox).css(eo);
                     $(dropbox).toggle(true);
                 }
             ).blur(
