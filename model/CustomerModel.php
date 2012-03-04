@@ -7,7 +7,7 @@
 
 require_once 'lib/model.lib.php';
 
-class Customer extends Model {
+class CustomerModel extends Model {
 	public function __construct(IDatabase $db) {
 		parent::__construct('customer', $db);
 

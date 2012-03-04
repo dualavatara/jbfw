@@ -20,7 +20,11 @@ class ListTemplate extends Template {
 	<table class="list">
 		<tr>
 			<th width="1%">id</th>
-			<th>Поле</th>
+			<th>Имя</th>
+			<th>E-mail</th>
+			<th>Тел. Москва</th>
+			<th>Тел. местный</th>
+			<th>Заметка администратора</th>
 			<th width="1%">&nbsp;</th>
 		</tr>
 		<?php foreach ($data['model']->getModel() as $i => $item): ?>
@@ -29,8 +33,14 @@ class ListTemplate extends Template {
 				<td><?php
                     if($this->app['user']->checkRoute('customer_edit'))
                         $this->showLink($item->name,'customer_edit', array('id' => $item->id));
-                    else echo $item->fieldname;?>
+                    else echo $item->name;?>
 				</td>
+				<td>
+					<a href="mailto:<?php echo $item->email; ?>"><?php echo $item->email; ?></a>
+				</td>
+				<td><?php echo $item->phone_msk; ?></td>
+				<td><?php echo $item->phone_local; ?></td>
+				<td><?php echo $item->admin_note; ?></td>
 				<td>
                     <?php $this->showLink('&nbsp;X&nbsp;','customer_delete', array('id' => $item->id),
                                        'onClick="return AdminJS.deleteConfirmation();"');?>
