@@ -28,7 +28,7 @@ class FormTemplate extends Template {
 		<a href="<?php echo $this->getUrl('resort_add') ?>">[Добавить]</a>
 	</div>
 	<div class="group">
-		<div class="capture"><?php echo $resort ? 'Редактирование %OBJECT_NAME%' : 'Создание %OBJECT_NAME%';?></div>
+		<div class="capture"><?php echo $resort ? 'Редактирование курорт' : 'Создание курорт';?></div>
 		<div id="tabs">
 			<a href="#general">Общие</a>
 		</div>
@@ -38,15 +38,15 @@ class FormTemplate extends Template {
 			<div id="general">
 				<table>
 					<tr>
-						<td>Поле</td>
+						<td>Название</td>
 						<td><input name="form[name]" class="required" minlength="2" value="<?php echo $resort->name; ?>"/></td>
 					</tr>
 					<tr>
-						<td>Поле</td>
+						<td>Ссылка на описание</td>
 						<td><input name="form[link]" minlength="2" value="<?php echo $resort->link; ?>"/></td>
 					</tr>
 					<tr>
-						<td>Поле</td>
+						<td>Ссылка на maps.google.com</td>
 						<td><input name="form[gmaplink]" minlength="2" value="<?php echo $resort->gmaplink; ?>"/></td>
 					</tr>
 				</table>

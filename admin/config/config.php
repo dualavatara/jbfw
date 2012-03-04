@@ -102,7 +102,7 @@ return array(
 				'article_list' => array('title' => 'Статьи', 'route' => 'article_list', 'params' => array()),
 				'discount_list' => array('title' => 'Скидки', 'route' => 'discount_list', 'params' => array()),
 				'beach_list' => array('title' => 'Пляж',     'route' => 'beach_list',   'params' => array()),
-				'resort_list' => array('title' => 'Название объекта',     'route' => 'resort_list',   'params' => array()),
+				'resort_list' => array('title' => 'Курорты',     'route' => 'resort_list',   'params' => array()),
 			)
 		),
 		'sys' => array(
