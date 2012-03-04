@@ -1,8 +1,10 @@
 <?
-//test pricemodel branch
-//phpinfo();
-require_once('lib/dicontainer.lib.php');
-require_once('lib/logger.lib.php');
+require_once 'config/config.php';
+
+if (defined('MAITENANCE_LOCK') && MAITENANCE_LOCK) {
+	require('static/html/maitenance.html');
+	return;
+}
 
 set_error_handler(function ($errno, $errstr, $errfile, $errline) {
 		if ($errno == E_ERROR || $errno == E_USER_ERROR) {
