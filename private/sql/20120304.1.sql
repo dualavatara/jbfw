@@ -8,7 +8,7 @@ CREATE TABLE IF NOT EXISTS `car_rent_office` (
   `name` tinytext NOT NULL,
   `description` text NOT NULL,
   `percent` double NOT NULL,
-  `account_id` int(11) NOT NULL,
+  `customer_id` int(11) NOT NULL,
   `rating` int(11) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
