@@ -1,4 +1,6 @@
 <?
+
+
 require_once 'config/config.php';
 
 if (defined('MAITENANCE_LOCK') && MAITENANCE_LOCK) {
