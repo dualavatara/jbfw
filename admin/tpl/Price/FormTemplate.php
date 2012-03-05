@@ -71,15 +71,6 @@ class FormTemplate extends Template {
 								'rest_url' => '/admin/currency/json'
 							)); ?>
 						</td>
-						<!--<td>Валюта</td>
-						<td><?php
-							$this->insertTemplate('Form\SelectField', array(
-								'name'     => 'currency_id',
-								'values'   => $data['currencies'],
-								'selected' => $price->currency_id,
-								'empty'    => false,
-							)); ?>
-						</td>-->
 					</tr>
 					<tr>
 						<td>Цена</td>

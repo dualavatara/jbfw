@@ -38,8 +38,30 @@ class FormTemplate extends Template {
 			<div id="general">
 				<table>
 					<tr>
-						<td>Поле</td>
-						<td><input name="form[fieldname]" class="required" minlength="2" value="<?php echo $carrentoffice->fieldname; ?>"/></td>
+						<td>Название</td>
+						<td><input name="form[name]" class="required" minlength="2" value="<?php echo $carrentoffice->name; ?>"/></td>
+					</tr>
+					<tr>
+						<td>Описание</td>
+						<td><textarea cols="40" rows="10" name="form[description]" ><?php echo $carrentoffice->description; ?></textarea></td>
+					</tr>
+					<tr>
+						<td>Процент залога</td>
+						<td><input name="form[percent]" minlength="2" value="<?php echo floatval($carrentoffice->percent); ?>"/></td>
+					</tr>
+					<tr>
+						<td>Клиент</td>
+						<td><?php
+							$this->insertTemplate('Form\SearchSelectField', array(
+								'name'		=> 'form[customer_id]',
+								'value'		=> $carrentoffice->customer_id,
+								'display_value' => $data['customers'][$carrentoffice->customer_id],
+								'rest_url' => '/admin/customer/json'
+							)); ?></td>
+					</tr>
+					<tr>
+						<td>Рейтинг</td>
+						<td><input name="form[rating]" minlength="2" value="<?php echo intval($carrentoffice->rating); ?>"/></td>
 					</tr>
 				</table>
 			</div>

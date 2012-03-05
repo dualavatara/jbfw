@@ -95,6 +95,7 @@ return array(
 
 		'customer_edit' => array('/customer/edit/{id}',       'Customer', 'edit'),
 		'customer_list' => array('/customer/list',            'Customer', 'list'),
+		'customer_json' => array('/customer/json/{name}',            'Customer', 'json'),
 		'customer_add' => array('/customer/add',              'Customer', 'add'),
 		'customer_delete' => array('/customer/delete/{id}',   'Customer', 'delete'),
 		'customer_save' => array('/customer/save',            'Customer', 'save'),
