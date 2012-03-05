@@ -40,7 +40,7 @@ form {
 	margin: 0;
 }
 
-input, select, textarea {
+input, input:focus, select, textarea {
 	background-color: #F5F5F5;
 	color: #000000;
 	border: 1px solid #335240;
@@ -359,7 +359,24 @@ ul.countable li:not(.ui-sortable-helper):before {
 
 /*SearchSelectField */
 div.searchselect {
-    //visibility:hidden;
     display: none;
     position: absolute;
+    background-color: #ffffff;
+    border: #000000  1px;
+    border-style: none ridge ridge ridge;
+    margin: 0px;
+    padding: 0px;
+}
+
+/*SearchSelectField */
+div.searchselect.searchselectitem {
+    display: block;
+    position: static;
+    border-style: none;
+    padding: 0.5em;
+}
+
+/*SearchSelectField */
+div.searchselect.searchselectitem:hover {
+    background-color: #cccccc;
 }

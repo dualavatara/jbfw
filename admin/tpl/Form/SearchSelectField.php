@@ -16,19 +16,15 @@ class SearchSelectField extends Template {
 		$value = $data['value'];
 		$display_value = $data['display_value'];
 		$label = $data['label'];
+		$url = $data['rest_url']
 		?>
-		<style type="text/css">
-			label.searchselect {
-				width: 10em;
-				float: left;
-			}
-		</style>
-	<label class="searchselect" for="<?php echo $name; ?>" ><?php echo $label; ?></label>
 	<input class="searchselect"
 		   name="<?php echo $name; ?>"
 		   id="<?php echo $name; ?>"
 		   value="<?php echo $value; ?>"
-		   display-value="<?php echo $display_value; ?>"/>
+		   display-value="<?php echo $display_value; ?>"
+		   rest-url="<?php echo $url; ?>"
+		/>
 	<?php
 
 	}

@@ -49,6 +49,7 @@ return array(
 		'currency_add' => array('/currency/add',              'Currency', 'add'),
 		'currency_delete' => array('/currency/delete/{id}',   'Currency', 'delete'),
 		'currency_save' => array('/currency/save',            'Currency', 'save'),
+		'currency_json' => array('/currency/json/{name}',     'Currency', 'json'),
 
 		'price_edit' => array('/price/edit/{id}',       'Price', 'edit'),
 		'price_list' => array('/price/list',            'Price', 'list'),

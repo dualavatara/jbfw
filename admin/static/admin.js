@@ -158,34 +158,41 @@ function onAllChange(name, parent) {
 
 $(document).ready(function () {
     var inputs = $('input.searchselect');
-    inputs.after(
-        function () {
+    inputs.after(function () {
             var hidden = $(document.createElement('input'));
             hidden.attr('type', 'hidden');
             hidden.attr('name', $(this).attr('name'));
             hidden.attr('value', $(this).attr('value'));
-            return hidden;
-        }).after(function () {
+            $(this).after(hidden);
+
             var edit = $('<input type="text" />');
             edit.attr('value', $(this).attr('display-value'));
+            edit[0].url = $(this).attr('rest-url');
 
-            var dropbox = $('<div class="searchselect">DROPDOWN</div>');
+            var dropbox = $('<div class="searchselect"></div>');
             edit[0].dropbox = dropbox[0];
-            dropbox[0].edit = edit[0]
-            edit.keypress(
-                function () {
+            edit[0].hiddenedit = hidden[0];
+            dropbox[0].edit = edit[0];
+            edit.keyup(
+                function (event) {
                     var dropbox = this.dropbox;
-                    //$(dropbox).toggle(false);
+                    if (this.url && $(this).val()) $.ajax({
+                        url:this.url + '/' + $(this).val(),
+                        dataType:'json',
+                        context:dropbox,
+                        success:function (data) {
+                            makeDropbox(this, data);
+                        }
+                    }); else makeDropbox(dropbox, null);
                 }
             ).focus(
                 function () {
                     var dropbox = this.dropbox;
                     var eo = $(this).offset();
                     eo.top += $(this).outerHeight();
-                    eo["min-width"] = $(this).outerWidth();
-                    //eo["visibility"] = 'visible';
+                    eo["min-width"] = $(this).width();
                     $(dropbox).css(eo);
-                    $(dropbox).toggle(true);
+                    if ($(dropbox).children().size()) $(dropbox).toggle(true);
                 }
             ).blur(
                 function () {
@@ -198,3 +205,21 @@ $(document).ready(function () {
         });
     inputs.remove();
 });
+
+function makeDropbox(cont, data) {
+    var html = '';
+    if ($(data).size() == 0) $(cont).empty();
+    $(data).each(function (i, obj) {
+        html += '<div class="searchselect searchselectitem" value="' + obj.id + '">' + obj.name + '</div>'
+    });
+    $(cont).html(html);
+    if ($(cont).children().size()) $(cont).toggle(true);
+    else $(cont).toggle(false);
+    var items = $('.searchselect.searchselectitem');
+    items.mousedown(function () {
+        var id = $(this).attr('value');
+        var edit = $(this).parent()[0].edit;
+        $(edit.hiddenedit).val(id);
+        $(edit).val($(this).text());
+    });
+}

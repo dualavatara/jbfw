@@ -63,13 +63,23 @@ class FormTemplate extends Template {
 					<tr>
 						<td>Валюта</td>
 						<td><?php
+							$this->insertTemplate('Form\SearchSelectField', array(
+								'name'		=> 'form[currency_id]',
+								'value'		=> $price->currency_id,
+								'display_value' => $data['currencies'][$price->currency_id],
+								'label' => 'Валюта',
+								'rest_url' => '/admin/currency/json'
+							)); ?>
+						</td>
+						<!--<td>Валюта</td>
+						<td><?php
 							$this->insertTemplate('Form\SelectField', array(
 								'name'     => 'currency_id',
 								'values'   => $data['currencies'],
 								'selected' => $price->currency_id,
 								'empty'    => false,
 							)); ?>
-						</td>
+						</td>-->
 					</tr>
 					<tr>
 						<td>Цена</td>
@@ -92,9 +102,10 @@ class FormTemplate extends Template {
 							$this->insertTemplate('Form\SearchSelectField', array(
 								'name'		=> 'form[test]',
 								'value'		=> $price->currency_id,
-								'display_value' => 'test',
-								'label' => 'Тестовое поле'
-							)); ?>123
+								'display_value' => $data['currencies'][$price->currency_id],
+								'label' => 'Тестовое поле',
+								'rest_url' => '/admin/currency/json'
+							)); ?>
 						</td>
 					</tr>
 				</table>
