@@ -25,6 +25,7 @@ class PDODatabase implements IDatabase {
 		if (!$statement) {
 			Logger::obj()->error("PDO can not prepare SQL:" . $sql);
 		} else {
+			$this->lastQuery = $sql;
 			if ($statement->execute()) {
 				$result = $statement->fetchAll();
 				return true;

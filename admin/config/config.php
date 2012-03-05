@@ -49,6 +49,7 @@ return array(
 		'currency_add' => array('/currency/add',              'Currency', 'add'),
 		'currency_delete' => array('/currency/delete/{id}',   'Currency', 'delete'),
 		'currency_save' => array('/currency/save',            'Currency', 'save'),
+		'currency_json' => array('/currency/json/{name}',     'Currency', 'json'),
 
 		'price_edit' => array('/price/edit/{id}',       'Price', 'edit'),
 		'price_list' => array('/price/list',            'Price', 'list'),
@@ -92,6 +93,12 @@ return array(
 		'resort_delete' => array('/resort/delete/{id}',   'Resort', 'delete'),
 		'resort_save' => array('/resort/save',            'Resort', 'save'),
 
+		'customer_edit' => array('/customer/edit/{id}',       'Customer', 'edit'),
+		'customer_list' => array('/customer/list',            'Customer', 'list'),
+		'customer_add' => array('/customer/add',              'Customer', 'add'),
+		'customer_delete' => array('/customer/delete/{id}',   'Customer', 'delete'),
+		'customer_save' => array('/customer/save',            'Customer', 'save'),
+
 		'carrentoffice_edit' => array('/carrentoffice/edit/{id}',       'CarRentOffice', 'edit'),
 		'carrentoffice_list' => array('/carrentoffice/list',            'CarRentOffice', 'list'),
 		'carrentoffice_add' => array('/carrentoffice/add',              'CarRentOffice', 'add'),
@@ -109,7 +116,7 @@ return array(
 				'discount_list' => array('title' => 'Скидки', 'route' => 'discount_list', 'params' => array()),
 				'beach_list' => array('title' => 'Пляж',     'route' => 'beach_list',   'params' => array()),
 				'resort_list' => array('title' => 'Курорты',     'route' => 'resort_list',   'params' => array()),
-				'carrentoffice_list' => array('title' => 'Конторы по прокату авто',     'route' => 'carrentoffice_list',   'params' => array()),
+				'customer_list' => array('title' => 'Клиент',     'route' => 'customer_list',   'params' => array()),
 			)
 		),
 		'sys' => array(
