@@ -35,7 +35,7 @@ class ListTemplate extends Template {
                     else echo $item->name;?>
 				</td>
 				<td><?php echo $item->percent;?></td>
-				<td><?php echo $data['customers'][$item->id];?></td>
+				<td><?php echo $data['customers'][$item->customer_id];?></td>
 				<td><?php echo $item->rating;?></td>
 				<td>
                     <?php $this->showLink('&nbsp;X&nbsp;','carrentoffice_delete', array('id' => $item->id),

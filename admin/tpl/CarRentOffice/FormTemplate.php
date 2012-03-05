@@ -28,7 +28,7 @@ class FormTemplate extends Template {
 		<a href="<?php echo $this->getUrl('carrentoffice_add') ?>">[Добавить]</a>
 	</div>
 	<div class="group">
-		<div class="capture"><?php echo $carrentoffice ? 'Редактирование %OBJECT_NAME%' : 'Создание %OBJECT_NAME%';?></div>
+		<div class="capture"><?php echo $carrentoffice ? 'Редактирование' : 'Создание';?></div>
 		<div id="tabs">
 			<a href="#general">Общие</a>
 		</div>
@@ -47,7 +47,7 @@ class FormTemplate extends Template {
 					</tr>
 					<tr>
 						<td>Процент залога</td>
-						<td><input name="form[percent]" minlength="2" value="<?php echo floatval($carrentoffice->percent); ?>"/></td>
+						<td><input name="form[percent]" value="<?php echo floatval($carrentoffice->percent); ?>"/></td>
 					</tr>
 					<tr>
 						<td>Клиент</td>
@@ -61,7 +61,7 @@ class FormTemplate extends Template {
 					</tr>
 					<tr>
 						<td>Рейтинг</td>
-						<td><input name="form[rating]" minlength="2" value="<?php echo intval($carrentoffice->rating); ?>"/></td>
+						<td><input name="form[rating]" value="<?php echo intval($carrentoffice->rating); ?>"/></td>
 					</tr>
 				</table>
 			</div>

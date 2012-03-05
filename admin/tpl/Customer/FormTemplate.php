@@ -28,7 +28,7 @@ class FormTemplate extends Template {
 		<a href="<?php echo $this->getUrl('customer_add') ?>">[Добавить]</a>
 	</div>
 	<div class="group">
-		<div class="capture"><?php echo $customer ? 'Редактирование %OBJECT_NAME%' : 'Создание %OBJECT_NAME%';?></div>
+		<div class="capture"><?php echo $customer ? 'Редактирование' : 'Создание';?></div>
 		<div id="tabs">
 			<a href="#general">Общие</a>
 		</div>
