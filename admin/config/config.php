@@ -117,6 +117,7 @@ return array(
 				'beach_list' => array('title' => 'Пляж',     'route' => 'beach_list',   'params' => array()),
 				'resort_list' => array('title' => 'Курорты',     'route' => 'resort_list',   'params' => array()),
 				'customer_list' => array('title' => 'Клиент',     'route' => 'customer_list',   'params' => array()),
+				'carrentoffice_list' => array('title' => 'Конторы по прокату авто',     'route' => 'carrentoffice_list',   'params' => array()),
 			)
 		),
 		'sys' => array(
