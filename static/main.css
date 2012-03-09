@@ -1,136 +1,374 @@
 html, body {
-    margin: 0px;
-    height: 100%;
-    font-family: Helvetica, Georgia, Arial, sans-serif;
+	margin: 0px;
+	height: 100%;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
 }
-
 div {
-    font-size: 0.95em;
+	//font-size: 1em;
 }
-
 a {
-    color: red;
+	color: red;
+	text-decoration: underline;
 }
-
 a:visited {
-    color: #8b0000;
+	color: #8b0000;
 }
-
+img {
+	border: none;
+}
 .page {
-    width: 966px;
-    margin: 0px auto;
+	min-width: 967px;
+	width: 967px;
+	margin: 0px auto;
 }
-
 #container {
-    background-color: #5da644;
-    min-height: 100%;
-    font-family: Helvetica, Georgia, Arial, sans-serif;
+	min-height: 100%;
+	font-family: Helvetica, Georgia, Arial, sans-serif;
+	background-color: white;
 }
-
 #header {
-    background-color: #ffc0cb;
+ // background-color: #ffc0cb;
 }
-
 #content {
-    background-color: #add8e6;
+	background-color: #add8e6;
 }
-
 #footer {
-    background-color: #fcefa1;
-    margin-bottom: 0px;
-    margin-top: -430px;
+	background-color: #fcefa1;
+	margin-bottom: 0px;
+	margin-top: -430px;
 }
-
+#footerstub {
+	margin: 0px;
+	height: 430px;
+}
 #footer h1 {
-    font-size: 1.55em;
-    font-weight: normal;
+	font-size: 1.55em;
+	font-weight: normal;
 }
-
 #countersbar {
-    height: 60px;
-    background-color: #ffffff;
-    width: 100%;
-    font-size: 0.8em;
+	height: 60px;
+	background-color: #ffffff;
+	width: 100%;
+	font-size: 0.8em;
 }
-
 #counter {
-    margin-right: -322px;
-    margin-top: 25px;
-    width: 100%;
-    float: left;
+	margin-right: -322px;
+	margin-top: 25px;
+	width: 100%;
+	float: left;
 }
-
 #networks {
-    width: 322px;
-    float: left;
-    text-align: right;
-    margin-top: 25px;
+	width: 322px;
+	float: left;
+	text-align: right;
+	margin-top: 25px;
 }
-
 .lightgray {
-    background-color: #efefef;
-    float: left;
-    width: 100%;
-    position: relative;
-    right: 322px;
-    height: 280px;
+	background-color: #efefef;
+	float: left;
+	width: 100%;
+	position: relative;
+	right: 322px;
+	height: 280px;
 }
-
 .darkgray {
-    background-color: #e2e2e2;
-    float: left;
-    width: 100%;
-    position: relative;
-    overflow: hidden;
-    position: relative;
-    line-height: 1.5em;
+	background-color: #e2e2e2;
+	float: left;
+	width: 100%;
+	position: relative;
+	overflow: hidden;
+	position: relative;
+	line-height: 1.5em;
 }
-
 .lcol {
-    margin-right: -644px;
-    width: 100%;
-    float: left;
-    position: relative;
-    left: 322px;
+	margin-right: -644px;
+	width: 100%;
+	float: left;
+	position: relative;
+	left: 322px;
 }
-
 .lcol h1 {
-    margin: 40px 644px 10px 38px;
+	margin: 40px 644px 10px 38px;
 }
-
 .lcol>p {
-    margin: 17px 644px 10px 38px;
-    font-size: 1.08em;
+	margin: 17px 644px 10px 38px;
+	font-size: 1.08em;
 }
-
 .lcol ul {
-    list-style: none;
+	list-style: none;
 }
-
-.rcol {
-    width: 322px;
-    float: left;
-    position: relative;
-    left: 322px;
-}
-
 .rcol h1 {
-    margin: 40px 10px 10px 38px;
+	margin: 40px 10px 10px 38px;
 }
-
 .rcol>p {
-    margin: 17px 10px 10px 38px;
-    font-size: 1.08em;
+	margin: 17px 10px 10px 38px;
+	font-size: 1.08em;
 }
-
 #seo {
-    clear: both;
-    background-color: red;
-    height: 90px;
+	clear: both;
+	background-color: red;
+	height: 90px;
+}
+#seo p {
+	color: #ffffff;
+	font-size: 0.7em;
+	padding: 1em 3em;
+}
+#header #top {
+	height: 72px;
+}
+#header #image {
+	height: 138px;
+	background-image: url(img/heads/rivercabin.png);
+	background-repeat: no-repeat;
+}
+#header #menu {
+	height: 62px;
+	background-color:#ffcf00;
+	background-image: url(img/bg/menu_top.png);
+	background-repeat: repeat-x;
+	margin-top: 4px;
+}
+#header #banners {
+	height: 100px;
+}
+#logo {
+	z-index: 1000;
+	position: relative;
+	height: 100px;
+	width: 100px;
+	top: -52px;
+}
+.rcol {
+	width: 322px;
+	float: left;
+	position: relative;
+	left: 322px;
+}
+#menuitem {
+	float: left;
+	text-align: center;
+	font-size: 18px;
+	font-weight: bold;
+	text-decoration: underline;
+	padding: 18px 26px;
+	height: 26px;
+}
+.selected#menuitem {
+	background-color: white;
+	text-decoration:none;
 }
 
-#seo p {
-    color: #ffffff;
-    font-size: 0.7em;
-    padding: 1em 3em;
+.fold {
+	float: left;
+	overflow: hidden;
+	//background-color:#39C;
+}
+.foldbg{
+	background-color:#eeeeee;
+	//height: 100%;
+	position: relative;
+	//float: left;
+	margin-right: 3px;
+}
+#footerstub {
+	clear: both;
+}
+
+
+.foldbg.selected{
+	background-color:#ffcf00;
+}
+.foldbg.bottom {
+	margin-bottom: 11px;
+	top: -12px;
+}
+.foldbg.top {
+	//margin-top: 11px;
+	top: 12px;
+}
+.foldbg>*{position: relative;}
+.foldbg.top>*{
+	bottom: 12px;
+	}
+.foldbg.bottom>* {top: 12px;}
+
+.foldbl { background: url(img/bg/fold_bl.png) no-repeat left bottom;}
+.foldbr { background: url(img/bg/fold_br.png) no-repeat right bottom;}
+.foldbldark { background: url(img/bg/fold_bl_dark.png) no-repeat left bottom;}
+.foldbrdark { background: url(img/bg/fold_br_dark.png) no-repeat right bottom;}
+.foldtl { background: url(img/bg/fold_tl.png) no-repeat left top;}
+.foldtr { background: url(img/bg/fold_tr.png) no-repeat right top;}
+.selected .foldtl { background: url(img/bg/fold_tl_s.png) no-repeat left top;}
+.selected .foldtr { background: url(img/bg/fold_tr_s.png) no-repeat right top;}
+
+.foldtsdark { background: url(/static/img/bg/fold_b_sh_dark.png) repeat-x top; }
+.foldbs { background: url(/static/img/bg/fold_b_sh.png) repeat-x bottom; }
+.foldbsdark {
+	background: url(/static/img/bg/fold_b_sh_dark.png) repeat-x top; 
+	border-top: 1px white solid; 
+}
+.selected .foldbs { background: none; }
+
+.foldi {
+	background-color: #eeeeee;
+	margin: 0px 11px;
+	padding: 2px 0px;
+}
+.foldi.top {
+	background: url(/static/img/bg/fold_b_sh.png) repeat-x bottom #eeeeee;
+	min-height: 19px;
+	padding-top: 5px;
+}
+.foldi.bottom {
+	background: url(/static/img/bg/fold_b_sh_dark.png) repeat-x top #898989;
+	min-height: 19px;
+	padding-top: 5px;
+}
+.selected .foldi.top {
+	background: #ffcf00;
+	min-height: 19px;
+	//padding-top: 5px;
+}
+.fold .text { text-align:center; }
+
+.selected {
+	color: red;
+}
+
+#contentlcol {
+	float: left;
+	//background-color:red;
+	width: 245px;
+}
+#contentrcol {
+	margin-left: 245px;
+}
+#language {
+	float: left;
+}
+#currency {
+	float: left;
+}
+.fold_selected {
+	float: left;
+}
+#header #lcol {
+	min-width: 340px;
+	float:left;
+	overflow: hidden;
+}
+.black {
+	color: black;
+}
+.grey {
+	color: #828282;
+}
+.title {
+	font-size: 2em;
+	font-style: normal;
+	font-weight: normal;
+}
+.label {
+	font-size: 0.75em;
+	font-weight: normal;
+	text-transform: uppercase;
+	float: left;
+	text-align: right;
+}
+#mainsearch {
+	clear: both; 
+	background-color: #ffcf00; 
+	width: 210px;
+	padding: 15px;
+}
+#mainsearch select{
+	margin-top: 0px;
+	margin-bottom: 5px;
+}
+
+#mainsearch select.first{
+	margin-left: 55px;
+}
+#mainsearch select.firstd{
+	margin-left: 15px;
+}
+.lab {
+	 position: absolute; text-align:right; width:50px; height: 21px;line-height:21px;
+}
+
+.labd {
+	 position: absolute; text-align:right; width:10px; height: 21px;line-height:21px;
+}
+.white, a.white:visited{
+	color:white;
+}
+.bannercol {
+	margin:0px 1px;
+	float:left;width:240px; 
+}
+.bannercol.last {
+	margin-right:0px;
+	float:left;width:240px; text-align:right;
+}
+
+.itemblock{
+	//width: 100%;
+	min-height:26px;
+	background-color: #efefef;
+	border-radius: 13px;
+	padding: 4px;
+}
+
+#searchpad {
+	margin: 0px;
+	padding: 0px;
+	float:left;
+}
+#catfolds {
+	float:left;
+	margin: 0px;
+	padding: 0px;
+}
+
+.itemblock>.left {
+	float:left;
+	width:500px;
+}
+.itemblock>.left>.left {
+	float:left;
+	padding: 15px;
+}
+.itemblock>.right>.right {
+	margin-left:150px;
+}
+
+.outer_pad {
+	background-color: #e4e4e4;
+	border-radius: 9px;
+	border: solid white 1px;
+	overflow:hidden;
+	-webkit-box-shadow: inset 0px 3px 3px rgba(0,0,0,0.1);
+	-moz-box-shadow: inset 0px 3px 3px rgba(0,0,0,0.1);
+	box-shadow: inset 0px 3px 3px rgba(0,0,0,0.1);
+}
+.outer_pad div{
+	text-align:center;
+	padding: 10px;
+}
+.outer_pad div.white{
+	background-color: white;
+	color: black;
+}
+.rating_num {
+	font-size: 1.5em;
+	//font-weight: bold;
+}
+.pic_cont {
+	background-color: #fafafa;
+	text-align:center;
+	border-radius: 3px;
+	width: 127px;
+	padding: 1px;
 }
