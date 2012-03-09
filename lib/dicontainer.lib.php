@@ -3,11 +3,14 @@
 require_once('lib/requesthandler.web.lib.php');
 require_once('lib/dispatcher.lib.php');
 require_once('lib/session.lib.php');
+require_once 'lib/PDODatabase.php';
 
 //ctl classes
-
+require_once 'ctl/IndexCtl.php';
 //model classes
-
+require_once 'model/SettingModel.php';
+//view classes
+require_once 'view/TemplateView.php';
 
 class DIContainer extends Singletone{
 
@@ -43,8 +46,14 @@ class DIContainer extends Singletone{
 
 	//Controllers *********************************************************************************************** //
 
+	public function IndexCtl($dispatcher) {
+		return new IndexCtl($dispatcher);
+	}
 	// Views **************************************************************************************************** //
 
+	public function TemplateView($templateName){
+		return new TemplateView($templateName);
+	}
 
 	// Request matchers ********************************************************************************************* //
 
@@ -55,6 +64,9 @@ class DIContainer extends Singletone{
 
 	// Models ******************************************************************************************************* //
 
+	public function SettingModel() {
+		return new SettingModel($this->PDODatabase());
+	}
 	/**
 	 * @return AccountModel
 	 */
@@ -79,6 +91,10 @@ class DIContainer extends Singletone{
 	public function PGDatabase() {
 		if (isset($GLOBALS['DB_HOST']) && isset($GLOBALS['DB_DBNAME'])) return new PGDatabase($GLOBALS['DB_HOST'],$GLOBALS['DB_PORT'],$GLOBALS['DB_USER'],$GLOBALS['DB_PASSWD'],$GLOBALS['DB_DBNAME'],'utf-8');
 		else return new PGDatabase(DB_HOST, DB_PORT, DB_USER, DB_PASS, DB_NAME, CHARSET_DB);
+	}
+
+	public function PDODatabase() {
+		return new PDODatabase(DB_DSN, DB_USER, DB_PASS, DB_CHARSET);
 	}
 
 	public function Session() {

@@ -108,7 +108,7 @@ abstract class RequestMatcher implements IRequestMatcher{
 		}
 
 		$object = $dispatcher->di()->{$this->class}($dispatcher);
-		call_user_func_array(array($object, $this->method), $this->params);
+		return call_user_func_array(array($object, $this->method), $this->params);
 	}
 
 	private function relateUserToApplication(DIContainer $di) {
@@ -287,13 +287,8 @@ abstract class RequestHandler {
 				if ($matched['session'] && $matched['session'] instanceof ISession) {
 					$this->dispatcher->setSession($matched['session']);
 				}
-				if ($matched['userContainer'] && $matched['userContainer'] instanceof IUserContainer) {
-					$this->dispatcher->setUserContainer($matched['userContainer']);
-				}
-				$this->dispatcher->setUser($matched['user']);
-				$this->dispatcher->setToken($matched['token']);
 
-				$matcher->call($this->dispatcher);
+				echo $matcher->call($this->dispatcher);
 				break;
 			}
 		}

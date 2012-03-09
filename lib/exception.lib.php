@@ -99,7 +99,7 @@ class CommonException
 class NotFoundException	extends CommonException
 {
 	public function __construct() {
-		parent::__construct('Not Found', self::NOT_FOUND);
+		parent::__construct('Not Found exception.', self::NOT_FOUND);
 	}
 }
 
