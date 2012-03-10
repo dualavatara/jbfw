@@ -15,6 +15,11 @@ class TemplateView {
 	function __construct($templateName) {
 		$this->template = 'tplsrc/' . $templateName;
 	}
+
+	/**
+	 * @param $contextVars
+	 * @return string
+	 */
 	public function show($contextVars){
 		extract($contextVars);
 		ob_start();

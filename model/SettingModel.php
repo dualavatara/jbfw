@@ -10,6 +10,10 @@ require_once 'lib/model.lib.php';
 class SettingModel extends Model {
 	const PHONE_1		= 1;
 	const PHONE_2		= 2;
+	const FAX			= 3;
+	const SKYPE			= 4;
+	const ADDRESS		= 7;
+	const EMAIL			= 9;
 	/**
 	 * @param IDatabase $db
 	 */
@@ -26,4 +30,8 @@ class SettingModel extends Model {
 	}
 	public function getPhone1() { return $this->atId(SettingModel::PHONE_1)->value; }
 	public function getPhone2() { return $this->atId(SettingModel::PHONE_2)->value; }
+	public function getFax() { return $this->atId(SettingModel::FAX)->value; }
+	public function getSkype() { return $this->atId(SettingModel::SKYPE)->value; }
+	public function getAddress() { return $this->atId(SettingModel::ADDRESS)->value; }
+	public function getEmail() { return $this->atId(SettingModel::EMAIL)->value; }
 }
