@@ -1,10 +1,15 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
-		"http://www.w3.org/TR/html4/strict.dtd">
-<html>
+	"http://www.w3.org/TR/html4/strict.dtd">
+<html xmlns="http://www.w3.org/1999/html">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>JB Travel</title>
-<link rel="stylesheet" href="/static/main.css" type="text/css">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<meta name="author" content="<?php echo $settings->getTitle(); ?>">
+	<meta name="description" content="<?php echo $settings->getDescription(); ?>" >
+	<meta name="keywords" content="<?php echo $settings->getKeywords(); ?>" >
+	<title><?php echo $settings->getTitle(); ?></title>
+	<link rel="stylesheet" href="/static/main.css" type="text/css">
+	<link rel="icon" href="/favicon.ico" type="image/x-icon">
+	<link rel="shortcut icon" href="/desktop.ico" type="image/x-icon">
 </head>
 <body>
 <div id="container" class="page">
@@ -62,179 +67,190 @@
 			</div>
 			<div id="rcol">
 				<div id="lcol">
-					<div class="label grey" style="margin-top: 15px;width: 8em;text-align: right;margin-right: 5px;">В РОССИИ:</div>
-					<div class="title black" style="margin-top: 6px; float:left"><?php echo $settings->getPhone1(); ?></div>
-					<div style"></div>
-					<div class="label grey" style="margin:9px 0px; clear:left;margin-right: 5px;">В ЧЕРНОГОРИИ:</div>
-					<div class="title black" style="float:left;"><?php echo $settings->getPhone2(); ?></div>
+					<div class="label grey" style="margin-top: 15px;width: 8em;text-align: right;margin-right: 5px;">В
+						РОССИИ:
+					</div>
+					<div class="title black"
+						 style="margin-top: 6px; float:left"><?php echo $settings->getPhone1(); ?></div>
+					<div style
+					">
 				</div>
-				<div id="rcol"></div>
+				<div class="label grey" style="margin:9px 0px; clear:left;margin-right: 5px;">В ЧЕРНОГОРИИ:</div>
+				<div class="title black" style="float:left;"><?php echo $settings->getPhone2(); ?></div>
 			</div>
-		</div>
-		<div id="image">
-			<div id="logo"><a href="/"><img src="../static/img/logo.png" width="290" height="131"></a></div>
-			<img src="../static/img/0.png" width="966" height="1"> </div>
-		<div id="menu" style="overflow:visible;">
-			<div id="menuitem">Аренда авто</div>
-			<div id="menuitem" class="selected">Аренда жилья</div>
-			<div id="menuitem">Продажа авто</div>
-			<div id="menuitem">Недвижимость</div>
-			<div id="menuitem">Услуги</div>
-			<div id="menuitem">Советы</div>
-		</div>
-		<div id="banners" style="overflow:visible">
-			<div class="bannercol"><img src="../static/img/sample_banner_100.png" width="240" height="100"></div>
-			<div class="bannercol"><img src="../static/img/sample_banner_100.png" width="240" height="100"></div>
-			<div class="bannercol"><img src="../static/img/sample_banner_100.png" width="240" height="100"></div>
-			<div class="bannercol last"><img src="../static/img/sample_banner_100.png" width="240" height="100"></div>
-		</div>
-		<div class="title black" style="line-height:64px;">
-			<div id="lcol">Искать на сайте:</div>
-			<div id="rcol" style="text-align:center;">Лучшие предложения по Черногории</div>
+			<div id="rcol"></div>
 		</div>
 	</div>
-	<div id="content">
-		<div id="contentlcol">
-			<div id="searchpad">
-				<form action="/search" method="post" enctype="application/x-www-form-urlencoded" name="form1">
-					<div id="catfolds"><div class="fold"><div class="foldbg top selected">
-								<div class="foldtl">
-									<div class="foldtr">
-										<div class="foldbs">
-											<div class="foldi top">
-												<div class="text">недвижимость</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="fold">
-							<div class="foldbg top">
-								<div class="foldtl">
-									<div class="foldtr">
-										<div class="foldbs">
-											<div class="foldi top">
-												<div class="text">авто</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="fold">
-							<div class="foldbg top">
-								<div class="foldtl">
-									<div class="foldtr">
-										<div class="foldbs">
-											<div class="foldi top">
-												<div class="text">отдых</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div id="mainsearch">
-						<p>
-							<label class="lab">цель</label>
-							<select name="target" id="target" class="first">
-								<option selected>Аренда</option>
-							</select>
-						</p>
-						<p>
-							<label class="labd">c</label>
-							<select name="from_day2" id="from_day2" class="firstd">
-								<option selected>01</option>
-							</select>
-							<select name="from_month" id="from_month">
-								<option selected>01</option>
-							</select>
-							<select name="from_year2" id="from_year2">
-								<option selected>2012</option>
-							</select>
-							<span><img src="../static/img/icons/calendar.png" width="24" height="18" hspace="0" align="absmiddle"></span> <br>
-							<label class="labd">по</label>
-							<select name="from_day2" id="from_day2" class="firstd">
-								<option selected>01</option>
-							</select>
-							<select name="from_month" id="from_month">
-								<option selected>01</option>
-							</select>
-							<select name="from_year2" id="from_year2">
-								<option selected>2012</option>
-							</select>
-						<img src="../static/img/icons/calendar.png" width="24" height="18" hspace="0" align="absmiddle"></p>
-						<p>
-							<label class="lab">страна</label>
-							<select name="country" id="country" class="first">
-								<option selected>Черногория</option>
-							</select>
-							<br>
-							<label class="lab">город</label>
-							<select name="country" id="country" class="first">
-								<option selected>Цетине</option>
-							</select>
-						</p>
-						<p>
-							<label for="type" class="lab">тип</label>
-							<select name="type" id="type" class="first">
-								<option selected>Апартаменты</option>
-							</select>
-							<br>
-							<label class="lab">S(м&#178;)</label>
-							<select name="country" id="country" class="first">
-								<option selected>до 100 м&#178;</option>
-							</select>
-						</p>
-					</div>
-					<div id="exsearch_fold">
-						<div class="fold">
-							<div class="foldbg bottom" style="background-color: #898989; ">
-								<div class="foldbldark">
-									<div class="foldbrdark">
-										<div class="foldbsdark">
-											<div class="foldi bottom">
-												<div class="text" style="width: 218px;padding: 5px 0px ;"><a class="white" href="#">дополнительные параметры поиска</a></div>
-											</div>
+	<div id="image">
+		<div id="logo"><a href="/"><img src="../static/img/logo.png" width="290" height="131"></a></div>
+		<img src="../static/img/0.png" width="966" height="1"></div>
+	<div id="menu" style="overflow:visible;">
+		<div id="menuitem">Аренда авто</div>
+		<div id="menuitem" class="selected">Аренда жилья</div>
+		<div id="menuitem">Продажа авто</div>
+		<div id="menuitem">Недвижимость</div>
+		<div id="menuitem">Услуги</div>
+		<div id="menuitem">Советы</div>
+	</div>
+	<div id="banners" style="overflow:visible">
+		<div class="bannercol"><img src="../static/img/sample_banner_100.png" width="240" height="100"></div>
+		<div class="bannercol"><img src="../static/img/sample_banner_100.png" width="240" height="100"></div>
+		<div class="bannercol"><img src="../static/img/sample_banner_100.png" width="240" height="100"></div>
+		<div class="bannercol last"><img src="../static/img/sample_banner_100.png" width="240" height="100"></div>
+	</div>
+	<div class="title black" style="line-height:64px;">
+		<div id="lcol">Искать на сайте:</div>
+		<div id="rcol" style="text-align:center;">Лучшие предложения по Черногории</div>
+	</div>
+</div>
+<div id="content">
+	<div id="contentlcol">
+		<div id="searchpad">
+			<form action="/search" method="post" enctype="application/x-www-form-urlencoded" name="form1">
+				<div id="catfolds">
+					<div class="fold">
+						<div class="foldbg top selected">
+							<div class="foldtl">
+								<div class="foldtr">
+									<div class="foldbs">
+										<div class="foldi top">
+											<div class="text">недвижимость</div>
 										</div>
 									</div>
 								</div>
 							</div>
 						</div>
 					</div>
-				</form>
-			</div>
-			<div style="clear:both"><img src="../static/img/sample_banner_350.png" width="240" height="350">
-			</div>
-			<div><img src="../static/img/sample_banner_100.png" width="240" height="100"> </div>
-			<div><img src="../static/img/sample_banner_100.png" width="240" height="100"> </div>
+					<div class="fold">
+						<div class="foldbg top">
+							<div class="foldtl">
+								<div class="foldtr">
+									<div class="foldbs">
+										<div class="foldi top">
+											<div class="text">авто</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="fold">
+						<div class="foldbg top">
+							<div class="foldtl">
+								<div class="foldtr">
+									<div class="foldbs">
+										<div class="foldi top">
+											<div class="text">отдых</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div id="mainsearch">
+					<p>
+						<label class="lab">цель</label>
+						<select name="target" id="target" class="first">
+							<option selected>Аренда</option>
+						</select>
+					</p>
+					<p>
+						<label class="labd">c</label>
+						<select name="from_day2" id="from_day2" class="firstd">
+							<option selected>01</option>
+						</select>
+						<select name="from_month" id="from_month">
+							<option selected>01</option>
+						</select>
+						<select name="from_year2" id="from_year2">
+							<option selected>2012</option>
+						</select>
+						<span><img src="../static/img/icons/calendar.png" width="24" height="18" hspace="0"
+								   align="absmiddle"></span> <br>
+						<label class="labd">по</label>
+						<select name="from_day2" id="from_day2" class="firstd">
+							<option selected>01</option>
+						</select>
+						<select name="from_month" id="from_month">
+							<option selected>01</option>
+						</select>
+						<select name="from_year2" id="from_year2">
+							<option selected>2012</option>
+						</select>
+						<img src="../static/img/icons/calendar.png" width="24" height="18" hspace="0" align="absmiddle">
+					</p>
+					<p>
+						<label class="lab">страна</label>
+						<select name="country" id="country" class="first">
+							<option selected>Черногория</option>
+						</select>
+						<br>
+						<label class="lab">город</label>
+						<select name="country" id="country" class="first">
+							<option selected>Цетине</option>
+						</select>
+					</p>
+					<p>
+						<label for="type" class="lab">тип</label>
+						<select name="type" id="type" class="first">
+							<option selected>Апартаменты</option>
+						</select>
+						<br>
+						<label class="lab">S(м&#178;)</label>
+						<select name="country" id="country" class="first">
+							<option selected>до 100 м&#178;</option>
+						</select>
+					</p>
+				</div>
+				<div id="exsearch_fold">
+					<div class="fold">
+						<div class="foldbg bottom" style="background-color: #898989; ">
+							<div class="foldbldark">
+								<div class="foldbrdark">
+									<div class="foldbsdark">
+										<div class="foldi bottom">
+											<div class="text" style="width: 218px;padding: 5px 0px ;"><a class="white"
+																										 href="#">дополнительные
+												параметры поиска</a></div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</form>
 		</div>
-		<div id="contentrcol">
-			<div class="itemblock">
+		<div style="clear:both"><img src="../static/img/sample_banner_350.png" width="240" height="350">
+		</div>
+		<div><img src="../static/img/sample_banner_100.png" width="240" height="100"></div>
+		<div><img src="../static/img/sample_banner_100.png" width="240" height="100"></div>
+	</div>
+	<div id="contentrcol">
+		<div class="itemblock">
+			<div class="left">
 				<div class="left">
-					<div class="left">
-						<div class="pic_cont">
-							<img src="../static/img/sample_banner_100.png" width="125" height="125">
-							<a style="line-height:22px;" href="#">подробнее</a>
-						</div>
+					<div class="pic_cont">
+						<img src="../static/img/sample_banner_100.png" width="125" height="125">
+						<a style="line-height:22px;" href="#">подробнее</a>
 					</div>
-					<div class="right">test</div>
 				</div>
-				<div class="right">
-					<div class="outer_pad">
-						<div>оценка <span class="rating_num"><b>9,0</b></span> (отзывы <a href"#">319</a>)</div>
-						<div class="white">курорт: <span class="rating_num" style="color:red;">Бар</span><br>
+				<div class="right">test</div>
+			</div>
+			<div class="right">
+				<div class="outer_pad">
+					<div>оценка <span class="rating_num"><b>9,0</b></span> (отзывы <a href"#">319</a>)</div>
+					<div class="white">курорт: <span class="rating_num" style="color:red;">Бар</span><br>
 						<a href="#">смотреть на карте</a></div>
-						<div class="rating_num">EUR <span  style="color:red;"><b>109.99</b></span></div>
-						<div style="padding:0px;"><img src="../static/img/buttons/order.png" width="152" height="30"></div>
-					</div>
+					<div class="rating_num">EUR <span style="color:red;"><b>109.99</b></span></div>
+					<div style="padding:0px;"><img src="../static/img/buttons/order.png" width="152" height="30"></div>
 				</div>
 			</div>
 		</div>
 	</div>
-	<div id="footerstub">&nbsp;</div>
+</div>
+<div id="footerstub">&nbsp;</div>
 </div>
 <div id="footer" class="page">
 	<div class="darkgray">
@@ -250,7 +266,8 @@
 			</div>
 			<div class="rcol">
 				<h1>Полезная информация</h1>
-				<p> <a href="#">Testlink</a><br>
+
+				<p><a href="#">Testlink</a><br>
 					<a href="#">Testlink</a><br>
 					<a href="#">Testlink</a><br>
 					<a href="#">Testlink</a><br>
@@ -258,29 +275,91 @@
 					<a href="#">Testlink</a><br>
 				</p>
 			</div>
-			<div class="rcol">
+			<div class="rcol" id="contacts">
 				<h1>Свяжитесь с нами</h1>
 				<?php
-				    //if ($settings-
-				?><p>Черногория (Montenegro) - жемчужина Средиземноморья, уникальна со всех сторон и располагается на юге
-					Адриатики.</p>
+				if ($settings->getAddress()) {
+					?><p><?php
+						echo $settings->getAddress();
+						?></p>
+					<?php
+				};
+				?>
+				<?php
+				if ($settings->getPhone1() | $settings->getPhone2() | $settings->getFax()) {
+					?>
+					<div class="record">
+						<div class="iconcol"><img src="/static/img/icons/phone.png"></div>
+						<div>
+							<?php
+							if ($settings->getPhone1()) {
+								?>
+								<?php echo $settings->getPhone1(); ?> - в Москве<br />
+								<?php
+							};
+							?>
+							<?php
+							if ($settings->getPhone1()) {
+								?>
+								<?php echo $settings->getPhone2(); ?> - в Черногории<br />
+								<?php
+							};
+							?>
+							<?php
+							if ($settings->getPhone1()) {
+								?>
+								<?php echo $settings->getFax(); ?> - факс<br />
+								<?php
+							};
+							?>
+						</div>
+					</div>
+					<?php
+				}
+				?>
+
+				<?php
+				if ($settings->getSkype()) {
+					?>
+					<div class="record">
+						<div class="iconcol"><a href="skype:<?php echo $settings->getSkype(); ?>?add"><img src="/static/img/icons/skype.png"></a></div>
+						<div class="middle">
+							<?php
+							if ($settings->getSkype()) {
+								?>
+								<a href="skype:<?php echo $settings->getSkype(); ?>?add"> <?php echo $settings->getSkype(); ?></a>
+								<?php
+							};
+							?>
+						</div>
+					</div>
+					<?php
+				}
+				?>
+
+				<?php
+				if ($settings->getEmail()) {
+					?>
+					<div class="record">
+						<div class="iconcol"><a href="mailto:<?php echo $settings->getEmail(); ?>"><img src="/static/img/icons/email.png"></a></div>
+						<div class="middle">
+							<?php
+							if ($settings->getEmail()) {
+								?>
+								<a href="mailto:<?php echo $settings->getEmail(); ?>"> <?php echo $settings->getEmail(); ?></a>
+								<?php
+							};
+							?>
+						</div>
+					</div>
+					<?php
+				}
+				?>
 			</div>
 		</div>
 	</div>
 	<div id="seo">
-		<p>Черногория (Montenegro) - жемчужина Средиземноморья, уникальна со всех сторон и располагается на юге
-			Адриатики.
-			Нет такого места, где бы Вы смогли найти на столь малой территории, такое количество натуральной природы,
-			красоты, тихих пляжей, чистых озёр, быстрых рек и великолепных гор, как Вы можете в маленькой и уютной
-			Черногории. В последние годы, для отдыха с детьми большую популярность получила аренда жилой недвижимости в
-			Черногории, а именно частные апартаменты и виллы. Черногория (Montenegro) - жемчужина Средиземноморья,
-			уникальна
-			со всех сторон и располагается на юге Адриатики. Нет такого места, где бы Вы смогли найти на столь малой
-			территории, такое количество натуральной природы, красоты, тихих пляжей, чистых озёр, быстрых рек и
-			великолепных
-			гор, как Вы можете в маленькой и уютной Черногории. В последние годы, для отдыха с детьми большую
-			популярность
-			получила аренда жилой недвижимости в Черногории, а именно частные апартаменты и виллы.</p>
+		<p><?php echo $settings->getSEOText(); ?></p>
 	</div>
 	<div id="countersbar">
 		<div id="counter">&copy; 2012. Все права защищены.</div>

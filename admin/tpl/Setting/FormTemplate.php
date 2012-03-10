@@ -43,7 +43,7 @@ class FormTemplate extends Template {
 					</tr>
 					<tr>
 						<td>Значение</td>
-						<td><input name="form[value]" minlength="2" value="<?php echo $setting->value; ?>"/></td>
+						<td><textarea rows="10" cols="40" name="form[value]"><?php echo $setting->value; ?></textarea></td>
 					</tr>
 				</table>
 			</div>

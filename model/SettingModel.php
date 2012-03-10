@@ -14,6 +14,10 @@ class SettingModel extends Model {
 	const SKYPE			= 4;
 	const ADDRESS		= 7;
 	const EMAIL			= 9;
+	const DESCRIPTION	= 10;
+	const TITLE			= 11;
+	const SEOTEXT		= 13;
+	const KEYWORDS		= 14;
 	/**
 	 * @param IDatabase $db
 	 */
@@ -34,4 +38,8 @@ class SettingModel extends Model {
 	public function getSkype() { return $this->atId(SettingModel::SKYPE)->value; }
 	public function getAddress() { return $this->atId(SettingModel::ADDRESS)->value; }
 	public function getEmail() { return $this->atId(SettingModel::EMAIL)->value; }
+	public function getSEOText() { return $this->atId(SettingModel::SEOTEXT)->value; }
+	public function getTitle() { return $this->atId(SettingModel::TITLE)->value; }
+	public function getDescription() { return $this->atId(SettingModel::DESCRIPTION)->value; }
+	public function getKeywords() { return $this->atId(SettingModel::KEYWORDS)->value; }
 }

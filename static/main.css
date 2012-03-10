@@ -372,3 +372,17 @@ img {
 	width: 127px;
 	padding: 1px;
 }
+
+#footer #contacts .iconcol {
+    float: left;
+    margin-left: 40px;
+    margin-right: 10px;
+    margin-bottom: -5px;
+}
+#footer #contacts .record {
+    clear: left;
+}
+
+#footer #contacts .middle {
+    padding: 16px 0px;
+}
