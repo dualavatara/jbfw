@@ -37,7 +37,7 @@ img {
  // background-color: #ffc0cb;
 }
 #content {
-	background-color: #add8e6;
+	//background-color: #add8e6;
 }
 #footer {
 	background-color: #fcefa1;
@@ -391,4 +391,33 @@ img {
 
 #footer #contacts .middle {
     padding: 16px 0px;
+}
+
+#article_block {
+    margin-top: 20px;
+}
+
+#article_block .frame {
+    border-radius: 9px;
+    border: solid 1px #aaaaaa;
+   // margin: 20px 2px;
+    padding: 5px;
+}
+.alcol {
+    width: 226px;
+    float:left;
+}
+.arcol {
+    //float:left;
+    margin-left: 242px;
+}
+#article_block h2{
+    color: red;
+    font-style: normal;
+    font-weight: normal;
+    margin: 5px 10px;
+}
+
+#article_block p {
+    margin: 0px 5px;
 }

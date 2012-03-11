@@ -34,19 +34,25 @@
 					$curId = Session::obj()->currency;
 					foreach ($currencies as $currency) {
 						?>
-						<?php if($curId != $currency->id) { ?><a class="hiddenlink" href="/currency?value=<?php echo $currency->id; ?>"><?php }; ?>
+						<?php if ($curId != $currency->id) { ?><a class="hiddenlink"
+																  href="/currency?value=<?php echo $currency->id; ?>"><?php
+						}
+						; ?>
 						<div class="fold">
 							<div class="foldbg bottom">
 								<div class="foldbl">
 									<div class="foldbr">
 										<div class="foldi">
-											<div class="text <?php if($curId == $currency->id) echo 'selected'; ?>"><i><?php echo $currency->name; ?></i></div>
+											<div class="text <?php if ($curId == $currency->id) echo 'selected'; ?>">
+												<i><?php echo $currency->name; ?></i></div>
 										</div>
 									</div>
 								</div>
 							</div>
 						</div>
-						<?php if($curId != $currency->id) { ?></a><?php }; ?>
+						<?php if ($curId != $currency->id) { ?></a><?php
+						}
+						; ?>
 						<?php
 					};
 					?>
@@ -235,6 +241,36 @@
 				</div>
 			</div>
 		</div>
+		<?php
+		$artOut = function ($article) {
+			?>
+			<h2 class="red"><?php echo $article->name;?></h2>
+			<img src="/s/<?php echo $article->photo_preview;?>">
+			<p><?php echo $article->content_short;?></p>
+			<?php
+		};
+		if ($articles->count()) {
+			?>
+			<div id="article_block">
+				<div class="alcol frame"><?php $artOut($articles[0]);?></div>
+				<?php
+				if ($articles->count() == 3) {
+					?>
+					<div class="arcol">
+						<div class="alcol frame"><?php $artOut($articles[1]);?></div>
+						<div class="arcol frame"><?php $artOut($articles[2]);?></div>
+					</div>
+					<?php
+				} else if ($articles->count() == 2) {
+					?>
+					<div class="arcol frame"><?php $artOut($articles[1]);?></div>
+					<?php
+				};
+				?>
+			</div>
+			<?php
+		};
+		?>
 	</div>
 </div>
 <div id="footerstub">&nbsp;</div>
@@ -256,11 +292,11 @@
 				<ul>
 					<?php
 					//var_dump($articlesUsefull->data);
-					foreach($articlesUsefull as $article) {
-					?>
-					<li><a href="/article"><?php echo $article->name; ?></a></li>
-					<?php
-};
+					foreach ($articlesUsefull as $article) {
+						?>
+						<li><a href="/article"><?php echo $article->name; ?></a></li>
+						<?php
+					};
 					?>
 				</ul>
 			</div>
@@ -354,7 +390,7 @@
 	</div>
 	<div id="countersbar">
 		<div id="counter">&copy; 2012. Все права защищены.</div>
-		<div id="networks">networks</div>
+		<div id="networks"><!--networks--></div>
 	</div>
 </div>
 </body>

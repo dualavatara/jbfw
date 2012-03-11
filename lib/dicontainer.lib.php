@@ -6,6 +6,7 @@ require_once 'lib/PDODatabase.php';
 
 //ctl classes
 require_once 'ctl/IndexCtl.php';
+require_once 'ctl/StaticCtl.php';
 
 //model classes
 require_once 'model/SettingModel.php';
@@ -51,6 +52,10 @@ class DIContainer extends Singletone{
 
 	public function IndexCtl($dispatcher) {
 		return new IndexCtl($dispatcher);
+	}
+
+	public function StaticCtl($dispatcher) {
+		return new StaticCtl($dispatcher);
 	}
 	// Views **************************************************************************************************** //
 

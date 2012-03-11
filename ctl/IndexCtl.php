@@ -4,16 +4,10 @@
  * Date: 3/9/12
  * Time: 7:48 PM
  */
-class IndexCtl {
 
-	/**
-	 * @var IDispatcher
-	 */
-	private $disp;
+require_once 'ctl/Ctl.php';
 
-	function __construct(IDispatcher $disp) {
-		$this->disp = $disp;
-	}
+class IndexCtl extends Ctl{
 
 	public function main() {
 		$settings = $this->disp->di()->SettingModel();
@@ -29,9 +23,18 @@ class IndexCtl {
 				_and()->eq('flags', ArticleModel::FLAG_VISIBLE)->
 				_and()->eq('flags', ArticleModel::FLAG_FOOTER)
 		)->order('ord', true)->exec();
+
+		$articles = $this->disp->di()->ArticleModel();
+		$articles->get()->filter(
+			$articles->filterExpr()->
+				eq('type', ArticleModel::TYPE_ARTICLE)->
+				_and()->eq('flags', ArticleModel::FLAG_VISIBLE)->
+				_and()->eq('flags', ArticleModel::FLAG_TOINDEX)
+		)->order('ord', true)->limit(3)->exec();
+
 		$view = $this->disp->di()->TemplateView('index.html');
 		$output = $view->show(array(
-			'settings' => $settings, 'currencies' => $currencies, 'articlesUsefull' => $articlesUsefull
+			'settings' => $settings, 'currencies' => $currencies, 'articlesUsefull' => $articlesUsefull, 'articles' => $articles
 		));
 		return $output;
 	}
