@@ -11,6 +11,8 @@ class WebRequestHandler extends RequestHandler implements IRequestHandler {
 
 //		$this->addMatcher($this->di->WebRequestMatcher('/^\/login$/', 'AuthFormCtl', 'login', IRequestMatcher::NO_AUTH_REQUIRED));
 		$this->addMatcher($this->di->WebRequestMatcher('/^\/$/', 'IndexCtl', 'main', IRequestMatcher::NO_AUTH_REQUIRED));
+		$this->addMatcher($this->di->WebRequestMatcher('/^\/lang$/', 'IndexCtl', 'setLang', IRequestMatcher::NO_AUTH_REQUIRED));
+		$this->addMatcher($this->di->WebRequestMatcher('/^\/currency$/', 'IndexCtl', 'setCurrency', IRequestMatcher::NO_AUTH_REQUIRED));
 	}
 
 	/**

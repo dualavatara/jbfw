@@ -2,7 +2,6 @@
 //lib classes
 require_once('lib/requesthandler.web.lib.php');
 require_once('lib/dispatcher.lib.php');
-require_once('lib/session.lib.php');
 require_once 'lib/PDODatabase.php';
 
 //ctl classes
@@ -102,10 +101,6 @@ class DIContainer extends Singletone{
 
 	public function PDODatabase() {
 		return new PDODatabase(DB_DSN, DB_USER, DB_PASS, DB_CHARSET);
-	}
-
-	public function Session() {
-		return Session::obj(new CacheSessionStorage($this->Cache(CACHE_CLASS)), $this->Generic());
 	}
 
 	public function Dispatcher() {

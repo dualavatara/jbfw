@@ -1,6 +1,6 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
 	"http://www.w3.org/TR/html4/strict.dtd">
-<html xmlns="http://www.w3.org/1999/html">
+<html xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	<meta name="author" content="<?php echo $settings->getTitle(); ?>">
@@ -31,44 +31,25 @@
 				</div>
 				<div id="currency">
 					<?php
+					$curId = Session::obj()->currency;
 					foreach ($currencies as $currency) {
 						?>
+						<?php if($curId != $currency->id) { ?><a class="hiddenlink" href="/currency?value=<?php echo $currency->id; ?>"><?php }; ?>
 						<div class="fold">
 							<div class="foldbg bottom">
 								<div class="foldbl">
 									<div class="foldbr">
 										<div class="foldi">
-											<div class="text"><i><?php echo $currency->name; ?></i></div>
+											<div class="text <?php if($curId == $currency->id) echo 'selected'; ?>"><i><?php echo $currency->name; ?></i></div>
 										</div>
 									</div>
 								</div>
 							</div>
 						</div>
+						<?php if($curId != $currency->id) { ?></a><?php }; ?>
 						<?php
 					};
 					?>
-					<div class="fold">
-						<div class="foldbg bottom">
-							<div class="foldbl">
-								<div class="foldbr">
-									<div class="foldi">
-										<div class="text"><i>евро</i></div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="fold">
-						<div class="foldbg bottom">
-							<div class="foldbl">
-								<div class="foldbr">
-									<div class="foldi">
-										<div class="text selected"><i>доллар</i></div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
 				</div>
 			</div>
 			<div id="rcol">
