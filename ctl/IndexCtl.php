@@ -22,9 +22,16 @@ class IndexCtl {
 		$currencies = $this->disp->di()->CurrencyModel();
 		$currencies->get()->all()->order('id')->exec();
 
+		$articlesUsefull = $this->disp->di()->ArticleModel();
+		$articlesUsefull->get()->filter(
+			$articlesUsefull->filterExpr()->
+				eq('type', ArticleModel::TYPE_USEFULL)->
+				_and()->eq('flags', ArticleModel::FLAG_VISIBLE)->
+				_and()->eq('flags', ArticleModel::FLAG_FOOTER)
+		)->order('ord', true)->exec();
 		$view = $this->disp->di()->TemplateView('index.html');
 		$output = $view->show(array(
-			'settings' => $settings, 'currencies' => $currencies
+			'settings' => $settings, 'currencies' => $currencies, 'articlesUsefull' => $articlesUsefull
 		));
 		return $output;
 	}

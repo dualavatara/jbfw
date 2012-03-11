@@ -16,6 +16,7 @@ class ArticleModel extends Model {
 	const TYPE_MISC 		= 6;
 
 	const FLAG_VISIBLE		= 0x0001;
+	const FLAG_FOOTER		= 0x0002;
 	/**
 	 * @param IDatabase $db
 	 */
@@ -27,7 +28,7 @@ class ArticleModel extends Model {
 		$this->field(new CharField('content'));
 		$this->field(new IntField('type'));
 		$this->field(new IntField('ord'));
-		$this->field(new IntField('flags'));
+		$this->field(new FlagsField('flags'));
 	}
 
 	public function getTypes() {
@@ -44,6 +45,7 @@ class ArticleModel extends Model {
 	public function getFlags() {
 		return array(
 			self::FLAG_VISIBLE => 'Видимый',
+			self::FLAG_FOOTER => 'Выводить в подвале',
 		);
 	}
 }

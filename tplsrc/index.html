@@ -253,14 +253,16 @@
 			</div>
 			<div class="rcol">
 				<h1>Полезная информация</h1>
-
-				<p><a href="#">Testlink</a><br>
-					<a href="#">Testlink</a><br>
-					<a href="#">Testlink</a><br>
-					<a href="#">Testlink</a><br>
-					<a href="#">Testlink</a><br>
-					<a href="#">Testlink</a><br>
-				</p>
+				<ul>
+					<?php
+					//var_dump($articlesUsefull->data);
+					foreach($articlesUsefull as $article) {
+					?>
+					<li><a href="/article"><?php echo $article->name; ?></a></li>
+					<?php
+};
+					?>
+				</ul>
 			</div>
 			<div class="rcol" id="contacts">
 				<h1>Свяжитесь с нами</h1>

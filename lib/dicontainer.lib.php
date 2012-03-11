@@ -10,6 +10,7 @@ require_once 'ctl/IndexCtl.php';
 //model classes
 require_once 'model/SettingModel.php';
 require_once 'model/CurrencyModel.php';
+require_once 'model/ArticleModel.php';
 
 //view classes
 require_once 'view/TemplateView.php';
@@ -72,6 +73,10 @@ class DIContainer extends Singletone{
 
 	public function CurrencyModel() {
 		return new CurrencyModel($this->PDODatabase());
+	}
+
+	public function ArticleModel() {
+		return new ArticleModel($this->PDODatabase());
 	}
 	/**
 	 * @return AccountModel
