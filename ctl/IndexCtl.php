@@ -19,8 +19,14 @@ class IndexCtl {
 	public function main() {
 		$settings = $this->disp->di()->SettingModel();
 		$settings->get()->all()->exec();
+
+		$currencies = $this->disp->di()->CurrencyModel();
+		$currencies->get()->all()->exec();
+
 		$view = $this->disp->di()->TemplateView('index.html');
-		$output = $view->show(array('settings' => $settings));
+		$output = $view->show(array(
+			'settings' => $settings, 'currencies' => $currencies
+		));
 		return $output;
 	}
 }

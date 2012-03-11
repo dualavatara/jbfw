@@ -4,8 +4,8 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	<meta name="author" content="<?php echo $settings->getTitle(); ?>">
-	<meta name="description" content="<?php echo $settings->getDescription(); ?>" >
-	<meta name="keywords" content="<?php echo $settings->getKeywords(); ?>" >
+	<meta name="description" content="<?php echo $settings->getDescription(); ?>">
+	<meta name="keywords" content="<?php echo $settings->getKeywords(); ?>">
 	<title><?php echo $settings->getTitle(); ?></title>
 	<link rel="stylesheet" href="/static/main.css" type="text/css">
 	<link rel="icon" href="/favicon.ico" type="image/x-icon">
@@ -30,17 +30,23 @@
 					</div>
 				</div>
 				<div id="currency">
-					<div class="fold">
-						<div class="foldbg bottom">
-							<div class="foldbl">
-								<div class="foldbr">
-									<div class="foldi">
-										<div class="text"><i>рубль</i></div>
+					<?php
+					foreach ($currencies as $currency) {
+						?>
+						<div class="fold">
+							<div class="foldbg bottom">
+								<div class="foldbl">
+									<div class="foldbr">
+										<div class="foldi">
+											<div class="text"><i><?php echo $currency->name; ?></i></div>
+										</div>
 									</div>
 								</div>
 							</div>
 						</div>
-					</div>
+						<?php
+					};
+					?>
 					<div class="fold">
 						<div class="foldbg bottom">
 							<div class="foldbl">
@@ -294,21 +300,21 @@
 							<?php
 							if ($settings->getPhone1()) {
 								?>
-								<?php echo $settings->getPhone1(); ?> - в Москве<br />
+								<?php echo $settings->getPhone1(); ?> - в Москве<br/>
 								<?php
 							};
 							?>
 							<?php
 							if ($settings->getPhone1()) {
 								?>
-								<?php echo $settings->getPhone2(); ?> - в Черногории<br />
+								<?php echo $settings->getPhone2(); ?> - в Черногории<br/>
 								<?php
 							};
 							?>
 							<?php
 							if ($settings->getPhone1()) {
 								?>
-								<?php echo $settings->getFax(); ?> - факс<br />
+								<?php echo $settings->getFax(); ?> - факс<br/>
 								<?php
 							};
 							?>
@@ -322,7 +328,8 @@
 				if ($settings->getSkype()) {
 					?>
 					<div class="record">
-						<div class="iconcol"><a href="skype:<?php echo $settings->getSkype(); ?>?add"><img src="/static/img/icons/skype.png"></a></div>
+						<div class="iconcol"><a href="skype:<?php echo $settings->getSkype(); ?>?add"><img
+							src="/static/img/icons/skype.png"></a></div>
 						<div class="middle">
 							<?php
 							if ($settings->getSkype()) {
@@ -341,7 +348,8 @@
 				if ($settings->getEmail()) {
 					?>
 					<div class="record">
-						<div class="iconcol"><a href="mailto:<?php echo $settings->getEmail(); ?>"><img src="/static/img/icons/email.png"></a></div>
+						<div class="iconcol"><a href="mailto:<?php echo $settings->getEmail(); ?>"><img
+							src="/static/img/icons/email.png"></a></div>
 						<div class="middle">
 							<?php
 							if ($settings->getEmail()) {
