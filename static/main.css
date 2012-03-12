@@ -4,9 +4,6 @@ html, body {
 	font-family: Arial, Helvetica, sans-serif;
 	font-size: 12px;
 }
-div {
-	//font-size: 1em;
-}
 a {
 	color: red;
 	text-decoration: underline;
@@ -33,12 +30,7 @@ img {
 	font-family: Helvetica, Georgia, Arial, sans-serif;
 	background-color: white;
 }
-#header {
- // background-color: #ffc0cb;
-}
-#content {
-	//background-color: #add8e6;
-}
+
 #footer {
 	background-color: #fcefa1;
 	margin-bottom: 0px;
@@ -126,15 +118,12 @@ img {
 }
 #header #image {
 	height: 138px;
-	background-image: url(img/heads/rivercabin.png);
-	background-repeat: no-repeat;
+    background: url(img/heads/rivercabin.png) no-repeat;
 }
 #header #menu {
 	height: 62px;
-	background-color:#ffcf00;
-	background-image: url(img/bg/menu_top.png);
-	background-repeat: repeat-x;
-	margin-top: 4px;
+    background: #ffcf00 url(img/bg/menu_top.png) repeat-x;
+    margin-top: 4px;
 }
 #header #banners {
 	height: 100px;
@@ -169,13 +158,10 @@ img {
 .fold {
 	float: left;
 	overflow: hidden;
-	//background-color:#39C;
 }
 .foldbg{
 	background-color:#eeeeee;
-	//height: 100%;
 	position: relative;
-	//float: left;
 	margin-right: 3px;
 }
 #footerstub {
@@ -191,7 +177,6 @@ img {
 	top: -12px;
 }
 .foldbg.top {
-	//margin-top: 11px;
 	top: 12px;
 }
 .foldbg>*{position: relative;}
@@ -235,7 +220,6 @@ img {
 .selected .foldi.top {
 	background: #ffcf00;
 	min-height: 19px;
-	//padding-top: 5px;
 }
 .fold .text { text-align:center; }
 
@@ -245,7 +229,6 @@ img {
 
 #contentlcol {
 	float: left;
-	//background-color:red;
 	width: 245px;
 }
 #contentrcol {
@@ -261,10 +244,15 @@ img {
 	float: left;
 }
 #header #lcol {
-	min-width: 245px;
+	min-width: 340px;
 	float:left;
 	overflow: hidden;
 }
+#hlcol {
+    min-width: 245px;
+    float:left;
+}
+
 .black {
 	color: black;
 }
@@ -322,7 +310,6 @@ img {
 }
 
 .itemblock{
-	//width: 100%;
 	min-height:26px;
 	background-color: #efefef;
 	border-radius: 13px;
@@ -371,7 +358,6 @@ img {
 }
 .rating_num {
 	font-size: 1.5em;
-	//font-weight: bold;
 }
 .pic_cont {
 	background-color: #fafafa;
@@ -402,7 +388,6 @@ img {
 #article_block .frame {
     border-radius: 9px;
     border: solid 1px #aaaaaa;
-   // margin: 20px 2px;
     padding: 5px;
 }
 .alcol {
@@ -410,8 +395,7 @@ img {
     float:left;
 }
 .arcol {
-    //float:left;
-    margin-left: 242px;
+    margin-left:242px;
 }
 #article_block h2{
     color: red;
