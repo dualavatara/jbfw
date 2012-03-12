@@ -60,7 +60,7 @@ class FileDataStorage implements IDataStorage {
 	}
 
 	public function output($key) {
-		$file = $this->getFileName($key);
+		$file = $this->getFileName(quoted_printable_decode($key));
 		flush();
 		
 		if (false === readfile($file)) {

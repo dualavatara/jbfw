@@ -5,3 +5,4 @@ coverage/
 sessions/
 phpunit.xml
 bootstrap.php
+static/data/

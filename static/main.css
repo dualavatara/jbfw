@@ -261,7 +261,7 @@ img {
 	float: left;
 }
 #header #lcol {
-	min-width: 340px;
+	min-width: 245px;
 	float:left;
 	overflow: hidden;
 }
@@ -312,7 +312,9 @@ img {
 }
 .bannercol {
 	margin:0px 1px;
-	float:left;width:240px; 
+	float:left;
+    width:240px;
+    height: 100px;
 }
 .bannercol.last {
 	margin-right:0px;

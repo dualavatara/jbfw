@@ -12,20 +12,33 @@ require_once 'ctl/StaticCtl.php';
 require_once 'model/SettingModel.php';
 require_once 'model/CurrencyModel.php';
 require_once 'model/ArticleModel.php';
+require_once 'model/BannerModel.php';
 
 //view classes
 require_once 'view/TemplateView.php';
 
+/**
+ *
+ */
 class DIContainer extends Singletone{
 
+	/**
+	 *
+	 */
 	public function __construct() {}
-	
+
+	/**
+	 * @return string
+	 */
 	public function getUrl() {
 		if ($_SERVER["SERVER_PORT"] == HTTPS_PORT) $proto = 'https';
 		else $proto = 'http';
 		return $proto . '://' . $_SERVER['HTTP_HOST'] . $_SERVER["DOCUMENT_URI"];
 	}
 
+	/**
+	 * @return mixed
+	 */
 	public function Language() {
 		if (!Language::instantiated()) {
 			$isMulti = !defined('MULTI_LANG') || !MULTI_LANG;
@@ -34,14 +47,25 @@ class DIContainer extends Singletone{
 		return Language::obj();
 	}
 
+	/**
+	 * @param IDispatcher $dispatcher
+	 * @return WebRequestHandler
+	 */
 	public function WebRequestHandler(IDispatcher $dispatcher) {
 		return new WebRequestHandler($dispatcher);
 	}
 
+	/**
+	 * @param $handler
+	 * @return BaseEntryHandler
+	 */
 	public function BaseEntryHandler($handler) {
 		return new BaseEntryHandler($handler);
 	}
 
+	/**
+	 * @return DataStorageMedia
+	 */
 	public function DataStorageMedia() {
 		require_once ('lib/datastorage.media.lib.php');
 		return new DataStorageMedia('.' . PATH_DATA);
@@ -50,21 +74,40 @@ class DIContainer extends Singletone{
 
 	//Controllers *********************************************************************************************** //
 
+	/**
+	 * @param $dispatcher
+	 * @return IndexCtl
+	 */
 	public function IndexCtl($dispatcher) {
 		return new IndexCtl($dispatcher);
 	}
 
+	/**
+	 * @param $dispatcher
+	 * @return StaticCtl
+	 */
 	public function StaticCtl($dispatcher) {
 		return new StaticCtl($dispatcher);
 	}
 	// Views **************************************************************************************************** //
 
+	/**
+	 * @param $templateName
+	 * @return TemplateView
+	 */
 	public function TemplateView($templateName){
 		return new TemplateView($templateName);
 	}
 
 	// Request matchers ********************************************************************************************* //
 
+	/**
+	 * @param $key
+	 * @param $class
+	 * @param $method
+	 * @param bool $authorisationRequired
+	 * @return WebRequestMatcher
+	 */
 	public function WebRequestMatcher($key, $class, $method, $authorisationRequired = true) {
 		return new WebRequestMatcher($key, $class, $method, $authorisationRequired);
 	}
@@ -72,26 +115,30 @@ class DIContainer extends Singletone{
 
 	// Models ******************************************************************************************************* //
 
+	/**
+	 * @return SettingModel
+	 */
 	public function SettingModel() {
 		return new SettingModel($this->PDODatabase());
 	}
 
+	/**
+	 * @return CurrencyModel
+	 */
 	public function CurrencyModel() {
 		return new CurrencyModel($this->PDODatabase());
 	}
 
+	/**
+	 * @return ArticleModel
+	 */
 	public function ArticleModel() {
 		return new ArticleModel($this->PDODatabase());
 	}
-	/**
-	 * @return AccountModel
-	 */
-//	public function AccountModel() {
-//		return new AccountModel($this->PGDatabase());
-//	}
 
-
-
+	public function BannerModel() {
+		return new BannerModel($this->PDODatabase());
+	}
 
 	// Misc ********************************************************************************************************* //
 
@@ -104,19 +151,34 @@ class DIContainer extends Singletone{
 		return new $class();
 	}
 
+	/**
+	 * @return PGDatabase
+	 */
 	public function PGDatabase() {
 		if (isset($GLOBALS['DB_HOST']) && isset($GLOBALS['DB_DBNAME'])) return new PGDatabase($GLOBALS['DB_HOST'],$GLOBALS['DB_PORT'],$GLOBALS['DB_USER'],$GLOBALS['DB_PASSWD'],$GLOBALS['DB_DBNAME'],'utf-8');
 		else return new PGDatabase(DB_HOST, DB_PORT, DB_USER, DB_PASS, DB_NAME, CHARSET_DB);
 	}
 
+	/**
+	 * @return PDODatabase
+	 */
 	public function PDODatabase() {
 		return new PDODatabase(DB_DSN, DB_USER, DB_PASS, DB_CHARSET);
 	}
 
+	/**
+	 * @return Dispatcher
+	 */
 	public function Dispatcher() {
 		return new Dispatcher($this);
 	}
 
+	/**
+	 * @param $name
+	 * @param $arguments
+	 * @return mixed
+	 * @throws FunzayLogicException
+	 */
 	public function __call($name, $arguments) {
 		if (!method_exists('DIContainer', $name))
 			throw new FunzayLogicException("Undefined DIContainer method call: " . $name);

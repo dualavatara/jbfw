@@ -7,6 +7,17 @@
 
 require_once 'lib/model.lib.php';
 
+class BannerSize {
+	public $width;
+	public $height;
+
+	function __construct($width, $height) {
+		$this->width = $width;
+		$this->height = $height;
+	}
+
+}
+
 /**
  *
  */
@@ -49,5 +60,15 @@ class BannerModel extends Model {
 			self::FLAG_HEAD => 'Блок под шапкой',
 			self::FLAG_LEFTCOL => 'Блок в левой колонке',
 		);
+	}
+
+	public function getSize($type) {
+		$width = 0;
+		$height = 0;
+		switch($type) {
+			case BannerModel::TYPE_240X100:$width = 240;$height = 100;break;
+			case BannerModel::TYPE_240X350:$width = 240;$height = 350;break;
+		}
+		return new BannerSize($width, $height);
 	}
 }

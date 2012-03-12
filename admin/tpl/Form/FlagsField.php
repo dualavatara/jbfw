@@ -35,7 +35,7 @@ class FlagsField extends Template {
 		</script>
 		<fieldset>
 			<legend><?php echo $data['title']; ?></legend>
-			<input type="hidden" id="<?php echo $data['name']; ?>" name="<?php echo $data['name']; ?>" value="<?php echo intval($data['value']->get());?>" />
+			<input type="hidden" id="<?php echo $data['name']; ?>" name="<?php echo $data['name']; ?>" value="<?php  if ($data['value']) echo intval($data['value']->get());?>" />
 			<?php
 			foreach($data['flags'] as $key => $value) {
 			?>

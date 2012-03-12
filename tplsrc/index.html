@@ -86,10 +86,17 @@
 		<div id="menuitem">Советы</div>
 	</div>
 	<div id="banners" style="overflow:visible">
-		<div class="bannercol"><img src="../static/img/sample_banner_100.png" width="240" height="100"></div>
-		<div class="bannercol"><img src="../static/img/sample_banner_100.png" width="240" height="100"></div>
-		<div class="bannercol"><img src="../static/img/sample_banner_100.png" width="240" height="100"></div>
-		<div class="bannercol last"><img src="../static/img/sample_banner_100.png" width="240" height="100"></div>
+		<?php
+		$i = 0;
+		foreach ($bannersHead as $banner) {
+			$i++;
+			?>
+			<div class="bannercol <?php if ($i >= $bannersHead->count()) echo "last"; ?>">
+				<img src="/s/<?php echo $banner->image; ?>" width="240" height="100">
+			</div>
+			<?php
+		};
+		?>
 	</div>
 	<div class="title black" style="line-height:64px;">
 		<div id="lcol">Искать на сайте:</div>
@@ -215,10 +222,15 @@
 				</div>
 			</form>
 		</div>
-		<div style="clear:both"><img src="../static/img/sample_banner_350.png" width="240" height="350">
-		</div>
-		<div><img src="../static/img/sample_banner_100.png" width="240" height="100"></div>
-		<div><img src="../static/img/sample_banner_100.png" width="240" height="100"></div>
+		<?php
+		foreach ($bannersLeft as $banner) {
+			$size = $bannersLeft->getSize($banner->type);
+			?>
+			<div><img src="/s/<?php echo $banner->image; ?>" width="<?php echo $size->width; ?>"
+					  height="<?php echo $size->height; ?>"></div>
+			<?php
+		};
+		?>
 	</div>
 	<div id="contentrcol">
 		<div class="itemblock">
