@@ -105,6 +105,12 @@ return array(
 		'carrentoffice_add' => array('/carrentoffice/add',              'CarRentOffice', 'add'),
 		'carrentoffice_delete' => array('/carrentoffice/delete/{id}',   'CarRentOffice', 'delete'),
 		'carrentoffice_save' => array('/carrentoffice/save',            'CarRentOffice', 'save'),
+
+		'banner_edit' => array('/banner/edit/{id}',       'Banner', 'edit'),
+		'banner_list' => array('/banner/list',            'Banner', 'list'),
+		'banner_add' => array('/banner/add',              'Banner', 'add'),
+		'banner_delete' => array('/banner/delete/{id}',   'Banner', 'delete'),
+		'banner_save' => array('/banner/save',            'Banner', 'save'),
 	),
 	
 	'menu' => array(
@@ -126,6 +132,7 @@ return array(
 			'sections' => array(
 				'user_list' => array('title' => 'Пользователи', 'route' => 'user_list', 'params' => array()),
 				'setting_list' => array('title' => 'Настройки сайта',     'route' => 'setting_list',   'params' => array()),
+				'banner_list' => array('title' => 'Баннеры',     'route' => 'banner_list',   'params' => array()),
 			)
 		),
 		'logout' => array(
