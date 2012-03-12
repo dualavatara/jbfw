@@ -24,7 +24,9 @@ class SettingsModelTest extends PHPUnit_PDO_Database_TestCase {
 	protected function getDataSet() {
 		return new PHPUnit_ArrayDataSet(array(
 			'settings' => array(
-				array('id' => 1, 'name' => 'test name', 'value' => 'test value')
+				array('id' => 1, 'name' => 'test name', 'value' => 'test value'),
+				array('id' => 2, 'name' => 'another test name', 'value' => 'second test value'),
+				array('id' => 3, 'name' => 'more test name', 'value' => 'third test value'),
 			)
 		));
 	}
@@ -51,6 +53,20 @@ class SettingsModelTest extends PHPUnit_PDO_Database_TestCase {
 	public function test__construct() {
 		$this->assertInstanceOf("CharField", $this->object->getField("name"));
 		$this->assertInstanceOf("CharField", $this->object->getField("value"));
+	}
+
+	/**
+	 * @covers SettingModel::atId
+	 */
+	public function testAtId() {
+		$this->object->get()->all()->exec();
+		$this->assertNull($this->object->atId(152));
+		$this->assertInstanceOf('ModelDataWrapper', $this->object->atId(2));
+		$this->assertEquals(array(
+				'id' => 2,
+				'name' => 'another test name',
+				'value' => 'second test value'
+			), $this->object->atId(2)->all());
 	}
 }
 

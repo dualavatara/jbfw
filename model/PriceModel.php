@@ -20,7 +20,7 @@ class PriceModel extends Model{
 		$this->field(new IntField("currency_id"));
 		$this->field(new RealField("value"));
 
-		$this->field(new IntField("flags"));
+		$this->field(new FlagsField("flags"));
 	}
 
 	public function getFlags() {

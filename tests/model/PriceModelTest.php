@@ -27,12 +27,39 @@ class PriceModelTest extends PHPUnit_PDO_Database_TestCase {
 				array('id' => 1, 'name' => 'Рубль', 'sign' => 'RUB', 'course' => '1'),
 				array('id' => 2, 'name' => 'Доллар', 'sign' => 'USD', 'course' => '31.2'),
 				array('id' => 3, 'name' => 'Евро', 'sign' => 'EUR', 'course' => '39.86'),
-			),
-			'price' => array(
-				array('id' => 1, 'start' => '2011-01-01', 'end' => '2011-01-31', 'currency_id' => 2, 'value' => 99.99, 'flags' => 0x0003),
-				array('id' => 2, 'start' => '2010-03-26', 'end' => '1011-01-31', 'currency_id' => 1, 'value' => 88.88, 'flags' => 0x0001),
-				array('id' => 3, 'start' => '1210-03-26', 'end' => '2011-07-03', 'currency_id' => 3, 'value' => 77.77, 'flags' => 0x0002),
-				array('id' => 4, 'start' => '1510-03-26', 'end' => '1511-01-31', 'currency_id' => 2, 'value' => 66.66, 'flags' => 0x0000),
+			), 'price' => array(
+				array(
+					'id' => 1,
+					'start' => '2011-01-01',
+					'end' => '2011-01-31',
+					'currency_id' => 2,
+					'value' => 99.99,
+					'flags' => 0x0003
+				),
+				array(
+					'id' => 2,
+					'start' => '2010-03-26',
+					'end' => '1011-01-31',
+					'currency_id' => 1,
+					'value' => 88.88,
+					'flags' => 0x0001
+				),
+				array(
+					'id' => 3,
+					'start' => '1210-03-26',
+					'end' => '2011-07-03',
+					'currency_id' => 3,
+					'value' => 77.77,
+					'flags' => 0x0002
+				),
+				array(
+					'id' => 4,
+					'start' => '1510-03-26',
+					'end' => '1511-01-31',
+					'currency_id' => 2,
+					'value' => 66.66,
+					'flags' => 0x0000
+				),
 			)
 		));
 	}
@@ -57,11 +84,21 @@ class PriceModelTest extends PHPUnit_PDO_Database_TestCase {
 	 * @covers PriceModel::__construct
 	 */
 	public function testConstruct() {
-		$this->assertInstanceOf("Field", $this->object->getField("flags"));
-		$this->assertInstanceOf("Field", $this->object->getField("start"));
-		$this->assertInstanceOf("Field", $this->object->getField("end"));
-		$this->assertInstanceOf("Field", $this->object->getField("currency_id"));
-		$this->assertInstanceOf("Field", $this->object->getField("value"));
+		$this->assertInstanceOf("IntField", $this->object->getField("id"));
+		$this->assertInstanceOf("FlagsField", $this->object->getField("flags"));
+		$this->assertInstanceOf("DateTimeWithTZField", $this->object->getField("start"));
+		$this->assertInstanceOf("DateTimeWithTZField", $this->object->getField("end"));
+		$this->assertInstanceOf("IntField", $this->object->getField("currency_id"));
+		$this->assertInstanceOf("RealField", $this->object->getField("value"));
+	}
+
+	/**
+	 * @covers PriceModel::getFlags
+	 */
+	public function testGetFlags() {
+		$this->assertEquals(array(
+				PriceModel::START_INVALID => 'Без начала', PriceModel::END_INVALID => 'Без конца'
+			), $this->object->getFlags());
 	}
 }
 
