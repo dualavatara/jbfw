@@ -30,11 +30,9 @@ class ModelTest extends PHPUnit_Framework_TestCase {
 
 	/**
 	 * @covers Model::__sleep
-	 * @todo   Implement test__sleep().
 	 */
 	public function test__sleep() {
-		// Remove the following lines when you implement this test.
-		$this->markTestIncomplete('This test has not been implemented yet.');
+		$this->assertEquals(array('data', 'fields', 'table'), $this->object->__sleep());
 	}
 
 	/**
@@ -47,46 +45,10 @@ class ModelTest extends PHPUnit_Framework_TestCase {
 	}
 
 	/**
-	 * @covers Model::setDb
-	 * @todo   Implement testSetDb().
-	 */
-	public function testSetDb() {
-		// Remove the following lines when you implement this test.
-		$this->markTestIncomplete('This test has not been implemented yet.');
-	}
-
-	/**
-	 * @covers Model::getDb
-	 * @todo   Implement testGetDb().
-	 */
-	public function testGetDb() {
-		// Remove the following lines when you implement this test.
-		$this->markTestIncomplete('This test has not been implemented yet.');
-	}
-
-	/**
 	 * @covers Model::getFields
 	 * @todo   Implement testGetFields().
 	 */
 	public function testGetFields() {
-		// Remove the following lines when you implement this test.
-		$this->markTestIncomplete('This test has not been implemented yet.');
-	}
-
-	/**
-	 * @covers Model::getArgs
-	 * @todo   Implement testGetArgs().
-	 */
-	public function testGetArgs() {
-		// Remove the following lines when you implement this test.
-		$this->markTestIncomplete('This test has not been implemented yet.');
-	}
-
-	/**
-	 * @covers Model::getData
-	 * @todo   Implement testGetData().
-	 */
-	public function testGetData() {
 		// Remove the following lines when you implement this test.
 		$this->markTestIncomplete('This test has not been implemented yet.');
 	}
@@ -105,7 +67,7 @@ class ModelTest extends PHPUnit_Framework_TestCase {
 	 */
 	public function testField() {
 		$this->object->field(new IntField("testfield", Field::PRIMARY_KEY));
-		$this->assertInstanceOf("Field", $this->object->getField("testfield"));
+		$this->assertInstanceOf("IntField", $this->object->getField("testfield"));
 	}
 
 	/**
@@ -130,15 +92,6 @@ class ModelTest extends PHPUnit_Framework_TestCase {
 	 * @todo   Implement testGetField().
 	 */
 	public function testGetField() {
-		// Remove the following lines when you implement this test.
-		$this->markTestIncomplete('This test has not been implemented yet.');
-	}
-
-	/**
-	 * @covers Model::getFilter
-	 * @todo   Implement testGetFilter().
-	 */
-	public function testGetFilter() {
 		// Remove the following lines when you implement this test.
 		$this->markTestIncomplete('This test has not been implemented yet.');
 	}
@@ -252,15 +205,6 @@ class ModelTest extends PHPUnit_Framework_TestCase {
 	}
 
 	/**
-	 * @covers Model::lastSql
-	 * @todo   Implement testLastSql().
-	 */
-	public function testLastSql() {
-		// Remove the following lines when you implement this test.
-		$this->markTestIncomplete('This test has not been implemented yet.');
-	}
-
-	/**
 	 * @covers Model::order
 	 * @todo   Implement testOrder().
 	 */
@@ -319,24 +263,6 @@ class ModelTest extends PHPUnit_Framework_TestCase {
 	 * @todo   Implement testRow().
 	 */
 	public function testRow() {
-		// Remove the following lines when you implement this test.
-		$this->markTestIncomplete('This test has not been implemented yet.');
-	}
-
-	/**
-	 * @covers Model::limit
-	 * @todo   Implement testLimit().
-	 */
-	public function testLimit() {
-		// Remove the following lines when you implement this test.
-		$this->markTestIncomplete('This test has not been implemented yet.');
-	}
-
-	/**
-	 * @covers Model::offset
-	 * @todo   Implement testOffset().
-	 */
-	public function testOffset() {
 		// Remove the following lines when you implement this test.
 		$this->markTestIncomplete('This test has not been implemented yet.');
 	}
