@@ -1,0 +1,1 @@
+ALTER TABLE  `banner` ADD  `link` TINYTEXT NOT NULL;

@@ -91,7 +91,8 @@
 			$i++;
 			?>
 			<div class="bannercol <?php if ($i >= $bannersHead->count()) echo "last"; ?>">
-				<img src="/s/<?php echo $banner->image; ?>" width="240" height="100">
+				<a href="<?php echo $banner->link; ?>"><img src="/s/<?php echo $banner->image; ?>" width="240"
+															height="100"></a>
 			</div>
 			<?php
 		};
@@ -225,8 +226,12 @@
 		foreach ($bannersLeft as $banner) {
 			$size = $bannersLeft->getSize($banner->type);
 			?>
-			<div><img src="/s/<?php echo $banner->image; ?>" width="<?php echo $size->width; ?>"
-					  height="<?php echo $size->height; ?>"></div>
+			<div>
+				<a href="<?php echo $banner->link; ?>">
+					<img src="/s/<?php echo $banner->image; ?>" width="<?php echo $size->width; ?>"
+						 height="<?php echo $size->height; ?>">
+				</a>
+			</div>
 			<?php
 		};
 		?>

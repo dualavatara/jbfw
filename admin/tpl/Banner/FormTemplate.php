@@ -40,6 +40,10 @@ class FormTemplate extends Template {
 			<div id="general">
 				<table>
 					<tr>
+						<td>Ссылка</td>
+						<td><input type="text" name="form[link]" class="required" value="<?php echo $banner->link ? : 'http://'; ?>"/></td>
+					</tr>
+					<tr>
 						<td>Тип</td>
 						<td><?php
 							$this->insertTemplate('Form\SelectField', array(

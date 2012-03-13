@@ -38,6 +38,7 @@ class BannerModel extends Model {
 		parent::__construct('banner', $db);
 
 		$this->field(new CharField('image'));
+		$this->field(new CharField('link'));
 		$this->field(new IntField('type'));
 		$this->field(new FlagsField('flags'));
 	}

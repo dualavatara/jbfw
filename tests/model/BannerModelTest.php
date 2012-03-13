@@ -26,6 +26,7 @@ class BannerModelTest extends PHPUnit_PDO_Database_TestCase {
 				array(
 					'id' => 1,
 					'image' => 'testimagekey.jpg',
+					'link' => 'http://someshit.com',
 					'type' => BannerModel::TYPE_240X100,
 					'flags' => BannerModel::FLAG_HEAD
 				)
@@ -57,6 +58,7 @@ class BannerModelTest extends PHPUnit_PDO_Database_TestCase {
 		$this->assertInstanceOf("IntField", $this->object->getField("id"));
 		$this->assertInstanceOf("IntField", $this->object->getField("type"));
 		$this->assertInstanceOf("CharField", $this->object->getField("image"));
+		$this->assertInstanceOf("CharField", $this->object->getField("link"));
 		$this->assertInstanceOf("FlagsField", $this->object->getField("flags"));
 	}
 

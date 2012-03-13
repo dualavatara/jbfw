@@ -24,6 +24,7 @@ class ListTemplate extends Template {
 			<th width="1%">id</th>
 			<th>Тип</th>
 			<th>Изображение</th>
+			<th>Ссылка</th>
 			<th>Флаги</th>
 			<th width="1%">&nbsp;</th>
 		</tr>
@@ -39,6 +40,9 @@ class ListTemplate extends Template {
 				</td>
 				<td>
 					<?php if ($item->image) $this->showLink($item->image, 'static', array('key' => $item->image),'class="lightbox" target="_blank"')?>
+				</td>
+				<td>
+					<?php if ($item->link) $this->showLink($item->link, 'static', array('key' => $item->link),'target="_blank"')?>
 				</td>
 				<td><?php
 					$flag = array();
