@@ -3,9 +3,10 @@ require_once('lib/exception.lib.php');
 require_once('lib/dicontainer.lib.php');
 require_once('lib/abstract.lib.php');
 
+require_once 'lib/Session.php';
 
 interface IDispatcher {
-	
+
 	/**
 	 * @abstract
 	 * @return array
@@ -27,6 +28,18 @@ interface IDispatcher {
 	 * @param \ISession $session
 	 */
 	public function setSession(ISession $session);
+
+	/**
+	 * @abstract
+	 * @param string $url    URL for redirect to
+	 */
+	public function redirect($url);
+
+	/**
+	 * @abstract
+	 * @return string
+	 */
+	public function getReferer();
 }
 
 class Dispatcher implements IDispatcher {
@@ -54,6 +67,8 @@ class Dispatcher implements IDispatcher {
 	public function __construct(DIContainer $di) {
 		$this->di = $di;
 
+		if (!Session::obj()->lang) Session::obj()->lang = DEFAULT_LANG;
+		if (!Session::obj()->currency) Session::obj()->currency = DEFAULT_CURRENCY;
 		$this->classes = array(
 			$this->di->WebRequestHandler($this)
 		);
@@ -66,11 +81,11 @@ class Dispatcher implements IDispatcher {
 	public function main() {
 		$handled = false;
 
-        foreach($this->classes as $class) {
-            $handled = $class->handle($_SERVER['REQUEST_URI']);
-            if ($handled) break;
-        }
-		
+		foreach ($this->classes as $class) {
+			$handled = $class->handle($_SERVER['REQUEST_URI']);
+			if ($handled) break;
+		}
+
 		if (!$handled) {
 			throw new NotFoundException();
 		}
@@ -79,7 +94,9 @@ class Dispatcher implements IDispatcher {
 	/**
 	 * @return array
 	 */
-	public function getRequest() { return $_REQUEST; }
+	public function getRequest() {
+		return $_REQUEST;
+	}
 
 	/**
 	 * @return DIContainer
@@ -96,7 +113,9 @@ class Dispatcher implements IDispatcher {
 	/**
 	 * @return ISession
 	 */
-	public function getSession() { return $this->session; }
+	public function getSession() {
+		return $this->session;
+	}
 
 	public function killSession() {
 		$this->session->clean();
@@ -109,5 +128,19 @@ class Dispatcher implements IDispatcher {
 	public function setSession(ISession $session) {
 		$this->session = $session;
 	}
+
+	/**
+	 */
+	public function redirect($url) {
+		header('Location: ' . $url);
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getReferer() {
+		return $_SERVER['HTTP_REFERER'];
+	}
 }
+
 ?>

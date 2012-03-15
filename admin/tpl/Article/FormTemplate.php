@@ -56,12 +56,29 @@ class FormTemplate extends Template {
 						</td>
 					</tr>
 					<tr>
+						<td>Текст статьи(короткий)</td>
+						<td>
+							<textarea rows="10" cols="40" name="form[content_short]"><?php echo $article->content_short; ?></textarea>
+						</td>
+					</tr>
+					<tr>
 						<td>Текст статьи</td>
 						<td>
 							<textarea rows="40" cols="40" name="form[content]"><?php echo $article->content; ?></textarea>
 						</td>
 					</tr>
 
+					<tr>
+						<td>Картинка(маленькая)</td>
+						<td>
+							<?php
+							$this->insertTemplate('Form\ImageField', array(
+								'name'     => 'photo_preview',
+								'key'   => $article->photo_preview,
+							));
+							?>
+						</td>
+					</tr>
 					<tr>
 						<td>Картинка</td>
 						<td>

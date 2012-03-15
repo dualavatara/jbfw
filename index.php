@@ -2,6 +2,8 @@
 
 
 require_once 'config/config.php';
+require_once 'lib/dicontainer.lib.php';
+require_once 'lib/logger.lib.php';
 
 if (defined('MAITENANCE_LOCK') && MAITENANCE_LOCK) {
 	require('static/html/maitenance.html');

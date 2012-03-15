@@ -22,14 +22,20 @@ class ArticleModelTest extends PHPUnit_PDO_Database_TestCase {
 	 * @return PHPUnit_Extensions_Database_DataSet_IDataSet
 	 */
 	protected function getDataSet() {
-		return new PHPUnit_ArrayDataSet(array('article' => array(array('id'      => 1,
-																	   'created' => '2012-02-29 00:30:12',
-																	   'name'    => 'test name',
-																	   'photo'   => 'img/123.jpg',
-																	   'content' => 'test content',
-																	   'type'    => 1,
-																	   'ord'     => 123,
-																	   'flags'   => 1),),));
+		return new PHPUnit_ArrayDataSet(array(
+			'article' => array(
+				array(
+					'id' => 1,
+					'created' => '2012-02-29 00:30:12',
+					'name' => 'test name',
+					'photo' => 'img/123.jpg',
+					'content' => 'test content',
+					'type' => 1,
+					'ord' => 123,
+					'flags' => 1
+				),
+			),
+		));
 	}
 
 	/**
@@ -52,19 +58,25 @@ class ArticleModelTest extends PHPUnit_PDO_Database_TestCase {
 	 * @covers ArticleModel::getTypes
 	 */
 	public function testGetTypes() {
-		$this->assertEquals(array(ArticleModel::TYPE_ARTICLE  => 'Статья',
-								  ArticleModel::TYPE_NEWS     => 'Новости',
-								  ArticleModel::TYPE_USEFULL  => 'Полезное',
-								  ArticleModel::TYPE_INFO     => 'Информация',
-								  ArticleModel::TYPE_CONTACTS => 'Контакты',
-								  ArticleModel::TYPE_MISC     => 'Другое'), $this->object->getTypes());
+		$this->assertEquals(array(
+			ArticleModel::TYPE_ARTICLE => 'Статья',
+			ArticleModel::TYPE_NEWS => 'Новости',
+			ArticleModel::TYPE_USEFULL => 'Полезное',
+			ArticleModel::TYPE_INFO => 'Информация',
+			ArticleModel::TYPE_CONTACTS => 'Контакты',
+			ArticleModel::TYPE_MISC => 'Другое'
+		), $this->object->getTypes());
 	}
 
 	/**
 	 * @covers ArticleModel::getFlags
 	 */
 	public function testGetFlags() {
-		$this->assertEquals(array(ArticleModel::FLAG_VISIBLE => 'Видимый',), $this->object->getFlags());
+		$this->assertEquals(array(
+			ArticleModel::FLAG_VISIBLE => 'Видимый',
+			ArticleModel::FLAG_FOOTER => 'Выводить в подвале',
+			ArticleModel::FLAG_TOINDEX => 'На главную',
+		), $this->object->getFlags());
 	}
 
 	/**
@@ -77,7 +89,7 @@ class ArticleModelTest extends PHPUnit_PDO_Database_TestCase {
 		$this->assertInstanceOf("CharField", $this->object->getField("content"));
 		$this->assertInstanceOf("IntField", $this->object->getField("type"));
 		$this->assertInstanceOf("IntField", $this->object->getField("ord"));
-		$this->assertInstanceOf("IntField", $this->object->getField("flags"));
+		$this->assertInstanceOf("FlagsField", $this->object->getField("flags"));
 	}
 }
 
