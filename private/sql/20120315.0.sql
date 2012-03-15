@@ -1,0 +1,1 @@
+UPDATE `settings` SET `name` = 'Текст для SEO' WHERE id = 13;
