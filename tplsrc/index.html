@@ -11,71 +11,75 @@
 	<link rel="shortcut icon" href="/desktop.ico" type="image/x-icon">
 </head>
 <body>
-<div id="container" class="page">
-	<div id="header">
-		<div id="top">
-			<div id="lcol">
-				<div id="language">
+<div id="container">
+<div id="header">
+	<div id="top">
+		<div id="lcol">
+			<div id="language">
+				<div class="fold">
+					<div class="foldbg bottom">
+						<div class="foldbl">
+							<div class="foldbr">
+								<div class="foldi">
+									<div class="text selected">RU</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div id="currency">
+				<?php
+				$curId = Session::obj()->currency;
+				foreach ($currencies as $currency) {
+					?>
+					<?php if ($curId != $currency->id) { ?><a class="hiddenlink"
+															  href="/currency?value=<?php echo $currency->id; ?>"><?php
+					}
+					; ?>
 					<div class="fold">
 						<div class="foldbg bottom">
 							<div class="foldbl">
 								<div class="foldbr">
 									<div class="foldi">
-										<div class="text selected">RU</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div id="currency">
-					<?php
-					$curId = Session::obj()->currency;
-					foreach ($currencies as $currency) {
-						?>
-						<?php if ($curId != $currency->id) { ?><a class="hiddenlink"
-																  href="/currency?value=<?php echo $currency->id; ?>"><?php
-						}
-						; ?>
-						<div class="fold">
-							<div class="foldbg bottom">
-								<div class="foldbl">
-									<div class="foldbr">
-										<div class="foldi">
-											<div class="text <?php if ($curId == $currency->id) echo 'selected'; ?>">
-												<i><?php echo $currency->name; ?></i></div>
+										<div class="text <?php if ($curId == $currency->id) echo 'selected'; ?>">
+											<i><?php echo $currency->name; ?></i>
 										</div>
 									</div>
 								</div>
 							</div>
 						</div>
-						<?php if ($curId != $currency->id) { ?></a><?php
-						}
-						; ?>
-						<?php
-					};
-					?>
-				</div>
-			</div>
-			<div id="rcol">
-				<div id="lcol">
-					<div class="label grey" style="margin-top: 15px;width: 8em;text-align: right;margin-right: 5px;">В
-						РОССИИ:
 					</div>
-					<div class="title black"
-						 style="margin-top: 6px; float:left"><?php echo $settings->getPhone1(); ?></div>
-					<div style
-					">
+					<?php if ($curId != $currency->id) { ?></a><?php
+					}
+					; ?>
+					<?php
+				};
+				?>
+			</div>
+		</div>
+		<div id="rcol">
+			<div id="lcol">
+				<div class="label grey" style="margin-top: 15px;width: 8em;text-align: right;margin-right: 5px;">
+					В РОССИИ:
 				</div>
-				<div class="label grey" style="margin:9px 0px; clear:left;margin-right: 5px;">В ЧЕРНОГОРИИ:</div>
-				<div class="title black" style="float:left;"><?php echo $settings->getPhone2(); ?></div>
+				<div class="title black" style="margin-top: 6px; float:left">
+					<?php echo $settings->getPhone1(); ?>
+				</div>
+				<div class="label grey" style="margin:9px 0px; clear:left;margin-right: 5px;">
+					В ЧЕРНОГОРИИ:
+				</div>
+				<div class="title black" style="float:left;">
+					<?php echo $settings->getPhone2(); ?>
+				</div>
 			</div>
 			<div id="rcol"></div>
 		</div>
 	</div>
 	<div id="image">
 		<div id="logo"><a href="/"><img src="../static/img/logo.png" width="290" height="131"></a></div>
-		<img src="../static/img/0.png" width="966" height="1"></div>
+		<img src="../static/img/0.png" width="966" height="1">
+	</div>
 	<div id="menu" style="overflow:visible;">
 		<div id="menuitem">Аренда авто</div>
 		<div id="menuitem" class="selected">Аренда жилья</div>
@@ -84,15 +88,15 @@
 		<div id="menuitem">Услуги</div>
 		<div id="menuitem">Советы</div>
 	</div>
-	<div id="banners" style="overflow:visible">
+	<div id="banners">
 		<?php
 		$i = 0;
 		foreach ($bannersHead as $banner) {
 			$i++;
 			?>
-			<div class="bannercol <?php if ($i >= $bannersHead->count()) echo "last"; ?>">
-				<a href="<?php echo $banner->link; ?>"><img src="/s/<?php echo $banner->image; ?>" width="240"
-															height="100"></a>
+			<div class="bannercol">
+				<a href="<?php echo $banner->link; ?>"><img src="/s/<?php echo $banner->image; ?>"
+															class="image"></a>
 			</div>
 			<?php
 		};
@@ -108,44 +112,14 @@
 		<div id="searchpad">
 			<form action="/search" method="post" enctype="application/x-www-form-urlencoded" name="form1">
 				<div id="catfolds">
-					<div class="fold">
-						<div class="foldbg top selected">
-							<div class="foldtl">
-								<div class="foldtr">
-									<div class="foldbs">
-										<div class="foldi top">
-											<div class="text">недвижимость</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
+					<div class="searchfold selected">
+						недвижимость
 					</div>
-					<div class="fold">
-						<div class="foldbg top">
-							<div class="foldtl">
-								<div class="foldtr">
-									<div class="foldbs">
-										<div class="foldi top">
-											<div class="text">авто</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
+					<div class="searchfold">
+						авто
 					</div>
-					<div class="fold">
-						<div class="foldbg top">
-							<div class="foldtl">
-								<div class="foldtr">
-									<div class="foldbs">
-										<div class="foldi top">
-											<div class="text">отдых</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
+					<div class="searchfold">
+						отдых
 					</div>
 				</div>
 				<div id="mainsearch">
@@ -290,114 +264,119 @@
 	</div>
 </div>
 <div id="footerstub">&nbsp;</div>
-</div>
 <div id="footer" class="page">
 	<div class="darkgray">
 		<div class="lightgray">
 			<div class="lcol">
-				<h1>Отдых в Черногории</h1>
-				<ul>
-					<li><a href="#">Testlink</a></li>
-					<li><a href="#">Testlink</a></li>
-					<li><a href="#">Testlink</a></li>
-					<li><a href="#">Testlink</a></li>
-				</ul>
+				<div class="footerblock">
+					<h1>Отдых в Черногории</h1>
+					<ul>
+						<li><a href="#">Testlink</a></li>
+						<li><a href="#">Testlink</a></li>
+						<li><a href="#">Testlink</a></li>
+						<li><a href="#">Testlink</a></li>
+					</ul>
+				</div>
 			</div>
 			<div class="rcol">
-				<h1>Полезная информация</h1>
-				<ul>
-					<?php
-					//var_dump($articlesUsefull->data);
-					foreach ($articlesUsefull as $article) {
+				<div class="footerblock">
+					<h1>Полезная информация</h1>
+					<ul>
+						<?php
+						//var_dump($articlesUsefull->data);
+						foreach ($articlesUsefull as $article) {
+							?>
+							<li><a href="/article"><?php echo $article->name; ?></a></li>
+							<?php
+						};
 						?>
-						<li><a href="/article"><?php echo $article->name; ?></a></li>
+					</ul>
+				</div>
+			</div>
+			<div class="rcol" id="contacts">
+				<div class="footerblock">
+					<h1>Свяжитесь с нами</h1>
+					<?php
+					if ($settings->getAddress()) {
+						?><p><?php
+							echo $settings->getAddress();
+							?></p>
 						<?php
 					};
 					?>
-				</ul>
-			</div>
-			<div class="rcol" id="contacts">
-				<h1>Свяжитесь с нами</h1>
-				<?php
-				if ($settings->getAddress()) {
-					?><p><?php
-						echo $settings->getAddress();
-						?></p>
 					<?php
-				};
-				?>
-				<?php
-				if ($settings->getPhone1() | $settings->getPhone2() | $settings->getFax()) {
-					?>
-					<div class="record">
-						<div class="iconcol"><img src="/static/img/icons/phone.png"></div>
-						<div>
-							<?php
-							if ($settings->getPhone1()) {
-								?>
-								<?php echo $settings->getPhone1(); ?> - в Москве<br/>
+					if ($settings->getPhone1() | $settings->getPhone2() | $settings->getFax()) {
+						?>
+						<div class="record">
+							<div class="iconcol"><img src="/static/img/icons/phone.png"></div>
+							<div>
 								<?php
-							};
-							?>
-							<?php
-							if ($settings->getPhone1()) {
+								if ($settings->getPhone1()) {
+									?>
+									<?php echo $settings->getPhone1(); ?> - в Москве<br/>
+									<?php
+								};
 								?>
-								<?php echo $settings->getPhone2(); ?> - в Черногории<br/>
 								<?php
-							};
-							?>
-							<?php
-							if ($settings->getFax()) {
+								if ($settings->getPhone1()) {
+									?>
+									<?php echo $settings->getPhone2(); ?> - в Черногории<br/>
+									<?php
+								};
 								?>
-								<?php echo $settings->getFax(); ?> - факс<br/>
 								<?php
-							};
-							?>
+								if ($settings->getFax()) {
+									?>
+									<?php echo $settings->getFax(); ?> - факс<br/>
+									<?php
+								};
+								?>
+							</div>
 						</div>
-					</div>
-					<?php
-				}
-				?>
+						<?php
+					}
+					?>
 
-				<?php
-				if ($settings->getSkype()) {
-					?>
-					<div class="record">
-						<div class="iconcol"><a href="skype:<?php echo $settings->getSkype(); ?>?add"><img
-							src="/static/img/icons/skype.png"></a></div>
-						<div class="middle">
-							<?php
-							if ($settings->getSkype()) {
-								?>
-								<a href="skype:<?php echo $settings->getSkype(); ?>?add"> <?php echo $settings->getSkype(); ?></a>
-								<?php
-							};
-							?>
-						</div>
-					</div>
 					<?php
-				}
-				?>
+					if ($settings->getSkype()) {
+						?>
+						<div class="record">
+							<div class="iconcol"><a href="skype:<?php echo $settings->getSkype(); ?>?add"><img
+								src="/static/img/icons/skype.png"></a></div>
+							<div class="middle">
+								<?php
+								if ($settings->getSkype()) {
+									?>
+									<a href="skype:<?php echo $settings->getSkype(); ?>?add"> <?php echo $settings->getSkype(); ?></a>
+									<?php
+								};
+								?>
+							</div>
+						</div>
+						<?php
+					}
+					?>
 
-				<?php
-				if ($settings->getEmail()) {
-					?>
-					<div class="record">
-						<div class="iconcol"><a href="mailto:<?php echo $settings->getEmail(); ?>"><img
-							src="/static/img/icons/email.png"></a></div>
-						<div class="middle">
-							<?php
-							if ($settings->getEmail()) {
-								?>
-								<a href="mailto:<?php echo $settings->getEmail(); ?>"> <?php echo $settings->getEmail(); ?></a>
-								<?php
-							};
-							?>
-						</div>
-					</div>
 					<?php
-				}
-				?>
+					if ($settings->getEmail()) {
+						?>
+						<div class="record">
+							<div class="iconcol"><a href="mailto:<?php echo $settings->getEmail(); ?>"><img
+								src="/static/img/icons/email.png"></a></div>
+							<div class="middle">
+								<?php
+								if ($settings->getEmail()) {
+									?>
+									<a href="mailto:<?php echo $settings->getEmail(); ?>"> <?php echo $settings->getEmail(); ?></a>
+									<?php
+								};
+								?>
+							</div>
+						</div>
+						<?php
+					}
+					?>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -408,6 +387,7 @@
 		<div id="counter">&copy; 2012. Все права защищены.</div>
 		<div id="networks"><!--networks--></div>
 	</div>
+</div>
 </div>
 </body>
 </html>

@@ -1,8 +1,11 @@
+/*Overal documen styles*/
+
 html, body {
-	margin: 0px;
+	margin: 0em;
 	height: 100%;
-	font-family: Arial, Helvetica, sans-serif;
+	font-family: Helvetica, Georgia, Arial, sans-serif;
 	font-size: 12px;
+    background-color: white;
 }
 a {
 	color: red;
@@ -11,64 +14,62 @@ a {
 a:visited {
 	color: #8b0000;
 }
-
 a.hiddenlink {
     color: black;
     text-decoration: none;
 }
-
 img {
 	border: none;
 }
-.page {
-	min-width: 967px;
-	width: 967px;
-	margin: 0px auto;
-}
 #container {
 	min-height: 100%;
-	font-family: Helvetica, Georgia, Arial, sans-serif;
-	background-color: white;
+    min-width: 80.583em;
+    width: 80.583em;
+    margin: 0px auto;
+}
+
+#content {
+    clear:both;
 }
 
 #footer {
-	background-color: #fcefa1;
-	margin-bottom: 0px;
-	margin-top: -430px;
+	//background-color: #fcefa1;
+	margin-bottom: 0em;
+	margin-top: -38em;
 }
 #footerstub {
-	margin: 0px;
-	height: 430px;
+	margin: 0em;
+	height: 38em;
 }
 #footer h1 {
 	font-size: 1.55em;
 	font-weight: normal;
 }
 #countersbar {
-	height: 60px;
+	height: 5em;
 	background-color: #ffffff;
 	width: 100%;
 	font-size: 0.8em;
 }
 #counter {
-	margin-right: -322px;
-	margin-top: 25px;
+	margin-right: -26.833em;
+	margin-top: 2em;
 	width: 100%;
 	float: left;
 }
 #networks {
-	width: 322px;
+	width: 26.833em;
 	float: left;
 	text-align: right;
-	margin-top: 25px;
+	margin-top: 2em;
 }
 .lightgray {
 	background-color: #efefef;
 	float: left;
 	width: 100%;
 	position: relative;
-	right: 322px;
-	height: 280px;
+	right: 26.833em;
+	height: 27em;
 }
 .darkgray {
 	background-color: #e2e2e2;
@@ -80,33 +81,24 @@ img {
 	line-height: 1.5em;
 }
 .lcol {
-	margin-right: -644px;
+	margin-right: -53.666em;
 	width: 100%;
 	float: left;
 	position: relative;
-	left: 322px;
+	left: 26.833em;
 }
-.lcol h1 {
-	margin: 40px 644px 10px 38px;
+.footerblock {
+    padding: 2em 1em 2em 3em;
 }
-.lcol>p {
-	margin: 17px 644px 10px 38px;
-	font-size: 1.08em;
-}
+
 #footer ul {
 	list-style: none;
-}
-.rcol h1 {
-	margin: 40px 10px 10px 38px;
-}
-.rcol>p {
-	margin: 17px 10px 10px 38px;
-	font-size: 1.08em;
+    padding-left: 0px;
 }
 #seo {
 	clear: both;
 	background-color: red;
-	height: 90px;
+	height: 7em;
 }
 #seo p {
 	color: #ffffff;
@@ -125,7 +117,7 @@ img {
     background: #ffcf00 url(img/bg/menu_top.png) repeat-x;
     margin-top: 4px;
 }
-#header #banners {
+#header {
 	height: 100px;
 }
 #logo {
@@ -136,10 +128,10 @@ img {
 	top: -52px;
 }
 .rcol {
-	width: 322px;
+	width: 26.833em;
 	float: left;
 	position: relative;
-	left: 322px;
+	left: 26.833em;
 }
 #menuitem {
 	float: left;
@@ -158,13 +150,14 @@ img {
 .fold {
 	float: left;
 	overflow: hidden;
-    min-width: 67px;
+    //min-width: 67px;
+    margin-right: 1px;
 }
 .foldbg{
 	background-color:#eeeeee;
 	position: relative;
-	margin-right: 3px;
 }
+
 #footerstub {
 	clear: both;
 }
@@ -223,6 +216,36 @@ img {
 	min-height: 19px;
 }
 .fold .text { text-align:center; }
+#catfolds {
+    //float:left;
+    margin: 0px;
+    padding: 0px;
+    width: 240px;
+    height: 24px;
+    //overflow: hidden;
+    white-space: nowrap;
+    text-align: justify;
+}
+.searchfold {
+    background: url(/static/img/bg/fold_b_sh.png) repeat-x bottom #eeeeee;
+    padding: 5px;
+    border-radius: 9px 9px 0px 0px;
+    min-width: 61px;
+    float: right;
+    text-align: center;
+    margin-left: 3px;
+    color: #555555;
+    max-width: 81px;
+    overflow: hidden;
+}
+.searchfold:first-child {
+    margin-left: 0px;
+    float:left;
+}
+.searchfold.selected{
+    background:#ffcf00;
+    color: black;
+}
 
 .selected {
 	color: red;
@@ -299,15 +322,22 @@ img {
 .white, a.white:visited{
 	color:white;
 }
-.bannercol {
-	margin:0px 1px;
-	float:left;
-    width:240px;
-    height: 100px;
+#banners {
+    height: 8.333em;
+    overflow: hidden;
+    clear: both;
 }
-.bannercol.last {
-	margin-right:0px;
-	float:left;width:240px; text-align:right;
+.bannercol {
+    margin-left:0.166em;
+    float:right;
+}
+.bannercol img {
+    width: 20em;
+    height:8.333em;
+}
+.bannercol:first-child {
+    float: left;
+    margin-left: 0em;
 }
 
 .itemblock{
@@ -322,11 +352,7 @@ img {
 	padding: 0px;
 	float:left;
 }
-#catfolds {
-	float:left;
-	margin: 0px;
-	padding: 0px;
-}
+
 
 .itemblock>.left {
 	float:left;
@@ -370,7 +396,7 @@ img {
 
 #footer #contacts .iconcol {
     float: left;
-    margin-left: 40px;
+  //  margin-left: 40px;
     margin-right: 10px;
     margin-bottom: -5px;
 }
@@ -383,7 +409,7 @@ img {
 }
 
 #article_block {
-    margin-top: 20px;
+    //margin-top: 20px;
 }
 
 #article_block .frame {
