@@ -12,7 +12,7 @@ class FormTemplate extends Template {
 
 	protected function show($data, $content = null) {
 		$<?php echo strtolower($className); ?> = isset($data['object']) ? $data['object'] : null;
-		%>
+		%]
 	<script type="text/javascript">
 		$(function () {
 			AdminJS.initTabs('#tabs');
@@ -25,21 +25,21 @@ class FormTemplate extends Template {
 	</script>
 	<div class="submenubar">
 		<a href="[%php echo $this->getUrl('<?php echo strtolower($className); ?>_list') %]">[Список]</a>
-		<a href="[%php echo $this->getUrl('<?php echo strtolower($className); ?>_add') %>">[Добавить]</a>
+		<a href="[%php echo $this->getUrl('<?php echo strtolower($className); ?>_add') %]">[Добавить]</a>
 	</div>
 	<div class="group">
-		<div class="capture">[%php echo $<?php echo strtolower($className); ?> ? 'Редактирование' : 'Создание';%></div>
+		<div class="capture">[%php echo $<?php echo strtolower($className); ?> ? 'Редактирование' : 'Создание';%]</div>
 		<div id="tabs">
 			<a href="#general">Общие</a>
 		</div>
-		<form method="post" id="editForm" class="required" minlength="2" action="[%php echo $this->getUrl('<?php echo strtolower($className); ?>_save'); %>" enctype="multipart/form-data">
-			<input type="hidden" name="form[id]" value="[%php echo $<?php echo strtolower($className); ?>->id ? : ''; %>"/>
+		<form method="post" id="editForm" class="required" minlength="2" action="[%php echo $this->getUrl('<?php echo strtolower($className); ?>_save'); %]" enctype="multipart/form-data">
+			<input type="hidden" name="form[id]" value="[%php echo $<?php echo strtolower($className); ?>->id ? : ''; %]"/>
 
 			<div id="general">
 				<table>
 					<tr>
 						<td>Поле</td>
-						<td><input name="form[fieldname]" class="required" minlength="2" value="[%php echo $<?php echo strtolower($className); ?>->fieldname; %>"/></td>
+						<td><input name="form[fieldname]" class="required" minlength="2" value="[%php echo $<?php echo strtolower($className); ?>->fieldname; %]"/></td>
 					</tr>
 				</table>
 			</div>

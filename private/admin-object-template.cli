@@ -8,6 +8,8 @@ function substitutetpl($className, $file) {
 	ob_start();
 	include $file;
 	$content = ob_get_clean();
+	$content = preg_replace('/\[%/um', '<?', $content);
+	$content = preg_replace('/%\]/um', '?>', $content);
 	return $content;
 }
 
