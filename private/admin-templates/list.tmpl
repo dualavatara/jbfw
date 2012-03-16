@@ -1,6 +1,6 @@
-<?php
+[%php
 
-namespace %CLASS_NAME%;
+namespace <?php echo $className; ?>;
 
 use Admin\Extension\Template\Template;
 
@@ -12,10 +12,10 @@ class ListTemplate extends Template {
 	}
 
 	protected function show($data, $content = null) {
-		?>
+		%]
 	<div class="submenubar">
-        <?php $this->showLink('[Список]','%CLASS_NAME_LC%_list')?>
-        <?php $this->showLink('[Добавить]','%CLASS_NAME_LC%_add')?>
+        [%php $this->showLink('[Список]','<?php echo strtolower($className); ?>_list')%]
+        [%php $this->showLink('[Добавить]','<?php echo strtolower($className); ?>_add')%]
 	</div>
 	<table class="list">
 		<tr>
@@ -23,25 +23,25 @@ class ListTemplate extends Template {
 			<th>Поле</th>
 			<th width="1%">&nbsp;</th>
 		</tr>
-		<?php foreach ($data['model']->getModel() as $i => $item): ?>
-			<tr class="<?php echo ($i % 2) ? 'odd' : 'even'; ?>">
-				<td><?php echo $item->id; ?></td>
-				<td><?php
-                    if($this->app['user']->checkRoute('%CLASS_NAME_LC%_edit'))
-                        $this->showLink($item->name,'%CLASS_NAME_LC%_edit', array('id' => $item->id));
-                    else echo $item->fieldname;?>
+		[%php foreach ($data['model']->getModel() as $i => $item): %]
+			<tr class="[%php echo ($i % 2) ? 'odd' : 'even'; %]">
+				<td>[%php echo $item->id; %]</td>
+				<td>[%php
+                    if($this->app['user']->checkRoute('<?php echo strtolower($className); ?>_edit'))
+                        $this->showLink($item->name,'<?php echo strtolower($className); ?>_edit', array('id' => $item->id));
+                    else echo $item->fieldname;%]
 				</td>
 				<td>
-                    <?php $this->showLink('&nbsp;X&nbsp;','%CLASS_NAME_LC%_delete', array('id' => $item->id),
-                                       'onClick="return AdminJS.deleteConfirmation();"');?>
+                    [%php $this->showLink('&nbsp;X&nbsp;','<?php echo strtolower($className); ?>_delete', array('id' => $item->id),
+                                       'onClick="return AdminJS.deleteConfirmation();"');%]
                 </td>
 			</tr>
-		<?php endforeach; ?>
+		[%php endforeach; %]
 	</table>
-	<?php if (0 == $data['model']->getModel()->count()): ?>
+	[%php if (0 == $data['model']->getModel()->count()): %]
 		<div class="list-empty">Список пуст!</div>
-		<?php endif; ?>
-	<?php
+		[%php endif; %]
+	[%php
 
 	}
 }

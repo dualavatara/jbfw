@@ -1,7 +1,7 @@
-		'%CLASS_NAME_LC%_edit' => array('/%CLASS_NAME_LC%/edit/{id}',       '%CLASS_NAME%', 'edit'),
-		'%CLASS_NAME_LC%_list' => array('/%CLASS_NAME_LC%/list',            '%CLASS_NAME%', 'list'),
-		'%CLASS_NAME_LC%_add' => array('/%CLASS_NAME_LC%/add',              '%CLASS_NAME%', 'add'),
-		'%CLASS_NAME_LC%_delete' => array('/%CLASS_NAME_LC%/delete/{id}',   '%CLASS_NAME%', 'delete'),
-		'%CLASS_NAME_LC%_save' => array('/%CLASS_NAME_LC%/save',            '%CLASS_NAME%', 'save'),
+		'<?php echo strtolower($className); ?>_edit' => array('/<?php echo strtolower($className); ?>/edit/{id}',       '<?php echo $className; ?>', 'edit'),
+		'<?php echo strtolower($className); ?>_list' => array('/<?php echo strtolower($className); ?>/list',            '<?php echo $className; ?>', 'list'),
+		'<?php echo strtolower($className); ?>_add' => array('/<?php echo strtolower($className); ?>/add',              '<?php echo $className; ?>', 'add'),
+		'<?php echo strtolower($className); ?>_delete' => array('/<?php echo strtolower($className); ?>/delete/{id}',   '<?php echo $className; ?>', 'delete'),
+		'<?php echo strtolower($className); ?>_save' => array('/<?php echo strtolower($className); ?>/save',            '<?php echo $className; ?>', 'save'),
 		
-'%CLASS_NAME_LC%_list' => array('title' => 'Название объекта',     'route' => '%CLASS_NAME_LC%_list',   'params' => array()),
+'<?php echo strtolower($className); ?>_list' => array('title' => 'Название объекта',     'route' => '<?php echo strtolower($className); ?>_list',   'params' => array()),

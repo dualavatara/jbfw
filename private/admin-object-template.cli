@@ -2,9 +2,12 @@
 
 <?php
 
-function substitutetpl($className, $content) {
-	$content = preg_replace('/%CLASS_NAME%/um', $className, $content);
-	$content = preg_replace('/%CLASS_NAME_LC%/um', strtolower($className), $content);
+function substitutetpl($className, $file) {
+	/*$content = preg_replace('/%CLASS_NAME%/um', $className, $content);
+	$content = preg_replace('/%CLASS_NAME_LC%/um', strtolower($className), $content);*/
+	ob_start();
+	include $file;
+	$content = ob_get_clean();
 	return $content;
 }
 
@@ -12,20 +15,22 @@ $path =  realpath(__DIR__ . '/../');
 
 $className = readline("Enter class name:");
 
-file_put_contents("$path/admin/ctl/$className.php",
-	substitutetpl($className, file_get_contents($path.'/private/admin-templates/ctl.tmpl')));
+$output = array(
+	"$path/admin/ctl/$className.php" => substitutetpl($className, ($path.'/private/admin-templates/ctl.tmpl')),
+	"$path/admin/model/$className.php" => substitutetpl($className, ($path.'/private/admin-templates/model.tmpl')),
+	"$path/admin/tpl/$className/FormTemplate.php" => substitutetpl($className, ($path.'/private/admin-templates/form.tmpl')),
+	"$path/admin/tpl/$className/ListTemplate.php" => substitutetpl($className, ($path.'/private/admin-templates/list.tmpl'))
+);
 
-file_put_contents("$path/admin/model/$className.php",
-	substitutetpl($className, file_get_contents($path.'/private/admin-templates/model.tmpl')));
-
-mkdir("$path/admin/tpl/$className");
-
-file_put_contents("$path/admin/tpl/$className/FormTemplate.php",
-	substitutetpl($className, file_get_contents($path.'/private/admin-templates/form.tmpl')));
-
-file_put_contents("$path/admin/tpl/$className/ListTemplate.php",
-	substitutetpl($className, file_get_contents($path.'/private/admin-templates/list.tmpl')));
+if ($argv[1] == '-t') {
+	foreach ($output as $key => $value) echo "$key:\n$value\n\n";
+} else {
+	mkdir("$path/admin/tpl/$className");
+	foreach ($output as $key => $value) {
+		file_put_contents($key, $value);
+	}
+}
 
 echo "Corresponding parts of config (Ctrl+c, Ctrl+v):\n";
 
-echo substitutetpl($className, file_get_contents($path.'/private/admin-templates/config.tmpl')) . "\n\n";
+echo substitutetpl($className, ($path.'/private/admin-templates/config.tmpl')) . "\n\n";

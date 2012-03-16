@@ -1,7 +1,7 @@
-/*Overal documen styles*/
+/*Overall document styles*/
 
 html, body {
-	margin: 0em;
+	margin: 0;
 	height: 100%;
 	font-family: Helvetica, Georgia, Arial, sans-serif;
 	font-size: 12px;
@@ -25,7 +25,7 @@ img {
 	min-height: 100%;
     min-width: 80.583em;
     width: 80.583em;
-    margin: 0px auto;
+    margin: 0 auto;
 }
 
 #content {
@@ -33,12 +33,11 @@ img {
 }
 
 #footer {
-	//background-color: #fcefa1;
-	margin-bottom: 0em;
+	margin-bottom: 0;
 	margin-top: -38em;
 }
 #footerstub {
-	margin: 0em;
+	margin: 0;
 	height: 38em;
 }
 #footer h1 {
@@ -93,7 +92,7 @@ img {
 
 #footer ul {
 	list-style: none;
-    padding-left: 0px;
+    padding-left: 0;
 }
 #seo {
 	clear: both;
@@ -133,7 +132,7 @@ img {
 	position: relative;
 	left: 26.833em;
 }
-#menuitem {
+.menuitem {
 	float: left;
 	text-align: center;
 	font-size: 18px;
@@ -142,7 +141,7 @@ img {
 	padding: 18px 26px;
 	height: 26px;
 }
-.selected#menuitem {
+.selected.menuitem {
 	background-color: white;
 	text-decoration:none;
 }
@@ -150,7 +149,6 @@ img {
 .fold {
 	float: left;
 	overflow: hidden;
-    //min-width: 67px;
     margin-right: 1px;
 }
 .foldbg{
@@ -198,8 +196,8 @@ img {
 
 .foldi {
 	background-color: #eeeeee;
-	margin: 0px 11px;
-	padding: 2px 0px;
+	margin: 0 11px;
+	padding: 2px 0;
 }
 .foldi.top {
 	background: url(/static/img/bg/fold_b_sh.png) repeat-x bottom #eeeeee;
@@ -217,19 +215,17 @@ img {
 }
 .fold .text { text-align:center; }
 #catfolds {
-    //float:left;
-    margin: 0px;
-    padding: 0px;
+    margin: 0;
+    padding: 0;
     width: 240px;
     height: 24px;
-    //overflow: hidden;
     white-space: nowrap;
     text-align: justify;
 }
 .searchfold {
     background: url(/static/img/bg/fold_b_sh.png) repeat-x bottom #eeeeee;
     padding: 5px;
-    border-radius: 9px 9px 0px 0px;
+    border-radius: 9px 9px 0 0;
     min-width: 61px;
     float: right;
     text-align: center;
@@ -239,7 +235,7 @@ img {
     overflow: hidden;
 }
 .searchfold:first-child {
-    margin-left: 0px;
+    margin-left: 0;
     float:left;
 }
 .searchfold.selected{
@@ -267,7 +263,7 @@ img {
 .fold_selected {
 	float: left;
 }
-#header #lcol {
+#header .idlcol {
 	min-width: 340px;
 	float:left;
 	overflow: hidden;
@@ -302,7 +298,7 @@ img {
 	padding: 15px;
 }
 #mainsearch select{
-	margin-top: 0px;
+	margin-top: 0;
 	margin-bottom: 5px;
 }
 
@@ -337,7 +333,7 @@ img {
 }
 .bannercol:first-child {
     float: left;
-    margin-left: 0em;
+    margin-left: 0;
 }
 
 .itemblock{
@@ -348,8 +344,8 @@ img {
 }
 
 #searchpad {
-	margin: 0px;
-	padding: 0px;
+	margin: 0;
+	padding: 0;
 	float:left;
 }
 
@@ -371,9 +367,9 @@ img {
 	border-radius: 9px;
 	border: solid white 1px;
 	overflow:hidden;
-	-webkit-box-shadow: inset 0px 3px 3px rgba(0,0,0,0.1);
-	-moz-box-shadow: inset 0px 3px 3px rgba(0,0,0,0.1);
-	box-shadow: inset 0px 3px 3px rgba(0,0,0,0.1);
+	-webkit-box-shadow: inset 0 3px 3px rgba(0,0,0,0.1);
+	-moz-box-shadow: inset 0 3px 3px rgba(0,0,0,0.1);
+	box-shadow: inset 0 3px 3px rgba(0,0,0,0.1);
 }
 .outer_pad div{
 	text-align:center;
@@ -396,7 +392,6 @@ img {
 
 #footer #contacts .iconcol {
     float: left;
-  //  margin-left: 40px;
     margin-right: 10px;
     margin-bottom: -5px;
 }
@@ -405,11 +400,10 @@ img {
 }
 
 #footer #contacts .middle {
-    padding: 16px 0px;
+    padding: 16px 0;
 }
 
 #article_block {
-    //margin-top: 20px;
 }
 
 #article_block .frame {
@@ -432,5 +426,5 @@ img {
 }
 
 #article_block p {
-    margin: 0px 5px;
+    margin: 0 5px;
 }

@@ -1,8 +1,9 @@
 <!DOCTYPE html>
+<!--suppress HtmlUnknownTarget, HtmlUnknownTarget -->
 <html xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-	<meta name="author" content="<?php echo $settings->getTitle(); ?>">
+	<meta name="author" content="<?php /** @noinspection PhpUndefinedVariableInspection */echo $settings->getTitle(); ?>">
 	<meta name="description" content="<?php echo $settings->getDescription(); ?>">
 	<meta name="keywords" content="<?php echo $settings->getKeywords(); ?>">
 	<title><?php echo $settings->getTitle(); ?></title>
@@ -14,7 +15,7 @@
 <div id="container">
 <div id="header">
 	<div id="top">
-		<div id="lcol">
+		<div class="idlcol">
 			<div id="language">
 				<div class="fold">
 					<div class="foldbg bottom">
@@ -31,7 +32,7 @@
 			<div id="currency">
 				<?php
 				$curId = Session::obj()->currency;
-				foreach ($currencies as $currency) {
+				/** @noinspection PhpUndefinedVariableInspection */foreach ($currencies as $currency) {
 					?>
 					<?php if ($curId != $currency->id) { ?><a class="hiddenlink"
 															  href="/currency?value=<?php echo $currency->id; ?>"><?php
@@ -58,22 +59,22 @@
 				?>
 			</div>
 		</div>
-		<div id="rcol">
-			<div id="lcol">
+		<div class="idrcol">
+			<div class="idlcol">
 				<div class="label grey" style="margin-top: 15px;width: 8em;text-align: right;margin-right: 5px;">
 					В РОССИИ:
 				</div>
 				<div class="title black" style="margin-top: 6px; float:left">
 					<?php echo $settings->getPhone1(); ?>
 				</div>
-				<div class="label grey" style="margin:9px 0px; clear:left;margin-right: 5px;">
+				<div class="label grey" style="margin: 9px 5px 9px 0; clear:left;">
 					В ЧЕРНОГОРИИ:
 				</div>
 				<div class="title black" style="float:left;">
 					<?php echo $settings->getPhone2(); ?>
 				</div>
 			</div>
-			<div id="rcol"></div>
+			<div class="idrcol"></div>
 		</div>
 	</div>
 	<div id="image">
@@ -81,17 +82,17 @@
 		<img src="../static/img/0.png" width="966" height="1">
 	</div>
 	<div id="menu" style="overflow:visible;">
-		<div id="menuitem">Аренда авто</div>
-		<div id="menuitem" class="selected">Аренда жилья</div>
-		<div id="menuitem">Продажа авто</div>
-		<div id="menuitem">Недвижимость</div>
-		<div id="menuitem">Услуги</div>
-		<div id="menuitem">Советы</div>
+		<div class="menuitem">Аренда авто</div>
+		<div class="menuitem selected">Аренда жилья</div>
+		<div class="menuitem">Продажа авто</div>
+		<div class="menuitem">Недвижимость</div>
+		<div class="menuitem">Услуги</div>
+		<div class="menuitem">Советы</div>
 	</div>
 	<div id="banners">
 		<?php
 		$i = 0;
-		foreach ($bannersHead as $banner) {
+		/** @noinspection PhpUndefinedVariableInspection */foreach ($bannersHead as $banner) {
 			$i++;
 			?>
 			<div class="bannercol">
@@ -124,7 +125,7 @@
 				</div>
 				<div id="mainsearch">
 					<p>
-						<label class="lab">цель</label>
+						<label class="lab" for="target">цель</label>
 						<select name="target" id="target" class="first">
 							<option selected>Аренда</option>
 						</select>
@@ -140,8 +141,7 @@
 						<select name="from_year2" id="from_year2">
 							<option selected>2012</option>
 						</select>
-						<span><img src="../static/img/icons/calendar.png" width="24" height="18" hspace="0"
-								   align="absmiddle"></span> <br>
+						<span><img src="../static/img/icons/calendar.png" width="24" height="18"></span> <br>
 						<label class="labd">по</label>
 						<select name="from_day2" id="from_day2" class="firstd">
 							<option selected>01</option>
@@ -152,7 +152,7 @@
 						<select name="from_year2" id="from_year2">
 							<option selected>2012</option>
 						</select>
-						<img src="../static/img/icons/calendar.png" width="24" height="18" hspace="0" align="absmiddle">
+						<img src="../static/img/icons/calendar.png" width="24" height="18">
 					</p>
 					<p>
 						<label class="lab">страна</label>
@@ -184,7 +184,7 @@
 								<div class="foldbrdark">
 									<div class="foldbsdark">
 										<div class="foldi bottom">
-											<div class="text" style="width: 218px;padding: 5px 0px ;"><a class="white"
+											<div class="text" style="width: 218px;padding: 5px 0 ;"><a class="white"
 																										 href="#">дополнительные
 												параметры поиска</a></div>
 										</div>
@@ -197,7 +197,7 @@
 			</form>
 		</div>
 		<?php
-		foreach ($bannersLeft as $banner) {
+		/** @noinspection PhpUndefinedVariableInspection */foreach ($bannersLeft as $banner) {
 			$size = $bannersLeft->getSize($banner->type);
 			?>
 			<div>
@@ -239,7 +239,7 @@
 			<p><?php echo $article->content_short;?></p>
 			<?php
 		};
-		if ($articles->count()) {
+		/** @noinspection PhpUndefinedVariableInspection */if ($articles->count()) {
 			?>
 			<div id="article_block">
 				<div class="alcol frame"><?php $artOut($articles[0]);?></div>
@@ -284,7 +284,7 @@
 					<ul>
 						<?php
 						//var_dump($articlesUsefull->data);
-						foreach ($articlesUsefull as $article) {
+						/** @noinspection PhpUndefinedVariableInspection */foreach ($articlesUsefull as $article) {
 							?>
 							<li><a href="/article"><?php echo $article->name; ?></a></li>
 							<?php
