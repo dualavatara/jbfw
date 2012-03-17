@@ -1,5 +1,4 @@
 <?php
-
 namespace Currency;
 
 use Admin\Extension\Template\Template;
@@ -38,18 +37,15 @@ class FormTemplate extends Template {
 
 			<div id="general">
 				<table>
-					<tr>
-						<td>Название</td>
-						<td><input name="form[name]" class="required" minlength="2" value="<?php echo $currency->name; ?>"/></td>
-					</tr>
-					<tr>
-						<td>Обозначение</td>
-						<td><input type="sign" name="form[sign]" class="required" value="<?php echo $currency->sign; ?>"/></td>
-					</tr>
-					<tr>
-						<td>Курс</td>
-						<td><input name="form[course]" class="required" value="<?php echo floatval($currency->course); ?>"/></td>
-					</tr>
+
+					<?php
+					foreach($data->value['model']->fields as $field) {
+						if ($field->name == id) continue;
+						echo '<tr><td>' .$field->adminName. '</td>';
+						echo '<td>' .$field->input($currency). '</td></tr>';
+					}
+					?>
+
 				</table>
 			</div>
 
@@ -58,7 +54,7 @@ class FormTemplate extends Template {
 					<td colspan="2">
 						<div class="button button-save">
 							<div class="icon icon-save"></div>
-							<span>Save</span>
+							<span>Сохранить</span>
 						</div>
 					</td>
 				</tr>

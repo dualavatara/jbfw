@@ -1,14 +1,23 @@
 [%php
 namespace model;
 
-require_once 'model/%CLASS_NAME%Model.php';
+require_once 'model/<?php echo $className; ?>Model.php';
 require_once 'admin/lib/AdminModel.php';
 
-class %CLASS_NAME% extends \AdminModel {
+class <?php echo $className; ?> extends \AdminModel {
 	/**
-	 * @param IDatabase $db
-	 */
+	* @param IDatabase $db
+	*/
 	public function __construct(\IDatabase $db) {
-		parent::__construct(new \%CLASS_NAME%Model($db));
+		parent::__construct(new \<?php echo $className; ?>Model($db));
+<?php
+global $path;
+set_include_path(get_include_path() . ":$path");
+require_once 'lib/DummyDatabase.php';
+require_once 'model/' . $className . 'Model.php';
+$class = $className . 'Model';
+$model = new $class(new DummyDatabase());
+foreach ($model->fields as $field) echo '		$this->fields[\'' . $field->name . '\'] = new \DefaultAdminField(\'' . $field->name . '\',\'' . ucfirst($field->name) . '\', true);' . "\n";
+?>
 	}
 }

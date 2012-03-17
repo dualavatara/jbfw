@@ -14,6 +14,11 @@ abstract class AdminModel implements IAdminModel {
 	private $model;
 
 	/**
+	 * @var array
+	 */
+	public $fields;
+
+	/**
 	 * @param Model $model
 	 */
 	public function __construct(Model $model) {
@@ -78,5 +83,52 @@ abstract class AdminModel implements IAdminModel {
 	 */
 	public function getModel() {
 		return $this->model;
+	}
+}
+
+abstract class AdminField {
+	public $name;
+	public $adminName;
+	public $isList;
+	public $isListEdit;
+	public $isMinWidth;
+
+	function __construct($name, $adminName, $isList, $isListEdit = false, $isMinWidth = false) {
+		$this->name = $name;
+		$this->adminName = $adminName;
+		$this->isList = $isList;
+		$this->isListEdit = $isListEdit;
+		$this->isMinWidth = $isMinWidth;
+	}
+
+	public function input($modelRow) {
+		ob_start();
+		$this->inputHtml($modelRow);
+		return ob_get_clean();
+	}
+	abstract public function inputHtml($modelRow);
+}
+
+class DefaultAdminField extends AdminField {
+	public function inputHtml($modelRow) {
+		?>
+			<input id="<?php echo $this->name; ?>" size="50" name="form[<?php echo $this->name; ?>]" value="<?php echo $modelRow->{$this->name}; ?>"/>
+		<?php
+	}
+}
+
+class FloatAdminField extends AdminField {
+	public function inputHtml($modelRow) {
+		?>
+	<input id="<?php echo $this->name; ?>" name="form[<?php echo $this->name; ?>]" size="10" value="<?php echo floatval($modelRow->{$this->name}); ?>"/>
+	<?php
+	}
+}
+
+class TextAdminField extends AdminField {
+	public function inputHtml($modelRow) {
+		?>
+	<textarea id="<?php echo $this->name; ?>" name="form[<?php echo $this->name; ?>]" cols="50" rows="20"><?php echo ($modelRow->{$this->name}); ?></textarea>
+	<?php
 	}
 }

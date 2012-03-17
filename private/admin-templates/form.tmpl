@@ -37,10 +37,15 @@ class FormTemplate extends Template {
 
 			<div id="general">
 				<table>
-					<tr>
-						<td>Поле</td>
-						<td><input name="form[fieldname]" class="required" minlength="2" value="[%php echo $<?php echo strtolower($className); ?>->fieldname; %]"/></td>
-					</tr>
+
+						[%php
+							foreach($data->value['model']->fields as $field) {
+								if ($field->name == <?php echo MODEL_ID_FIELD_NAME; ?>) continue;
+								echo '<tr><td>' .$field->adminName. '</td>';
+								echo '<td>' .$field->input($<?php echo strtolower($className); ?>). '</td></tr>';
+							}
+						%]
+
 				</table>
 			</div>
 

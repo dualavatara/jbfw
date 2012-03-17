@@ -20,9 +20,9 @@ class ListTemplate extends Template {
 	<table class="list">
 		<tr>
 			<?php
-			foreach ($data['model']->getModel()->fields as $field) {
-				$w = $field->is(\Field::ADMIN_LIST_MINW) ? ' width="1%"' : '';
-				if ($field->is(\Field::ADMIN_LIST)) echo '<th' . $w . '>' . $field->adminName. '</th>';
+			foreach ($data['model']->fields as $field) {
+				$w = $field->isMinWidth ? ' width="1%"' : '';
+				if ($field->isList) echo '<th' . $w . '>' . $field->adminName. '</th>';
 			}
 			?>
 			<th width="1%">&nbsp;</th>
@@ -30,10 +30,10 @@ class ListTemplate extends Template {
 		<?php foreach ($data['model']->getModel() as $i => $item): ?>
 		<tr class="<?php echo ($i % 2) ? 'odd' : 'even'; ?>">
 			<?php
-			foreach ($data['model']->getModel()->fields as $field) {
-				if (!$field->is(\Field::ADMIN_LIST)) continue;
+			foreach ($data['model']->fields as $field) {
+				if (!$field->isList) continue;
 				echo '<td>';
-				if ($field->is(\Field::ADMIN_LIST_EDIT)) {
+				if ($field->isListEdit) {
 					if ($this->app['user']->checkRoute('currency_edit'))
 						$this->showLink($item->{$field->name}, 'currency_edit', array('id' => $item->id));
 					else echo $item->{$field->name};
