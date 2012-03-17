@@ -112,9 +112,9 @@ img {
     background: url(img/heads/rivercabin.png) no-repeat;
 }
 #header #menu {
-	height: 62px;
+	height: 5em;
     background: #ffcf00 url(img/bg/menu_top.png) repeat-x;
-    margin-top: 4px;
+    margin-top: 0.4em;
 }
 #header {
 	height: 100px;

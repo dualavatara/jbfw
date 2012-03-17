@@ -111,6 +111,13 @@ return array(
 		'banner_add' => array('/banner/add',              'Banner', 'add'),
 		'banner_delete' => array('/banner/delete/{id}',   'Banner', 'delete'),
 		'banner_save' => array('/banner/save',            'Banner', 'save'),
+
+		'realty_edit' => array('/realty/edit/{id}',       'Realty', 'edit'),
+		'realty_list' => array('/realty/list',            'Realty', 'list'),
+		'realty_add' => array('/realty/add',              'Realty', 'add'),
+		'realty_delete' => array('/realty/delete/{id}',   'Realty', 'delete'),
+		'realty_save' => array('/realty/save',            'Realty', 'save'),
+
 	),
 	
 	'menu' => array(
@@ -125,6 +132,8 @@ return array(
 				'resort_list' => array('title' => 'Курорты',     'route' => 'resort_list',   'params' => array()),
 				'customer_list' => array('title' => 'Клиент',     'route' => 'customer_list',   'params' => array()),
 				'carrentoffice_list' => array('title' => 'Конторы по прокату авто',     'route' => 'carrentoffice_list',   'params' => array()),
+				'realty_list' => array('title' => 'Объекты недвижимости',     'route' => 'realty_list',   'params' => array()),
+
 			)
 		),
 		'sys' => array(
