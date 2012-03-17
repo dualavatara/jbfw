@@ -322,6 +322,7 @@ img {
     height: 8.333em;
     overflow: hidden;
     clear: both;
+    margin-top: 0.4em;
 }
 .bannercol {
     margin-left:0.166em;
