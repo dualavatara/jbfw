@@ -211,7 +211,10 @@
 		?>
 	</div>
 	<div id="contentrcol">
-		<!--<div class="itemblock">
+		<?php
+		foreach($realties as $realty) {
+		?>
+		<div class="itemblock">
 			<div class="left">
 				<div class="left">
 					<div class="pic_cont">
@@ -230,7 +233,10 @@
 					<div style="padding:0px;"><img src="../static/img/buttons/order.png" width="152" height="30"></div>
 				</div>
 			</div>
-		</div>-->
+		</div>
+			<?php
+		};
+			?>
 		<?php
 		$artOut = function ($article) {
 			?>

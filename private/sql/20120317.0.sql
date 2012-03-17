@@ -27,6 +27,7 @@ CREATE TABLE IF NOT EXISTS `realty_image` (
   `thumbnail` tinytext NOT NULL,
   `image` tinytext NOT NULL,
   `realty_id` int(11) NOT NULL,
+  `flags` int(11) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 

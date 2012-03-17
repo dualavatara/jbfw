@@ -13,6 +13,7 @@ class RealtyImage extends \AdminModel {
 		$this->fields['id'] = new \DefaultAdminField('id','Id', true, true, true);
 		$this->fields['thumbnail'] = new \ImageAdminField('thumbnail','Предпросмотр', true);
 		$this->fields['image'] = new \ImageAdminField('image','Изображение', true);
+		$this->fields['flags'] = new \FlagsAdminField('flags','Флаги', true);
 		$this->fields['realty_id'] = new \BackrefAdminField('realty_id','ID объекта недвижимости', false);
 	}
 }
