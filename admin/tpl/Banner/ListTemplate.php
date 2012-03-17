@@ -39,10 +39,10 @@ class ListTemplate extends Template {
                     else echo $type;?>
 				</td>
 				<td>
-					<?php if ($item->image) $this->showLink($item->image, 'static', array('key' => $item->image),'class="lightbox" target="_blank"')?>
+					<?php if ($item->image) $this->showLink($item->image, 'static', array('key' => $item->image),'class="lightbox" target="_blank"');?>
 				</td>
 				<td>
-					<?php if ($item->link) $this->showLink($item->link, 'static', array('key' => $item->link),'target="_blank"')?>
+					<?php if ($item->link) $this->showLink($item->link, 'static', array('key' => $item->link),'target="_blank"');?>
 				</td>
 				<td><?php
 					$flag = array();

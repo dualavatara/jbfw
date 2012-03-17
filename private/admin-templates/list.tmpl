@@ -32,7 +32,7 @@ class ListTemplate extends Template {
 		[%php foreach ($data['model']->getModel() as $i => $item): %]
 			<tr class="[%php echo ($i % 2) ? 'odd' : 'even'; %]">
 				[%php
-					foreach ($data['model']->fields as $field) {
+					foreach ($dRaw['model']->fields as $field) {
 						if (!$field->isList) continue;
 						echo '<td>';
 						if (($field->isListEdit) && ($this->app['user']->checkRoute('<?php echo strtolower($className); ?>_edit'))) {
