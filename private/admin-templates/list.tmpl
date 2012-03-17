@@ -19,18 +19,28 @@ class ListTemplate extends Template {
 	</div>
 	<table class="list">
 		<tr>
-			<th width="1%">id</th>
-			<th>Поле</th>
+			[%php
+			foreach ($data['model']->getModel()->fields as $field) {
+				$w = $field->is(\Field::ADMIN_LIST_MINW) ? ' width="1%"' : '';
+				if ($field->is(\Field::ADMIN_LIST)) echo '<th' . $w . '>' . $field->adminName. '</th>';
+			}
+			%]
 			<th width="1%">&nbsp;</th>
 		</tr>
 		[%php foreach ($data['model']->getModel() as $i => $item): %]
 			<tr class="[%php echo ($i % 2) ? 'odd' : 'even'; %]">
-				<td>[%php echo $item->id; %]</td>
-				<td>[%php
-                    if($this->app['user']->checkRoute('<?php echo strtolower($className); ?>_edit'))
-                        $this->showLink($item->name,'<?php echo strtolower($className); ?>_edit', array('id' => $item->id));
-                    else echo $item->fieldname;%]
-				</td>
+				[%php
+					foreach ($data['model']->getModel()->fields as $field) {
+						if (!$field->is(\Field::ADMIN_LIST)) continue;
+						echo '<td>';
+						if ($field->is(\Field::ADMIN_LIST_EDIT)) {
+							if ($this->app['user']->checkRoute('currency_edit'))
+								$this->showLink($item->{$field->name}, 'currency_edit', array('id' => $item->id));
+							else echo $item->{$field->name};
+						} else echo $item->{$field->name};
+						echo '</td>';
+					}
+				%]
 				<td>
                     [%php $this->showLink('&nbsp;X&nbsp;','<?php echo strtolower($className); ?>_delete', array('id' => $item->id),
                                        'onClick="return AdminJS.deleteConfirmation();"');%]

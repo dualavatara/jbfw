@@ -17,6 +17,8 @@ $path =  realpath(__DIR__ . '/../');
 
 $className = readline("Enter class name:");
 
+require $path . '/config/config.php';
+
 $output = array(
 	"$path/admin/ctl/$className.php" => substitutetpl($className, ($path.'/private/admin-templates/ctl.tmpl')),
 	"$path/admin/model/$className.php" => substitutetpl($className, ($path.'/private/admin-templates/model.tmpl')),

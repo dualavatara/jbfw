@@ -33,7 +33,7 @@ class FormTemplate extends Template {
 			<a href="#general">Общие</a>
 		</div>
 		<form method="post" id="editForm" class="required" minlength="2" action="[%php echo $this->getUrl('<?php echo strtolower($className); ?>_save'); %]" enctype="multipart/form-data">
-			<input type="hidden" name="form[id]" value="[%php echo $<?php echo strtolower($className); ?>->id ? : ''; %]"/>
+			<input type="hidden" name="form[<?php echo MODEL_ID_FIELD_NAME; ?>]" value="[%php echo $<?php echo strtolower($className); ?>-><?php echo MODEL_ID_FIELD_NAME; ?> ? : ''; %]"/>
 
 			<div id="general">
 				<table>

@@ -5,17 +5,22 @@
  * @property string $name
  */
 abstract class Field {
-	const PRIMARY_KEY 	= 0x0001;
-	
+	const PRIMARY_KEY 		= 0x0001;
+	const ADMIN_LIST 		= 0x0002;
+	const ADMIN_LIST_EDIT	= 0x0004;
+	const ADMIN_LIST_MINW	= 0x0008;
+
 	const ORDER_ASC		= 0x0001;
 	const ORDER_DESC	= 0x0002;
 	
 	protected $_name = '';
 	protected $flags = 0;
+	protected $adminName = '';
 	
-	public function __construct($name, $flags = 0) {
+	public function __construct($name, $flags = 0, $adminName = '') {
 		$this->_name = $name;
 		$this->flags = $flags;
+		$this->adminName = $adminName;
 	}
 	
 	/**
@@ -40,6 +45,7 @@ abstract class Field {
 	}
 	
 	public function get_name() { return $this->_name; }
+	public function get_adminName() { return $this->adminName; }
 
 	abstract public function value($rawvalue);
 	abstract public function definition(IDatabase $db, $tablename);
@@ -73,6 +79,7 @@ abstract class Field {
 	public function quotEscapeValue($db, $value) {
 		return $db->quot($db->escape($value), true);
 	}
+
 }
 
 class IntField extends Field {

@@ -368,7 +368,8 @@ class Model extends ModelData {
 	public function __construct($table, IDatabase $db) {
 		$this->db = $db;
 		parent::__construct($table);
-		$this->fields[MODEL_ID_FIELD_NAME] = new IntField(MODEL_ID_FIELD_NAME, Field::PRIMARY_KEY);
+		$this->fields[MODEL_ID_FIELD_NAME] = new IntField(MODEL_ID_FIELD_NAME,
+			Field::PRIMARY_KEY|Field::ADMIN_LIST|Field::ADMIN_LIST_EDIT|Field::ADMIN_LIST_MINW);
 
 	}
 

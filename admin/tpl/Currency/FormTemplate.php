@@ -29,7 +29,7 @@ class FormTemplate extends Template {
 		<a href="<?php echo $this->getUrl('currency_add') ?>">[Добавить]</a>
 	</div>
 	<div class="group">
-		<div class="capture"><?php echo $currency ? 'Редактирование валюты' : 'Создание валюты';?></div>
+		<div class="capture"><?php echo $currency ? 'Редактирование' : 'Создание';?></div>
 		<div id="tabs">
 			<a href="#general">Общие</a>
 		</div>
