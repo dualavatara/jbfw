@@ -12,6 +12,7 @@ class FormTemplate extends Template {
 
 	protected function show($data, $content = null) {
 		$<?php echo strtolower($className); ?> = isset($data['object']) ? $data['object'] : null;
+		$data['model']->setTemplate($this);
 		%]
 	<script type="text/javascript">
 		$(function () {
@@ -39,8 +40,9 @@ class FormTemplate extends Template {
 				<table>
 
 						[%php
-							foreach($data->value['model']->fields as $field) {
-								if ($field->name == <?php echo MODEL_ID_FIELD_NAME; ?>) continue;
+							$dRaw = $data->getRaw();
+							foreach($dRaw['model']->fields as $field) {
+								if (($field->name == <?php echo MODEL_ID_FIELD_NAME; ?>) || (!$field->isForm)) continue;
 								echo '<tr><td>' .$field->adminName. '</td>';
 								echo '<td>' .$field->input($<?php echo strtolower($className); ?>). '</td></tr>';
 							}

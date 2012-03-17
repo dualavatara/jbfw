@@ -12,6 +12,7 @@ class ListTemplate extends Template {
 	}
 
 	protected function show($data, $content = null) {
+		$data['model']->setTemplate($this);
 		%]
 	<div class="submenubar">
         [%php $this->showLink('[Список]','<?php echo strtolower($className); ?>_list')%]
@@ -20,7 +21,8 @@ class ListTemplate extends Template {
 	<table class="list">
 		<tr>
 			[%php
-			foreach ($data['model']->fields as $field) {
+			$dRaw = $data->getRaw();
+			foreach ($dRaw['model']->fields as $field) {
 				$w = $field->isMinWidth ? ' width="1%"' : '';
 				if ($field->isList) echo '<th' . $w . '>' . $field->adminName. '</th>';
 			}
@@ -33,11 +35,9 @@ class ListTemplate extends Template {
 					foreach ($data['model']->fields as $field) {
 						if (!$field->isList) continue;
 						echo '<td>';
-						if ($field->isListEdit) {
-							if ($this->app['user']->checkRoute('<?php echo strtolower($className); ?>_edit'))
-								$this->showLink($item->{$field->name}, '<?php echo strtolower($className); ?>_edit', array('id' => $item->id));
-							else echo $item->{$field->name};
-						} else echo $item->{$field->name};
+						if (($field->isListEdit) && ($this->app['user']->checkRoute('<?php echo strtolower($className); ?>_edit'))) {
+							$this->showLink($field->listText($item), '<?php echo strtolower($className); ?>_edit', array('id' => $item->id));
+						} else  echo $field->listText($item);
 						echo '</td>';
 					}
 				%]

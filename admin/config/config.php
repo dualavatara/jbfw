@@ -118,6 +118,11 @@ return array(
 		'realty_delete' => array('/realty/delete/{id}',   'Realty', 'delete'),
 		'realty_save' => array('/realty/save',            'Realty', 'save'),
 
+		'realtyimage_edit' => array('/realtyimage/edit/{id}',       'RealtyImage', 'edit'),
+		'realtyimage_list' => array('/realtyimage/list/{parent_field}/{parent_id}',            'RealtyImage', 'list'),
+		'realtyimage_add' => array('/realtyimage/add',              'RealtyImage', 'add'),
+		'realtyimage_delete' => array('/realtyimage/delete/{id}',   'RealtyImage', 'delete'),
+		'realtyimage_save' => array('/realtyimage/save',            'RealtyImage', 'save'),
 	),
 	
 	'menu' => array(

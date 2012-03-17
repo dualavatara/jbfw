@@ -68,8 +68,18 @@ class StdController extends Controller {
 		return $this->app['template']->render($this->objectName.'\FormTemplate', $this->data);
 	}
 
-	public function do_list() {
-		$this->model->getAll();
+	public function do_list(\Admin\Request $request = null) {
+		if (!isset($request['parent_field'])){
+			$this->model->getAll();
+			$_SESSION['urlparams'] = array();
+		} else {
+			$this->model->getFieldFiltered($request['parent_field'], $request['parent_id']);
+			$_SESSION['urlparams'] = array(
+				'parent_field' => $request['parent_field'],
+				'parent_id' => $request['parent_id'],
+				'from_route' => $request['from_route'],
+			);
+		}
 
 		$this->data['model'] = $this->model;
 

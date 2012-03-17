@@ -6,7 +6,7 @@ use \Admin\Extension\Template\Escaper\Escaper;
 
 abstract class BaseDecorator {
 	
-	public $value;
+	protected $value;
 	/**
 	 * @var Escaper
 	 */

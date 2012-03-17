@@ -303,6 +303,13 @@ class ModelDataWrapper {
         }
         return $res;
     }
+
+	/**
+	 * @return \ModelData|null
+	 */
+	public function getModel() {
+		return $this->model;
+	}
 }
 
 /**

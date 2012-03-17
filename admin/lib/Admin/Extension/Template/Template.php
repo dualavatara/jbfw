@@ -37,18 +37,19 @@ abstract class Template {
 	
 	abstract protected function show($data, $content = null);
 	
-	final public function getUrl($routeName, $params = array()) {
-		return $this->app->getUrl($routeName, $params);
+	final public function getUrl($routeName, $params = array(), $noSessionParams = false) {
+		if (isset($_SESSION['urlparams']) && !$noSessionParams) $params = array_merge($params, $_SESSION['urlparams']);
+		return $this->app->getUrl($routeName, $params, true);
 	}
 
 	final public function insertTemplate($templateClass, $data = array()) {
 		echo $this->app['template']->render($templateClass, $data);
 	}
 
-    public function showLink($name, $routeName, $params = array(), $attribute='') {
+    public function showLink($name, $routeName, $params = array(), $attribute='', $noSessionParams = false) {
 	    // TODO: Security extension may be not registered
        if($this->app['user']->checkRoute($routeName)){
-            if($url = $this->getUrl($routeName, $params)){
+            if($url = $this->getUrl($routeName, $params, $noSessionParams)){
                 echo '<a href="'.$url.'" '.$attribute.'>'.$name.'</a>';
             }
         }

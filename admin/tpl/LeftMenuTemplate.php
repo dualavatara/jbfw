@@ -19,7 +19,7 @@ class LeftMenuTemplate extends Template {
 
             if (count($item['sections'])) {
                 $section = array_shift($item['sections']);
-                $url = isset($section['params']) ? $this->getUrl($section['route'], $section['params']) : $this->getUrl($section['route']);
+                $url = isset($section['params']) ? $this->getUrl($section['route'], $section['params'], true) : $this->getUrl($section['route'], array(), true);
                 $html .= '<li><a href="' . $url . '">' . $title . '</a></li>';
             }
         }

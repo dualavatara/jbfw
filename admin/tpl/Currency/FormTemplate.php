@@ -39,7 +39,8 @@ class FormTemplate extends Template {
 				<table>
 
 					<?php
-					foreach($data->value['model']->fields as $field) {
+					$draw = $data->getRaw();
+					foreach($draw['model']->fields as $field) {
 						if ($field->name == id) continue;
 						echo '<tr><td>' .$field->adminName. '</td>';
 						echo '<td>' .$field->input($currency). '</td></tr>';

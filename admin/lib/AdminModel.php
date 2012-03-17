@@ -26,11 +26,21 @@ abstract class AdminModel implements IAdminModel {
 	}
 
 
+	function setTemplate($template) {
+		foreach($this->fields as $field) {
+			$field->template = $template;
+			$field->adminModel = $this;
+		}
+	}
 	/**
 	 * Select all object`s rows from database
 	 */
 	public function getAll() {
 		$this->model->get()->all()->exec();
+	}
+
+	public function getFieldFiltered($field, $value) {
+		$this->model->get()->filter($this->model->filterExpr()->eq($field, $value))->exec();
 	}
 
 	/**
@@ -93,6 +103,11 @@ abstract class AdminField {
 	public $isListEdit;
 	public $isMinWidth;
 
+	public $template;
+	public $adminModel;
+
+	public $isForm = true;
+
 	function __construct($name, $adminName, $isList, $isListEdit = false, $isMinWidth = false) {
 		$this->name = $name;
 		$this->adminName = $adminName;
@@ -106,13 +121,31 @@ abstract class AdminField {
 		$this->inputHtml($modelRow);
 		return ob_get_clean();
 	}
+
+	public function listText($modelRow) {
+		ob_start();
+		$this->listTextHtml($modelRow);
+		return ob_get_clean();
+	}
+
 	abstract public function inputHtml($modelRow);
+
+	public function listTextHtml($modelRow) {
+		echo $modelRow->{$this->name};
+	}
 }
 
 class DefaultAdminField extends AdminField {
+	public $size;
+
+	function __construct($name, $adminName, $isList, $isListEdit = false, $isMinWidth = false, $size = 50) {
+		parent::__construct($name, $adminName, $isList, $isListEdit, $isMinWidth);
+		$this->size = $size;
+	}
+
 	public function inputHtml($modelRow) {
 		?>
-			<input id="<?php echo $this->name; ?>" size="50" name="form[<?php echo $this->name; ?>]" value="<?php echo $modelRow->{$this->name}; ?>"/>
+			<input id="<?php echo $this->name; ?>" size="<?php echo $this->size; ?>" name="form[<?php echo $this->name; ?>]" value="<?php echo $modelRow->{$this->name}; ?>"/>
 		<?php
 	}
 }
@@ -130,5 +163,76 @@ class TextAdminField extends AdminField {
 		?>
 	<textarea id="<?php echo $this->name; ?>" name="form[<?php echo $this->name; ?>]" cols="50" rows="20"><?php echo ($modelRow->{$this->name}); ?></textarea>
 	<?php
+	}
+}
+
+class FlagsAdminField extends AdminField {
+	public function inputHtml($modelRow) {
+		$this->template->insertTemplate('Form\FlagsField', array(
+			//'title' => $this->adminName,
+			'name' => "form[{$this->name}]",
+			'value' => $modelRow->flags,
+			'flags' => $this->adminModel->getModel()->getFlags()
+		));
+	}
+
+	public function listTextHtml($modelRow) {
+		$flags = $modelRow->getModel()->getFlags();
+		$flag = array();
+		foreach($flags as $k => $v) if ($modelRow->flags->check($k)) $flag[] = $v;
+		echo implode(',', $flag);
+	}
+}
+
+class SelectAdminField extends AdminField {
+	public $callback;
+	public $class;
+	function __construct($name, $adminName, $callback, $isList, $isListEdit = false, $isMinWidth = false) {
+		parent::__construct($name, $adminName, $isList, $isListEdit, $isMinWidth);
+		$this->callback = $callback;
+	}
+
+	public function inputHtml($modelRow) {
+		$this->template->insertTemplate('Form\SelectField', array(
+			'name'		=> $this->name,
+			'selected'	=> $modelRow->type,
+			'values' 	=> $this->adminModel->getModel()->{$this->callback}(),
+		));
+	}
+	public function listTextHtml($modelRow) {
+		$arr = $modelRow->getModel()->{$this->callback}();
+		if (isset($arr[$modelRow->{$this->name}])) echo $arr[$modelRow->{$this->name}];
+	}
+}
+
+
+class RefAdminField extends AdminField {
+	public $class;
+	public $parentField;
+	public $fromRoute;
+	function __construct($name, $adminName, $isList, $isListEdit = false, $isMinWidth = false) {
+		parent::__construct($name, $adminName, $isList, $isListEdit, $isMinWidth);
+		$this->isForm = false;
+	}
+
+	public function inputHtml($modelRow) {
+
+	}
+	public function listTextHtml($modelRow) {
+		$this->template->showLink('список', strtolower($this->class) . '_list',
+			array(
+				'parent_id' => $modelRow->getRaw()->id,
+				'parent_field' => $this->parentField,
+				'from_route' => $this->fromRoute,
+			));
+	}
+}
+
+class BackrefAdminField extends AdminField {
+	public function inputHtml($modelRow) {
+		?>
+	<input type="hidden" id="<?php echo $this->name; ?>" name="form[<?php echo $this->name; ?>]" value="<?php echo $_SESSION['urlparams']['parent_id']; ?>"/>
+	<?php
+	echo $_SESSION['urlparams']['parent_id'];
 	}
 }

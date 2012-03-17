@@ -24,7 +24,7 @@ class SectionsMenuTemplate extends Template {
                     $sectionTitle = $title;
                     $title = '<span class="menuSelected">' . $title . '</span>';
                 }
-                $link = $this->getUrl($sectionItem['route'], $sectionItem['params']);
+                $link = $this->getUrl($sectionItem['route'], $sectionItem['params'], true);
                 $sections[] = sprintf('<a href="%s">%s</a>', $link, $title);
             }
 		}

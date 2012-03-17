@@ -40,7 +40,7 @@ ord
 		 */
 	}
 
-	public function getTyped() {
+	public function getTypes() {
 		return array(
 			self::TYPE_VILLA => 'Вилла',
 			self::TYPE_HOTEL => 'Отель'
