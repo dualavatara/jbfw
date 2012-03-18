@@ -166,7 +166,18 @@ $(document).ready(function () {
             $(this).after(hidden);
 
             var edit = $('<input type="text" />');
-            edit.attr('value', $(this).attr('display-value'));
+            // request value with ajax
+            $.ajax({
+                url:$(this).attr('rest-url') + '/0?id=' + $(this).attr('value'),
+                dataType:'json',
+                context:dropbox,
+                success:function (data) {
+                    edit.attr('value', data[0].name);
+                }
+            });
+
+        //    edit.attr('value', $(this).attr('display-value'));
+
             edit[0].url = $(this).attr('rest-url');
 
             var dropbox = $('<div class="searchselect"></div>');

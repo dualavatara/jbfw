@@ -38,6 +38,7 @@ class IndexCtl extends Ctl {
 		//realty selection for index
 		$realties = $this->disp->di()->RealtyModel();
 		$realties->get()->filter($realties->filterExpr()->eq('flags', ArticleModel::FLAG_VISIBLE))->exec();
+		$realties->loadDependecies();
 
 		$view = $this->disp->di()->TemplateView('index.html');
 		$output = $view->show(array(

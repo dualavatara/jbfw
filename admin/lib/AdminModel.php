@@ -200,7 +200,7 @@ class SelectAdminField extends AdminField {
 	public function inputHtml($modelRow) {
 		$this->template->insertTemplate('Form\SelectField', array(
 			'name' => $this->name,
-			'selected' => $modelRow->type,
+			'selected' => $modelRow->{$this->name},
 			'values' => $this->adminModel->getModel()->{$this->callback}(),
 		));
 	}
@@ -208,6 +208,29 @@ class SelectAdminField extends AdminField {
 	public function listTextHtml($modelRow) {
 		$arr = $modelRow->getModel()->{$this->callback}();
 		if (isset($arr[$modelRow->{$this->name}])) echo $arr[$modelRow->{$this->name}];
+	}
+}
+
+class SearchSelectAdminField extends AdminField {
+	//public $callback;
+	public $class;
+
+	function __construct($name, $adminName, $class, $isList, $isListEdit = false, $isMinWidth = false) {
+		parent::__construct($name, $adminName, $isList, $isListEdit, $isMinWidth);
+		$this->class = $class;
+	}
+
+	public function inputHtml($modelRow) {
+		$this->template->insertTemplate('Form\SearchSelectField', array(
+			'name'		=> "form[{$this->name}]",
+			'value'		=> $modelRow->{$this->name},
+			'rest_url' => '/admin/'.strtolower($this->class).'/json'
+		));
+	}
+
+	public function listTextHtml($modelRow) {
+		//$arr = $modelRow->getModel()->{$this->callback}();
+		//if (isset($arr[$modelRow->{$this->name}])) echo $arr[$modelRow->{$this->name}];
 	}
 }
 
