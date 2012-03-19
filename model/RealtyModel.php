@@ -8,6 +8,7 @@
 require_once 'lib/model.lib.php';
 require_once 'model/RealtyImageModel.php';
 require_once 'model/ResortModel.php';
+require_once 'model/PriceModel.php';
 
 class RealtyModel extends Model {
 	const TYPE_VILLA	= 1;
@@ -17,6 +18,7 @@ class RealtyModel extends Model {
 
 	private $imgModel;
 	private $resort;
+	private $price;
 
 	public function __construct(IDatabase $db) {
 		parent::__construct('realty', $db);
@@ -34,6 +36,7 @@ class RealtyModel extends Model {
 
 		$this->imgModel = new RealtyImageModel($db);
 		$this->resort = new ResortModel($db);
+		$this->price = new PriceModel($db);
 	}
 
 	public function getTypes() {
@@ -51,7 +54,11 @@ class RealtyModel extends Model {
 
 	public function loadDependecies() {
 		$this->imgModel->get()->filter($this->imgModel->filterExpr()->eq('realty_id', $this->id))->exec();
-		$this->resort->get()->filter($this->imgModel->filterExpr()->eq('id', $this->resort_id))->exec();
+		$this->resort->get()->filter($this->resort->filterExpr()->eq('id', $this->resort_id))->exec();
+		$this->price->get()->filter($this->price->filterExpr()->
+			eq('class_id', $this->price->getClassId($this))
+			->_and()->eq('object_id', $this->id)
+		)->exec();
 	}
 
 	public function getMainImage($id) {
@@ -72,5 +79,14 @@ class RealtyModel extends Model {
 		foreach($this->resort as $resort) {
 			if ($resort->id == $id) return $resort;
 		}
+	}
+
+	public function getPrices($id, DateTime $from, DateTime $to) {
+		$ret = array();
+		foreach($this->price as $price)
+			if (($price->object_id == $id)
+				&& ($price->isActive($from) || $price->isActive($to))
+			) $ret[] = $price;
+		return $ret;
 	}
 }

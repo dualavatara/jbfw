@@ -296,7 +296,12 @@
 			</div>
 			<div class="right">
 				<div class="outer_pad">
-					<div>оценка <span class="rating_num"><b>9,0</b></span> (отзывы <a href"#">319</a>)</div>
+					<?php
+					$price = $realties->getPrices($realty->id, new DateTime(), new DateTime());
+					var_dump($price);
+					?>
+					<!--<div>оценка <span class="rating_num"><b>9,0</b></span> (отзывы <a href"#">319</a>)</div>-->
+					<div>&nbsp;</div>
 					<div class="white">курорт: <span class="rating_num" style="color:red;"><?php echo $realties->getResort($realty->resort_id)->name; ?></span><br>
 						<a href="<?php echo $realties->getResort($realty->resort_id)->gmaplink; ?>" target="_blank">смотреть на карте</a></div>
 					<div class="rating_num">EUR <span style="color:red;"><b>109.99</b></span></div>
