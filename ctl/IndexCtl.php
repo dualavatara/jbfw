@@ -35,6 +35,11 @@ class IndexCtl extends Ctl {
 		$bannersLeft = $this->disp->di()->BannerModel();
 		$bannersLeft->get()->filter($bannersLeft->filterExpr()->eq('flags', BannerModel::FLAG_LEFTCOL))->exec();
 
+		//realty selection for index
+		$realties = $this->disp->di()->RealtyModel();
+		$realties->get()->filter($realties->filterExpr()->eq('flags', ArticleModel::FLAG_VISIBLE))->exec();
+		$realties->loadDependecies();
+
 		$view = $this->disp->di()->TemplateView('index.html');
 		$output = $view->show(array(
 			'settings' => $settings,
@@ -42,7 +47,8 @@ class IndexCtl extends Ctl {
 			'articlesUsefull' => $articlesUsefull,
 			'articles' => $articles,
 			'bannersHead' => $bannersHead,
-			'bannersLeft' => $bannersLeft
+			'bannersLeft' => $bannersLeft,
+			'realties' => $realties,
 		));
 		return $output;
 	}

@@ -14,6 +14,7 @@ class Realty extends \AdminModel {
 		$this->fields['id'] = new \DefaultAdminField('id','Id', true, true, true);
 		$this->fields['name'] = new \DefaultAdminField('name','Название', true, true);
 		$this->fields['description'] = new \TextAdminField('description','Описание', false);
+		$this->fields['resort_id'] = new \SearchSelectAdminField('resort_id','Курорт', 'Resort', false);
 		$this->fields['features'] = new \DefaultAdminField('features','Особенности', false);
 		$this->fields['type'] = new \SelectAdminField('type','Тип', 'getTypes', true, false, false, 10);
 		$this->fields['rooms'] = new \DefaultAdminField('rooms','Комнат', false, false, false, 10);

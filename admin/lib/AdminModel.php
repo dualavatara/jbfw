@@ -333,6 +333,29 @@ class SelectAdminField extends AdminField {
 	}
 }
 
+class SearchSelectAdminField extends AdminField {
+	//public $callback;
+	public $class;
+
+	function __construct($name, $adminName, $class, $isList, $isListEdit = false, $isMinWidth = false) {
+		parent::__construct($name, $adminName, $isList, $isListEdit, $isMinWidth);
+		$this->class = $class;
+	}
+
+	public function inputHtml($modelRow) {
+		$this->template->insertTemplate('Form\SearchSelectField', array(
+			'name'		=> "form[{$this->name}]",
+			'value'		=> $modelRow->{$this->name},
+			'rest_url' => '/admin/'.strtolower($this->class).'/json'
+		));
+	}
+
+	public function listTextHtml($modelRow) {
+		//$arr = $modelRow->getModel()->{$this->callback}();
+		//if (isset($arr[$modelRow->{$this->name}])) echo $arr[$modelRow->{$this->name}];
+	}
+}
+
 
 class RefAdminField extends AdminField {
 	public $class;

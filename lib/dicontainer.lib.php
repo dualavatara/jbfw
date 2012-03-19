@@ -13,6 +13,7 @@ require_once 'model/SettingModel.php';
 require_once 'model/CurrencyModel.php';
 require_once 'model/ArticleModel.php';
 require_once 'model/BannerModel.php';
+require_once 'model/RealtyModel.php';
 
 //view classes
 require_once 'view/TemplateView.php';
@@ -138,6 +139,10 @@ class DIContainer extends Singletone{
 
 	public function BannerModel() {
 		return new BannerModel($this->PDODatabase());
+	}
+
+	public function RealtyModel() {
+		return new RealtyModel($this->PDODatabase());
 	}
 
 	// Misc ********************************************************************************************************* //

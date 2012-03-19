@@ -92,6 +92,7 @@ return array(
 		'resort_add' => array('/resort/add',              'Resort', 'add'),
 		'resort_delete' => array('/resort/delete/{id}',   'Resort', 'delete'),
 		'resort_save' => array('/resort/save',            'Resort', 'save'),
+		'resort_json' => array('/resort/json/{name}',     'Resort', 'json'),
 
 		'customer_edit' => array('/customer/edit/{id}',       'Customer', 'edit'),
 		'customer_list' => array('/customer/list',            'Customer', 'list'),

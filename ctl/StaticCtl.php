@@ -20,7 +20,8 @@ class StaticCtl  extends Ctl{
 				$extension = $match[1];
 			}
 
-			//$contentType = $storage->getContentType($extension);
+			$contentType = $storage->getContentType($extension);
+			header('Content-Type: '.$contentType);
 			return $storage->output($key);
 		} catch (\Exception $e) {
 		}
