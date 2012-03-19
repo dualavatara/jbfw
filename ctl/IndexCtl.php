@@ -61,7 +61,9 @@ class IndexCtl extends Ctl {
 
 	public function setCurrency() {
 		$request = $this->disp->getRequest();
-		Session::obj()->currency = $request['value'];
+		$c = $this->disp->di()->CurrencyModel();
+		$c->get($request['value'])->exec();
+		if ($c->count()) Session::obj()->currency = $c[0]->all();
 		return $this->disp->redirect($this->disp->getReferer());
 	}
 }

@@ -85,8 +85,12 @@ class RealtyModel extends Model {
 		$ret = array();
 		foreach($this->price as $price)
 			if (($price->object_id == $id)
-				&& ($price->isActive($from) || $price->isActive($to))
+				&& ($price->isActive($from, $to))
 			) $ret[] = $price;
+		usort($ret, function($a, $b) {
+			if ($a->value == $b->value) return 0;
+			if ($a->value > $b->value) return 1; else return -1;
+		});
 		return $ret;
 	}
 }

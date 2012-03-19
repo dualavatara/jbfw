@@ -37,7 +37,7 @@
 			</div>
 			<div id="currency">
 				<?php
-				$curId = Session::obj()->currency;
+				$curCur = Session::obj()->currency;
 				/** @noinspection PhpUndefinedVariableInspection */foreach ($currencies as $currency) {
 				?>
 				<?php if ($curId != $currency->id) { ?><a class="hiddenlink"
@@ -49,7 +49,7 @@
 						<div class="foldbl">
 							<div class="foldbr">
 								<div class="foldi">
-									<div class="text <?php if ($curId == $currency->id) echo 'selected'; ?>">
+									<div class="text <?php if ($curCur['id'] == $currency->id) echo 'selected'; ?>">
 										<i><?php echo $currency->name; ?></i>
 									</div>
 								</div>
@@ -297,14 +297,18 @@
 			<div class="right">
 				<div class="outer_pad">
 					<?php
-					$price = $realties->getPrices($realty->id, new DateTime(), new DateTime());
-					var_dump($price);
+					$price = $realties->getPrices($realty->id, new DateTime(), new DateTime('9999-01-01'));
+					//var_dump($price);
 					?>
 					<!--<div>оценка <span class="rating_num"><b>9,0</b></span> (отзывы <a href"#">319</a>)</div>-->
 					<div>&nbsp;</div>
 					<div class="white">курорт: <span class="rating_num" style="color:red;"><?php echo $realties->getResort($realty->resort_id)->name; ?></span><br>
 						<a href="<?php echo $realties->getResort($realty->resort_id)->gmaplink; ?>" target="_blank">смотреть на карте</a></div>
-					<div class="rating_num">EUR <span style="color:red;"><b>109.99</b></span></div>
+					<div class="rating_num">
+						<?php if (!empty($price) && $price[0]->calcValue($curCur['course'])) { ?>
+						<?php echo $curCur['sign'];?> <span style="color:red;"><b><?php echo $price[0]->calcValue($curCur['course']);?></b></span>
+						<?php } else echo "&nbsp;"; ?>
+					</div>
 					<div style="padding:0px;"><img src="../static/img/buttons/order.png" width="152" height="30">
 					</div>
 				</div>
