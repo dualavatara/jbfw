@@ -12,32 +12,41 @@ class ListTemplate extends Template {
 	}
 
 	protected function show($data, $content = null) {
+		$data['model']->setTemplate($this);
 		?>
 	<div class="submenubar">
-		<?php $this->showLink('[Список]', 'price_list')?>
-		<?php $this->showLink('[Добавить]', 'price_add')?>
+		<?php if ($_SESSION['urlparams']['from_route']) $this->showLink('[К родителю]',$_SESSION['urlparams']['from_route'], array(), '', true)?>
+        <?php $this->showLink('[Список]','price_list')?>
+        <?php $this->showLink('[Добавить]','price_add')?>
 	</div>
 	<table class="list">
 		<tr>
-			<th width="1%">id</th>
-			<th>Начало</th>
-			<th>Конец</th>
-			<th>Значение</th>
+			<?php
+			$dRaw = $data->getRaw();
+			foreach ($dRaw['model']->fields as $field) {
+				$w = $field->isMinWidth ? ' width="1%"' : '';
+				if ($field->isList) echo '<th' . $w . '>' . $field->adminName. '</th>';
+			}
+			?>
 			<th width="1%">&nbsp;</th>
 		</tr>
 		<?php foreach ($data['model']->getModel() as $i => $item): ?>
-		<tr class="<?php echo ($i % 2) ? 'odd' : 'even'; ?>">
-			<td><?php
-				if ($this->app['user']->checkRoute('price_edit')) $this->showLink($item->id, 'price_edit', array('id' => $item->id)); else echo $item->id; ?></td>
-			<td><?php $date = new \DateTime($item->start); echo $date->format('Y-m-d');?></td>
-			<td><?php $date = new \DateTime($item->end); echo $date->format('Y-m-d');?></td>
-			<td><?php
-				echo $item->value . ' ' . $data['currencies'][$item->currency_id];
+			<tr class="<?php echo ($i % 2) ? 'odd' : 'even'; ?>">
+				<?php
+					foreach ($dRaw['model']->fields as $field) {
+						if (!$field->isList) continue;
+						echo '<td>';
+						if (($field->isListEdit) && ($this->app['user']->checkRoute('price_edit'))) {
+							$this->showLink($field->listText($item), 'price_edit', array('id' => $item->id));
+						} else  echo $field->listText($item);
+						echo '</td>';
+					}
 				?>
-			</td>
-			<td>
-				<?php $this->showLink('&nbsp;X&nbsp;', 'price_delete', array('id' => $item->id), 'onClick="return AdminJS.deleteConfirmation();"');?>
-		</tr>
+				<td>
+                    <?php $this->showLink('&nbsp;X&nbsp;','price_delete', array('id' => $item->id),
+                                       'onClick="return AdminJS.deleteConfirmation();"');?>
+                </td>
+			</tr>
 		<?php endforeach; ?>
 	</table>
 	<?php if (0 == $data['model']->getModel()->count()): ?>

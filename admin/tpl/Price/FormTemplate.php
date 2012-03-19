@@ -1,5 +1,4 @@
 <?php
-
 namespace Price;
 
 use Admin\Extension\Template\Template;
@@ -12,16 +11,16 @@ class FormTemplate extends Template {
 	}
 
 	protected function show($data, $content = null) {
-		$model = $data['model'];
 		$price = isset($data['object']) ? $data['object'] : null;
+		$data['model']->setTemplate($this);
 		?>
 	<script type="text/javascript">
 		$(function () {
 			AdminJS.initTabs('#tabs');
 		});
-		$(document).ready(function () {
+		$(document).ready(function(){
 			$("#editForm").validate({
-				errorClass:"invalid"
+				errorClass: "invalid"
 			});
 		});
 	</script>
@@ -30,75 +29,25 @@ class FormTemplate extends Template {
 		<a href="<?php echo $this->getUrl('price_add') ?>">[Добавить]</a>
 	</div>
 	<div class="group">
-		<div class="capture"><?php echo $price ? 'Редактирование цены' : 'Создание цены';?></div>
+		<div class="capture"><?php echo $price ? 'Редактирование' : 'Создание';?></div>
 		<div id="tabs">
 			<a href="#general">Общие</a>
 		</div>
-		<form method="post" id="editForm" class="required" minlength="2"
-			  action="<?php echo $this->getUrl('price_save'); ?>" enctype="multipart/form-data">
+		<form method="post" id="editForm" class="required" minlength="2" action="<?php echo $this->getUrl('price_save'); ?>" enctype="multipart/form-data">
 			<input type="hidden" name="form[id]" value="<?php echo $price->id ? : ''; ?>"/>
 
 			<div id="general">
 				<table>
-					<tr>
-						<td>Начало</td>
-						<td>
-							<?php
-							$date = array('name'  => 'start',
-										  'value' => $price->start);
-							$this->insertTemplate('Form\DateField', $date);
-							?>
-						</td>
-					</tr>
-					<tr>
-						<td>Конец</td>
-						<td>
-							<?php
-							$date = array('name'  => 'end',
-										  'value' => $price->end);
-							$this->insertTemplate('Form\DateField', $date);
-							?>
-						</td>
-					</tr>
-					<tr>
-						<td>Валюта</td>
-						<td><?php
-							$this->insertTemplate('Form\SearchSelectField', array(
-								'name'		=> 'form[currency_id]',
-								'value'		=> $price->currency_id,
-								'display_value' => $data['currencies'][$price->currency_id],
-								'label' => 'Валюта',
-								'rest_url' => '/admin/currency/json'
-							)); ?>
-						</td>
-					</tr>
-					<tr>
-						<td>Цена</td>
-						<td><input name="form[value]" class="required"
-								   value="<?php echo floatval($price->value); ?>"/></td>
-					</tr>
-					<tr>
-						<td>&nbsp;</td>
-						<td><?php
-							$this->insertTemplate('Form\FlagsField', array(
-								'title'     => 'Опции',
-								'name'		=> 'form[flags]',
-								'value'		=> $price->flags,
-								'flags'		=> $model->getModel()->getFlags()
-							)); ?>
-						</td>
-					</tr>
-					<tr>
-						<td colspan="2"><?php
-							$this->insertTemplate('Form\SearchSelectField', array(
-								'name'		=> 'form[test]',
-								'value'		=> $price->currency_id,
-								'display_value' => $data['currencies'][$price->currency_id],
-								'label' => 'Тестовое поле',
-								'rest_url' => '/admin/currency/json'
-							)); ?>
-						</td>
-					</tr>
+
+						<?php
+							$dRaw = $data->getRaw();
+							foreach($dRaw['model']->fields as $field) {
+								if (($field->name == id) || (!$field->isForm)) continue;
+								echo '<tr><td>' .$field->adminName. '</td>';
+								echo '<td>' .$field->input($price). '</td></tr>';
+							}
+						?>
+
 				</table>
 			</div>
 
@@ -107,7 +56,7 @@ class FormTemplate extends Template {
 					<td colspan="2">
 						<div class="button button-save">
 							<div class="icon icon-save"></div>
-							<span>Save</span>
+							<span>Сохранить</span>
 						</div>
 					</td>
 				</tr>

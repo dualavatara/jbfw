@@ -2,6 +2,7 @@
 namespace model;
 
 require_once 'model/RealtyModel.php';
+require_once 'model/PriceModel.php';
 require_once 'admin/lib/AdminModel.php';
 
 class Realty extends \AdminModel {
@@ -21,9 +22,19 @@ class Realty extends \AdminModel {
 		$this->fields['total_floors'] = new \DefaultAdminField('total_floors','Этажность', false, false, false, 10);
 		$this->fields['flags'] = new \FlagsAdminField('flags','Флаги', true);
 		$this->fields['ord'] = new \DefaultAdminField('ord','Сортировка', true, false, false, 10);
-		$this->fields['images'] = new \RefAdminField('images','Картинки', true);
+		$this->fields['images'] = new \RefAdminField('images','Картинки', new \ParentChildParams(array('parent_field' => 'realty_id')), true);
 		$this->fields['images']->class = 'RealtyImage';
-		$this->fields['images']->parentField = 'realty_id';
 		$this->fields['images']->fromRoute = 'realty_list';
+
+		$this->fields['prices'] = new \RefAdminField('prices','Цены',
+			new \ClassObjectChildParams(
+				array(
+					'class_field' => 'class_id',
+					'object_field' => 'object_id',
+					'class_id' => \PriceModel::getClassId($this->getModel()),
+				)),
+			true);
+		$this->fields['prices']->class = 'Price';
+		$this->fields['prices']->fromRoute = 'realty_list';
 	}
 }

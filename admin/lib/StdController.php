@@ -69,16 +69,17 @@ class StdController extends Controller {
 	}
 
 	public function do_list(\Admin\Request $request = null) {
-		if (!isset($request['parent_field'])){
+		if (!isset($request['is_child'])){
 			$this->model->getAll();
 			$_SESSION['urlparams'] = array();
 		} else {
-			$this->model->getFieldFiltered($request['parent_field'], $request['parent_id']);
-			$_SESSION['urlparams'] = array(
-				'parent_field' => $request['parent_field'],
-				'parent_id' => $request['parent_id'],
+			$this->model->getFiltered($request);
+			$class = $this->model->childParamsClass;
+			$params = new $class($request);
+			$_SESSION['urlparams'] = array_merge(array(
+				'is_child' => $request['is_child'],
 				'from_route' => $request['from_route'],
-			);
+			), $params->getRequestParams($request));
 		}
 
 		$this->data['model'] = $this->model;

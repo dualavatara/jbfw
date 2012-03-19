@@ -6,6 +6,121 @@
  */
 
 require_once 'admin/lib/IAdminModel.php';
+require_once 'lib/filter.lib.php';
+
+interface IChildParams {
+	/**
+	 * @abstract
+	 * @param AdminField $adminField
+	 * @param ModelDataWrapper $row
+	 * @return array
+	 */
+	public function getParams(AdminField $adminField, ModelDataWrapper $row);
+
+	/**
+	 * @abstract
+	 * @return ISqlFilter
+	 */
+	public function getFilter();
+
+	/**
+	 * @abstract
+	 * @param array $request
+	 * @return mixed
+	 */
+	public function getRequestParams($request);
+}
+
+class ClassObjectChildParams implements \IChildParams {
+	private $classId;
+	private $classField;
+	private $objectId;
+	private $objectField;
+
+	function __construct($request) {
+		$this->classId = $request['class_id'];
+		$this->classField = $request['class_field'];
+		$this->objectId = $request['object_id'];
+		$this->objectField = $request['object_field'];
+	}
+
+	/**
+	 * @param AdminField $adminField
+	 * @param ModelDataWrapper $row
+	 * @return array
+	 */
+	public function getParams(\AdminField $adminField, \ModelDataWrapper $row) {
+		return array(
+			'class_id' => $this->classId,
+			'class_field' => $this->classField,
+			'object_id' => $row->id,
+			'object_field' => $this->objectField,
+		);
+	}
+
+	/**
+	 * @return ISqlFilter
+	 */
+	public function getFilter() {
+		$filter = new \FieldValueSqlFilter();
+		$filter->eq($this->classField, $this->classId)->_and()->eq($this->objectField, $this->objectId);
+		return $filter;
+	}
+
+	/**
+	 * @param array $request
+	 * @return mixed
+	 */
+	public function getRequestParams($request) {
+		return array(
+			'class_id' => $request['class_id'],
+			'class_field' => $request['class_field'],
+			'object_id' => $request['object_id'],
+			'object_field' => $request['object_field'],
+		);
+	}
+}
+
+class ParentChildParams implements \IChildParams {
+	private $parentId;
+	private $parentField;
+
+	function __construct($request) {
+		$this->parentField = $request['parent_field'];
+		$this->parentId = $request['parent_id'];
+	}
+
+	/**
+	 * @param AdminField $adminField
+	 * @param ModelDataWrapper $row
+	 * @return array
+	 */
+	public function getParams(\AdminField $adminField, \ModelDataWrapper $row) {
+		return array(
+			'parent_id' => $row->id, 'parent_field' => $this->parentField,
+		);
+	}
+
+	/**
+	 * @return ISqlFilter
+	 */
+	public function getFilter() {
+		$filter = new \FieldValueSqlFilter();
+		$filter->eq($this->parentField, $this->parentId);
+		return $filter;
+	}
+
+	/**
+	 * @param array $request
+	 * @return mixed
+	 */
+	public function getRequestParams($request) {
+		return array(
+			'parent_id' => $request['parent_id'],
+			'parent_field' => $request['parent_field'],
+		);
+	}
+}
 
 abstract class AdminModel implements IAdminModel {
 	/**
@@ -18,11 +133,14 @@ abstract class AdminModel implements IAdminModel {
 	 */
 	public $fields;
 
+	public $childParamsClass;
+
 	/**
 	 * @param Model $model
 	 */
-	public function __construct(Model $model) {
+	public function __construct(Model $model, $childParamsClass = null) {
 		$this->model = $model;
+		$this->childParamsClass = $childParamsClass;
 	}
 
 
@@ -40,8 +158,12 @@ abstract class AdminModel implements IAdminModel {
 		$this->model->get()->all()->exec();
 	}
 
-	public function getFieldFiltered($field, $value) {
-		$this->model->get()->filter($this->model->filterExpr()->eq($field, $value))->exec();
+	public function getFiltered($request) {
+		if (isset($this->childParamsClass)) {
+			$class = $this->childParamsClass;
+			$params = new $class($request);
+			$this->getModel()->get()->filter($params->getFilter())->exec();
+		} else $this->getModel()->get()->all()->exec();
 	}
 
 	/**
@@ -200,7 +322,7 @@ class SelectAdminField extends AdminField {
 	public function inputHtml($modelRow) {
 		$this->template->insertTemplate('Form\SelectField', array(
 			'name' => $this->name,
-			'selected' => $modelRow->type,
+			'selected' => $modelRow->{$this->name},
 			'values' => $this->adminModel->getModel()->{$this->callback}(),
 		));
 	}
@@ -214,12 +336,13 @@ class SelectAdminField extends AdminField {
 
 class RefAdminField extends AdminField {
 	public $class;
-	public $parentField;
+	public $childParams;
 	public $fromRoute;
 
-	function __construct($name, $adminName, $isList, $isListEdit = false, $isMinWidth = false) {
+	function __construct($name, $adminName, IChildParams $childParams, $isList, $isListEdit = false, $isMinWidth = false) {
 		parent::__construct($name, $adminName, $isList, $isListEdit, $isMinWidth);
 		$this->isForm = false;
+		$this->childParams = $childParams;
 	}
 
 	public function inputHtml($modelRow) {
@@ -227,33 +350,65 @@ class RefAdminField extends AdminField {
 	}
 
 	public function listTextHtml($modelRow) {
-		$this->template->showLink('список', strtolower($this->class) . '_list', array(
-				'parent_id' => $modelRow->getRaw()->id,
-				'parent_field' => $this->parentField,
-				'from_route' => $this->fromRoute,
-			));
+		$params = array_merge($this->childParams->getParams($this, $modelRow->getRaw()), array(
+			/*'parent_id' => $modelRow->getRaw()->id,
+							'parent_field' => $this->parentField,*/
+			'is_child' => true, 'from_route' => $this->fromRoute,
+		));
+		$this->template->showLink('список', strtolower($this->class) . '_list', $params);
 	}
 }
 
 class BackrefAdminField extends AdminField {
+	public $value;
+
+	function __construct($name, $adminName, $value, $isList, $isListEdit = false, $isMinWidth = false) {
+		parent::__construct($name, $adminName, $isList, $isListEdit, $isMinWidth);
+		$this->value = $value;
+	}
+
 	public function inputHtml($modelRow) {
+		$value = $this->value;
+		if ($modelRow) $value = $modelRow->{$this->name};
 		?>
 	<input type="hidden" id="<?php echo $this->name; ?>" name="form[<?php echo $this->name; ?>]"
-		   value="<?php echo $_SESSION['urlparams']['parent_id']; ?>"/>
+		   value="<?php echo $value; ?>"/>
 	<?php
-		echo $_SESSION['urlparams']['parent_id'];
+		echo $value;
+	}
+
+	public function listTextHtml($modelRow) {
+		echo $modelRow->{$this->name};
 	}
 }
 
 class ImageAdminField extends AdminField {
 	public function inputHtml($modelRow) {
 		$this->template->insertTemplate('Form\ImageField', array(
-			'name' => $this->name,
-			'key' => $modelRow->image,
+			'name' => $this->name, 'key' => $modelRow->image,
 		));
 	}
 
 	public function listTextHtml($modelRow) {
-		if ($modelRow->{$this->name}) $this->template->showLink($modelRow->{$this->name}, 'static', array('key' => $modelRow->{$this->name}),'target="_blank"');
+		if ($modelRow->{$this->name}) $this->template->showLink($modelRow->{$this->name}, 'static', array('key' => $modelRow->{$this->name}), 'target="_blank"');
 	}
+}
+
+class DateTimeAdminField extends AdminField {
+	public function inputHtml($modelRow) {
+		/*	$this->template->insertTemplate('Form\SelectField', array(
+			'name' => $this->name,
+			'selected' => $modelRow->type,
+			'values' => $this->adminModel->getModel()->{$this->callback}(),
+		));*/
+		$date = array(
+			'name' => $this->name, 'value' => $modelRow->{$this->name}
+		);
+		$this->template->insertTemplate('Form\DateTimeField', $date);
+	}
+
+	/*public function listTextHtml($modelRow) {
+		$arr = $modelRow->getModel()->{$this->callback}();
+		if (isset($arr[$modelRow->{$this->name}])) echo $arr[$modelRow->{$this->name}];
+	}*/
 }
