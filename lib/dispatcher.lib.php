@@ -69,7 +69,7 @@ class Dispatcher implements IDispatcher {
 
 		if (!Session::obj()->lang) Session::obj()->lang = DEFAULT_LANG;
 		if (!Session::obj()->currency) {
-			$c = $this->disp->di()->CurrencyModel();
+			$c = $this->di()->CurrencyModel();
 			$c->get(DEFAULT_CURRENCY)->exec();
 			if ($c->count()) Session::obj()->currency = $c[0]->all();
 		}
