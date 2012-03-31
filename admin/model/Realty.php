@@ -21,6 +21,7 @@ class Realty extends \AdminModel {
 		$this->fields['bedrooms'] = new \DefaultAdminField('bedrooms','Спален', false, false, false, 10);
 		$this->fields['floor'] = new \DefaultAdminField('floor','Этаж', false, false, false, 10);
 		$this->fields['total_floors'] = new \DefaultAdminField('total_floors','Этажность', false, false, false, 10);
+		$this->fields['stars'] = new \DefaultAdminField('stars','Звезд', false, false, false, 10);
 		$this->fields['flags'] = new \FlagsAdminField('flags','Флаги', true);
 		$this->fields['ord'] = new \DefaultAdminField('ord','Сортировка', true, false, false, 10);
 		$this->fields['images'] = new \RefAdminField('images','Картинки', new \ParentChildParams(array('parent_field' => 'realty_id')), true);

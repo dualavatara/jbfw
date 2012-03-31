@@ -30,6 +30,7 @@ class RealtyModel extends Model {
 		$this->field(new IntField('bedrooms'));
 		$this->field(new IntField('floor'));
 		$this->field(new IntField('total_floors'));
+		$this->field(new IntField('stars'));
 		$this->field(new IntField('resort_id'));
 		$this->field(new IntField('ord'));
 		$this->field(new FlagsField('flags'));
