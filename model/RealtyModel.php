@@ -20,6 +20,7 @@ class RealtyModel extends Model {
 	private $resort;
 	private $price;
 
+
 	public function __construct(IDatabase $db) {
 		parent::__construct('realty', $db);
 		$this->field(new CharField('name'));
