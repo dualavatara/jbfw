@@ -10,46 +10,47 @@ require_once 'ctl/Ctl.php';
 class IndexCtl extends Ctl {
 
 	public function main() {
-		$settings = $this->disp->di()->SettingModel();
-		$settings->get()->all()->exec();
+		$tpl = $this->disp->di()->TemplateView();
+		$view = $this->disp->di()->IndexView($tpl);
+		$tpl->settings = $this->disp->di()->SettingModel();
+		$tpl->settings->get()->all()->exec();
 
-		$currencies = $this->disp->di()->CurrencyModel();
-		$currencies->get()->all()->order('id')->exec();
+		$tpl->currencies = $this->disp->di()->CurrencyModel();
+		$tpl->currencies->get()->all()->order('id')->exec();
 
-		$articlesUsefull = $this->disp->di()->ArticleModel();
-		$articlesUsefull->get()->filter($articlesUsefull->filterExpr()->eq('type', ArticleModel::TYPE_USEFULL)->_and()
+		$tpl->articlesUsefull = $this->disp->di()->ArticleModel();
+		$tpl->articlesUsefull->get()->filter($tpl->articlesUsefull->filterExpr()->eq('type', ArticleModel::TYPE_USEFULL)->_and()
 			->eq('flags', ArticleModel::FLAG_VISIBLE)->_and()->eq('flags', ArticleModel::FLAG_FOOTER))
 			->order('ord', true)->exec();
 
-		$articles = $this->disp->di()->ArticleModel();
-		$articles->get()->filter($articles->filterExpr()->eq('type', ArticleModel::TYPE_ARTICLE)->_and()
+		$view->articles = $this->disp->di()->ArticleModel();
+		$view->articles->get()->filter($view->articles->filterExpr()->eq('type', ArticleModel::TYPE_ARTICLE)->_and()
 			->eq('flags', ArticleModel::FLAG_VISIBLE)->_and()->eq('flags', ArticleModel::FLAG_TOINDEX))
 			->order('ord', true)->limit(3)->exec();
 
 		//header banners
-		$bannersHead = $this->disp->di()->BannerModel();
-		$bannersHead->get()->filter($bannersHead->filterExpr()->eq('type', BannerModel::TYPE_240X100)->_and()
+		$tpl->bannersHead = $this->disp->di()->BannerModel();
+		$tpl->bannersHead->get()->filter($tpl->bannersHead->filterExpr()->eq('type', BannerModel::TYPE_240X100)->_and()
 			->eq('flags', BannerModel::FLAG_HEAD))->limit(4)->exec();
 
 		//left column banners
-		$bannersLeft = $this->disp->di()->BannerModel();
-		$bannersLeft->get()->filter($bannersLeft->filterExpr()->eq('flags', BannerModel::FLAG_LEFTCOL))->exec();
+		$view->bannersLeft = $this->disp->di()->BannerModel();
+		$view->bannersLeft->get()->filter($view->bannersLeft->filterExpr()->eq('flags', BannerModel::FLAG_LEFTCOL))->exec();
 
 		//realty selection for index
-		$realties = $this->disp->di()->RealtyModel();
-		$realties->get()->filter($realties->filterExpr()->eq('flags', ArticleModel::FLAG_VISIBLE))->exec();
-		$realties->loadDependecies();
+		$view->realties = $this->disp->di()->RealtyModel();
+		$view->realties->get()->filter($view->realties->filterExpr()->eq('flags', ArticleModel::FLAG_VISIBLE))->exec();
+		$view->realties->loadDependecies();
 
-		$view = $this->disp->di()->TemplateView('index.html');
-		$output = $view->show(array(
+
+		$output = $view->show();
+		/*$output = $view->show(array(
 			'settings' => $settings,
 			'currencies' => $currencies,
 			'articlesUsefull' => $articlesUsefull,
 			'articles' => $articles,
-			'bannersHead' => $bannersHead,
-			'bannersLeft' => $bannersLeft,
 			'realties' => $realties,
-		));
+		));*/
 		return $output;
 	}
 
