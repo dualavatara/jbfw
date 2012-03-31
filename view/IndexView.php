@@ -28,6 +28,19 @@ class IndexView extends BaseView {
 		}
 	}
 
+	public function realtyTitleStars($realty) {
+	?>
+		<h2><?php echo $realty->name; ?>
+	<?php
+		for($i=0; $i < $realty->stars; $i++) {
+			?>
+			<img src="/static/img/icons/star.png">
+			<?php
+		}
+		?></h2>
+		<?php
+	}
+
 	public function show() {
 		$this->start();
 		?>
@@ -170,7 +183,7 @@ class IndexView extends BaseView {
 						</div>
 					</div>
 					<div class="right">
-						<div><h2><?php echo $realty->name; ?></h2></div>
+						<div><?php $this->realtyTitleStars($realty); ?></div>
 						<div>
 							<table class="properties" border="0" cellpadding="0" cellspacing="0">
 								<tr>
