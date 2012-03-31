@@ -13,6 +13,7 @@ class TemplateView extends BaseView {
 	public $settings;
 	public $bannersHead;
 	public $articlesUsefull;
+	public $currencies;
 	
 	public function setMainContent($content) {
 		$this->mainCont = $content;
@@ -61,7 +62,7 @@ class TemplateView extends BaseView {
 				<div id="currency">
 					<?php
 					$curCur = \Session::obj()->currency;
-					/** @noinspection PhpUndefinedVariableInspection */foreach ($currencies as $currency) {
+					/** @noinspection PhpUndefinedVariableInspection */foreach ($this->currencies as $currency) {
 					?>
 					<?php if ($curId != $currency->id) { ?><a class="hiddenlink"
 															  href="/currency?value=<?php echo $currency->id; ?>"><?php
