@@ -44,13 +44,13 @@ class AppartmentModel extends Model {
 		);
 	}
 
-	public function getPrices($idx, $type, DateTime $date) {
+	public function getPrices($idx, $type) {
 		$this->price->get()->filter(
 			$this->price->filterExpr()->eq('class_id', PriceModel::CLASS_APPARTMENT)
 			->_and()->eq('object_id', $this[$idx]->id)
 			->_and()->eq('type', $type)
 		)->filter(
-			$this->price->filterExpr()->eq('flags', PriceModel::END_INVALID)->_or()->more('end', $date)
+			$this->price->filterExpr()->eq('flags', PriceModel::END_INVALID)->_or()->more('end', new DateTime())
 		)->order('value')->exec();
 		return $this->price;
 	}

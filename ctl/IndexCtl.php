@@ -44,13 +44,6 @@ class IndexCtl extends Ctl {
 
 
 		$output = $view->show();
-		/*$output = $view->show(array(
-			'settings' => $settings,
-			'currencies' => $currencies,
-			'articlesUsefull' => $articlesUsefull,
-			'articles' => $articles,
-			'realties' => $realties,
-		));*/
 		return $output;
 	}
 

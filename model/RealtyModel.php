@@ -16,6 +16,9 @@ class RealtyModel extends Model {
 	const TYPE_HOTEL	= 2;
 
 	const FLAG_VISIBLE		= 0x0001;
+	const FLAG_BEST			= 0x0002;
+	const FLAG_DISCOUNT		= 0x0004;
+	const FLAG_HIT			= 0x0008;
 
 	private $imgModel;
 	private $resort;
@@ -54,6 +57,9 @@ class RealtyModel extends Model {
 	public function getFlags() {
 		return array(
 			self::FLAG_VISIBLE => 'Видимый',
+			self::FLAG_BEST => 'Лучшее предложение',
+			self::FLAG_DISCOUNT => 'Скидка',
+			self::FLAG_HIT => 'Хит',
 		);
 	}
 
@@ -103,5 +109,20 @@ class RealtyModel extends Model {
 			$this->app->filterExpr()->eq('realty_id',$this[$idx]->id)
 		)->exec();
 		return $this->app;
+	}
+
+	public function getAppartmentPrices($idx) {
+		$apps = $this->getAppartments($idx);
+		$pres = array();
+		foreach($apps as $app) {
+			$prices = $app->getPrices(PriceModel::TYPE_RENT);
+			if ($prices->count()) $pres[] = $prices[0];
+		}
+
+		usort($pres, function($a, $b) {
+			if ($a->value == $b->value) return 0;
+			if ($a->value > $b->value) return 1; else return -1;
+		});
+		return $pres;
 	}
 }

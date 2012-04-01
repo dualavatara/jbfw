@@ -267,7 +267,7 @@ class IndexView extends BaseView {
 		<div class="right">
 			<div class="outer_pad">
 				<?php
-				$price = $realty->getLowesAppartmentPrice($realty->id, new \DateTime(), new \DateTime());
+				$price = $realty->getAppartmentPrices();
 				//var_dump($price);
 				?>
 				<!--<div>оценка <span class="rating_num"><b>9,0</b></span> (отзывы <a href"#">319</a>)</div>-->
@@ -297,7 +297,7 @@ class IndexView extends BaseView {
 				<table class="appartlist" border="0" cellpadding="0" cellspacing="0">
 					<?php
 					foreach ($apps as $app) {
-						$prices = $app->getPrices(\PriceModel::TYPE_RENT, new \DateTime(), , new \DateTime());
+						$prices = $app->getPrices(\PriceModel::TYPE_RENT);
 						if ($prices->count()) {
 							?>
 							<tr>
