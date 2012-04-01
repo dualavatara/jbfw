@@ -4,10 +4,6 @@ require_once('lib/requesthandler.web.lib.php');
 require_once('lib/dispatcher.lib.php');
 require_once 'lib/PDODatabase.php';
 
-//ctl classes
-require_once 'ctl/IndexCtl.php';
-require_once 'ctl/StaticCtl.php';
-
 //model classes
 require_once 'model/SettingModel.php';
 require_once 'model/CurrencyModel.php';
@@ -77,18 +73,18 @@ class DIContainer extends Singletone{
 
 	/**
 	 * @param $dispatcher
-	 * @return IndexCtl
+	 * @return \Ctl\IndexCtl
 	 */
 	public function IndexCtl($dispatcher) {
-		return new IndexCtl($dispatcher);
+		return new \Ctl\IndexCtl($dispatcher);
 	}
 
 	/**
 	 * @param $dispatcher
-	 * @return StaticCtl
+	 * @return \Ctl\StaticCtl
 	 */
 	public function StaticCtl($dispatcher) {
-		return new StaticCtl($dispatcher);
+		return new \Ctl\StaticCtl($dispatcher);
 	}
 	// Views **************************************************************************************************** //
 
