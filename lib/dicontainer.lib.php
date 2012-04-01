@@ -93,15 +93,24 @@ class DIContainer extends Singletone{
 	// Views **************************************************************************************************** //
 
 	/**
-	 * @param $templateName
-	 * @return TemplateView
+	 * @return View\TemplateView
 	 */
 	public function TemplateView(){
 		return new \View\TemplateView();
 	}
 
-	public function IndexView(\View\TemplateView $template) {
-		return new \View\IndexView($template);
+	/**
+	 * @return View\IndexView
+	 */
+	public function IndexView() {
+		return new \View\IndexView();
+	}
+
+	/**
+	 * @return View\SearchColumnView
+	 */
+	public function SearchColumnView() {
+		return new \View\SearchColumnView();
 	}
 
 	// Request matchers ********************************************************************************************* //

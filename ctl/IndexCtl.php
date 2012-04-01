@@ -11,18 +11,23 @@ class IndexCtl extends Ctl {
 
 	public function main() {
 		$tpl = $this->disp->di()->TemplateView();
+		$leftCol = $this->disp->di()->SearchColumnView();
+
 		$view = $this->disp->di()->IndexView($tpl);
 		$tpl->settings = $this->disp->di()->SettingModel();
 		$tpl->settings->get()->all()->exec();
 
+		//currecies for header selector
 		$tpl->currencies = $this->disp->di()->CurrencyModel();
 		$tpl->currencies->get()->all()->order('id')->exec();
 
+		//articles to the footer
 		$tpl->articlesUsefull = $this->disp->di()->ArticleModel();
 		$tpl->articlesUsefull->get()->filter($tpl->articlesUsefull->filterExpr()->eq('type', ArticleModel::TYPE_USEFULL)
 			->_and()->eq('flags', ArticleModel::FLAG_VISIBLE)->_and()->eq('flags', ArticleModel::FLAG_FOOTER))
 			->order('ord', true)->exec();
 
+		//articles for index
 		$view->articles = $this->disp->di()->ArticleModel();
 		$view->articles->get()->filter($view->articles->filterExpr()->eq('type', ArticleModel::TYPE_ARTICLE)->_and()
 			->eq('flags', ArticleModel::FLAG_VISIBLE)->_and()->eq('flags', ArticleModel::FLAG_TOINDEX))
@@ -34,8 +39,8 @@ class IndexCtl extends Ctl {
 			->eq('flags', BannerModel::FLAG_HEAD))->limit(4)->exec();
 
 		//left column banners
-		$view->bannersLeft = $this->disp->di()->BannerModel();
-		$view->bannersLeft->get()->filter($view->bannersLeft->filterExpr()->eq('flags', BannerModel::FLAG_LEFTCOL))
+		$leftCol->bannersLeft = $this->disp->di()->BannerModel();
+		$leftCol->bannersLeft->get()->filter($leftCol->bannersLeft->filterExpr()->eq('flags', BannerModel::FLAG_LEFTCOL))
 			->exec();
 
 		//realty selection for index
@@ -44,9 +49,9 @@ class IndexCtl extends Ctl {
 			->eq('flags', RealtyModel::FLAG_BEST))->exec();
 		$view->realties->loadDependecies();
 
-
-		$output = $view->show();
-		return $output;
+		$tpl->setLeftColumn($leftCol->show());
+		$tpl->setMainContent($view->show());
+		return $tpl->show();
 	}
 
 	public function setLang() {

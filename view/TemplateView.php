@@ -9,14 +9,19 @@ namespace View;
 
 class TemplateView extends BaseView {
 	public $mainCont;
+	public $leftCol;
 
 	public $settings;
 	public $bannersHead;
 	public $articlesUsefull;
 	public $currencies;
-	
+
 	public function setMainContent($content) {
 		$this->mainCont = $content;
+	}
+
+	public function setLeftColumn($content) {
+		$this->leftCol = $content;
 	}
 
 	public function show() {
@@ -139,7 +144,12 @@ class TemplateView extends BaseView {
 		</div>
 	</div>
 	<div id="content">
-	<?php echo $this->mainCont; ?>
+		<div id="contentlcol">
+			<?php echo $this->leftCol; ?>
+		</div>
+		<div id="contentrcol">
+			<?php echo $this->mainCont; ?>
+		</div>
 	</div>
 	<div id="footerstub">&nbsp;</div>
 	<div id="footer" class="page">

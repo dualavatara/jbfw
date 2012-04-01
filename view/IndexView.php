@@ -8,7 +8,6 @@
 namespace View;
 
 class IndexView extends BaseView {
-	public $template;
 
 	/**
 	 * params
@@ -16,17 +15,6 @@ class IndexView extends BaseView {
 	public $bannersLeft;
 	public $realties;
 	public $articles;
-
-	/**
-	 * @param \View\TemplateView $template
-	 * @param $params
-	 */
-	public function __construct(TemplateView $template, $params = array()) {
-		$this->template = $template;
-		foreach ($params as $key => $value) {
-			$this->$key = $value;
-		}
-	}
 
 	public function realtyTitleStars($realty) {
 		?>
@@ -43,124 +31,21 @@ class IndexView extends BaseView {
 
 	public function show() {
 		$this->start();
-		?>
-	<div id="contentlcol">
-		<div id="searchpad">
-			<form action="/search" method="post" enctype="application/x-www-form-urlencoded" name="form1">
-				<div id="catfolds">
-					<div class="searchfold selected">
-						недвижимость
-					</div>
-					<div class="searchfold">
-						авто
-					</div>
-					<div class="searchfold">
-						отдых
-					</div>
-				</div>
-				<div id="mainsearch">
-					<p>
-						<label class="lab" for="target">цель</label>
-						<select name="target" id="target" class="first">
-							<option selected>Аренда</option>
-						</select>
-					</p>
-					<p>
-						<label class="labd">c</label>
-						<select name="from_day2" id="from_day2" class="firstd">
-							<option selected>01</option>
-						</select>
-						<select name="from_month" id="from_month">
-							<option selected>01</option>
-						</select>
-						<select name="from_year2" id="from_year2">
-							<option selected>2012</option>
-						</select>
-						<span><img src="../static/img/icons/calendar.png" width="24" height="18"></span> <br>
-						<label class="labd">по</label>
-						<select name="from_day2" id="from_day2" class="firstd">
-							<option selected>01</option>
-						</select>
-						<select name="from_month" id="from_month">
-							<option selected>01</option>
-						</select>
-						<select name="from_year2" id="from_year2">
-							<option selected>2012</option>
-						</select>
-						<img src="../static/img/icons/calendar.png" width="24" height="18">
-					</p>
-					<p>
-						<label class="lab">страна</label>
-						<select name="country" id="country" class="first">
-							<option selected>Черногория</option>
-						</select>
-						<br>
-						<label class="lab">город</label>
-						<select name="country" id="country" class="first">
-							<option selected>Цетине</option>
-						</select>
-					</p>
-					<p>
-						<label for="type" class="lab">тип</label>
-						<select name="type" id="type" class="first">
-							<option selected>Апартаменты</option>
-						</select>
-						<br>
-						<label class="lab">S(м&#178;)</label>
-						<select name="country" id="country" class="first">
-							<option selected>до 100 м&#178;</option>
-						</select>
-					</p>
-				</div>
-				<div id="exsearch_fold">
-					<div class="fold">
-						<div class="foldbg bottom" style="background-color: #898989; ">
-							<div class="foldbldark">
-								<div class="foldbrdark">
-									<div class="foldbsdark">
-										<div class="foldi bottom">
-											<div class="text" style="width: 218px;padding: 5px 0 ;"><a class="white"
-																									   href="#">дополнительные
-												параметры поиска</a></div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</form>
-		</div>
-		<?php
-		/** @noinspection PhpUndefinedVariableInspection */foreach ($this->bannersLeft as $banner) {
-		$size = $this->bannersLeft->getSize($banner->type);
-		?>
-		<div>
-			<a href="<?php echo $banner->link; ?>">
-				<img src="/s/<?php echo $banner->image; ?>" width="<?php echo $size->width; ?>"
-					 height="<?php echo $size->height; ?>">
-			</a>
-		</div>
-		<?php
-	};
-		?>
-	</div>
-	<div id="contentrcol">
-		<?php
+
 		foreach ($this->realties as $realty) {
 			$this->realtyBlock($realty);
-		};
-		?>
-		<?php
+		}
+
 		$artOut = function ($article) {
 			?>
-			<h2 class="red"><?php echo $article->name;?></h2>
-			<img src="/s/<?php echo $article->photo_preview;?>">
-			<p><?php echo $article->content_short;?></p>
-			<?php
+		<h2 class="red"><?php echo $article->name;?></h2>
+		<img src="/s/<?php echo $article->photo_preview;?>">
+		<p><?php echo $article->content_short;?></p>
+		<?php
 		};
-		/** @noinspection PhpUndefinedVariableInspection */if ($this->articles->count()) {
-		?>
+		/** @noinspection PhpUndefinedVariableInspection */
+		if ($this->articles->count()) {
+			?>
 		<div id="article_block">
 			<div class="alcol frame"><?php $artOut($this->articles[0]);?></div>
 			<?php
@@ -179,13 +64,11 @@ class IndexView extends BaseView {
 			?>
 		</div>
 		<?php
-	};
-		?>
-	</div>
-	<?php
+		}
+		;
+
 		$this->end();
-		$this->template->setMainContent($this->content);
-		return $this->template->show();
+		return $this->content;
 	}
 
 	public function realtyBlock($realty) {
@@ -207,13 +90,14 @@ class IndexView extends BaseView {
 							// This, or...
 						});
 					</script>
-		<?php
-		if ($realty->flags->check(\RealtyModel::FLAG_HIT)) {?><img class="badge" src="/static/img/badge/hit.png"><?php
-		} else if ($realty->flags->check(\RealtyModel::FLAG_DISCOUNT)) {
-			?>
-			<img class="badge" src="/static/img/badge/discount.png">
-			<?php
-		};
+					<?php
+					if ($realty->flags->check(\RealtyModel::FLAG_HIT)) {
+						?><img class="badge" src="/static/img/badge/hit.png"><?php
+					} else if ($realty->flags->check(\RealtyModel::FLAG_DISCOUNT)) {
+						?>
+						<img class="badge" src="/static/img/badge/discount.png">
+						<?php
+					};
 					if (isset($mainImg)) {
 						?>
 						<a href="/s/<?php echo $mainImg->image; ?>"
@@ -295,8 +179,7 @@ class IndexView extends BaseView {
 		<?php
 		$apps = $realty->getAppartments();
 		if ($apps->count()) {
-			if ($realty->type == \RealtyModel::TYPE_VILLA) $hdr = 'Аппартаменты на этой Вилле:';
-			else $hdr = 'Аппартаменты в этом отелле:';
+			if ($realty->type == \RealtyModel::TYPE_VILLA) $hdr = 'Аппартаменты на этой Вилле:'; else $hdr = 'Аппартаменты в этом отелле:';
 			?>
 			<div class="appartlist">
 				<div class="appartlistheader"><?php echo $hdr; ?></div>
@@ -310,8 +193,9 @@ class IndexView extends BaseView {
 								<td><a href="#"><?php echo $app->name; ?></a></td>
 								<td>от
 
-									<span style="font-size: 1.2em"><?php echo \Session::obj()->currency['sign']; ?>&nbsp;<span
-										style="color:red;"><b><?php echo $prices[0]->calcValue(\Session::obj()->currency['course']); ?></b></span></span>
+									<span style="font-size: 1.2em"><?php echo \Session::obj()->currency['sign']; ?>
+										&nbsp;<span
+											style="color:red;"><b><?php echo $prices[0]->calcValue(\Session::obj()->currency['course']); ?></b></span></span>
 								</td>
 								<td><img src="../static/img/buttons/order.png" width="152" height="30"></td>
 							</tr>
