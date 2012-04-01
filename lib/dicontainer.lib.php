@@ -86,6 +86,26 @@ class DIContainer extends Singletone{
 	public function StaticCtl($dispatcher) {
 		return new \Ctl\StaticCtl($dispatcher);
 	}
+
+	/**
+	 * @param $dispatcher
+	 * @return Ctl\RealtyCtl
+	 */
+	public function RealtyCtl($dispatcher) {
+		return new \Ctl\RealtyCtl($dispatcher);
+	}
+
+	/**
+	 * @param $dispatcher
+	 * @return Ctl\TemplateCtl
+	 */
+	public function TemplateCtl($dispatcher) {
+		return new \Ctl\TemplateCtl($dispatcher);
+	}
+
+	public function SearchColumnCtl($dispatcher) {
+		return new \Ctl\SearchColumnCtl($dispatcher);
+	}
 	// Views **************************************************************************************************** //
 
 	/**
@@ -107,6 +127,10 @@ class DIContainer extends Singletone{
 	 */
 	public function SearchColumnView() {
 		return new \View\SearchColumnView();
+	}
+
+	public function RealtyView() {
+		return new \View\RealtyView();
 	}
 
 	// Request matchers ********************************************************************************************* //

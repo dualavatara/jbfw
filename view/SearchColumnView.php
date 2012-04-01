@@ -10,6 +10,7 @@ namespace View;
 class SearchColumnView extends BaseView{
 	public function show() {
 		$this->start();
+		$this->columnHeader('Искать на сайте:', 'left');
 		?>
 	<div id="searchpad">
 		<form action="/search" method="post" enctype="application/x-www-form-urlencoded" name="form1">
@@ -103,7 +104,7 @@ class SearchColumnView extends BaseView{
 			?>
 		<div>
 			<a href="<?php echo $banner->link; ?>">
-				<img src="/s/<?php echo $banner->image; ?>" width="<?php echo $size->width; ?>"
+				<img src="<?php echo \Ctl\StaticCtl::link('get', array('key'=>$banner->image)); ?>" width="<?php echo $size->width; ?>"
 					 height="<?php echo $size->height; ?>">
 			</a>
 		</div>

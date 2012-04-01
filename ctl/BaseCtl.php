@@ -7,7 +7,9 @@
 
 namespace Ctl;
 
-class Ctl {
+require_once 'lib/exception.lib.php';
+
+abstract class BaseCtl {
 	/**
 	 * @var \IDispatcher
 	 */
@@ -16,4 +18,6 @@ class Ctl {
 	function __construct(\IDispatcher $disp) {
 		$this->disp = $disp;
 	}
+
+	abstract static public function link($method, $params);
 }

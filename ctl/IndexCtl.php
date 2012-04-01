@@ -7,41 +7,18 @@
 
 namespace Ctl;
 
-class IndexCtl extends Ctl {
+class IndexCtl extends BaseCtl {
 
 	public function main() {
-		$tpl = $this->disp->di()->TemplateView();
-		$leftCol = $this->disp->di()->SearchColumnView();
+		$tpl = $this->disp->di()->TemplateCtl($this->disp)->main();
+		$leftCol = $this->disp->di()->SearchColumnCtl($this->disp)->main();
 		$view = $this->disp->di()->IndexView($tpl);
-
-		$tpl->settings = $this->disp->di()->SettingModel();
-		$tpl->settings->get()->all()->exec();
-
-		//currecy list for header selector
-		$tpl->currencies = $this->disp->di()->CurrencyModel();
-		$tpl->currencies->get()->all()->order('id')->exec();
-
-		//articles to the footer
-		$tpl->articlesUsefull = $this->disp->di()->ArticleModel();
-		$tpl->articlesUsefull->get()->filter($tpl->articlesUsefull->filterExpr()->eq('type', \ArticleModel::TYPE_USEFULL)
-			->_and()->eq('flags', \ArticleModel::FLAG_VISIBLE)->_and()->eq('flags', \ArticleModel::FLAG_FOOTER))
-			->order('ord', true)->exec();
 
 		//articles for index
 		$view->articles = $this->disp->di()->ArticleModel();
 		$view->articles->get()->filter($view->articles->filterExpr()->eq('type', \ArticleModel::TYPE_ARTICLE)->_and()
 			->eq('flags', \ArticleModel::FLAG_VISIBLE)->_and()->eq('flags', \ArticleModel::FLAG_TOINDEX))
 			->order('ord', true)->limit(3)->exec();
-
-		//header banners
-		$tpl->bannersHead = $this->disp->di()->BannerModel();
-		$tpl->bannersHead->get()->filter($tpl->bannersHead->filterExpr()->eq('type', \BannerModel::TYPE_240X100)->_and()
-			->eq('flags', \BannerModel::FLAG_HEAD))->limit(4)->exec();
-
-		//left column banners
-		$leftCol->bannersLeft = $this->disp->di()->BannerModel();
-		$leftCol->bannersLeft->get()->filter($leftCol->bannersLeft->filterExpr()->eq('flags', \BannerModel::FLAG_LEFTCOL))
-			->exec();
 
 		//realty selection for index
 		$view->realties = $this->disp->di()->RealtyModel();
@@ -51,12 +28,12 @@ class IndexCtl extends Ctl {
 
 		$tpl->setLeftColumn($leftCol->show());
 		$tpl->setMainContent($view->show());
-		return $tpl->show();
+		return $tpl;
 	}
 
 	public function setLang() {
 		$request = $this->disp->getRequest();
-		Session::obj()->lang = $request['value'];
+		\Session::obj()->lang = $request['value'];
 		return $this->disp->redirect($this->disp->getReferer());
 	}
 
@@ -64,7 +41,16 @@ class IndexCtl extends Ctl {
 		$request = $this->disp->getRequest();
 		$c = $this->disp->di()->CurrencyModel();
 		$c->get($request['value'])->exec();
-		if ($c->count()) Session::obj()->currency = $c[0]->all();
+		if ($c->count()) \Session::obj()->currency = $c[0]->all();
 		return $this->disp->redirect($this->disp->getReferer());
+	}
+
+	static public function link($method, $params) {
+		switch($method) {
+			case 'main' : return '/';
+			case 'setLang' : return '/lang' . '?' . http_build_query($params);
+			case 'setCurrency' : return '/currency' . '?' . http_build_query($params);
+			default: throw new \NotFoundException();
+		}
 	}
 }

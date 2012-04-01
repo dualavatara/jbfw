@@ -7,6 +7,28 @@
 
 namespace Ctl;
 
-class RealtyCtl {
+class RealtyCtl extends BaseCtl {
+	/**
+	 * @var ModelDataWrapper
+	 */
+	public $realty;
 
+	public function profile($realtyId) {
+		$tpl = $this->disp->di()->TemplateCtl($this->disp)->main();
+		$leftCol = $this->disp->di()->SearchColumnCtl($this->disp)->main();
+
+		$mainView = $this->disp->di()->RealtyView();
+
+
+		$tpl->setLeftColumn($leftCol->show());
+		$tpl->setMainContent($mainView->show());
+		return $tpl;
+	}
+
+	static public function link($method, $params) {
+		switch($method) {
+			case 'profile' : return '/realty/profile/' . $params['id'];
+			default: throw new \NotFoundException();
+		}
+	}
 }

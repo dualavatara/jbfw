@@ -16,25 +16,15 @@ class IndexView extends BaseView {
 	public $realties;
 	public $articles;
 
-	public function realtyTitleStars($realty) {
-		?>
-	<h2><?php echo $realty->name; ?>
-		<?php
-		for ($i = 0; $i < $realty->stars; $i++) {
-			?>
-			<img src="/static/img/icons/star.png">
-			<?php
-		}
-		?></h2>
-	<?php
-	}
-
 	public function show() {
 		$this->start();
 
+		$this->columnHeader('Лучшие предложения по Черногории');
+
 		foreach ($this->realties as $realty) {
 			$this->realtyBlock($realty);
-		}
+		};
+
 
 		$artOut = function ($article) {
 			?>
@@ -66,7 +56,6 @@ class IndexView extends BaseView {
 		<?php
 		}
 		;
-
 		$this->end();
 		return $this->content;
 	}
@@ -100,9 +89,10 @@ class IndexView extends BaseView {
 					};
 					if (isset($mainImg)) {
 						?>
-						<a href="/s/<?php echo $mainImg->image; ?>"
+						<a href="<?php echo \Ctl\StaticCtl::link('get', array('key' => $mainImg->image)); ?>"
 						   class="lightbox<?php echo 'realty' . $realty->id; ?>"><img
-							src="/s/<?php echo $mainImg->thumbnail; ?>" width="125" height="125"></a>
+							src="<?php echo \Ctl\StaticCtl::link('get', array('key' => $mainImg->thumbnail)); ?>"
+							width="125" height="125"></a>
 						<?php
 					} else {
 						?>
@@ -110,11 +100,12 @@ class IndexView extends BaseView {
 						<?php
 					};
 					?>
-					<a style="line-height:22px;" href="#">подробнее</a>
+					<a style="line-height:22px;"
+					   href="<?php echo \Ctl\RealtyCtl::link('profile', array('id' => $realty->id)); ?>">подробнее</a>
 				</div>
 			</div>
 			<div class="right">
-				<div><?php $this->realtyTitleStars($realty); ?></div>
+				<div><?php $this->titleStars($realty->name, $realty->stars); ?></div>
 				<div>
 					<table class="properties" border="0" cellpadding="0" cellspacing="0">
 						<tr>
