@@ -390,7 +390,7 @@ img {
 }
 .itemblock>.left>.left {
 	float:left;
-	padding: 15px;
+	padding:  15px 15px 0px 15px;
 }
 .itemblock>.right>.right {
 	margin-left:150px;
@@ -416,6 +416,42 @@ img {
 .rating_num {
 	font-size: 1.5em;
 }
+.appartlist {
+    margin-top: 0.2em;
+    margin-left: -4px;
+    margin-right: -4px;
+}
+.appartlistheader {
+    text-align: center;
+    background-color: #CCC;
+    color: #555;
+}
+table.appartlist {
+    font-size: 1.1em;
+    width: 100%;
+    margin-bottom:1em;
+}
+table.appartlist tr:nth-child(even){
+    background-color: white;
+}
+table.appartlist tr:nth-child(odd){
+    background-color: #f5f5f5;
+}
+table.appartlist td{
+    padding-left: 1em;
+}
+table.appartlist td:nth-child(1){
+    padding-left: 2em;
+}
+table.appartlist td:nth-child(2){
+    width: 1%;
+    white-space: nowrap;
+}
+table.appartlist td:nth-child(3){
+    width: 1%;
+    padding-right: 3em;
+}
+
 .pic_cont {
 	background-color: #fafafa;
 	text-align:center;

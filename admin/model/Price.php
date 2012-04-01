@@ -11,6 +11,7 @@ class Price extends \AdminModel {
 	public function __construct(\IDatabase $db) {
 		parent::__construct(new \PriceModel($db), '\ClassObjectChildParams');
 		$this->fields['id'] = new \DefaultAdminField('id','Id', true, true);
+		$this->fields['type'] = new \SelectAdminField('type','Тип', 'getTypes', true, false, false, 10);
 		$this->fields['start'] = new \DateTimeAdminField('start','Начало', true);
 		$this->fields['end'] = new \DateTimeAdminField('end','Конец', true);
 		$this->fields['currency_id'] = new \SelectAdminField('currency_id','Валюта', 'getCurrencies', true);

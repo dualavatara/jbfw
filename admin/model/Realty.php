@@ -28,6 +28,10 @@ class Realty extends \AdminModel {
 		$this->fields['images']->class = 'RealtyImage';
 		$this->fields['images']->fromRoute = 'realty_list';
 
+		$this->fields['appartment'] = new \RefAdminField('appartment','Апартаменты', new \ParentChildParams(array('parent_field' => 'realty_id')), true);
+		$this->fields['appartment']->class = 'Appartment';
+		$this->fields['appartment']->fromRoute = 'realty_list';
+
 		$this->fields['prices'] = new \RefAdminField('prices','Цены',
 			new \ClassObjectChildParams(
 				array(

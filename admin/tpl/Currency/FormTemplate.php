@@ -24,7 +24,7 @@ class FormTemplate extends Template {
 		});
 	</script>
 	<div class="submenubar">
-		<a href="<?php echo $this->getUrl('currency_list') ?>">[Список]</a>
+		<?php $this->listLink(); ?>
 		<a href="<?php echo $this->getUrl('currency_add') ?>">[Добавить]</a>
 	</div>
 	<div class="group">

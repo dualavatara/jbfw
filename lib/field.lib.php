@@ -222,7 +222,8 @@ class CustomDateTime extends DateTime {
 	
 	public function __construct($time, $format) {
 		$this->format = $format;
-		parent::__construct($time);
+		if ($time instanceof DateTime) parent::__construct($time->format(DateTime::ISO8601));
+		else parent::__construct($time);
 	}
 	
 	public function __toString() {

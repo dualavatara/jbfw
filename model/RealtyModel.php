@@ -9,6 +9,7 @@ require_once 'lib/model.lib.php';
 require_once 'model/RealtyImageModel.php';
 require_once 'model/ResortModel.php';
 require_once 'model/PriceModel.php';
+require_once 'model/AppartmentModel.php';
 
 class RealtyModel extends Model {
 	const TYPE_VILLA	= 1;
@@ -19,6 +20,7 @@ class RealtyModel extends Model {
 	private $imgModel;
 	private $resort;
 	private $price;
+	private $app;
 
 
 	public function __construct(IDatabase $db) {
@@ -39,6 +41,7 @@ class RealtyModel extends Model {
 		$this->imgModel = new RealtyImageModel($db);
 		$this->resort = new ResortModel($db);
 		$this->price = new PriceModel($db);
+		$this->app = new AppartmentModel($db);
 	}
 
 	public function getTypes() {
@@ -94,5 +97,11 @@ class RealtyModel extends Model {
 			if ($a->value > $b->value) return 1; else return -1;
 		});
 		return $ret;
+	}
+	public function getAppartments($idx) {
+		$this->app->get()->filter(
+			$this->app->filterExpr()->eq('realty_id',$this[$idx]->id)
+		)->exec();
+		return $this->app;
 	}
 }

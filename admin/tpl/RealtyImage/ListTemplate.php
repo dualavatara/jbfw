@@ -15,8 +15,8 @@ class ListTemplate extends Template {
 		$data['model']->setTemplate($this);
 		?>
 	<div class="submenubar">
-        <?php $this->showLink('[К родителю]',$_SESSION['urlparams']['from_route'], array(), '', true)?>
-        <?php $this->showLink('[Список]','realtyimage_list')?>
+		<?php $this->toParentLink(); ?>
+        <?php $this->listLink();?>
         <?php $this->showLink('[Добавить]','realtyimage_add')?>
 	</div>
 	<table class="list">

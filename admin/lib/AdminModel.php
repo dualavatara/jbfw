@@ -374,9 +374,7 @@ class RefAdminField extends AdminField {
 
 	public function listTextHtml($modelRow) {
 		$params = array_merge($this->childParams->getParams($this, $modelRow->getRaw()), array(
-			/*'parent_id' => $modelRow->getRaw()->id,
-							'parent_field' => $this->parentField,*/
-			'is_child' => true, 'from_route' => $this->fromRoute,
+			'is_child' => true, 'from_route' => $_SERVER['REQUEST_URI'],
 		));
 		$this->template->showLink('список', strtolower($this->class) . '_list', $params);
 	}
