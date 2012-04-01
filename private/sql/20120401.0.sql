@@ -15,3 +15,4 @@ ENGINE = MyISAM
 DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_general_ci;
 ALTER TABLE `jbfw`.`price` ADD COLUMN `type` INT NOT NULL  AFTER `object_id` ;
+ALTER TABLE `jbfw`.`price` ADD COLUMN `month_disc` DOUBLE NOT NULL  AFTER `type` , ADD COLUMN `week_disc` DOUBLE NOT NULL  AFTER `month_disc` ;

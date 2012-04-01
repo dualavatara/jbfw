@@ -16,6 +16,8 @@ class Price extends \AdminModel {
 		$this->fields['end'] = new \DateTimeAdminField('end','Конец', true);
 		$this->fields['currency_id'] = new \SelectAdminField('currency_id','Валюта', 'getCurrencies', true);
 		$this->fields['value'] = new \FloatAdminField('value','Значение', true);
+		$this->fields['week_disc'] = new \FloatAdminField('week_disc','Скидка при заказе недели, %', true);
+		$this->fields['month_disc'] = new \FloatAdminField('month_disc','Скидка при заказе месяца, %', true);
 		$this->fields['flags'] = new \FlagsAdminField('flags','Флаги', true);
 
 		$this->fields['class_id'] = new \BackrefAdminField('class_id','Class ID', $_SESSION['urlparams']['class_id'], true);

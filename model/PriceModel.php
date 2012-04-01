@@ -33,6 +33,8 @@ class PriceModel extends Model {
 		$this->field(new IntField("object_id"));
 		$this->field(new IntField("type"));
 		$this->field(new RealField("value"));
+		$this->field(new RealField("week_disc"));
+		$this->field(new RealField("month_disc"));
 
 		$this->field(new FlagsField("flags"));
 
