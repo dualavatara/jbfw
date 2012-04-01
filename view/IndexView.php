@@ -207,7 +207,13 @@ class IndexView extends BaseView {
 							// This, or...
 						});
 					</script>
-					<?php
+		<?php
+		if ($realty->flags->check(\RealtyModel::FLAG_HIT)) {?><img class="badge" src="/static/img/badge/hit.png"><?php
+		} else if ($realty->flags->check(\RealtyModel::FLAG_DISCOUNT)) {
+			?>
+			<img class="badge" src="/static/img/badge/discount.png">
+			<?php
+		};
 					if (isset($mainImg)) {
 						?>
 						<a href="/s/<?php echo $mainImg->image; ?>"

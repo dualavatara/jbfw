@@ -458,6 +458,12 @@ table.appartlist td:nth-child(3){
 	border-radius: 3px;
 	width: 127px;
 	padding: 1px;
+    position: relative;
+}
+.badge {
+    position: absolute;
+    right: -15px;
+    top: -15px;
 }
 .pic_cont img{
     border-radius: 2px;

@@ -19,8 +19,8 @@ class IndexCtl extends Ctl {
 		$tpl->currencies->get()->all()->order('id')->exec();
 
 		$tpl->articlesUsefull = $this->disp->di()->ArticleModel();
-		$tpl->articlesUsefull->get()->filter($tpl->articlesUsefull->filterExpr()->eq('type', ArticleModel::TYPE_USEFULL)->_and()
-			->eq('flags', ArticleModel::FLAG_VISIBLE)->_and()->eq('flags', ArticleModel::FLAG_FOOTER))
+		$tpl->articlesUsefull->get()->filter($tpl->articlesUsefull->filterExpr()->eq('type', ArticleModel::TYPE_USEFULL)
+			->_and()->eq('flags', ArticleModel::FLAG_VISIBLE)->_and()->eq('flags', ArticleModel::FLAG_FOOTER))
 			->order('ord', true)->exec();
 
 		$view->articles = $this->disp->di()->ArticleModel();
@@ -35,11 +35,13 @@ class IndexCtl extends Ctl {
 
 		//left column banners
 		$view->bannersLeft = $this->disp->di()->BannerModel();
-		$view->bannersLeft->get()->filter($view->bannersLeft->filterExpr()->eq('flags', BannerModel::FLAG_LEFTCOL))->exec();
+		$view->bannersLeft->get()->filter($view->bannersLeft->filterExpr()->eq('flags', BannerModel::FLAG_LEFTCOL))
+			->exec();
 
 		//realty selection for index
 		$view->realties = $this->disp->di()->RealtyModel();
-		$view->realties->get()->filter($view->realties->filterExpr()->eq('flags', ArticleModel::FLAG_VISIBLE))->exec();
+		$view->realties->get()->filter($view->realties->filterExpr()->eq('flags', RealtyModel::FLAG_VISIBLE)->_and()
+			->eq('flags', RealtyModel::FLAG_BEST))->exec();
 		$view->realties->loadDependecies();
 
 

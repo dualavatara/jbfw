@@ -92,18 +92,6 @@ class RealtyModel extends Model {
 		}
 	}
 
-	public function getPrices($id, DateTime $from, DateTime $to) {
-		$ret = array();
-		foreach($this->price as $price)
-			if (($price->object_id == $id)
-				&& ($price->isActive($from, $to))
-			) $ret[] = $price;
-		usort($ret, function($a, $b) {
-			if ($a->value == $b->value) return 0;
-			if ($a->value > $b->value) return 1; else return -1;
-		});
-		return $ret;
-	}
 	public function getAppartments($idx) {
 		$this->app->get()->filter(
 			$this->app->filterExpr()->eq('realty_id',$this[$idx]->id)
@@ -111,13 +99,28 @@ class RealtyModel extends Model {
 		return $this->app;
 	}
 
+	public function getPrices($idx, $type = false) {
+		$this->price->get()->filter(
+			$this->price->filterExpr()->eq('class_id', $this->price->getClassId($this))
+				->_and()->eq('object_id', $this[$idx]->id)
+		);
+		if ($type) $this->price->filter($this->price->filterExpr()->eq('type', $type));
+		$this->price->filter(
+			$this->price->filterExpr()->eq('flags', PriceModel::END_INVALID)->_or()->more('end', new DateTime())
+		)->order('value')->exec();
+		return $this->price;
+	}
+
 	public function getAppartmentPrices($idx) {
 		$apps = $this->getAppartments($idx);
 		$pres = array();
 		foreach($apps as $app) {
-			$prices = $app->getPrices(PriceModel::TYPE_RENT);
+			$prices = $app->getPrices();
 			if ($prices->count()) $pres[] = $prices[0];
 		}
+
+		$prices = $this->getPrices($idx);
+		if ($prices->count()) $pres[] = $prices[0];
 
 		usort($pres, function($a, $b) {
 			if ($a->value == $b->value) return 0;
