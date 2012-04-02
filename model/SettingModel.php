@@ -6,7 +6,29 @@
  */
 
 require_once 'lib/model.lib.php';
+require_once 'lib/singletone.lib.php';
 
+class Settings extends Singletone {
+	/**
+	 * @var SettingModel
+	 */
+	private $model;
+
+	/**
+	 * @param \SettingModel $model
+	 */
+	public function set(SettingModel $model) {
+		$this->model = $model;
+		$model->get()->all()->exec();
+	}
+
+	/**
+	 * @return SettingModel
+	 */
+	public function get() {
+		return $this->model;
+	}
+}
 /**
  *
  */

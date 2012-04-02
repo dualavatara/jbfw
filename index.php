@@ -22,6 +22,7 @@ set_error_handler(function ($errno, $errstr, $errfile, $errline) {
 try {*/
 	$di = new DIContainer();
 	$disp = $di->Dispatcher();
+	Settings::obj()->set($di->SettingModel());
 	$disp->main();
 /*} catch (Exception $e) {
 	header('HTTP/1.1 500 Internal Server Error');

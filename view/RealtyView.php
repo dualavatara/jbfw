@@ -95,12 +95,12 @@ class RealtyView extends BaseView {
 						<span style="font-size: 1.2em"><?php echo \Session::obj()->currency['sign']; ?>
 							&nbsp;<span
 								style="color:red;"><b><?php echo $prices[0]->calcValue(\Session::obj()->currency['course']); ?></b></span></span>
-						<img src="/static/img/buttons/request.png" width="152" height="30">
+						<?php $this->requestButton('#'); ?>
 					</div>
 					<?php }; ?>
 			</div>
 
-			<div style="float: left;">
+			<div style="float: left;width:41em;">
 				<h1>Описание:</h1>
 
 				<div><?php echo $this->realty->description; ?></div>
@@ -140,6 +140,9 @@ class RealtyView extends BaseView {
 				</div>
 			</div>
 		</div>
+		<?php
+		$this->phoneBlock();
+?>
 	</div>
 		<?php
 		$prices = $this->realty->getPrices(\PriceModel::TYPE_RENT);
@@ -157,9 +160,9 @@ font-weight: bold;"><?php echo $hdr; ?></td>
 				<tr style="font-weight: bold;background-color: #ffcf00;">
 					<td>&nbsp;</td>
 					<td>Период</td>
-					<td>Сутки</td>
-					<td>Неделя</td>
-					<td>Месяц</td>
+					<td>Сутки, <?php echo \Session::obj()->currency['sign']; ?>/сутки</td>
+					<td>Неделя, <?php echo \Session::obj()->currency['sign']; ?>/сутки</td>
+					<td>Месяц, <?php echo \Session::obj()->currency['sign']; ?>/сутки</td>
 					<td>&nbsp;</td>
 				</tr>
 				<?php
@@ -174,10 +177,10 @@ font-weight: bold;"><?php echo $hdr; ?></td>
 					<tr>
 						<td>&nbsp;</td>
 						<td><?php echo $start . ' ' . $end; ?></td>
-						<td><?php printf("%s %.2f", \Session::obj()->currency['sign'], $day); ?></td>
-						<td><?php printf("%s %.2f", \Session::obj()->currency['sign'], $week); ?></td>
-						<td><?php printf("%s %.2f", \Session::obj()->currency['sign'], $month); ?></td>
-						<td><img src="/static/img/buttons/order.png" width="152" height="30"></td>
+						<td style="text-align: center;"><?php printf("%.2f", $day); ?></td>
+						<td style="text-align: center;"><?php printf("%.2f", $week); ?></td>
+						<td style="text-align: center;"><?php printf("%.2f", $month); ?></td>
+						<td style="text-align: center;"><img src="/static/img/buttons/order.png" width="152" height="30"></td>
 					</tr>
 					<?php }; ?>
 			</table>
@@ -250,7 +253,7 @@ font-weight: bold;"><?php echo $hdr; ?></td>
 										&nbsp;<span
 											style="color:red;"><b><?php echo $a['price']; ?></b></span></span>
 							</td>
-							<td><img src="/static/img/buttons/request.png" width="152" height="30"></td>
+							<td><?php $this->requestButton('#'); ?></td>
 						</tr>
 						<?php
 					}

@@ -5,7 +5,7 @@ class Singletone {
 	/**
 	 * Create object in global scope if not exist and return it or just return it.
 	 * @static
-	 * @return mixed
+	 * @return static
 	 */
 	public static function obj() {
 		$class = get_called_class();
