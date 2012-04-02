@@ -20,6 +20,9 @@ class RealtyModel extends Model {
 	const FLAG_DISCOUNT		= 0x0004;
 	const FLAG_HIT			= 0x0008;
 
+	const MISCFLAG_SAFEDOOR			= 0x0001;
+	const MISCFLAG_GARDEN			= 0x0002;
+
 	private $imgModel;
 	private $resort;
 	private $price;
@@ -31,14 +34,20 @@ class RealtyModel extends Model {
 		$this->field(new CharField('name'));
 		$this->field(new CharField('description'));
 		$this->field(new CharField('features'));
+		$this->field(new CharField('gmap'));
+		$this->field(new CharField('condstate'));
+		$this->field(new CharField('age'));
 		$this->field(new IntField('type'));
 		$this->field(new IntField('rooms'));
 		$this->field(new IntField('bedrooms'));
-		$this->field(new IntField('floor'));
+		$this->field(new CharField('floor'));
 		$this->field(new IntField('total_floors'));
+		$this->field(new IntField('area'));
+		$this->field(new IntField('plotarea'));
 		$this->field(new IntField('stars'));
 		$this->field(new IntField('resort_id'));
 		$this->field(new IntField('ord'));
+		$this->field(new FlagsField('miscflags'));
 		$this->field(new FlagsField('flags'));
 
 		$this->imgModel = new RealtyImageModel($db);
@@ -62,6 +71,12 @@ class RealtyModel extends Model {
 			self::FLAG_HIT => 'Хит',
 		);
 	}
+	public function getMiscFlags() {
+		return array(
+			self::MISCFLAG_SAFEDOOR => 'Сейф дверь',
+			self::MISCFLAG_GARDEN => 'Сад',
+		);
+	}
 
 	public function loadDependecies() {
 		$this->imgModel->get()->filter($this->imgModel->filterExpr()->eq('realty_id', $this->id))->exec();
@@ -72,16 +87,16 @@ class RealtyModel extends Model {
 		)->exec();
 	}
 
-	public function getMainImage($id) {
+	public function getMainImage($idx) {
 		foreach($this->imgModel as $image) {
-			if ($image->flags->check(RealtyImageModel::FLAG_MAIN) && $image->realty_id == $id) return $image;
+			if ($image->flags->check(RealtyImageModel::FLAG_MAIN) && $image->realty_id == $this[$idx]->id) return $image;
 		}
 	}
 
-	public function getOtherImages($id) {
+	public function getOtherImages($idx) {
 		$ret = array();
 		foreach($this->imgModel as $image) {
-			if (!$image->flags->check(RealtyImageModel::FLAG_MAIN) && $image->realty_id == $id) $ret[] = $image;
+			if (!$image->flags->check(RealtyImageModel::FLAG_MAIN) && $image->realty_id == $this[$idx]->id) $ret[] = $image;
 		}
 		return $ret;
 	}
@@ -127,5 +142,13 @@ class RealtyModel extends Model {
 			if ($a->value > $b->value) return 1; else return -1;
 		});
 		return $pres;
+	}
+
+	public function getRealty($id) {
+		$this->get()->filter(
+			$this->filterExpr()->eq('flags', self::FLAG_VISIBLE)->_and()->eq(MODEL_ID_FIELD_NAME, $id)
+		)->exec();
+		if (!$this->count()) throw new NotFoundException();
+		return $this[0];
 	}
 }

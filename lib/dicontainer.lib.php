@@ -170,10 +170,16 @@ class DIContainer extends Singletone{
 		return new ArticleModel($this->PDODatabase());
 	}
 
+	/**
+	 * @return BannerModel
+	 */
 	public function BannerModel() {
 		return new BannerModel($this->PDODatabase());
 	}
 
+	/**
+	 * @return RealtyModel
+	 */
 	public function RealtyModel() {
 		return new RealtyModel($this->PDODatabase());
 	}

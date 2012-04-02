@@ -8,7 +8,192 @@
 namespace View;
 
 class RealtyView extends BaseView {
+	/**
+	 * @var ModelDataWrapper
+	 */
+	public $realty;
+
 	public function show() {
+		$this->start();
+		$this->columnHeader($this->realty->name);
+		$mainImg = $this->realty->getMainImage();
+		?>
+	<div style="margin-left: 0.5em">
+		<div class="path">
+			<a class="grey" href="/">главная</a> /
+			<a class="grey" href="<?php echo \Ctl\RealtyCtl::link('index', array());?>">недвижимость</a> / <span
+			class="selected">описание отеля или виллы</span>
+		</div>
+		<div style="margin-top: 2em;">
+			<div style="float: left;width: 40em;">
+				<div style="width:202px; float:left;position: relative; margin-right: 1em;">
+					<script type="text/javascript">
+						$(function () {
+							// This, or...
+							$('a.lightbox<?php echo 'realty' . $this->realty->id; ?>').lightBox(
+								{
+									txtImage:'Фото',
+									txtOf:'из'
+								}
+							); // Select all links with lightbox class
+							// This, or...
+						});
+					</script>
+					<?php
+					if ($this->realty->flags->check(\RealtyModel::FLAG_HIT)) {
+						?><img class="badgel" src="/static/img/badge/hit.png"><?php
+					} else if ($this->realty->flags->check(\RealtyModel::FLAG_DISCOUNT)) {
+						?>
+						<img class="badgel" src="/static/img/badge/discount.png">
+						<?php
+					};
+					if (isset($mainImg)) {
+						?>
+						<a href="<?php echo \Ctl\StaticCtl::link('get', array('key' => $mainImg->image)); ?>"
+						   class="lightbox<?php echo 'realty' . $this->realty->id; ?>"><img
+							src="<?php echo \Ctl\StaticCtl::link('get', array('key' => $mainImg->thumbnail)); ?>"
+							width="200" height="200" style="border: solid 1px #808080"></a>
+						<?php
+					} else {
+						?>
+						<div class="noimage">Нет изображения</div>
+						<?php
+					};
+					?>
+					<?php if ($this->realty->area) { ?>
+					<div
+						style="background-color: #0082c6; color: #ffffff; font-size: 1.2em; text-align: center;padding: 0.3em;margin: 0.1em;">
+						Площадь = <?php echo $this->realty->area; ?>м&#178;</div> <?php }; ?>
+		<?php if ($this->realty->plotarea) { ?>
+					<div
+						style="background-color: #898989; color: #ffffff; font-size: 1.2em; text-align: center;padding: 0.3em;margin: 0.1em;">
+						Площадь участка = <?php echo $this->realty->plotarea; ?>м&#178;
+					</div><?php }; ?>
+				</div>
+				<div>test</div>
+
+				<div style="float: left;">
+					<h1>Описание:</h1>
+
+					<div><?php echo $this->realty->description; ?></div>
+				</div>
+				<div class="dgrey profile" style="float: left;">
+					<h3>Общие параметры:</h3>
+					<?php
+					$params = array(
+						'Площадь, м&#178;:' => $this->realty->area,
+						'Состояние объекта:' => $this->realty->condstate,
+						'Сейф дверь:' => ($this->realty->miscflags->check(\RealtyModel::MISCFLAG_SAFEDOOR) ? 'да' : 'нет'),
+						'Сад:' => ($this->realty->miscflags->check(\RealtyModel::MISCFLAG_GARDEN) ? 'да' : 'нет'),
+						'Площадь участка, м&#178;:' => $this->plotarea,
+						'Этаж:' => $this->realty->floor,
+						'Спальни:' => $this->realty->bedrooms,
+						'Время постройки:' => $this->realty->age,
+					);
+					?>
+					<table class="properties" border="0" cellpadding="3" cellspacing="0" width="100%">
+
+						<?php
+						foreach ($params as $k => $v) {
+							if ($v) echo '<tr><td>' . $k . '</td><td>' . $v . '</td></tr>';
+						}
+						?>
+
+					</table>
+				</div>
+
+			</div>
+			<div style="float: right;width: 18em;">rightcol</div>
+		</div>
+
+		<div style="float:left;">
+			<?php
+			$apps = $this->realty->getAppartments();
+			$rent = array();
+			if ($apps->count()) {
+				if ($this->realty->type == \RealtyModel::TYPE_VILLA) $hdr = 'Аренда аппартаментов на этой Вилле:'; else $hdr = 'Аренда аппартаменты в этом отелле:';
+				foreach ($apps as $app) {
+					$prices = $app->getPrices(\PriceModel::TYPE_RENT);
+					if ($prices->count()) $rent[] = array(
+						'app' => $app, 'price' => $prices[0]->calcValue(\Session::obj()->currency['course'])
+					);
+				}
+			}
+			if (!empty($rent)) {
+				?>
+				<div class="appartlist">
+					<div class="appartlistheader"><?php echo $hdr; ?></div>
+					<table class="appartlist" border="0" cellpadding="0" cellspacing="0">
+						<?php
+						foreach ($rent as $a) {
+							?>
+							<tr>
+								<td><a href="#"><?php echo $a['app']->name; ?></a></td>
+								<td>от
+
+									<span style="font-size: 1.2em"><?php echo \Session::obj()->currency['sign']; ?>
+										&nbsp;<span
+											style="color:red;"><b><?php echo $a['price']; ?></b></span></span>
+								</td>
+								<td><img src="/static/img/buttons/order.png" width="152" height="30"></td>
+							</tr>
+							<?php
+						}
+						?>
+					</table>
+				</div>
+				<?php
+			};
+			?>
+			<?php
+			$apps = $this->realty->getAppartments();
+			$rent = array();
+			if ($apps->count()) {
+				if ($this->realty->type == \RealtyModel::TYPE_VILLA) $hdr = 'Продажа аппартаментов на этой Вилле:'; else $hdr = 'Продажа аппартаменты в этом отелле:';
+				foreach ($apps as $app) {
+					$prices = $app->getPrices(\PriceModel::TYPE_SELL);
+					if ($prices->count()) $rent[] = array(
+						'app' => $app, 'price' => $prices[0]->calcValue(\Session::obj()->currency['course'])
+					);
+				}
+			}
+			if (!empty($rent)) {
+				?>
+				<div class="appartlist">
+					<div class="appartlistheader"><?php echo $hdr; ?></div>
+					<table class="appartlist" border="0" cellpadding="0" cellspacing="0">
+						<?php
+						foreach ($rent as $a) {
+							?>
+							<tr>
+								<td><a href="#"><?php echo $a['app']->name; ?></a></td>
+								<td>от
+
+									<span style="font-size: 1.2em"><?php echo \Session::obj()->currency['sign']; ?>
+										&nbsp;<span
+											style="color:red;"><b><?php echo $a['price']; ?></b></span></span>
+								</td>
+								<td><img src="/static/img/buttons/request.png" width="152" height="30"></td>
+							</tr>
+							<?php
+						}
+						?>
+					</table>
+				</div>
+				<?php
+			};
+			?>
+		</div>
+		<?php if ($this->realty->gmap) { ?>
+		<div style="width:714px;float:left;">
+			<h1>Виртуальный осмотр:</h1>
+			<iframe width="714" height="350" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"
+					src="<?php echo $this->realty->gmap; ?>"></iframe>
+		</div>
+		<?php }; ?>
+	</div>
+	<?php
+		$this->end();
 		return parent::show();
 	}
 }

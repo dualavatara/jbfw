@@ -310,6 +310,30 @@ class FlagsAdminField extends AdminField {
 	}
 }
 
+class CustomFlagsField extends  AdminField {
+	public $func;
+	function __construct($name, $adminName, $func, $isList, $isListEdit = false, $isMinWidth = false) {
+		parent::__construct($name, $adminName, $isList, $isListEdit, $isMinWidth);
+		$this->func = $func;
+	}
+
+	public function inputHtml($modelRow) {
+		$this->template->insertTemplate('Form\FlagsField', array(
+			//'title' => $this->adminName,
+			'name' => "form[{$this->name}]",
+			'value' => $modelRow->{$this->name},
+			'flags' => $this->adminModel->getModel()->{$this->func}()
+		));
+	}
+
+	public function listTextHtml($modelRow) {
+		$flags = $modelRow->getModel()->{$this->func}();
+		$flag = array();
+		foreach ($flags as $k => $v) if ($modelRow->{$this->name}->check($k)) $flag[] = $v;
+		echo implode(',', $flag);
+	}
+}
+
 class SelectAdminField extends AdminField {
 	public $callback;
 	public $class;

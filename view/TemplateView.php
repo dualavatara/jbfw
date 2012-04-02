@@ -39,6 +39,8 @@ class TemplateView extends BaseView {
 		<title><?php echo $this->settings->getTitle(); ?></title>
 		<script type="text/javascript" src="/static/js/jquery.js"></script>
 		<script type="text/javascript" src="/static/js/lightbox/jquery.lightbox-0.5.min.js"></script>
+		<script type="text/javascript" src="https://maps.google.com/maps/api/js?sensor=false">
+		</script>
 
 		<link rel="stylesheet" type="text/css" href="/static/js/lightbox/css/jquery.lightbox-0.5.css" media="screen"/>
 		<link rel="stylesheet" href="/static/main.css" type="text/css">

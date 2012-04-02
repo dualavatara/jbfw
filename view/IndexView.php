@@ -61,7 +61,7 @@ class IndexView extends BaseView {
 	}
 
 	public function realtyBlock($realty) {
-		$mainImg = $this->realties->getMainImage($realty->id);
+		$mainImg = $realty->getMainImage();
 		?>
 	<div class="itemblock">
 		<div class="left">
@@ -127,7 +127,7 @@ class IndexView extends BaseView {
 					</table>
 				</div>
 				<div><?php
-					$images = $this->realties->getOtherImages($realty->id);
+					$images = $realty->getOtherImages();
 					$i = 0;
 					foreach ($images as $image) {
 						$i++;
@@ -169,29 +169,33 @@ class IndexView extends BaseView {
 		</div>
 		<?php
 		$apps = $realty->getAppartments();
+		$rent = array();
 		if ($apps->count()) {
-			if ($realty->type == \RealtyModel::TYPE_VILLA) $hdr = 'Аппартаменты на этой Вилле:'; else $hdr = 'Аппартаменты в этом отелле:';
+			if ($realty->type == \RealtyModel::TYPE_VILLA) $hdr = 'Аренда аппартаментов на этой Вилле:'; else $hdr = 'Аренда аппартаменты в этом отелле:';
+			foreach ($apps as $app) {
+				$prices = $app->getPrices(\PriceModel::TYPE_RENT);
+				if ($prices->count()) $rent[] = array('app' => $app, 'price' => $prices[0]->calcValue(\Session::obj()->currency['course']));
+			}
+		}
+		if (!empty($rent)) {
 			?>
 			<div class="appartlist">
 				<div class="appartlistheader"><?php echo $hdr; ?></div>
 				<table class="appartlist" border="0" cellpadding="0" cellspacing="0">
 					<?php
-					foreach ($apps as $app) {
-						$prices = $app->getPrices(\PriceModel::TYPE_RENT);
-						if ($prices->count()) {
-							?>
-							<tr>
-								<td><a href="#"><?php echo $app->name; ?></a></td>
-								<td>от
+					foreach ($rent as $a) {
+						?>
+						<tr>
+							<td><a href="#"><?php echo $a['app']->name; ?></a></td>
+							<td>от
 
 									<span style="font-size: 1.2em"><?php echo \Session::obj()->currency['sign']; ?>
 										&nbsp;<span
-											style="color:red;"><b><?php echo $prices[0]->calcValue(\Session::obj()->currency['course']); ?></b></span></span>
-								</td>
-								<td><img src="../static/img/buttons/order.png" width="152" height="30"></td>
-							</tr>
-							<?php
-						}
+											style="color:red;"><b><?php echo $a['price']; ?></b></span></span>
+							</td>
+							<td><img src="/static/img/buttons/order.png" width="152" height="30"></td>
+						</tr>
+						<?php
 					}
 					?>
 				</table>
