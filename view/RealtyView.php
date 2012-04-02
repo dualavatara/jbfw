@@ -25,7 +25,7 @@ class RealtyView extends BaseView {
 			class="selected">описание отеля или виллы</span>
 		</div>
 		<div style="margin-top: 2em;">
-			<div style="float: left;width: 40em;">
+			<div style="float: left;width: 41em;">
 				<div style="width:202px; float:left;position: relative; margin-right: 1em;">
 					<script type="text/javascript">
 						$(function () {
@@ -70,7 +70,34 @@ class RealtyView extends BaseView {
 						Площадь участка = <?php echo $this->realty->plotarea; ?>м&#178;
 					</div><?php }; ?>
 				</div>
-				<div>test</div>
+				<div style="margin-left: 214px">
+					<div><?php
+						$images = $this->realty->getOtherImages();
+						$i = 0;
+						foreach ($images as $image) {
+							$i++;
+							?>
+							<div class="thumbnail">
+								<a href="/s/<?php echo $image->image; ?>"
+								   class="lightbox<?php echo 'realty' . $this->realty->id; ?>">
+									<img src="/s/<?php echo $image->thumbnail; ?>" width="50" height="50">
+								</a>
+							</div>
+							<?php
+						};
+						?>
+					</div>
+					<?php
+					$prices = $this->realty->getPrices(\PriceModel::TYPE_SELL);
+					if ($prices->count()) {
+?><div style="float:left; width: 10em; font-size: 1.8em; padding: 1em 0em; ">
+						<span style="font-size: 1.2em"><?php echo \Session::obj()->currency['sign']; ?>
+							&nbsp;<span
+								style="color:red;"><b><?php echo $prices[0]->calcValue(\Session::obj()->currency['course']); ?></b></span></span>
+							<img src="/static/img/buttons/request.png" width="152" height="30">
+						</div>
+						<?php }; ?>
+				</div>
 
 				<div style="float: left;">
 					<h1>Описание:</h1>
@@ -103,7 +130,18 @@ class RealtyView extends BaseView {
 				</div>
 
 			</div>
-			<div style="float: right;width: 18em;">rightcol</div>
+			<div style="float: right;width: 18em;">
+				<div style="
+    text-align: center;
+    border: solid #c93232 4px;
+    border-radius: 1em;
+    padding: 1em;
+">
+					<div>курорт: <span class="rating_num"
+													 style="color:red;"><?php echo $this->realty->getResort()->name; ?></span><br>
+						<a href="<?php echo $this->realty->getResort()->gmaplink; ?>" target="_blank">смотреть на карте</a></div>
+				</div>
+			</div>
 		</div>
 
 		<div style="float:left;">

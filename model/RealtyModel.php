@@ -101,7 +101,8 @@ class RealtyModel extends Model {
 		return $ret;
 	}
 
-	public function getResort($id) {
+	public function getResort($idx) {
+		$id = $this[$idx]->resort_id;
 		foreach($this->resort as $resort) {
 			if ($resort->id == $id) return $resort;
 		}

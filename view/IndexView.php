@@ -114,7 +114,7 @@ class IndexView extends BaseView {
 						</tr>
 						<tr>
 							<td>курорт:</td>
-							<td><?php echo $this->realties->getResort($realty->resort_id)->name; ?></td>
+							<td><?php echo $realty->getResort()->name; ?></td>
 						</tr>
 						<tr>
 							<td>особенности:</td>
@@ -154,8 +154,8 @@ class IndexView extends BaseView {
 				<!--<div>оценка <span class="rating_num"><b>9,0</b></span> (отзывы <a href"#">319</a>)</div>-->
 				<div>&nbsp;</div>
 				<div class="white">курорт: <span class="rating_num"
-												 style="color:red;"><?php echo $this->realties->getResort($realty->resort_id)->name; ?></span><br>
-					<a href="<?php echo $this->realties->getResort($realty->resort_id)->gmaplink; ?>" target="_blank">смотреть
+												 style="color:red;"><?php echo $realty->getResort()->name; ?></span><br>
+					<a href="<?php echo $realty->getResort()->gmaplink; ?>" target="_blank">смотреть
 						на карте</a></div>
 				<div class="rating_num">
 					<?php if (!empty($price) && $price[0]->calcValue(\Session::obj()->currency['course'])) { ?>
