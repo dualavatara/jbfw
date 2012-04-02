@@ -1,11 +1,12 @@
 <?
-
+require_once 'lib/ClassLoader.php';
 
 require_once 'config/config.php';
 require_once 'lib/dicontainer.lib.php';
 require_once 'lib/logger.lib.php';
 
-if (defined('MAITENANCE_LOCK') && MAITENANCE_LOCK) {
+ClassLoader::addEception('/admin/i');
+/*if (defined('MAITENANCE_LOCK') && MAITENANCE_LOCK) {
 	require('static/html/maitenance.html');
 	return;
 }
@@ -18,12 +19,12 @@ set_error_handler(function ($errno, $errstr, $errfile, $errline) {
 		return true;
 }, E_ALL + E_STRICT);
 
-try {
+try {*/
 	$di = new DIContainer();
 	$disp = $di->Dispatcher();
 	$disp->main();
-} catch (Exception $e) {
+/*} catch (Exception $e) {
 	header('HTTP/1.1 500 Internal Server Error');
 	Logger::obj()->error($e->getMessage());
-}
+}*/
 ?>

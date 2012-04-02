@@ -184,7 +184,7 @@ class Application extends Container {
 	 * @return string 
 	 */
 	public function getUrl($routeName, $params = array(), $noSessionParams = false) {
-		if (isset($_SESSION['urlparams']) && !$noSessionParams) $params = array_merge($params, $_SESSION['urlparams']);
+		//if (isset($_SESSION['urlparams']) && !$noSessionParams) $params = array_merge($params, $_SESSION['urlparams']);
 		$route = $this->routes->getRoute($routeName);
 
 		return $route->getUrl($params);

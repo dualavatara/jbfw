@@ -41,6 +41,10 @@ class Request implements \ArrayAccess {
 		return new static($params, $_GET, $_POST);
 	}
 
+	public function isEmpty() {
+		return empty($this->params);
+	}
+
 	public function offsetExists($offset) {
 		return array_key_exists($offset, $this->params);
 	}

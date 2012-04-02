@@ -51,7 +51,7 @@ class StdController extends Controller {
 		$this->model->delById($id);
 
 		$url = $this->app->getUrl(strtolower($this->objectName) . '_list');
-		return $this->app->redirect($url);
+		return $this->app->redirect($_SESSION['listurl']);
 	}
 
 	public function do_edit(\Admin\Request $request) {
@@ -69,7 +69,7 @@ class StdController extends Controller {
 	}
 
 	public function do_list(\Admin\Request $request = null) {
-		if (!isset($request['is_child'])){
+		/*if (!isset($request['is_child'])){
 			$this->model->getAll();
 			$_SESSION['urlparams'] = array();
 		} else {
@@ -80,9 +80,17 @@ class StdController extends Controller {
 				'is_child' => $request['is_child'],
 				'from_route' => $request['from_route'],
 			), $params->getRequestParams($request));
+		}*/
+		$this->model->getFiltered($request);
+
+		$class = $this->model->childParamsClass;
+		if ($class) {
+			$params = new $class($request);
+			$_SESSION['urlparams'] = $params->getRequestParams($request);
 		}
 
 		$this->data['model'] = $this->model;
+		$_SESSION['listurl'] = $_SERVER['REQUEST_URI'];
 
 		return $this->app['template']->render($this->objectName.'\ListTemplate', $this->data);
 	}
@@ -107,7 +115,7 @@ class StdController extends Controller {
 		if ($form['id']) $this->model->saveFromForm($form);
 		else $this->model->addFromForm($form);
 
-		$url = $this->app->getUrl(strtolower($this->objectName) . '_list');
-		return $this->app->redirect($url);
+		//$url = $this->app->getUrl(strtolower($this->objectName) . '_list');
+		return $this->app->redirect($_SESSION['listurl']);
 	}
 }

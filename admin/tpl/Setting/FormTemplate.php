@@ -24,7 +24,7 @@ class FormTemplate extends Template {
 		});
 	</script>
 	<div class="submenubar">
-		<a href="<?php echo $this->getUrl('setting_list') ?>">[Список]</a>
+		<?php $this->listLink(); ?>
 		<a href="<?php echo $this->getUrl('setting_add') ?>">[Добавить]</a>
 	</div>
 	<div class="group">

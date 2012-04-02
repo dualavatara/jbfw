@@ -38,7 +38,7 @@ abstract class Template {
 	abstract protected function show($data, $content = null);
 	
 	final public function getUrl($routeName, $params = array(), $noSessionParams = false) {
-		if (isset($_SESSION['urlparams']) && !$noSessionParams) $params = array_merge($params, $_SESSION['urlparams']);
+	//	if (isset($_SESSION['urlparams']) && !$noSessionParams) $params = array_merge($params, $_SESSION['urlparams']);
 		return $this->app->getUrl($routeName, $params, true);
 	}
 
@@ -54,4 +54,14 @@ abstract class Template {
             }
         }
     }
+	public function toParentLink() {
+		if ($_REQUEST['from_route']) {
+			echo '<a href="'.$_REQUEST['from_route'].'">[К родителю]</a>';
+		}
+	}
+	public function listLink() {
+		if ($_SESSION['listurl']) {
+			echo '<a href="'.$_SESSION['listurl'].'">[Список]</a>';
+		}
+	}
 }

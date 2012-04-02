@@ -40,7 +40,7 @@ img {
 	margin: 0;
 	height: 38em;
 }
-#footer h1 {
+h1 {
 	font-size: 1.55em;
 	font-weight: normal;
 }
@@ -117,7 +117,30 @@ img {
     margin-top: 0.4em;
 }
 #header {
-	height: 100px;
+	height: 32em;
+}
+#headerfolds {
+    width: 28em;
+    height: 1.6em;
+    float: left;
+    overflow: hidden;
+}
+#headerfolds div {
+    float: left;
+}
+#headerphone {
+    width: 25em;
+    float: left;
+    padding-top: 0.8em;
+}
+#headerlogin {
+
+}
+.hfold {
+    background-color: #eeeeee;
+    padding: 0.2em 1em;
+    border-radius: 0 0 1em 1em;
+    margin-right: 0.1em;
 }
 #logo {
 	z-index: 1000;
@@ -276,9 +299,15 @@ img {
 .black {
 	color: black;
 }
-.grey {
+.grey,.grey:visited  {
 	color: #828282;
 }
+
+.dgrey,.dgrey:visited  {
+    color: #3a3a3a;
+}
+
+
 .title {
 	font-size: 2em;
 	font-style: normal;
@@ -288,8 +317,9 @@ img {
 	font-size: 0.75em;
 	font-weight: normal;
 	text-transform: uppercase;
-	float: left;
+	float: none;
 	text-align: right;
+    padding: 0.8em 0.3em 1em 0em;
 }
 #mainsearch {
 	clear: both; 
@@ -390,7 +420,7 @@ img {
 }
 .itemblock>.left>.left {
 	float:left;
-	padding: 15px;
+	padding:  15px 15px 0px 15px;
 }
 .itemblock>.right>.right {
 	margin-left:150px;
@@ -416,13 +446,62 @@ img {
 .rating_num {
 	font-size: 1.5em;
 }
+.appartlist {
+    margin-top: 0.2em;
+    margin-left: -4px;
+    margin-right: -4px;
+}
+.appartlistheader {
+    text-align: center;
+    background-color: #CCC;
+    color: #555;
+}
+table.appartlist {
+    font-size: 1.1em;
+    width: 100%;
+    margin-bottom:1em;
+}
+table.appartlist tr:nth-child(even){
+    background-color: white;
+}
+table.appartlist tr:nth-child(odd){
+    background-color: #f5f5f5;
+}
+table.appartlist td{
+    padding-left: 1em;
+}
+table.appartlist td:nth-child(1){
+    padding-left: 2em;
+}
+table.appartlist td:nth-child(2){
+    width: 1%;
+    white-space: nowrap;
+}
+table.appartlist td:nth-child(3){
+    width: 1%;
+    padding-right: 3em;
+}
+
 .pic_cont {
 	background-color: #fafafa;
 	text-align:center;
 	border-radius: 3px;
 	width: 127px;
 	padding: 1px;
+    position: relative;
 }
+.badge {
+    position: absolute;
+    right: -15px;
+    top: -15px;
+}
+
+.badgel {
+    position: absolute;
+    right: -10px;
+    top: -10px;
+}
+
 .pic_cont img{
     border-radius: 2px;
 }
@@ -473,4 +552,20 @@ img {
     text-align: center;
     border-radius: 3px;
     padding: 6em 0em;
+}
+
+.path {
+    margin-left: 1em;
+}
+
+.profile .properties tr:nth-child(even){
+    background-color: white;
+}
+.profile .properties tr:nth-child(odd){
+    background-color: #f5f5f5;
+}
+.profile .properties td:first-child{
+    white-space: nowrap;
+    width: 1%;
+    padding-right: 2em;
 }

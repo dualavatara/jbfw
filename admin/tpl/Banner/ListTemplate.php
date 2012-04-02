@@ -16,7 +16,7 @@ class ListTemplate extends Template {
 		$flags = $data['model']->getModel()->getFlags();
 		?>
 	<div class="submenubar">
-        <?php $this->showLink('[Список]','banner_list')?>
+        <?php $this->listLink();?>
         <?php $this->showLink('[Добавить]','banner_add')?>
 	</div>
 	<table class="list">

@@ -1,5 +1,5 @@
 <?php
-namespace RealtyImage;
+namespace Appartment;
 
 use Admin\Extension\Template\Template;
 
@@ -11,7 +11,7 @@ class FormTemplate extends Template {
 	}
 
 	protected function show($data, $content = null) {
-		$realtyimage = isset($data['object']) ? $data['object'] : null;
+		$appartment = isset($data['object']) ? $data['object'] : null;
 		$data['model']->setTemplate($this);
 		?>
 	<script type="text/javascript">
@@ -26,15 +26,15 @@ class FormTemplate extends Template {
 	</script>
 	<div class="submenubar">
 		<?php $this->listLink(); ?>
-		<a href="<?php echo $this->getUrl('realtyimage_add') ?>">[Добавить]</a>
+		<a href="<?php echo $this->getUrl('appartment_add') ?>">[Добавить]</a>
 	</div>
 	<div class="group">
-		<div class="capture"><?php echo $realtyimage ? 'Редактирование' : 'Создание';?></div>
+		<div class="capture"><?php echo $appartment ? 'Редактирование' : 'Создание';?></div>
 		<div id="tabs">
 			<a href="#general">Общие</a>
 		</div>
-		<form method="post" id="editForm" class="required" minlength="2" action="<?php echo $this->getUrl('realtyimage_save'); ?>" enctype="multipart/form-data">
-			<input type="hidden" name="form[id]" value="<?php echo $realtyimage->id ? : ''; ?>"/>
+		<form method="post" id="editForm" class="required" minlength="2" action="<?php echo $this->getUrl('appartment_save'); ?>" enctype="multipart/form-data">
+			<input type="hidden" name="form[id]" value="<?php echo $appartment->id ? : ''; ?>"/>
 
 			<div id="general">
 				<table>
@@ -44,7 +44,7 @@ class FormTemplate extends Template {
 							foreach($dRaw['model']->fields as $field) {
 								if (($field->name == id) || (!$field->isForm)) continue;
 								echo '<tr><td>' .$field->adminName. '</td>';
-								echo '<td>' .$field->input($realtyimage). '</td></tr>';
+								echo '<td>' .$field->input($appartment). '</td></tr>';
 							}
 						?>
 

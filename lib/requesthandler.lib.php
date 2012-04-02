@@ -288,7 +288,8 @@ abstract class RequestHandler {
 					$this->dispatcher->setSession($matched['session']);
 				}
 
-				echo $matcher->call($this->dispatcher);
+				$view = $matcher->call($this->dispatcher);
+				if ($view instanceof \View\IView) echo $view->show();
 				break;
 			}
 		}

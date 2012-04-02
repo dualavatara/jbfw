@@ -14,7 +14,7 @@ class ListTemplate extends Template {
 	protected function show($data, $content = null) {
 		?>
 	<div class="submenubar">
-        <?php $this->showLink('[Список]','discount_list');?>
+        <?php $this->listLink();;?>
         <?php $this->showLink('[Добавить]','discount_add');?>
 	</div>
 	<table class="list">

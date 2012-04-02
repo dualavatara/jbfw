@@ -310,6 +310,30 @@ class FlagsAdminField extends AdminField {
 	}
 }
 
+class CustomFlagsField extends  AdminField {
+	public $func;
+	function __construct($name, $adminName, $func, $isList, $isListEdit = false, $isMinWidth = false) {
+		parent::__construct($name, $adminName, $isList, $isListEdit, $isMinWidth);
+		$this->func = $func;
+	}
+
+	public function inputHtml($modelRow) {
+		$this->template->insertTemplate('Form\FlagsField', array(
+			//'title' => $this->adminName,
+			'name' => "form[{$this->name}]",
+			'value' => $modelRow->{$this->name},
+			'flags' => $this->adminModel->getModel()->{$this->func}()
+		));
+	}
+
+	public function listTextHtml($modelRow) {
+		$flags = $modelRow->getModel()->{$this->func}();
+		$flag = array();
+		foreach ($flags as $k => $v) if ($modelRow->{$this->name}->check($k)) $flag[] = $v;
+		echo implode(',', $flag);
+	}
+}
+
 class SelectAdminField extends AdminField {
 	public $callback;
 	public $class;
@@ -374,9 +398,7 @@ class RefAdminField extends AdminField {
 
 	public function listTextHtml($modelRow) {
 		$params = array_merge($this->childParams->getParams($this, $modelRow->getRaw()), array(
-			/*'parent_id' => $modelRow->getRaw()->id,
-							'parent_field' => $this->parentField,*/
-			'is_child' => true, 'from_route' => $this->fromRoute,
+			'is_child' => true, 'from_route' => $_SERVER['REQUEST_URI'],
 		));
 		$this->template->showLink('список', strtolower($this->class) . '_list', $params);
 	}

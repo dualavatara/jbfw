@@ -15,7 +15,7 @@ class FormTemplate extends Template {
 		$account = $data['model'];
 		?>
 	<div class="submenubar">
-        <?php $this->showLink('[Список]','account_list')?>
+        <?php $this->listLink();?>
         <?php $this->showLink('[Добавить]','account_add')?>
 	</div>
 	<div class="group">

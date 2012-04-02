@@ -4,10 +4,6 @@ require_once('lib/requesthandler.web.lib.php');
 require_once('lib/dispatcher.lib.php');
 require_once 'lib/PDODatabase.php';
 
-//ctl classes
-require_once 'ctl/IndexCtl.php';
-require_once 'ctl/StaticCtl.php';
-
 //model classes
 require_once 'model/SettingModel.php';
 require_once 'model/CurrencyModel.php';
@@ -77,27 +73,64 @@ class DIContainer extends Singletone{
 
 	/**
 	 * @param $dispatcher
-	 * @return IndexCtl
+	 * @return \Ctl\IndexCtl
 	 */
 	public function IndexCtl($dispatcher) {
-		return new IndexCtl($dispatcher);
+		return new \Ctl\IndexCtl($dispatcher);
 	}
 
 	/**
 	 * @param $dispatcher
-	 * @return StaticCtl
+	 * @return \Ctl\StaticCtl
 	 */
 	public function StaticCtl($dispatcher) {
-		return new StaticCtl($dispatcher);
+		return new \Ctl\StaticCtl($dispatcher);
+	}
+
+	/**
+	 * @param $dispatcher
+	 * @return Ctl\RealtyCtl
+	 */
+	public function RealtyCtl($dispatcher) {
+		return new \Ctl\RealtyCtl($dispatcher);
+	}
+
+	/**
+	 * @param $dispatcher
+	 * @return Ctl\TemplateCtl
+	 */
+	public function TemplateCtl($dispatcher) {
+		return new \Ctl\TemplateCtl($dispatcher);
+	}
+
+	public function SearchColumnCtl($dispatcher) {
+		return new \Ctl\SearchColumnCtl($dispatcher);
 	}
 	// Views **************************************************************************************************** //
 
 	/**
-	 * @param $templateName
-	 * @return TemplateView
+	 * @return View\TemplateView
 	 */
-	public function TemplateView($templateName){
-		return new TemplateView($templateName);
+	public function TemplateView(){
+		return new \View\TemplateView();
+	}
+
+	/**
+	 * @return View\IndexView
+	 */
+	public function IndexView() {
+		return new \View\IndexView();
+	}
+
+	/**
+	 * @return View\SearchColumnView
+	 */
+	public function SearchColumnView() {
+		return new \View\SearchColumnView();
+	}
+
+	public function RealtyView() {
+		return new \View\RealtyView();
 	}
 
 	// Request matchers ********************************************************************************************* //
@@ -137,10 +170,16 @@ class DIContainer extends Singletone{
 		return new ArticleModel($this->PDODatabase());
 	}
 
+	/**
+	 * @return BannerModel
+	 */
 	public function BannerModel() {
 		return new BannerModel($this->PDODatabase());
 	}
 
+	/**
+	 * @return RealtyModel
+	 */
 	public function RealtyModel() {
 		return new RealtyModel($this->PDODatabase());
 	}
