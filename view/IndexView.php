@@ -171,7 +171,7 @@ class IndexView extends BaseView {
 		$apps = $realty->getAppartments();
 		$rent = array();
 		if ($apps->count()) {
-			if ($realty->type == \RealtyModel::TYPE_VILLA) $hdr = 'Аренда аппартаментов на этой Вилле:'; else $hdr = 'Аренда аппартаменты в этом отелле:';
+			if ($realty->type == \RealtyModel::TYPE_VILLA) $hdr = 'Аренда аппартаментов на этой Вилле:'; else $hdr = 'Аренда аппартаменты в этом отеле:';
 			foreach ($apps as $app) {
 				$prices = $app->getPrices(\PriceModel::TYPE_RENT);
 				if ($prices->count()) $rent[] = array('app' => $app, 'price' => $prices[0]->calcValue(\Session::obj()->currency['course']));
