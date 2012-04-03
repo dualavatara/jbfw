@@ -129,10 +129,19 @@ class DIContainer extends Singletone{
 		return new \View\SearchColumnView();
 	}
 
+	/**
+	 * @return View\RealtyView
+	 */
 	public function RealtyView() {
 		return new \View\RealtyView();
 	}
 
+	/**
+	 * @return View\RealtyListView
+	 */
+	public function RealtyListView() {
+		return new \View\RealtyListView();
+	}
 	// Request matchers ********************************************************************************************* //
 
 	/**

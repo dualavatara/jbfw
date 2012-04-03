@@ -20,6 +20,7 @@ class ModelDataWrapper {
 	 */
 	private $model = null;
 
+	public function getOffset() { return $this->offset; }
 	/**
 	 * @param ModelData $model
 	 * @param $offset

@@ -161,6 +161,7 @@ h1 {
 	text-align: center;
 	font-size: 18px;
 	font-weight: bold;
+    color: #000;
 	text-decoration: underline;
 	padding: 18px 26px;
 	height: 26px;
@@ -369,7 +370,7 @@ h1 {
 }
 
 .itemblock{
-	min-height:26px;
+	min-height:171px;
 	background-color: #efefef;
 	border-radius: 13px;
 	padding: 4px;
@@ -428,6 +429,7 @@ h1 {
 }
 
 .outer_pad {
+    min-height: 169px;
 	background-color: #e4e4e4;
 	border-radius: 9px;
 	border: solid white 1px;
@@ -569,4 +571,38 @@ table.appartlist td:nth-child(3){
     white-space: nowrap;
     width: 1%;
     padding-right: 2em;
+}
+
+.navbar {
+    background-color: #efefef;
+}
+.navbar td {
+    padding: 0.2em 0;
+}
+
+.navbar .hfold {
+    background:none;
+    padding: 0em 0.5em 1em 0.5em;
+}
+
+.navbar .hfold.selected {
+    background-color: #ffffff;
+    border-radius: 5px 5px 0 0 ;
+}
+
+.down .navbar {
+    background-color: #efefef;
+}
+.down .navbar td {
+    padding: 0.2em 0;
+}
+
+.down .navbar .hfold {
+    background:none;
+    padding: 1em 0.5em 0em 0.5em;
+}
+
+.down .navbar .hfold.selected {
+    background-color: #ffffff;
+    border-radius: 0 0 5px 5px;
 }

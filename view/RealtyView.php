@@ -180,7 +180,7 @@ font-weight: bold;"><?php echo $hdr; ?></td>
 						<td style="text-align: center;"><?php printf("%.2f", $day); ?></td>
 						<td style="text-align: center;"><?php printf("%.2f", $week); ?></td>
 						<td style="text-align: center;"><?php printf("%.2f", $month); ?></td>
-						<td style="text-align: center;"><img src="/static/img/buttons/order.png" width="152" height="30"></td>
+						<td style="text-align: center;"><?php $this->orderButton('#'); ?></td>
 					</tr>
 					<?php }; ?>
 			</table>
@@ -215,7 +215,7 @@ font-weight: bold;"><?php echo $hdr; ?></td>
 										&nbsp;<span
 											style="color:red;"><b><?php echo $a['price']; ?></b></span></span>
 							</td>
-							<td><img src="/static/img/buttons/order.png" width="152" height="30"></td>
+							<td><?php $this->orderButton('#'); ?></td>
 						</tr>
 						<?php
 					}

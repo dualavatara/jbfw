@@ -22,8 +22,9 @@ class IndexCtl extends BaseCtl {
 
 		//realty selection for index
 		$view->realties = $this->disp->di()->RealtyModel();
-		$view->realties->get()->filter($view->realties->filterExpr()->eq('flags', \RealtyModel::FLAG_VISIBLE)->_and()
-			->eq('flags', \RealtyModel::FLAG_BEST))->exec();
+		/*$view->realties->get()->filter($view->realties->filterExpr()->eq('flags', \RealtyModel::FLAG_VISIBLE)->_and()
+			->eq('flags', \RealtyModel::FLAG_BEST))->exec();*/
+		$view->realties->getRealtyList(array(\RealtyModel::FLAG_BEST));
 		$view->realties->loadDependecies();
 
 		$tpl->setLeftColumn($leftCol->show());

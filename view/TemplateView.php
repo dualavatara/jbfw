@@ -76,67 +76,6 @@ class TemplateView extends BaseView {
 	public function header() {
 		?>
 	<div id="top">
-		<!--	<div class="idlcol">
-			<div id="language">
-				<div class="fold">
-					<div class="foldbg bottom">
-						<div class="foldbl">
-							<div class="foldbr">
-								<div class="foldi">
-									<div class="text selected">RU</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div id="currency">
-				<?php
-			$curCur = \Session::obj()->currency;
-			/** @noinspection PhpUndefinedVariableInspection */foreach ($this->currencies as $currency) {
-			?>
-				<?php if ($curCur['id'] != $currency->id) { ?><a class="hiddenlink"
-																 href="<?php echo \Ctl\IndexCtl::link('setCurrency', array('value' => $currency->id)); ?>"><?php
-			}
-			; ?>
-				<div class="fold">
-					<div class="foldbg bottom">
-						<div class="foldbl">
-							<div class="foldbr">
-								<div class="foldi">
-									<div class="text <?php if ($curCur['id'] == $currency->id) echo 'selected'; ?>">
-										<i><?php echo $currency->name; ?></i>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<?php if ($curCur['id'] != $currency->id) { ?></a><?php
-			}
-			; ?>
-				<?php
-		};
-			?>
-			</div>
-		</div>
-		<div class="idrcol">
-			<div class="idlcol">
-				<div class="label grey" style="margin-top: 15px;width: 8em;text-align: right;margin-right: 5px;">
-					В РОССИИ:
-				</div>
-				<div class="title black" style="margin-top: 6px; float:left">
-					<?php echo $this->settings->getPhone1(); ?>
-				</div>
-				<div class="label grey" style="margin: 9px 5px 9px 0; clear:left;">
-					В ЧЕРНОГОРИИ:
-				</div>
-				<div class="title black" style="float:left;">
-					<?php echo $this->settings->getPhone2(); ?>
-				</div>
-			</div>
-			<div class="idrcol"></div>
-		</div>-->
 		<?php $this->headerTop(); ?>
 	</div>
 	<div id="image">
@@ -303,10 +242,25 @@ class TemplateView extends BaseView {
 
 	public function headerMenu() {
 		?>
+	<script type="text/javascript">
+		$(function () {
+			$('.menuitem').each(function () {
+				$(this).mouseout(function () {
+					$(this).removeClass('selected');
+				})
+			});
+			$('.menuitem').mouseover(function () {
+				$(this).addClass('selected');
+			});
+		});
+	</script>
+
 	<div class="menuitem">Аренда авто</div>
-	<div class="menuitem selected">Аренда жилья</div>
+	<div class="menuitem">Аренда жилья</div>
 	<div class="menuitem">Продажа авто</div>
-	<div class="menuitem">Недвижимость</div>
+	<a style="text-decoration: none;" href="<?php echo \Ctl\RealtyCtl::link('index', array());?>">
+		<div class="menuitem">Недвижимость</div>
+	</a>
 	<div class="menuitem">Услуги</div>
 	<div class="menuitem">Советы</div>
 	<?php
@@ -339,8 +293,8 @@ class TemplateView extends BaseView {
 	</div>
 	<div id="headerphone">
 		<div style="height: 5em;float:left;width: 7em;">
-			<div class="label grey" >В РОССИИ:</div>
-			<div class="label grey" >В ЧЕРНОГОРИИ:</div>
+			<div class="label grey">В РОССИИ:</div>
+			<div class="label grey">В ЧЕРНОГОРИИ:</div>
 		</div>
 		<div style="height: 5em;width: 17em;float:left;">
 			<div class="title black"><?php echo $this->settings->getPhone1(); ?></div>

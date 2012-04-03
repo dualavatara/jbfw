@@ -186,4 +186,15 @@ class ModelData implements arrayaccess, Iterator{
 	public function count() {
 		return count($this->data);
 	}
+
+	public function slice($fromIdx, $toIdx) {
+		$nm = clone $this;//new static($this->table);
+		$nm->data = array();
+		$inc = $fromIdx > $toIdx ? -1 : 1;
+		for($i = $fromIdx; $i <= $toIdx; $i += $inc){
+			if (isset($this->data[$i])) $nm->data[] = $this->data[$i];
+		}
+
+		return $nm;
+	}
 }

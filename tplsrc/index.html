@@ -309,7 +309,7 @@
 						<?php echo $curCur['sign'];?> <span style="color:red;"><b><?php echo $price[0]->calcValue($curCur['course']);?></b></span>
 						<?php } else echo "&nbsp;"; ?>
 					</div>
-					<div style="padding:0px;"><img src="../static/img/buttons/order.png" width="152" height="30">
+					<div style="padding:0px;"><?php $this->orderButton('#'); ?>
 					</div>
 				</div>
 			</div>
