@@ -21,6 +21,6 @@ ALTER TABLE `jbfw`.`realty` ADD COLUMN `gmap` TEXT NOT NULL  AFTER `stars` ;
 ALTER TABLE `jbfw`.`realty` ADD COLUMN `area` INT NOT NULL  AFTER `gmap` ,
 ADD COLUMN `plotarea` INT NOT NULL  AFTER `area` ,
 ADD COLUMN `condstate` TINYTEXT NOT NULL  AFTER `plotarea` ,
-ADD COLUMN `miscflags` INT NOT NULL  AFTER `condition` ,
+ADD COLUMN `miscflags` INT NOT NULL  AFTER `condstate` ,
 ADD COLUMN `age` TINYTEXT NOT NULL  AFTER `miscflags` ,
 CHANGE COLUMN `floor` `floor` TINYTEXT NOT NULL  ;
