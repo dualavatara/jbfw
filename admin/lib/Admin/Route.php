@@ -34,6 +34,10 @@ class Route {
 		$this->defaults = $defaults;
 	}
 
+	public function getMenu() {
+		if (isset($this->defaults['menu'])) return $this->defaults['menu'];
+		return null;
+	}
 	/**
 	 * Tests if specified path match current route.
 	 * 

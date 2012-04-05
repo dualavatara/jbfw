@@ -11,8 +11,8 @@ require_once 'admin/lib/StdController.php';
 
 class Article extends \Admin\StdController {
 
-	public function __construct(\Admin\Application $app) {
-		parent::__construct('modules', 'article_list', 'Article', $app);
+	public function __construct(\Admin\Application $app, \Admin\Route $route) {
+		parent::__construct($route->getMenu(), 'article_list', 'Article', $app);
 
 		$this->data['types'] = $this->model->getModel()->getTypes();
 	}

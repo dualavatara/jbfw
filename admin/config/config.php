@@ -29,8 +29,7 @@ return array(
 	'routes' => array(
 		'home' => array('/', 'User', 'list'),
 
-		'login' => array('/login', 'Auth', 'login'),
-		'logout' => array('/logout', 'Auth', 'logout'),
+		'login' => array('/login', 'Auth', 'login'), 'logout' => array('/logout', 'Auth', 'logout'),
 
 		'static' => array('/s/{key}', 'Data', 'get'),
 
@@ -121,37 +120,66 @@ return array(
 		'appartment_delete' => array('/appartment/delete/{id}', 'Appartment', 'delete'),
 		'appartment_save' => array('/appartment/save', 'Appartment', 'save'),
 
+		'cartype_edit' => array('/cartype/edit/{id}', 'CarType', 'edit'),
+		'cartype_list' => array('/cartype/list', 'CarType', 'list'),
+		'cartype_add' => array('/cartype/add', 'CarType', 'add'),
+		'cartype_delete' => array('/cartype/delete/{id}', 'CarType', 'delete'),
+		'cartype_save' => array('/cartype/save', 'CarType', 'save'),
+
+
 	),
 
 	'menu' => array(
-		'modules' => array(
+		'realty' => array(
+			'title' => 'Недвижимость', 'sections' => array(
+				'beach_list' => array('title' => 'Пляжи', 'route' => 'beach_list', 'params' => array()),
+				'resort_list' => array('title' => 'Курорты', 'route' => 'resort_list', 'params' => array()),
+				'realty_list' => array(
+					'title' => 'Объекты недвижимости', 'route' => 'realty_list', 'params' => array()
+				),
+			)
+		),
+		'cars' => array(
+			'title' => 'Автомобили', 'sections' => array(
+				'carrentoffice_list' => array(
+					'title' => 'Конторы по прокату авто', 'route' => 'carrentoffice_list', 'params' => array()
+				),
+				'cartype_list' => array('title' => 'Типы автомобилей',     'route' => 'cartype_list',   'params' => array()),
+			)
+		),
+		'misc' => array(
+			'title' => 'Разное', 'sections' => array(
+				'banner_list' => array('title' => 'Баннеры', 'route' => 'banner_list', 'params' => array()),
+				'currency_list' => array('title' => 'Валюты', 'route' => 'currency_list', 'params' => array()),
+				'article_list' => array('title' => 'Статьи', 'route' => 'article_list', 'params' => array()),
+				//'discount_list' => array('title' => 'Скидки', 'route' => 'discount_list', 'params' => array()),
+				'customer_list' => array('title' => 'Клиенты', 'route' => 'customer_list', 'params' => array()),
+			)
+		),
+		/*'modules' => array(
 			'title' => 'Объекты', 'sections' => array(
 				'currency_list' => array('title' => 'Валюты', 'route' => 'currency_list', 'params' => array()),
-				'price_list' => array('title' => 'Цены', 'route' => 'price_list', 'params' => array()),
 				'article_list' => array('title' => 'Статьи', 'route' => 'article_list', 'params' => array()),
 				'discount_list' => array('title' => 'Скидки', 'route' => 'discount_list', 'params' => array()),
 				'beach_list' => array('title' => 'Пляж', 'route' => 'beach_list', 'params' => array()),
 				'resort_list' => array('title' => 'Курорты', 'route' => 'resort_list', 'params' => array()),
 				'customer_list' => array('title' => 'Клиент', 'route' => 'customer_list', 'params' => array()),
 				'carrentoffice_list' => array(
-					'title' => 'Конторы по прокату авто',
-					'route' => 'carrentoffice_list',
-					'params' => array()
+					'title' => 'Конторы по прокату авто', 'route' => 'carrentoffice_list', 'params' => array()
 				),
 				'realty_list' => array(
-					'title' => 'Объекты недвижимости',
-					'route' => 'realty_list',
-					'params' => array()
+					'title' => 'Объекты недвижимости', 'route' => 'realty_list', 'params' => array()
 				),
-
+				'cartype_list' => array('title' => 'Название объекта',     'route' => 'cartype_list',   'params' => array()),
 			)
-		), 'sys' => array(
+		), */
+		'sys' => array(
 			'title' => 'Системные', 'sections' => array(
 				'user_list' => array('title' => 'Пользователи', 'route' => 'user_list', 'params' => array()),
 				'setting_list' => array('title' => 'Настройки сайта', 'route' => 'setting_list', 'params' => array()),
-				'banner_list' => array('title' => 'Баннеры', 'route' => 'banner_list', 'params' => array()),
 			)
-		), 'logout' => array(
+		),
+		'logout' => array(
 			'title' => 'Выход', 'sections' => array(
 				'logout' => array('title' => '', 'route' => 'logout'),
 			),

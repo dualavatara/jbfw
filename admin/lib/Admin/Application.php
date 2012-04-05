@@ -76,7 +76,16 @@ class Application extends Container {
 	public function registerRoute($path, $callback) {
 		$this->routes->add(new Route($path), $callback);
 	}
-	
+
+	public function findMenuBySection($sectionKey) {
+		$ret = '';
+		foreach ($this->config->menu as $name => $section) {
+			foreach($section['sections'] as $entryKey => $entryVal) {
+				if ($entryKey == $sectionKey) return $name;
+			}
+		}
+		return null;
+	}
 	/**
 	 * Maps path pattern to the specified controller and optionally action with certain name.
 	 * 
@@ -97,10 +106,11 @@ class Application extends Container {
 		$app = $this;
 		
 		$defaults = $action ? array('action' => $action) : array();
+		$defaults['menu'] = $this->findMenuBySection($name);
 		$route = new Route($path, $defaults);
-		$callback = function($request) use ($app, $controller) {
+		$callback = function($request) use ($app, $controller, $route) {
 			$controller = '\\ctl\\' . $controller;
-			$ctl = new $controller($app);
+			$ctl = new $controller($app, $route);
 			if (!($ctl instanceof Controller)) {
 				throw new \UnexpectedValueException($controller . ' is not a controller');
 			}

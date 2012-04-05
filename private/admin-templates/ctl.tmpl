@@ -4,8 +4,8 @@ namespace ctl;
 require_once 'admin/lib/StdController.php';
 
 class <?php echo $className; ?> extends \Admin\StdController {
-	public function __construct(\Admin\Application $app) {
-		parent::__construct('modules', '<?php echo strtolower($className); ?>_list', '<?php echo $className; ?>', $app);
+	public function __construct(\Admin\Application $app, \Admin\Route $route) {
+		parent::__construct($route->getMenu(), '<?php echo strtolower($className); ?>_list', '<?php echo $className; ?>', $app);
 	}
 
 }
