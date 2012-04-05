@@ -18,7 +18,7 @@ class SectionsMenuTemplate extends Template {
 		$menuItem = $config->menu[$selected];
 
 		foreach ($menuItem['sections'] as $name => $sectionItem) {
-            if($this->app['user']->checkRoute($name)) {
+            if($this->app['user']->checkRoute($sectionItem['route'])) {
                 $title = $sectionItem['title'];
                 if (isset($section) && ($section == $name)) {
                     $sectionTitle = $title;

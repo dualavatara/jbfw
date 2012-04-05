@@ -10,6 +10,6 @@ require_once 'lib/model.lib.php';
 class CarTypeModel extends Model {
 	public function __construct(IDatabase $db) {
 		parent::__construct('car_type', $db);
-
+		$this->field(new CharField('name'));
 	}
 }

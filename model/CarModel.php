@@ -8,69 +8,66 @@
 require_once 'lib/model.lib.php';
 
 class CarModel extends Model {
-	public function __construct($table, IDatabase $db) {
-		parent::__construct($table, $db);
-		/*
-Для Аренды (Boolean)
-Для Продажи (Boolean)
+	const FLAG_VISIBLE 		=0x0001;
+	const FLAG_SPUTNIK 		=0x0002;
+	const FLAG_CONDITIONER 	=0x0004;
+	const FLAG_DIESEL 		=0x0005;
+	const FLAG_AUTOMAT 		=0x0010;
+	const FLAG_BEST 		=0x0020;
+	const FLAG_HIT 			=0x0040;
+	const FLAG_DESCOUNT 	=0x0080;
 
-Минимальное количество дней аренды
-Вес для сортировки (число)
-Название
-Тип (привязка к сущности Тип автомобиля)
-Описание (включая html)
-Фото (основное для вывода в поиске)
-Доп фото (3 шт)
-Расход топлива (число)
-Стоимость страховки (деньги, при выводе используется курс из настроек сайта, в зависимости от выбора пользователя)
-Франшиза (деньги)
-Стоимость за доп пассажира (деньги)
-Число пассажиров (число)
-Система спутниковой навигации (bool)
-Кондиционер (bool)
-Количество багажа (число)
-Двери (число)
-Дизельный автомобиль (bool)
-Автоматическая трансмиссия (bool)
-Механическая трансмиссия (bool) (нужно как и Автоматическая чтобы не усложнять логику вывода результатов после поиска)
-Минимальный возраст (число)
-К какой конторе принадлежит (Выбор из сущности Фирма)
-Авто также может принадлежать физ лицу (выбор из клиентов)
-Лучшая цена (Boolean) (для значков акций)
-Хит (Boolean) (для значков акций)
-Скидки (Boolean) (для значков акций)
-Стоимость автокресла 0+ (деньги)
-Стоимость автокресла 1 (деньги)
-Стоимость автокресла 2-3 (деньги)
-Стоимость Цепей (деньги)
-Стоимость навигатора (деньги)
-Стоимость залога (деньги)
-Название
-Год выпуска
-Объем двигателя (число)
-Автомобиль - стоимость
-Январь (деньги)
-февраль
-март
-апрель
-май
-июнь
-июль
-август
-сентябрь
-октябрь
-ноябрь
-декабрь
+	public function __construct(IDatabase $db) {
+		parent::__construct('car', $db);
 
-Скидка 3-6 (деньги – абсолютное значение)
-Скидка 7-8 (деньги)
-Скидка 9-15 (деньги)
-Скидка 16-29 (деньги)
-Скидка 30 (деньги)
-Стоимость трансфера в аэропорт (деньги)
-Стоимость трансфера в гостиницу (деньги)
-Стоимость водителя в сутки (деньги)
-Стоимость при грязной машине (деньги)
-		 */
+		$this->field(new CharField('name'));
+		$this->field(new CharField('description'));
+		$this->field(new CharField('age'));
+		$this->field(new IntField('min_rent'));
+		$this->field(new IntField('ord'));
+		$this->field(new IntField('flags'));
+		$this->field(new IntField('type_id'));
+		$this->field(new IntField('fuel'));
+
+
+		$this->field(new IntField('seats'));
+		$this->field(new IntField('baggage'));
+		$this->field(new IntField('doors'));
+		$this->field(new IntField('min_age'));
+		$this->field(new IntField('office_id'));
+		$this->field(new IntField('customer_id'));
+		$this->field(new RealField('volume')); //Объем двигателя (число)
+
+		$this->field(new RealField('price_addseat'));
+		$this->field(new RealField('price_insure'));
+		$this->field(new RealField('price_franchise'));
+		$this->field(new RealField('price_seat1'));
+		$this->field(new RealField('price_seat2'));
+		$this->field(new RealField('price_seat3'));
+		$this->field(new RealField('price_chains'));
+		$this->field(new RealField('price_navigator'));
+		$this->field(new RealField('price_zalog'));
+
+		$this->field(new RealField('discount1'));
+		$this->field(new RealField('discount2'));
+		$this->field(new RealField('discount3'));
+		$this->field(new RealField('discount4'));
+		$this->field(new RealField('discount5'));
+		$this->field(new RealField('trans_airport'));
+		$this->field(new RealField('trans_hotel'));
+		$this->field(new RealField('trans_driver'));
+		$this->field(new RealField('trans_dirty'));
+	}
+	public function getFlags() {
+		return array(
+			self::FLAG_VISIBLE 		=> 'Видимый',
+			self::FLAG_SPUTNIK 		=> 'Система спутниковой навигации',
+			self::FLAG_CONDITIONER 	=> 'Кондиционер',
+			self::FLAG_DIESEL 		=> 'Дизельный автомобиль',
+			self::FLAG_AUTOMAT 		=> 'Автоматическая трансмиссия',
+			self::FLAG_BEST 		=> 'Лучшая цена',
+			self::FLAG_HIT 			=> 'Хит',
+			self::FLAG_DESCOUNT 	=> 'Скидки',
+		);
 	}
 }

@@ -9,7 +9,7 @@ class User extends \Admin\Controller {
 
 	private $data = array(
 		'menu' => 'sys',
-		'section' => 'user_list'
+		'section' => 'User'
 	);
 
 	public function do_add() {

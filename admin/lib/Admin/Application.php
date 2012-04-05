@@ -106,7 +106,7 @@ class Application extends Container {
 		$app = $this;
 		
 		$defaults = $action ? array('action' => $action) : array();
-		$defaults['menu'] = $this->findMenuBySection($name);
+		$defaults['menu'] = $this->findMenuBySection($controller);
 		$route = new Route($path, $defaults);
 		$callback = function($request) use ($app, $controller, $route) {
 			$controller = '\\ctl\\' . $controller;

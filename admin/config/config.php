@@ -126,34 +126,46 @@ return array(
 		'cartype_delete' => array('/cartype/delete/{id}', 'CarType', 'delete'),
 		'cartype_save' => array('/cartype/save', 'CarType', 'save'),
 
+		'carimage_edit' => array('/carimage/edit/{id}',       'CarImage', 'edit'),
+		'carimage_list' => array('/carimage/list',            'CarImage', 'list'),
+		'carimage_add' => array('/carimage/add',              'CarImage', 'add'),
+		'carimage_delete' => array('/carimage/delete/{id}',   'CarImage', 'delete'),
+		'carimage_save' => array('/carimage/save',            'CarImage', 'save'),
 
+		'car_edit' => array('/car/edit/{id}',       'Car', 'edit'),
+		'car_list' => array('/car/list',            'Car', 'list'),
+		'car_add' => array('/car/add',              'Car', 'add'),
+		'car_delete' => array('/car/delete/{id}',   'Car', 'delete'),
+		'car_save' => array('/car/save',            'Car', 'save'),
 	),
 
 	'menu' => array(
 		'realty' => array(
 			'title' => 'Недвижимость', 'sections' => array(
-				'beach_list' => array('title' => 'Пляжи', 'route' => 'beach_list', 'params' => array()),
-				'resort_list' => array('title' => 'Курорты', 'route' => 'resort_list', 'params' => array()),
-				'realty_list' => array(
+				'Beach' => array('title' => 'Пляжи', 'route' => 'beach_list', 'params' => array()),
+				'Resort' => array('title' => 'Курорты', 'route' => 'resort_list', 'params' => array()),
+				'Realty' => array(
 					'title' => 'Объекты недвижимости', 'route' => 'realty_list', 'params' => array()
 				),
 			)
 		),
 		'cars' => array(
 			'title' => 'Автомобили', 'sections' => array(
-				'carrentoffice_list' => array(
+				'CarRentOffice' => array(
 					'title' => 'Конторы по прокату авто', 'route' => 'carrentoffice_list', 'params' => array()
 				),
-				'cartype_list' => array('title' => 'Типы автомобилей',     'route' => 'cartype_list',   'params' => array()),
+				'CarType' => array('title' => 'Типы автомобилей',     'route' => 'cartype_list',   'params' => array()),
+				'Car' => array('title' => 'Название объекта',     'route' => 'car_list',   'params' => array()),
+
 			)
 		),
 		'misc' => array(
 			'title' => 'Разное', 'sections' => array(
-				'banner_list' => array('title' => 'Баннеры', 'route' => 'banner_list', 'params' => array()),
-				'currency_list' => array('title' => 'Валюты', 'route' => 'currency_list', 'params' => array()),
-				'article_list' => array('title' => 'Статьи', 'route' => 'article_list', 'params' => array()),
+				'Banner' => array('title' => 'Баннеры', 'route' => 'banner_list', 'params' => array()),
+				'Currency' => array('title' => 'Валюты', 'route' => 'currency_list', 'params' => array()),
+				'Article' => array('title' => 'Статьи', 'route' => 'article_list', 'params' => array()),
 				//'discount_list' => array('title' => 'Скидки', 'route' => 'discount_list', 'params' => array()),
-				'customer_list' => array('title' => 'Клиенты', 'route' => 'customer_list', 'params' => array()),
+				'Customer' => array('title' => 'Клиенты', 'route' => 'customer_list', 'params' => array()),
 			)
 		),
 		/*'modules' => array(
@@ -175,13 +187,13 @@ return array(
 		), */
 		'sys' => array(
 			'title' => 'Системные', 'sections' => array(
-				'user_list' => array('title' => 'Пользователи', 'route' => 'user_list', 'params' => array()),
-				'setting_list' => array('title' => 'Настройки сайта', 'route' => 'setting_list', 'params' => array()),
+				'User' => array('title' => 'Пользователи', 'route' => 'user_list', 'params' => array()),
+				'Settings' => array('title' => 'Настройки сайта', 'route' => 'setting_list', 'params' => array()),
 			)
 		),
 		'logout' => array(
 			'title' => 'Выход', 'sections' => array(
-				'logout' => array('title' => '', 'route' => 'logout'),
+				'Auth' => array('title' => '', 'route' => 'logout'),
 			),
 		)
 	),

@@ -31,8 +31,10 @@ class StdController extends Controller {
 	 * @param Admin\Application $app
 	 */
 	public function __construct($menu, $section, $objectName, \Admin\Application $app) {
+		preg_match('/.*\\\\(?<class>[[:alpha:]]+)$/', get_class($this), $m);
+		$classname = $m['class'];
 		$this->data = $data = array('menu'    => $menu,
-									'section' => $section);
+									'section' => $classname);
 		$this->objectName = $objectName;
 
 		parent::__construct($app);
