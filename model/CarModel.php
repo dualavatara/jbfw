@@ -25,7 +25,7 @@ class CarModel extends Model {
 		$this->field(new CharField('age'));
 		$this->field(new IntField('min_rent'));
 		$this->field(new IntField('ord'));
-		$this->field(new IntField('flags'));
+		$this->field(new FlagsField('flags'));
 		$this->field(new IntField('type_id'));
 		$this->field(new IntField('fuel'));
 

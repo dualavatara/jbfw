@@ -23,7 +23,39 @@ class StaticCtl  extends BaseCtl{
 
 			$contentType = $storage->getContentType($extension);
 			header('Content-Type: '.$contentType);
-			return $storage->output($key);
+			if (strstr($contentType, 'image') && ($_REQUEST['w'] || $_REQUEST['h'])) {
+				$file = $storage->getFileName(quoted_printable_decode($key));
+				$image = new \Imagick($file);
+				$w = $image->getimagewidth();
+				$h = $image->getimageheight();
+				//normalize params
+				$_REQUEST['w'] = $_REQUEST['w'] > $w ? $w : $_REQUEST['w'];
+				$_REQUEST['h'] = $_REQUEST['h'] > $h ? $h : $_REQUEST['h'];
+				$_REQUEST['w'] = !$_REQUEST['w'] ? $_REQUEST['h'] : $_REQUEST['w'];
+				$_REQUEST['h'] = !$_REQUEST['h'] ? $_REQUEST['w'] : $_REQUEST['h'];
+
+				//calculate crop size
+
+				$aw = $w / floatval($_REQUEST['w']);//во сколько раз запрошенное меньше ширины
+				$ah = $h / floatval($_REQUEST['h']);//во сколько раз запрошенное меньше высоты
+				if ($aw < $ah){
+					//$image->chopimage($w, $h*$aw, 0, 0);
+					$nw = $w;
+					$nh = ($h / $ah)*$aw;
+				}
+				else {
+					//$image->chopimage($w * $ah, $h, 0, 0);
+					$nw =($w / $aw) * $ah;
+					$nh = $h;
+				}
+				$image->cropImage($nw, $nh, 0, 0);
+				$image->thumbnailImage($_REQUEST['w'], $_REQUEST['h']);
+				$image->setImageFormat('png');
+
+				/* Output the image with headers */
+				header('Content-type: image/png');
+				echo $image;
+			} else	return $storage->output($key);
 		} catch (\Exception $e) {
 		}
 	}

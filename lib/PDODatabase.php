@@ -30,6 +30,7 @@ class PDODatabase implements IDatabase {
 				$result = $statement->fetchAll();
 				return true;
 			} else {
+				Logger::obj()->error($sql);
 				$err = $statement->errorInfo();
 				$log = "SQL error " . $err[1] . ": " . $err[2];
 				Logger::obj()->error($log);

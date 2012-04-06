@@ -33,9 +33,11 @@ class StdController extends Controller {
 	public function __construct($menu, $section, $objectName, \Admin\Application $app) {
 		preg_match('/.*\\\\(?<class>[[:alpha:]]+)$/', get_class($this), $m);
 		$classname = $m['class'];
-		$this->data = $data = array('menu'    => $menu,
+		$this->data = $data = array('menu'    => $menu ? $menu : $_SESSION['menu'],
 									'section' => $classname);
 		$this->objectName = $objectName;
+
+		if ($menu) $_SESSION['menu'] = $menu;
 
 		parent::__construct($app);
 		$classname = '\\model\\' . $objectName;
@@ -71,18 +73,6 @@ class StdController extends Controller {
 	}
 
 	public function do_list(\Admin\Request $request = null) {
-		/*if (!isset($request['is_child'])){
-			$this->model->getAll();
-			$_SESSION['urlparams'] = array();
-		} else {
-			$this->model->getFiltered($request);
-			$class = $this->model->childParamsClass;
-			$params = new $class($request);
-			$_SESSION['urlparams'] = array_merge(array(
-				'is_child' => $request['is_child'],
-				'from_route' => $request['from_route'],
-			), $params->getRequestParams($request));
-		}*/
 		$this->model->getFiltered($request);
 
 		$class = $this->model->childParamsClass;

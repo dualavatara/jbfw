@@ -231,7 +231,7 @@ abstract class AdminField {
 
 	public $isForm = true;
 
-	function __construct($name, $adminName, $isList, $isListEdit = false, $isMinWidth = false) {
+	function __construct($name, $adminName, $isList = false, $isListEdit = false, $isMinWidth = false) {
 		$this->name = $name;
 		$this->adminName = $adminName;
 		$this->isList = $isList;
@@ -261,7 +261,7 @@ abstract class AdminField {
 class DefaultAdminField extends AdminField {
 	public $size;
 
-	function __construct($name, $adminName, $isList, $isListEdit = false, $isMinWidth = false, $size = 50) {
+	function __construct($name, $adminName, $isList = false, $isListEdit = false, $isMinWidth = false, $size = 50) {
 		parent::__construct($name, $adminName, $isList, $isListEdit, $isMinWidth);
 		$this->size = $size;
 	}

@@ -43,7 +43,7 @@ class FileDataStorage implements IDataStorage {
 		}
 	}
 
-	private function getFileName($key) {
+	public function getFileName($key) {
 		return $this->directory . $key;
 	}
 

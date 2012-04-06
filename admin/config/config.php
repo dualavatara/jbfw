@@ -155,7 +155,7 @@ return array(
 					'title' => 'Конторы по прокату авто', 'route' => 'carrentoffice_list', 'params' => array()
 				),
 				'CarType' => array('title' => 'Типы автомобилей',     'route' => 'cartype_list',   'params' => array()),
-				'Car' => array('title' => 'Название объекта',     'route' => 'car_list',   'params' => array()),
+				'Car' => array('title' => 'Автомобили',     'route' => 'car_list',   'params' => array()),
 
 			)
 		),
