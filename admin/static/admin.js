@@ -159,11 +159,15 @@ function onAllChange(name, parent) {
 $(document).ready(function () {
     var inputs = $('input.searchselect');
     inputs.after(function () {
+
+
             var hidden = $(document.createElement('input'));
             hidden.attr('type', 'hidden');
             hidden.attr('name', $(this).attr('name'));
             hidden.attr('value', $(this).attr('value'));
             $(this).after(hidden);
+
+
 
             var edit = $('<input type="text" />');
             // request value with ajax
@@ -179,6 +183,9 @@ $(document).ready(function () {
         //    edit.attr('value', $(this).attr('display-value'));
 
             edit[0].url = $(this).attr('rest-url');
+            edit.css('float', 'left');
+            edit.attr('size', '30');
+
 
             var dropbox = $('<div class="searchselect"></div>');
             edit[0].dropbox = dropbox[0];
@@ -187,7 +194,7 @@ $(document).ready(function () {
             edit.keyup(
                 function (event) {
                     var dropbox = this.dropbox;
-                    if (this.url && $(this).val()) $.ajax({
+                    if (this.url /*&& $(this).val()*/) $.ajax({
                         url:this.url + '/' + $(this).val(),
                         dataType:'json',
                         context:dropbox,
@@ -201,7 +208,7 @@ $(document).ready(function () {
                     var dropbox = this.dropbox;
                     var eo = $(this).offset();
                     eo.top += $(this).outerHeight();
-                    eo["min-width"] = $(this).width();
+                    eo["min-width"] = $(this).width()+$(this).outerHeight();
                     $(dropbox).css(eo);
                     if ($(dropbox).children().size()) $(dropbox).toggle(true);
                 }
@@ -212,20 +219,38 @@ $(document).ready(function () {
                 }
             );
             $(this).after(dropbox);
-            return edit;
+            $(this).after(edit);
+            var button = $('<div class="combobtn">&nbsp;</div>');
+            var eo  = [];//= $(this).offset();
+            eo["width"] = edit.outerHeight()-2;
+            eo["height"] = edit.outerHeight()-2;
+            eo['float'] = 'none';
+            eo['margin-left'] = edit.outerWidth() + 1;
+            eo['margin-top'] = edit.css('margin-top');
+            eo['margin-bottom'] = edit.css('margin-bottom');
+            button.css(eo);
+            button[0].edit = edit
+            edit.after(button);
+            button.click(function() {
+                var edit = this.edit;
+                $(edit).trigger('focus').trigger('keyup');
+            })
+
+            //return edit;
         });
     inputs.remove();
 });
 
 function makeDropbox(cont, data) {
     var html = '';
-    if ($(data).size() == 0) $(cont).empty();
+    //if ($(data).size() == 0) $(cont).empty();
     $(data).each(function (i, obj) {
         html += '<div class="searchselect searchselectitem" value="' + obj.id + '">' + obj.name + '</div>'
     });
     $(cont).html(html);
-    if ($(cont).children().size()) $(cont).toggle(true);
-    else $(cont).toggle(false);
+    //if ($(cont).children().size())
+    $(cont).toggle(true);
+    //else $(cont).toggle(false);
     var items = $('.searchselect.searchselectitem');
     items.mousedown(function () {
         var id = $(this).attr('value');

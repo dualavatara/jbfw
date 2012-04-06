@@ -380,3 +380,10 @@ div.searchselect.searchselectitem {
 div.searchselect.searchselectitem:hover {
     background-color: #cccccc;
 }
+
+.combobtn {
+    border: #335240 solid 1px;
+    background-image: url('/static/img/icons/sort_down.png');
+    background-position: center center;
+    background-repeat: no-repeat;
+}

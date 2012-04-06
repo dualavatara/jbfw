@@ -24,6 +24,7 @@ class SearchSelectField extends Template {
 		   value="<?php echo $value; ?>"
 		   display-value="<?php echo $display_value; ?>"
 		   rest-url="<?php echo $url; ?>"
+		   size="30"
 		/>
 	<?php
 
