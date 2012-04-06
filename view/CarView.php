@@ -26,13 +26,14 @@ float: left;<?php if ($left) echo 'margin-right:0.5em'; ?>">
 			<?php
 			$link = \Ctl\CarCtl::link('profile', array('id' => $car->id));
 
-			$this->blockMainImg('cars' . $car->id, $mainImg, 'javascript:void(0)', $car->flags->check(\CarModel::FLAG_HIT), $car->flags->check(\CarModel::FLAG_DESCOUNT), 'loadCarProfile(\'' . $car->name . '\',\'' . SERVER_URL . $link . '\',\'window_block2\')', false, 200, 200);
+			$this->blockMainImg('carsprofile' . $car->id, $mainImg, 'javascript:void(0)', $car->flags->check(\CarModel::FLAG_HIT), $car->flags->check(\CarModel::FLAG_DESCOUNT),
+				'loadCarProfile(\'' . $car->name . '\',\'' . SERVER_URL . $link . '\')', false, 200, 200);
 			?>
 		</div>
 		<div style="margin-left: 17em;">
 			<div><h2><?php echo $car->name; ?></h2></div>
 			<div><?php
-				$this->blockOtherImg('realty' . $car->id, $car->getOtherImages(), 10000);
+				$this->blockOtherImg('carsprofile' . $car->id, $car->getOtherImages(), 10000);
 				?>
 			</div>
 			<div style="margin-top: 9em;">

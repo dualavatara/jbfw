@@ -310,7 +310,7 @@ float: left;<?php if($left) echo 'margin-right:0.5em'; ?>">
 				'javascript:void(0)',
 				$car->flags->check(\CarModel::FLAG_HIT),
 				$car->flags->check(\CarModel::FLAG_DESCOUNT),
-				'loadCarProfile(\''.$car->name.'\',\''.SERVER_URL . $link.'\', 700, 400)'
+				'loadCarProfile(\''.$car->name.'\',\''.SERVER_URL . $link.'\', 700, 400, \'lightboxcarsprofile'.$car->id.'\')'
 			);
 			?>
 		</div>
