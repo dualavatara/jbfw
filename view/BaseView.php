@@ -130,8 +130,8 @@ class BaseView implements IView {
 		if (isset($img)) {
 			?>
 			<a href="<?php echo \Ctl\StaticCtl::link('get', array('key' => $img->image)); ?>"
-			   class="lightbox<?php echo $id; ?>"><img
-				src="<?php echo \Ctl\StaticCtl::link('get', array('key' => $img->thumbnail)); ?>"
+			   class="nolightbox<?php echo $id; ?>"><img
+				src="<?php echo \Ctl\StaticCtl::link('get', array('key' => $img->thumbnail,'w' => $w, 'h' => $h)); ?>"
 				width="<?php echo $h; ?>" height="<?php echo $w; ?>"></a>
 			<?php
 		} else {
@@ -427,6 +427,7 @@ float: left;<?php if($left) echo 'margin-right:0.5em'; ?>">
 
 		$curCur = \Session::obj()->currency;
 		?>
+		<div>
 	<table class="navbar" border="0" cellpadding="0" cellspacing="0" width="100%">
 		<tr>
 			<td>
@@ -445,6 +446,7 @@ float: left;<?php if($left) echo 'margin-right:0.5em'; ?>">
 			</td>
 		</tr>
 	</table>
+		</div>
 	<?php
 	}
 }

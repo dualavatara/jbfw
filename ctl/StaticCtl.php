@@ -61,8 +61,10 @@ class StaticCtl  extends BaseCtl{
 	}
 
 	static public function link($method, $params) {
+		$key = $params['key'];
+		unset($params['key']);
 		switch($method) {
-			case 'get' : return '/s/' . $params['key'];
+			case 'get' : return '/s/' .$key. '?' . http_build_query($params);
 			default: throw new \NotFoundException();
 		}
 	}
