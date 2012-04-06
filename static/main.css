@@ -387,8 +387,6 @@ h1 {
     margin-bottom: 0.25em;
 }
 .itemblock .properties {
-    width: 30em;
-    //background-color: white;
     font-size: 0.9em;
     color: red;
     margin-bottom:1em;
@@ -627,4 +625,21 @@ table.appartlist td:nth-child(3){
     border-radius: 0 0 5px 5px;
     -moz-border-radius: 0 0 5px 5px;
     -webkit-border-radius: 0 0 5px 5px;
+}
+
+#imgPreviewWithStyles {
+    background: #222;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    padding: 15px;
+    z-index: 999;
+    border: none;
+}
+
+/* Text below image */
+#imgPreviewWithStyles span {
+    color: white;
+    text-align: center;
+    display: block;
+    padding: 10px 0 3px 0;
 }

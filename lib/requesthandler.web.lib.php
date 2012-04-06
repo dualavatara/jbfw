@@ -16,6 +16,8 @@ class WebRequestHandler extends RequestHandler implements IRequestHandler {
 		$this->addMatcher($this->di->WebRequestMatcher('/^\/s\/(?<key>.*)$/', 'StaticCtl', 'get', IRequestMatcher::NO_AUTH_REQUIRED));
 		$this->addMatcher($this->di->WebRequestMatcher('/^\/realty$/', 'RealtyCtl', 'index', IRequestMatcher::NO_AUTH_REQUIRED));
 		$this->addMatcher($this->di->WebRequestMatcher('/^\/realty\/profile\/(?<realtyId>.*)$/', 'RealtyCtl', 'profile', IRequestMatcher::NO_AUTH_REQUIRED));
+		$this->addMatcher($this->di->WebRequestMatcher('/^\/car$/', 'CarCtl', 'index', IRequestMatcher::NO_AUTH_REQUIRED));
+		$this->addMatcher($this->di->WebRequestMatcher('/^\/car\/profile\/(?<carId>.*)$/', 'CarCtl', 'profile', IRequestMatcher::NO_AUTH_REQUIRED));
 	}
 
 	/**

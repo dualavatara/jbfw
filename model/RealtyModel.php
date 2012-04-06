@@ -144,7 +144,7 @@ class RealtyModel extends Model {
 		return $this[0];
 	}
 
-	public function getRealtyList($flags = array(), $sort = array()) {
+	public function getList($flags = array(), $sort = array()) {
 		$filter = $this->filterExpr()->eq('flags', \RealtyModel::FLAG_VISIBLE);
 		foreach ($flags as $flag) $filter->_and()->eq('flags', $flag);
 

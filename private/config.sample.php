@@ -1,5 +1,5 @@
 define('PATH_DATA', 'static/data');
-
+define('SERVER_URL', 'http://jbfw.zhukov.home/');
 define('MAITENANCE_LOCK', false);
 
 define('DB_NAME', '<?php echo $dbname; ?>');

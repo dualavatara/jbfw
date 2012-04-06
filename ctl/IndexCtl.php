@@ -22,10 +22,12 @@ class IndexCtl extends BaseCtl {
 
 		//realty selection for index
 		$view->realties = $this->disp->di()->RealtyModel();
-		/*$view->realties->get()->filter($view->realties->filterExpr()->eq('flags', \RealtyModel::FLAG_VISIBLE)->_and()
-			->eq('flags', \RealtyModel::FLAG_BEST))->exec();*/
-		$view->realties->getRealtyList(array(\RealtyModel::FLAG_BEST));
+		$view->realties->getList(array(\RealtyModel::FLAG_BEST));
 		$view->realties->loadDependecies();
+
+		$view->cars = $this->disp->di()->CarModel();
+		$view->cars->getList(array(\CarModel::FLAG_BEST));
+		//$view->cars->loadDependecies();
 
 		$tpl->setLeftColumn($leftCol->show());
 		$tpl->setMainContent($view->show());

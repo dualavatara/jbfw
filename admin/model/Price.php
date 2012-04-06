@@ -14,7 +14,7 @@ class Price extends \AdminModel {
 		$this->fields['type'] = new \SelectAdminField('type','Тип', 'getTypes', true, false, false, 10);
 		$this->fields['start'] = new \DateTimeAdminField('start','Начало', true);
 		$this->fields['end'] = new \DateTimeAdminField('end','Конец', true);
-		//$this->fields['currency_id'] = new \SelectAdminField('currency_id','Валюта', 'getCurrencies', true);
+		$this->fields['currency_id'] = new \SelectAdminField('currency_id','Валюта', 'getCurrencies', true);
 		$this->fields['value'] = new \FloatAdminField('value','Значение, руб.', true);
 		$this->fields['week_disc'] = new \FloatAdminField('week_disc','Скидка при заказе недели, %', true);
 		$this->fields['month_disc'] = new \FloatAdminField('month_disc','Скидка при заказе месяца, %', true);

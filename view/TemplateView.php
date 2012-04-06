@@ -38,11 +38,16 @@ class TemplateView extends BaseView {
 		<meta name="keywords" content="<?php echo $this->settings->getKeywords(); ?>">
 		<title><?php echo $this->settings->getTitle(); ?></title>
 		<script type="text/javascript" src="/static/js/jquery.js"></script>
+		<script type="text/javascript" src="/static/js/jquery-ui.js"></script>
+		<script type="text/javascript" src="/static/js/imgpreview.full.jquery.js"></script>
 		<script type="text/javascript" src="/static/js/lightbox/jquery.lightbox-0.5.min.js"></script>
+		<script type="text/javascript" src="/static/js/jquery-window-5.03/jquery.window.min.js"></script>
+		<script type="text/javascript" src="/static/js/main.js"></script>
 		<script type="text/javascript" src="https://maps.google.com/maps/api/js?sensor=false">
 		</script>
 
 		<link rel="stylesheet" type="text/css" href="/static/js/lightbox/css/jquery.lightbox-0.5.css" media="screen"/>
+		<link rel="stylesheet" type="text/css" href="/static/js/jquery-window-5.03/css/jquery.window.css" media="screen"/>
 		<link rel="stylesheet" href="/static/main.css" type="text/css">
 		<link rel="icon" href="/favicon.ico" type="image/x-icon">
 		<link rel="shortcut icon" href="/desktop.ico" type="image/x-icon">
@@ -255,9 +260,15 @@ class TemplateView extends BaseView {
 		});
 	</script>
 
-	<div class="menuitem">Аренда авто</div>
+	<a style="text-decoration: none;" href="<?php echo \Ctl\CarCtl::link('index', array('type' => 'rent'));?>">
+		<div class="menuitem">Аренда авто</div>
+	</a>
+
 	<div class="menuitem">Аренда жилья</div>
-	<div class="menuitem">Продажа авто</div>
+	<a style="text-decoration: none;" href="<?php echo \Ctl\CarCtl::link('index', array('type' => 'sell'));?>">
+		<div class="menuitem">Продажа авто</div>
+	</a>
+
 	<a style="text-decoration: none;" href="<?php echo \Ctl\RealtyCtl::link('index', array());?>">
 		<div class="menuitem">Недвижимость</div>
 	</a>

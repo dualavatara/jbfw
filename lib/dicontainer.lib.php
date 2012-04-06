@@ -10,6 +10,7 @@ require_once 'model/CurrencyModel.php';
 require_once 'model/ArticleModel.php';
 require_once 'model/BannerModel.php';
 require_once 'model/RealtyModel.php';
+require_once 'model/CarModel.php';
 
 //view classes
 require_once 'view/TemplateView.php';
@@ -103,8 +104,20 @@ class DIContainer extends Singletone{
 		return new \Ctl\TemplateCtl($dispatcher);
 	}
 
+	/**
+	 * @param $dispatcher
+	 * @return Ctl\SearchColumnCtl
+	 */
 	public function SearchColumnCtl($dispatcher) {
 		return new \Ctl\SearchColumnCtl($dispatcher);
+	}
+
+	/**
+	 * @param $dispatcher
+	 * @return Ctl\CarCtl
+	 */
+	public function CarCtl($dispatcher) {
+		return new \Ctl\CarCtl($dispatcher);
 	}
 	// Views **************************************************************************************************** //
 
@@ -139,8 +152,23 @@ class DIContainer extends Singletone{
 	/**
 	 * @return View\RealtyListView
 	 */
-	public function RealtyListView() {
-		return new \View\RealtyListView();
+	public function RealtyListView($ctl) {
+		return new \View\RealtyListView($ctl);
+	}
+
+	/**
+	 * @return View\CarView
+	 */
+	public function CarView() {
+		return new \View\CarView();
+	}
+
+	/**
+	 * @param $ctl
+	 * @return View\CarListView
+	 */
+	public function CarListView($ctl) {
+		return new View\CarListView($ctl);
 	}
 	// Request matchers ********************************************************************************************* //
 
@@ -191,6 +219,13 @@ class DIContainer extends Singletone{
 	 */
 	public function RealtyModel() {
 		return new RealtyModel($this->PDODatabase());
+	}
+
+	/**
+	 * @return CarModel
+	 */
+	public function CarModel() {
+		return new CarModel($this->PDODatabase());
 	}
 
 	// Misc ********************************************************************************************************* //

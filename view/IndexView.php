@@ -13,8 +13,15 @@ class IndexView extends BaseView {
 	 * params
 	 */
 	public $bannersLeft;
+	/**
+	 * @var \RealtyModel
+	 */
 	public $realties;
 	public $articles;
+	/**
+	 * @var \CarModel
+	 */
+	public $cars;
 
 	public function show() {
 		$this->start();
@@ -23,8 +30,19 @@ class IndexView extends BaseView {
 
 		foreach ($this->realties as $realty) {
 			$this->realtyBlock($realty);
-		};
+		}
+		;
 
+		?>
+	<div id="cars_block">
+		<?php
+		$i = 0;
+		foreach ($this->cars as $car) {
+			$i++;
+			$this->carsBlock($car, $i % 2);
+		};
+		?>
+	</div><?php
 
 		$artOut = function ($article) {
 			?>
@@ -36,7 +54,7 @@ class IndexView extends BaseView {
 		/** @noinspection PhpUndefinedVariableInspection */
 		if ($this->articles->count()) {
 			?>
-		<div id="article_block">
+		<div id="article_block" style="clear: both;">
 			<div class="alcol frame"><?php $artOut($this->articles[0]);?></div>
 			<?php
 			if ($this->articles->count() == 3) {
@@ -53,6 +71,7 @@ class IndexView extends BaseView {
 			};
 			?>
 		</div>
+
 		<?php
 		}
 		;
