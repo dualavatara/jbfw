@@ -19,8 +19,8 @@ class Car extends \AdminModel {
 
 		$this->fields['type_id'] = new \SearchSelectAdminField('type_id','Тип', 'CarType', true);
 		$this->fields['fuel'] = new \DefaultAdminField('fuel','Расход топлива, л', false, false, 10);
-		$this->fields['seats'] = new \DefaultAdminField('seats','Кол-во багажа', false, false, 10);
-		$this->fields['baggage'] = new \DefaultAdminField('baggage','Baggage', false, false, 10);
+		$this->fields['seats'] = new \DefaultAdminField('seats','Кол-во пассажиров', false, false, 10);
+		$this->fields['baggage'] = new \DefaultAdminField('baggage','Кол-во багажа', false, false, 10);
 		$this->fields['doors'] = new \DefaultAdminField('doors','Дверей', false, false, 10);
 		$this->fields['min_age'] = new \DefaultAdminField('min_age','Мин. возраст', false, false, 10);
 		$this->fields['office_id'] = new \SearchSelectAdminField('office_id','Контора проката', 'CarRentOffice', true);

@@ -161,4 +161,11 @@ class CarModel extends Model {
 		if ($this->image->count()) return $this->image;
 		return array();
 	}
+
+	public function getCar($id) {
+		$this->get()->filter($this->filterExpr()->eq('flags', self::FLAG_VISIBLE)->_and()->eq(MODEL_ID_FIELD_NAME, $id))
+			->exec();
+		if (!$this->count()) throw new NotFoundException();
+		return $this[0];
+	}
 }

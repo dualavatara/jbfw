@@ -81,9 +81,9 @@ class BaseView implements IView {
 	<?php
 	}
 
-	public function blockMainImg($id, $img, $profileLink, $isHit, $isDiscount, $onClick='') {
+	public function blockMainImg($id, $img, $profileLink, $isHit, $isDiscount, $onClick='', $showLink = true, $h = 125, $w = 125) {
 		?>
-	<div class="pic_cont">
+	<div class="pic_cont" style="width: <?php echo $w+2; ?>px">
 		<script type="text/javascript">
 			$(function () {
 				// lightbox
@@ -132,25 +132,27 @@ class BaseView implements IView {
 			<a href="<?php echo \Ctl\StaticCtl::link('get', array('key' => $img->image)); ?>"
 			   class="lightbox<?php echo $id; ?>"><img
 				src="<?php echo \Ctl\StaticCtl::link('get', array('key' => $img->thumbnail)); ?>"
-				width="125" height="125"></a>
+				width="<?php echo $h; ?>" height="<?php echo $w; ?>"></a>
 			<?php
 		} else {
 			?>
 			<div class="noimage">Нет изображения</div>
 			<?php
 		};
+		if ($showLink) {
 		?>
 		<a style="line-height:22px;"
 		   href="<?php echo $profileLink; ?>" onclick="<?php echo $onClick; ?>">подробнее</a>
+			<?php }; ?>
 	</div>
 	<?php
 	}
 
-	public function blockOtherImg($id, $images) {
+	public function blockOtherImg($id, $images, $num = 6) {
 		$i = 0;
 		foreach ($images as $image) {
 			$i++;
-			if ($i > 6) break;
+			if ($i > $num) break;
 			?>
 		<div class="thumbnail">
 			<a href="/s/<?php echo $image->image; ?>"
@@ -307,7 +309,7 @@ float: left;<?php if($left) echo 'margin-right:0.5em'; ?>">
 				'javascript:void(0)',
 				$car->flags->check(\CarModel::FLAG_HIT),
 				$car->flags->check(\CarModel::FLAG_DESCOUNT),
-				'loadCarProfile(\''.$car->name.'\',\''.SERVER_URL . $link.'\',\'window_block2\')'
+				'loadCarProfile(\''.$car->name.'\',\''.SERVER_URL . $link.'\', 700, 400)'
 			);
 			?>
 		</div>

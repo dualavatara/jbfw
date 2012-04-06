@@ -44,7 +44,10 @@ class CarCtl extends BaseCtl {
 	}
 
 	public function profile($carId) {
-		$tpl = $this->disp->di()->CarView($this->disp);
-		return $tpl;
+		$view = $this->disp->di()->CarView($this->disp);
+
+		$car = $this->disp->di()->CarModel();
+		$view->car = $car->getCar($carId);
+		return $view;
 	}
 }

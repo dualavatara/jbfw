@@ -1,4 +1,4 @@
-function loadCarProfile(name, url) {
+function loadCarProfile(name, url, winW, winH) {
     $.ajax({
         url:url,
         dataType:'html',
@@ -6,8 +6,8 @@ function loadCarProfile(name, url) {
             $.window({
                 title:name,
                 content:data,
-                width:600,
-                height:300,
+                width:winW,
+                height:winH,
                 minimizable:false,
                 maximizable:false,
                 bookmarkable:false,
