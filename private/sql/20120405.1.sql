@@ -1,19 +1,4 @@
-CREATE  TABLE `jbfw`.`car_type` (
-  `id` INT NOT NULL AUTO_INCREMENT ,
-  `name` TINYTEXT NULL ,
-  PRIMARY KEY (`id`) )
-DEFAULT CHARACTER SET = utf8
-COLLATE = utf8_general_ci;
-
-CREATE TABLE `car_image` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `thumbnail` tinytext NOT NULL,
-  `image` tinytext NOT NULL,
-  `car_id` int(11) NOT NULL,
-  `flags` int(11) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=34 DEFAULT CHARSET=utf8;
-
+DROP TABLE `jbfw`.`car`;
 CREATE  TABLE `jbfw`.`car` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `name` TINYTEXT NOT NULL ,
