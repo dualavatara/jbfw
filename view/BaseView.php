@@ -136,7 +136,8 @@ class BaseView implements IView {
 			<?php
 		} else {
 			?>
-			<div class="noimage">Нет изображения</div>
+			<div class="noimage" style="width: <?php echo $w+2; ?>px; height: <?php echo $h+2; ?>px">
+				<div style="padding-top: <?php echo $h/2 -6; ?>px">Нет изображения</div></div>
 			<?php
 		};
 		if ($showLink) {
