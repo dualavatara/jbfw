@@ -130,7 +130,7 @@ class BaseView implements IView {
 		if (isset($img)) {
 			?>
 			<a href="<?php echo \Ctl\StaticCtl::link('get', array('key' => $img->image)); ?>"
-			   class="nolightbox<?php echo $id; ?>"><img
+			   class="lightbox<?php echo $id; ?>"><img
 				src="<?php echo \Ctl\StaticCtl::link('get', array('key' => $img->thumbnail,'w' => $w, 'h' => $h)); ?>"
 				width="<?php echo $h; ?>" height="<?php echo $w; ?>"></a>
 			<?php
