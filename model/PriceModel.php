@@ -17,6 +17,7 @@ class PriceModel extends Model {
 	const CLASS_UNDEFINED = 0;
 	const CLASS_REALTY = 1;
 	const CLASS_APPARTMENT = 2;
+	const CLASS_CAR = 3;
 
 	const TYPE_RENT	= 1;
 	const TYPE_SELL	= 2;
@@ -67,6 +68,7 @@ class PriceModel extends Model {
 	public static function getClassId($object) {
 		if ($object instanceof RealtyModel) return self::CLASS_REALTY;
 		if ($object instanceof AppartmentModel) return self::CLASS_APPARTMENT;
+		if ($object instanceof CarModel) return self::CLASS_CAR;
 		return self::CLASS_UNDEFINED;
 	}
 

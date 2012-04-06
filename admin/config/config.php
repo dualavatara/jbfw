@@ -95,6 +95,7 @@ return array(
 		'carrentoffice_add' => array('/carrentoffice/add', 'CarRentOffice', 'add'),
 		'carrentoffice_delete' => array('/carrentoffice/delete/{id}', 'CarRentOffice', 'delete'),
 		'carrentoffice_save' => array('/carrentoffice/save', 'CarRentOffice', 'save'),
+		'carrentoffice_json' => array('/carrentoffice/json/{name}', 'CarRentOffice', 'json'),
 
 		'banner_edit' => array('/banner/edit/{id}', 'Banner', 'edit'),
 		'banner_list' => array('/banner/list', 'Banner', 'list'),
@@ -125,6 +126,7 @@ return array(
 		'cartype_add' => array('/cartype/add', 'CarType', 'add'),
 		'cartype_delete' => array('/cartype/delete/{id}', 'CarType', 'delete'),
 		'cartype_save' => array('/cartype/save', 'CarType', 'save'),
+		'cartype_json' => array('/cartype/json/{name}', 'CarType', 'json'),
 
 		'carimage_edit' => array('/carimage/edit/{id}',       'CarImage', 'edit'),
 		'carimage_list' => array('/carimage/list',            'CarImage', 'list'),

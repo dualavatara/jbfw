@@ -11,7 +11,7 @@ class CarModel extends Model {
 	const FLAG_VISIBLE 		=0x0001;
 	const FLAG_SPUTNIK 		=0x0002;
 	const FLAG_CONDITIONER 	=0x0004;
-	const FLAG_DIESEL 		=0x0005;
+	const FLAG_DIESEL 		=0x0008;
 	const FLAG_AUTOMAT 		=0x0010;
 	const FLAG_BEST 		=0x0020;
 	const FLAG_HIT 			=0x0040;
