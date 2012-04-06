@@ -84,41 +84,7 @@ class BaseView implements IView {
 	public function blockMainImg($id, $img, $profileLink, $isHit, $isDiscount, $onClick='', $showLink = true, $h = 125, $w = 125) {
 		?>
 	<div class="pic_cont" style="width: <?php echo $w+2; ?>px">
-		<script type="text/javascript">
-			$(function () {
-				// lightbox
-				$('a.lightbox<?php echo $id; ?>').lightBox(
-					{
-						txtImage:'Фото',
-						txtOf:'из'
-					}
-				); // Select all links with lightbox class
-				$('a.lightbox<?php echo $id; ?>').imgPreview({
-					containerID:'imgPreviewWithStyles',
-					imgCSS:{
-						// Limit preview size:
-						height:200
-					},
-					// When container is shown:
-					/*onShow:function (link) {
-						// Animate link:
-						$(link).stop().animate({opacity:0.4});
-						// Reset image:
-						$('img', this).stop().css({opacity:0});
-					},
-					// When image has loaded:
-					onLoad:function () {
-						// Animate image
-						$(this).animate({opacity:1}, 300);
-					},
-					// When container hides:
-					onHide:function (link) {
-						// Animate link:
-						$(link).stop().animate({opacity:1});
-					}*/
-				});
-			});
-		</script>
+
 		<?php
 		if ($isHit) {
 			?><img class="badge" src="/static/img/badge/hit.png"><?php
@@ -129,8 +95,7 @@ class BaseView implements IView {
 		};
 		if (isset($img)) {
 			?>
-			<a href="<?php echo \Ctl\StaticCtl::link('get', array('key' => $img->image)); ?>"
-			   class="lightbox<?php echo $id; ?>"><img
+			<a href="<?php echo $profileLink; ?>"><img
 				src="<?php echo \Ctl\StaticCtl::link('get', array('key' => $img->thumbnail,'w' => $w, 'h' => $h)); ?>"
 				width="<?php echo $h; ?>" height="<?php echo $w; ?>"></a>
 			<?php
@@ -427,7 +392,7 @@ float: left;<?php if($left) echo 'margin-right:0.5em'; ?>">
 
 		$curCur = \Session::obj()->currency;
 		?>
-		<div>
+		<div style="float:left;width:60em;">
 	<table class="navbar" border="0" cellpadding="0" cellspacing="0" width="100%">
 		<tr>
 			<td>
