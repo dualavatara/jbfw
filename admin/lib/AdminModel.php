@@ -476,9 +476,7 @@ class ImageThumbnailAdminField extends AdminField {
 	}
 
 	public function inputHtml($modelRow) {
-		/*$this->template->insertTemplate('Form\ImageField', array(
-			'name' => $this->name, 'key' => $modelRow->image,
-		));*/
+		if ($modelRow->{$this->name}) $this->template->showLink($modelRow->{$this->name}, 'static', array('key' => $modelRow->{$this->name}), 'target="_blank"');
 	}
 
 	public function listTextHtml($modelRow) {
