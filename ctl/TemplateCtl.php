@@ -7,6 +7,8 @@
 namespace Ctl;
 
 class TemplateCtl extends BaseCtl {
+	const HEAD_BANNERS_NUM = 4;
+
 	public function main() {
 		$view = $this->disp->di()->TemplateView();
 
@@ -24,9 +26,8 @@ class TemplateCtl extends BaseCtl {
 			->order('ord', true)->exec();
 
 		//header banners
-		$view->bannersHead = $this->disp->di()->BannerModel();
-		$view->bannersHead->get()->filter($view->bannersHead->filterExpr()->eq('type', \BannerModel::TYPE_240X100)->_and()
-			->eq('flags', \BannerModel::FLAG_HEAD))->limit(4)->exec();
+		$view->bannersHead = $this->disp->di()->BannerModel()->getBannersHead(self::HEAD_BANNERS_NUM);
+
 
 		return $view;
 	}

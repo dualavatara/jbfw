@@ -11,73 +11,45 @@ class FormTemplate extends Template {
 	}
 
 	protected function show($data, $content = null) {
-		$model = $data['model'];
 		$banner = isset($data['object']) ? $data['object'] : null;
+		$data['model']->setTemplate($this);
 		?>
 	<script type="text/javascript">
 		$(function () {
 			AdminJS.initTabs('#tabs');
 		});
-		$(document).ready(function () {
+		$(document).ready(function(){
 			$("#editForm").validate({
-				errorClass:"invalid"
+				errorClass: "invalid"
 			});
 		});
 	</script>
 	<div class="submenubar">
-		<?php $this->listLink(); ?>
+		<a href="<?php echo $this->getUrl('banner_list') ?>">[Список]</a>
 		<a href="<?php echo $this->getUrl('banner_add') ?>">[Добавить]</a>
 	</div>
 	<div class="group">
-		<div class="capture"><?php echo $banner ? 'Редактирование баннера' : 'Создание создание';?></div>
+		<div class="capture"><?php echo $banner ? 'Редактирование' : 'Создание';?></div>
 		<div id="tabs">
 			<a href="#general">Общие</a>
 		</div>
-		<form method="post" id="editForm" class="required" minlength="2"
-			  action="<?php echo $this->getUrl('banner_save'); ?>" enctype="multipart/form-data">
+		<form method="post" id="editForm" class="required" minlength="2" action="<?php echo $this->getUrl('banner_save'); ?>" enctype="multipart/form-data">
 			<input type="hidden" name="form[id]" value="<?php echo $banner->id ? : ''; ?>"/>
 
 			<div id="general">
 				<table>
-					<tr>
-						<td>Ссылка</td>
-						<td><input type="text" name="form[link]" class="required" value="<?php echo $banner->link ? : 'http://'; ?>"/></td>
-					</tr>
-					<tr>
-						<td>Тип</td>
-						<td><?php
-							$this->insertTemplate('Form\SelectField', array(
-								'name' => 'type',
-								'values' => $data['types'],
-								'selected' => $banner->type,
-								'empty' => false,
-							)); ?>
-						</td>
-					</tr>
-					<tr>
-						<td>Изображение</td>
-						<td>
-							<?php
-							$this->insertTemplate('Form\ImageField', array(
-								'name' => 'image', 'key' => $banner->image,
-							));
-							?>
-						</td>
-					</tr>
-					<tr>
-						<td>&nbsp;</td>
-						<td><?php
-							$this->insertTemplate('Form\FlagsField', array(
-								'title' => 'Опции',
-								'name' => 'form[flags]',
-								'value' => $banner->flags,
-								'flags' => $model->getModel()->getFlags()
-							)); ?>
-						</td>
-					</tr>
+
+						<?php
+							$dRaw = $data->getRaw();
+							foreach($dRaw['model']->fields as $field) {
+								if (($field->name == id) || (!$field->isForm)) continue;
+								echo '<tr><td>' .$field->adminName. '</td>';
+								echo '<td>' .$field->input($banner). '</td></tr>';
+							}
+						?>
+
 				</table>
 			</div>
-
 
 			<table>
 				<tr>

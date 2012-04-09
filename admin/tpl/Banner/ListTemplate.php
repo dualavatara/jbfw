@@ -12,8 +12,7 @@ class ListTemplate extends Template {
 	}
 
 	protected function show($data, $content = null) {
-		$types = $data['model']->getModel()->getTypes();
-		$flags = $data['model']->getModel()->getFlags();
+		$data['model']->setTemplate($this);
 		?>
 	<div class="submenubar">
         <?php $this->listLink();?>
@@ -21,34 +20,27 @@ class ListTemplate extends Template {
 	</div>
 	<table class="list">
 		<tr>
-			<th width="1%">id</th>
-			<th>Тип</th>
-			<th>Изображение</th>
-			<th>Ссылка</th>
-			<th>Флаги</th>
+			<?php
+			$dRaw = $data->getRaw();
+			foreach ($dRaw['model']->fields as $field) {
+				$w = $field->isMinWidth ? ' width="1%"' : '';
+				if ($field->isList) echo '<th' . $w . '>' . $field->adminName. '</th>';
+			}
+			?>
 			<th width="1%">&nbsp;</th>
 		</tr>
 		<?php foreach ($data['model']->getModel() as $i => $item): ?>
 			<tr class="<?php echo ($i % 2) ? 'odd' : 'even'; ?>">
-				<td><?php echo $item->id; ?></td>
-				<td><?php
-				$type = isset($types[$item->type]) ? $types[$item->type] : 'нет';
-
-                    if($this->app['user']->checkRoute('banner_edit'))
-                        $this->showLink($type,'banner_edit', array('id' => $item->id));
-                    else echo $type;?>
-				</td>
-				<td>
-					<?php if ($item->image) $this->showLink($item->image, 'static', array('key' => $item->image),'class="lightbox" target="_blank"');?>
-				</td>
-				<td>
-					<?php if ($item->link) $this->showLink($item->link, 'static', array('key' => $item->link),'target="_blank"');?>
-				</td>
-				<td><?php
-					$flag = array();
-						 foreach($flags as $k => $v) if ($item->flags->check($k)) $flag[] = $v;
-					 echo implode(',', $flag);?>
-				</td>
+				<?php
+					foreach ($dRaw['model']->fields as $field) {
+						if (!$field->isList) continue;
+						echo '<td>';
+						if (($field->isListEdit) && ($this->app['user']->checkRoute('banner_edit'))) {
+							$this->showLink($field->listText($item), 'banner_edit', array('id' => $item->id));
+						} else  echo $field->listText($item);
+						echo '</td>';
+					}
+				?>
 				<td>
                     <?php $this->showLink('&nbsp;X&nbsp;','banner_delete', array('id' => $item->id),
                                        'onClick="return AdminJS.deleteConfirmation();"');?>

@@ -361,16 +361,16 @@ h1 {
     margin-top: 0.4em;
 }
 .bannercol {
-    margin-left:0.166em;
-    float:right;
+    margin-right:0.166em;
+    float:left;
 }
 .bannercol img {
     width: 20em;
     height:8.333em;
 }
-.bannercol:first-child {
-    float: left;
-    margin-left: 0;
+.bannercol:last-child {
+    float: right;
+    margin-right: 0;
 }
 
 .itemblock{
