@@ -44,6 +44,67 @@ class ImageStorage extends DataStorageMedia {
 		return false;
 	}
 
+	public function thumbnailize($filename, $width, $height) {
+		$image = new \Imagick($filename);
+		$w = $image->getimagewidth();
+		$h = $image->getimageheight();
+
+		//normalize params
+		$width = $width > $w ? $w : $width;
+		$height = $height > $h ? $h : $height;
+		$width = !$width ? $height : $width;
+		$height = !$height ? $width : $height;
+
+		//calculate crop size
+
+		$aw = $w / floatval($width);//во сколько раз запрошенное меньше ширины
+		$ah = $h / floatval($height);//во сколько раз запрошенное меньше высоты
+		if ($aw < $ah){
+			//$image->chopimage($w, $h*$aw, 0, 0);
+			$nw = $w;
+			$nh = ($h / $ah)*$aw;
+		}
+		else {
+			//$image->chopimage($w * $ah, $h, 0, 0);
+			$nw =($w / $aw) * $ah;
+			$nh = $h;
+		}
+		$image->cropImage($nw, $nh, 0, 0);
+		$image->thumbnailImage($width, $height);
+		$image->setImageFormat('png');
+		return $image->getImageBlob();
+	}
+	
+	public function storeImageThumbnail($image_name, $width, $height) {
+		$image = $_FILES[$image_name];
+
+		if (!is_array($image['error'])) { // One image uploaded
+			if ($image && $image['error'] === 0) {
+				if ($data = $this->thumbnailize($image['tmp_name'], $width, $height)) {
+					$key = $this->getImageKey($image['name'],'thumbnail' . $width . 'x' . $height, '.png');
+					$this->write($key, $data);
+					return $key;
+				}
+			}
+		} else {                         // Array of images uploaded
+			$result = array();
+
+			for ($i = 0; $i < count($image['error']); $i++) {
+				if (0 === $image['error'][$i]) {
+					if ($data = $this->thumbnailize($image['tmp_name'], $width, $height)) {
+						$key = $this->getImageKey($image['name'][$i],'thumbnail' . $width . 'x' . $height, '.png');
+						$this->write($key, $data);
+
+						$result[] = $key;
+					}
+				}
+			}
+
+			return $result;
+		}
+
+		return false;
+	}
 	/**
 	 * Generate key for the image.
 	 * Extension will be kept original to define MIME type of content.
@@ -52,15 +113,14 @@ class ImageStorage extends DataStorageMedia {
 	 * 
 	 * @return string 
 	 */
-	private function getImageKey($imageName) {
+	private function getImageKey($imageName, $addition = '', $extension = false) {
 		// Get extensions from filename - part from the last dot to the end
 		$match = array();
-		$extension = '';
-		if (preg_match('/\.([^\.]*)$/', $imageName, $match)) { 
+		if (!$extension && preg_match('/\.([^\.]*)$/', $imageName, $match)) {
 			$extension = $match[0];
 		}
 		
-		$hash = md5($imageName . rand());
+		$hash = md5($imageName . $addition . rand());
 		$key = 'data/' . $hash . $extension;
 		
 		return $key;

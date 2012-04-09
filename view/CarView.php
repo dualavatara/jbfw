@@ -26,8 +26,17 @@ float: left;<?php if ($left) echo 'margin-right:0.5em'; ?>">
 			<?php
 			$link = \Ctl\CarCtl::link('profile', array('id' => $car->id));
 
-			$this->blockMainImg('carsprofile' . $car->id, $mainImg, 'javascript:void(0)', $car->flags->check(\CarModel::FLAG_HIT), $car->flags->check(\CarModel::FLAG_DESCOUNT),
-				'loadCarProfile(\'' . $car->name . '\',\'' . SERVER_URL . $link . '\')', false, 200, 200);
+			$this->blockMainImg('carsprofile' . $car->id,
+				$mainImg,
+				'javascript:void(0)',
+				$car->flags->check(\CarModel::FLAG_HIT),
+				$car->flags->check(\CarModel::FLAG_DESCOUNT),
+				'loadCarProfile(\'' . $car->name . '\',\'' . SERVER_URL . $link . '\')',
+				false,
+				'thumbnail200',
+				200,
+				200
+			);
 			?>
 		</div>
 		<div style="margin-left: 17em;">

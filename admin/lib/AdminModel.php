@@ -256,6 +256,10 @@ abstract class AdminField {
 	public function listTextHtml($modelRow) {
 		echo $modelRow->{$this->name};
 	}
+
+	public function onSave(&$form) {
+
+	}
 }
 
 class DefaultAdminField extends AdminField {
@@ -437,6 +441,61 @@ class ImageAdminField extends AdminField {
 	public function listTextHtml($modelRow) {
 		if ($modelRow->{$this->name}) $this->template->showLink($modelRow->{$this->name}, 'static', array('key' => $modelRow->{$this->name}), 'target="_blank"');
 	}
+
+	public function onSave(&$form) {
+		parent::onSave($form);
+		/*
+		 foreach($_FILES as $key => $fparam) {
+			if ($this->model->getModel()->getField($key)) {
+				$is = new \ImageStorage(getcwd() . '/../' . PATH_DATA);
+				$imgkey = $is->storeImage($key);
+				if ($imgkey) $form[$key] = $imgkey;
+			}
+		}
+		 */
+		foreach($_FILES as $key => $fparam) {
+			if ($this->name == $key) {
+				$is = new \ImageStorage(getcwd() . '/../' . PATH_DATA);
+				$imgkey = $is->storeImage($key);
+				if ($imgkey) $form[$key] = $imgkey;
+			}
+		}
+	}
+
+}
+
+class ImageThumbnailAdminField extends AdminField {
+	public $refName;
+	public $width;
+	public $height;
+	function __construct($name, $refName, $width, $height, $adminName, $isList = false) {
+		parent::__construct($name, $adminName, $isList, false, false);
+		$this->refName = $refName;
+		$this->width = $width;
+		$this->height = $height;
+	}
+
+	public function inputHtml($modelRow) {
+		/*$this->template->insertTemplate('Form\ImageField', array(
+			'name' => $this->name, 'key' => $modelRow->image,
+		));*/
+	}
+
+	public function listTextHtml($modelRow) {
+		if ($modelRow->{$this->name}) $this->template->showLink($modelRow->{$this->name}, 'static', array('key' => $modelRow->{$this->name}), 'target="_blank"');
+	}
+
+	public function onSave(&$form) {
+		parent::onSave($form);
+		foreach($_FILES as $key => $fparam) {
+			if ($this->refName == $key) {
+				$is = new \ImageStorage(getcwd() . '/../' . PATH_DATA);
+				$imgkey = $is->storeImageThumbnail($key, $this->width, $this->height);
+				if ($imgkey) $form[$this->name] = $imgkey;
+			}
+		}
+	}
+
 }
 
 class DateTimeAdminField extends AdminField {

@@ -14,6 +14,9 @@ class RealtyImageModel extends  Model {
 		parent::__construct('realty_image', $db);
 
 		$this->field(new CharField('thumbnail'));
+		$this->field(new CharField('thumbnail50'));
+		$this->field(new CharField('thumbnail125'));
+		$this->field(new CharField('thumbnail200'));
 		$this->field(new CharField('image'));
 		$this->field(new IntField('realty_id'));
 		$this->field(new FlagsField('flags'));

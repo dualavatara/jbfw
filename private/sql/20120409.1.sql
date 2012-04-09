@@ -1,0 +1,2 @@
+ALTER TABLE `jbfw`.`realty_image` ADD COLUMN `thumbnail50` TINYTEXT NOT NULL  AFTER `flags` , ADD COLUMN `thumbnail125` TINYTEXT NOT NULL  AFTER `thumbnail50` , ADD COLUMN `thumbnail200` TINYTEXT NOT NULL  AFTER `thumbnail125` ;
+ALTER TABLE `jbfw`.`car_image` ADD COLUMN `thumbnail50` TINYTEXT NOT NULL  AFTER `flags` , ADD COLUMN `thumbnail125` TINYTEXT NOT NULL  AFTER `thumbnail50` , ADD COLUMN `thumbnail200` TINYTEXT NOT NULL  AFTER `thumbnail125` ;

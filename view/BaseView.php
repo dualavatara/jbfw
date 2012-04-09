@@ -81,7 +81,7 @@ class BaseView implements IView {
 	<?php
 	}
 
-	public function blockMainImg($id, $img, $profileLink, $isHit, $isDiscount, $onClick='', $showLink = true, $h = 125, $w = 125) {
+	public function blockMainImg($id, $img, $profileLink, $isHit, $isDiscount, $onClick, $showLink, $field, $w, $h) {
 		?>
 	<div class="pic_cont" style="width: <?php echo $w+2; ?>px">
 
@@ -96,7 +96,7 @@ class BaseView implements IView {
 		if (isset($img)) {
 			?>
 			<a href="<?php echo $profileLink; ?>"  onclick="<?php echo $onClick; ?>"><img
-				src="<?php echo \Ctl\StaticCtl::link('get', array('key' => $img->thumbnail,'w' => $w, 'h' => $h)); ?>"
+				src="<?php echo \Ctl\StaticCtl::link('get', array('key' => $img->{$field})); ?>"
 				width="<?php echo $h; ?>" height="<?php echo $w; ?>"></a>
 			<?php
 		} else {
@@ -123,7 +123,7 @@ class BaseView implements IView {
 		<div class="thumbnail">
 			<a href="/s/<?php echo $image->image; ?>"
 			   class="lightbox<?php echo $id; ?>">
-				<img src="/s/<?php echo $image->thumbnail; ?>?h=50&w=50" width="50" height="50">
+				<img src="/s/<?php echo $image->thumbnail50; ?>" width="50" height="50">
 			</a>
 		</div>
 		<?php
@@ -153,7 +153,17 @@ class BaseView implements IView {
 		<div class="left">
 			<div class="left">
 				<?php
-				$this->blockMainImg('realty' . $realty->id, $mainImg, \Ctl\RealtyCtl::link('profile', array('id' => $realty->id)), $realty->flags->check(\RealtyModel::FLAG_HIT), $realty->flags->check(\RealtyModel::FLAG_DISCOUNT));
+				$this->blockMainImg('realty' . $realty->id,
+					$mainImg,
+					\Ctl\RealtyCtl::link('profile', array('id' => $realty->id)),
+					$realty->flags->check(\RealtyModel::FLAG_HIT),
+					$realty->flags->check(\RealtyModel::FLAG_DISCOUNT),
+					'',
+					true,
+					'thumbnail125',
+					125,
+					125
+				);
 				?>
 			</div>
 			<div class="right">
@@ -275,7 +285,9 @@ float: left;<?php if($left) echo 'margin-right:0.5em'; ?>">
 				'javascript:void(0)',
 				$car->flags->check(\CarModel::FLAG_HIT),
 				$car->flags->check(\CarModel::FLAG_DESCOUNT),
-				'loadCarProfile(\''.$car->name.'\',\''.SERVER_URL . $link.'\', 700, 400, \'lightboxcarsprofile'.$car->id.'\')'
+				'loadCarProfile(\''.$car->name.'\',\''.SERVER_URL . $link.'\', 700, 400, \'lightboxcarsprofile'.$car->id.'\')',
+				true,
+				'thumbnail125', 125,125
 			);
 			?>
 		</div>

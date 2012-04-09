@@ -51,7 +51,7 @@ class RealtyView extends BaseView {
 					?>
 					<a href="<?php echo \Ctl\StaticCtl::link('get', array('key' => $mainImg->image)); ?>"
 					   class="lightbox<?php echo 'realty' . $this->realty->id; ?>"><img
-						src="<?php echo \Ctl\StaticCtl::link('get', array('key' => $mainImg->thumbnail)); ?>"
+						src="<?php echo \Ctl\StaticCtl::link('get', array('key' => $mainImg->thumbnail200)); ?>"
 						width="200" height="200" style="border: solid 1px #808080"></a>
 					<?php
 				} else {
@@ -80,7 +80,7 @@ class RealtyView extends BaseView {
 						<div class="thumbnail">
 							<a href="/s/<?php echo $image->image; ?>"
 							   class="lightbox<?php echo 'realty' . $this->realty->id; ?>">
-								<img src="/s/<?php echo $image->thumbnail; ?>" width="50" height="50">
+								<img src="/s/<?php echo $image->thumbnail50; ?>" width="50" height="50">
 							</a>
 						</div>
 						<?php

@@ -95,14 +95,11 @@ class StdController extends Controller {
 			unset($form['routes']);
 		} else $routes = array();
 
-		//if there uploaded files with names of model field, store them
-		foreach($_FILES as $key => $fparam) {
-			if ($this->model->getModel()->getField($key)) {
-				$is = new \ImageStorage(getcwd() . '/../' . PATH_DATA);
-				$imgkey = $is->storeImage($key);
-				if ($imgkey) $form[$key] = $imgkey;
-			}
+		foreach ($this->model->fields as $field) {
+			$field->onSave($form);
 		}
+		//if there uploaded files with names of model field, store them
+
 
 		if ($form['id']) $this->model->saveFromForm($form);
 		else $this->model->addFromForm($form);
