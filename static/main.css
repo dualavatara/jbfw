@@ -97,12 +97,15 @@ h1 {
 #seo {
 	clear: both;
 	background-color: red;
-	height: 7em;
+	//height: 7em;
+    padding: 1em 3em;
+    overflow: hidden;
+    color: #ffffff;
+    font-size: 0.7em;
 }
-#seo p {
+#seo * {
 	color: #ffffff;
-	font-size: 0.7em;
-	padding: 1em 3em;
+	font-size: 1em;
 }
 #header #top {
 	height: 72px;
