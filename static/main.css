@@ -137,7 +137,9 @@ h1 {
     padding-top: 0.8em;
 }
 #headerlogin {
-
+    width: 20em;
+    float: right;
+    padding-top: 0.7em;
 }
 .hfold {
     background-color: #eeeeee;
@@ -523,16 +525,16 @@ table.appartlist td:nth-child(3){
     -moz-border-radius: 2px;
     -webkit-border-radius: 2px;
 }
-#footer #contacts .iconcol {
+.iconcol {
     float: left;
     margin-right: 10px;
     margin-bottom: -5px;
 }
-#footer #contacts .record {
+.record {
     clear: left;
 }
 
-#footer #contacts .middle {
+.middle {
     padding: 16px 0;
 }
 

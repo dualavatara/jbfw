@@ -314,7 +314,27 @@ class TemplateView extends BaseView {
 			<div class="title black"><?php echo $this->settings->getPhone2(); ?></div>
 		</div>
 	</div>
-	<div id="headerlogin">&nbsp;</div>
+	<div id="headerlogin">
+		<?php
+		if ($this->settings->getEmail()) {
+			?>
+			<div class="record">
+				<div class="iconcol"><a href="mailto:<?php echo $this->settings->getEmail(); ?>"><img
+					src="/static/img/icons/email.png"></a></div>
+				<div class="middle">
+					<?php
+					if ($this->settings->getEmail()) {
+						?>
+						<a href="mailto:<?php echo $this->settings->getEmail(); ?>"> <?php echo $this->settings->getEmail(); ?></a>
+						<?php
+					};
+					?>
+				</div>
+			</div>
+			<?php
+		}
+		?>
+	</div>
 	<?
 	}
 }
