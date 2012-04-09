@@ -227,9 +227,11 @@ class TemplateView extends BaseView {
 		/** @noinspection PhpUndefinedVariableInspection */
 		foreach ($this->bannersHead as $banner) {
 			$i++;
+			$target = '';
+			if ($banner->flags->check(\BannerModel::FLAG_NEWWINDOW)) $target=' target="_blank"';
 			?>
 		<div class="bannercol">
-			<a href="<?php echo $banner->link; ?>"><img
+			<a href="<?php echo $banner->link; ?>" <?php echo $target; ?>><img
 				src="<?php echo \Ctl\StaticCtl::link('get', array('key' => $banner->image)); ?>"
 				class="image"></a>
 		</div>

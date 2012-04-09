@@ -28,6 +28,7 @@ class BannerModel extends Model {
 	const FLAG_HEAD		= 0x0001;
 	const FLAG_LEFTCOL	= 0x0002;
 	const FLAG_VISIBLE	= 0x0004;
+	const FLAG_NEWWINDOW	= 0x0008;
 
 	const TYPE_240X100	= 1;
 	const TYPE_240X350	= 2;
@@ -63,6 +64,7 @@ class BannerModel extends Model {
 			self::FLAG_VISIBLE => 'Видимый',
 			self::FLAG_HEAD => 'Блок под шапкой',
 			self::FLAG_LEFTCOL => 'Блок в левой колонке',
+			self::FLAG_NEWWINDOW => 'Открывать в новом окне',
 		);
 	}
 
