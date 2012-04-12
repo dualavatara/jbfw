@@ -20,8 +20,8 @@ class CarListView extends BaseView {
 		if (!$this->page) $this->page = 1;
 		$this->allCars = $this->cars;
 		if ($this->page != 'all') {
-			$from = ($this->page - 1) * self::PAGE_SIZE;
-			$to = $from + self::PAGE_SIZE -1;
+			$from = ($this->page - 1) * (self::PAGE_SIZE * 2);
+			$to = $from + (self::PAGE_SIZE * 2) -1;
 			$this->cars = $this->cars->slice($from, $to);
 		}
 		$this->start();
@@ -36,12 +36,12 @@ class CarListView extends BaseView {
 			class="selected">автомобили</span>
 	</div>
 	<?php
-		$this->navBar(ceil(floatval($this->allCars->count()) / self::PAGE_SIZE));
+		$this->navBar(ceil(floatval($this->allCars->count()) / (self::PAGE_SIZE * 2)));
 		echo '<div style="width: 41em">&nbsp</div>';
 		foreach ($this->cars as $car) $this->carsBlock($car, false);
 		echo '<div style="width: 41em">&nbsp</div>';
 		echo '<div class="down">';
-		$this->navBar(ceil(floatval($this->allCars->count()) / self::PAGE_SIZE));
+		$this->navBar(ceil(floatval($this->allCars->count()) / (self::PAGE_SIZE * 2)));
 		echo '</div> ';
 		$this->end();
 		return parent::show();
