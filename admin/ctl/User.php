@@ -12,6 +12,12 @@ class User extends \Admin\Controller {
 		'section' => 'User'
 	);
 
+	public function __construct(\Admin\Application $app) {
+		parent::__construct($app);
+		$_SESSION['menu'] = $this->data['menu'];
+	}
+
+
 	public function do_add() {
 		$this->data['routes'] = $this->getAllRoutes();
 		$this->data['access'] = array();
