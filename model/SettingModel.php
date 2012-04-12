@@ -43,6 +43,7 @@ class SettingModel extends Model {
 	const TITLE			= 11;
 	const SEOTEXT		= 13;
 	const KEYWORDS		= 14;
+	const CLOSED		= 15;
 	/**
 	 * @param IDatabase $db
 	 */
@@ -116,5 +117,9 @@ class SettingModel extends Model {
 	 */
 	public function getKeywords() { return $this->atId(SettingModel::KEYWORDS)->value; }
 
+	/**
+	 * @return mixed
+	 */
+	public function getClosed() { return $this->atId(SettingModel::CLOSED)->value; }
 	//@codeCoverageIgnoreEnd
 }

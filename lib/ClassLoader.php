@@ -7,7 +7,7 @@
 class ClassLoader {
 	static public $exceptions = array();
 
-	static public function addEception($regexp) {
+	static public function addException($regexp) {
 		self::$exceptions[] = $regexp;
 	}
 

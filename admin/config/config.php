@@ -28,6 +28,7 @@ return array(
 
 	'routes' => array(
 		'home' => array('/', 'User', 'list'),
+		'closed_index' => array('/', 'Site', 'closed_index'),
 
 		'login' => array('/login', 'Auth', 'login'), 'logout' => array('/logout', 'Auth', 'logout'),
 
