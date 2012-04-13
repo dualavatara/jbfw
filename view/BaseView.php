@@ -313,7 +313,7 @@ class BaseView implements IView {
 	public function carsBlock($car, $left = false) {
 		$mainImg = $car->getMainImage();
 		?>
-	<div class="itemblock" style="width: 29.2em; height: 15em;
+	<div class="itemblock" style="width: 29.2em; height: 15em; margin-right: 0.5em;
 float: left;<?php if($left) echo 'margin-right:0.5em'; ?>">
 		<div style="width: 11em;padding: 1em 0.5em 0.5em 1em;float:left;">
 			<?php
