@@ -12,31 +12,40 @@ class ListTemplate extends Template {
 	}
 
 	protected function show($data, $content = null) {
+		$data['model']->setTemplate($this);
 		?>
 	<div class="submenubar">
-		<?php $this->showLink('[Список]', 'article_list')?>
-		<?php $this->showLink('[Добавить]', 'article_add')?>
+        <?php $this->listLink();?>
+        <?php $this->showLink('[Добавить]','article_add')?>
 	</div>
 	<table class="list">
 		<tr>
-			<th width="1%">id</th>
-			<th>Название</th>
-			<th>Дата создания</th>
-			<th>Сортировка</th>
+			<?php
+			$dRaw = $data->getRaw();
+			foreach ($dRaw['model']->fields as $field) {
+				$w = $field->isMinWidth ? ' width="1%"' : '';
+				if ($field->isList) echo '<th' . $w . '>' . $field->adminName. '</th>';
+			}
+			?>
 			<th width="1%">&nbsp;</th>
 		</tr>
 		<?php foreach ($data['model']->getModel() as $i => $item): ?>
-		<tr class="<?php echo ($i % 2) ? 'odd' : 'even'; ?>">
-			<td><?php
-				if ($this->app['user']->checkRoute('article_edit')) $this->showLink($item->id, 'article_edit', array('id' => $item->id)); else echo $item->id; ?>
-			</td>
-			<td><?php if ($this->app['user']->checkRoute('article_edit')) $this->showLink($item->name, 'article_edit', array('id' => $item->id)); else echo $item->name; ?></td>
-			<td><?php echo $item->created; ?></td>
-			<td><?php echo $item->ord; ?>
-			</td>
-			<td>
-				<?php $this->showLink('&nbsp;X&nbsp;', 'article_delete', array('id' => $item->id), 'onClick="return AdminJS.deleteConfirmation();"');?>
-		</tr>
+			<tr class="<?php echo ($i % 2) ? 'odd' : 'even'; ?>">
+				<?php
+					foreach ($dRaw['model']->fields as $field) {
+						if (!$field->isList) continue;
+						echo '<td>';
+						if (($field->isListEdit) && ($this->app['user']->checkRoute('article_edit'))) {
+							$this->showLink($field->listText($item), 'article_edit', array('id' => $item->id));
+						} else  echo $field->listText($item);
+						echo '</td>';
+					}
+				?>
+				<td>
+                    <?php $this->showLink('&nbsp;X&nbsp;','article_delete', array('id' => $item->id),
+                                       'onClick="return AdminJS.deleteConfirmation();"');?>
+                </td>
+			</tr>
 		<?php endforeach; ?>
 	</table>
 	<?php if (0 == $data['model']->getModel()->count()): ?>
