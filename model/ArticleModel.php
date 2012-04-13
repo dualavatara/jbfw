@@ -48,7 +48,6 @@ class ArticleModel extends Model {
 	public function getFlags() {
 		return array(
 			self::FLAG_VISIBLE => 'Видимый',
-			self::FLAG_FOOTER => 'Выводить в подвале',
 			self::FLAG_TOINDEX => 'На главную',
 		);
 	}

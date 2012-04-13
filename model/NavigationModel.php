@@ -13,7 +13,7 @@ class NavigationModel extends Model {
 	const ID_FOOTERRIGHT		= 3;
 
 	const FLAG_VISIBLE = 0x0001;
-	const FLAG_BLANC = 0x0002;
+	const FLAG_BLANK = 0x0002;
 
 	public function __construct(IDatabase $db) {
 		parent::__construct('navigation', $db);
@@ -26,7 +26,7 @@ class NavigationModel extends Model {
 	public function getFlags() {
 		return array(
 			self::FLAG_VISIBLE => 'Видимый',
-			self::FLAG_BLANC => 'Новое окно',
+			self::FLAG_BLANK => 'Новое окно',
 		);
 	}
 
@@ -36,5 +36,20 @@ class NavigationModel extends Model {
 			self::ID_FOOTERLEFT,
 			self::ID_FOOTERRIGHT
 		);
+	}
+
+	public function byId($id) {
+		foreach($this as $row) {
+			if ($row->id == $id) return $row;
+		}
+		return null;
+	}
+
+	public function byParentId($parentId) {
+		$res = array();
+		foreach($this as $row) {
+			if ($row->parent_id == $parentId) $res[] = $row;
+		}
+		return $res;
 	}
 }

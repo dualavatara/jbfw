@@ -19,6 +19,11 @@ class TemplateCtl extends BaseCtl {
 		$view->currencies = $this->disp->di()->CurrencyModel();
 		$view->currencies->get()->all()->order('id')->exec();
 
+		$view->navigation = $this->disp->di()->NavigationModel();
+		$view->navigation->get()->filter(
+			$view->navigation->filterExpr()->eq('flags', \NavigationModel::FLAG_VISIBLE)
+		)->exec();
+
 		//articles to the footer
 		$view->articlesUsefull = $this->disp->di()->ArticleModel();
 		$view->articlesUsefull->get()->filter($view->articlesUsefull->filterExpr()->eq('type', \ArticleModel::TYPE_USEFULL)

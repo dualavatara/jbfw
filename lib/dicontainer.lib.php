@@ -11,6 +11,7 @@ require_once 'model/ArticleModel.php';
 require_once 'model/BannerModel.php';
 require_once 'model/RealtyModel.php';
 require_once 'model/CarModel.php';
+require_once 'model/NavigationModel.php';
 
 //view classes
 require_once 'view/TemplateView.php';
@@ -226,6 +227,13 @@ class DIContainer extends Singletone{
 	 */
 	public function CarModel() {
 		return new CarModel($this->PDODatabase());
+	}
+
+	/**
+	 * @return NavigationModel
+	 */
+	public function NavigationModel() {
+		return new NavigationModel($this->PDODatabase());
 	}
 
 	// Misc ********************************************************************************************************* //

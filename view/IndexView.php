@@ -46,9 +46,11 @@ class IndexView extends BaseView {
 
 		$artOut = function ($article) {
 			?>
+			<a href="<?php echo \Ctl\ArticleCtl::link('article', array('id' => $article->id));?>">
 		<h2 class="red"><?php echo $article->name;?></h2>
 		<img src="/s/<?php echo $article->photo_preview;?>">
 		<p><?php echo $article->content_short;?></p>
+			</a>
 		<?php
 		};
 		/** @noinspection PhpUndefinedVariableInspection */

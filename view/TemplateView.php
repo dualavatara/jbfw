@@ -15,6 +15,10 @@ class TemplateView extends BaseView {
 	public $bannersHead;
 	public $articlesUsefull;
 	public $currencies;
+	/**
+	 * @var NavigationModel
+	 */
+	public $navigation;
 
 	public function setMainContent($content) {
 		$this->mainCont = $content;
@@ -47,7 +51,8 @@ class TemplateView extends BaseView {
 		</script>
 
 		<link rel="stylesheet" type="text/css" href="/static/js/lightbox/css/jquery.lightbox-0.5.css" media="screen"/>
-		<link rel="stylesheet" type="text/css" href="/static/js/jquery-window-5.03/css/jquery.window.css" media="screen"/>
+		<link rel="stylesheet" type="text/css" href="/static/js/jquery-window-5.03/css/jquery.window.css"
+			  media="screen"/>
 		<link rel="stylesheet" href="/static/main.css" type="text/css">
 		<link rel="icon" href="/favicon.ico" type="image/x-icon">
 		<link rel="shortcut icon" href="/desktop.ico" type="image/x-icon">
@@ -101,28 +106,40 @@ class TemplateView extends BaseView {
 		<div class="lightgray">
 			<div class="lcol">
 				<div class="footerblock">
-					<h1>Отдых в Черногории</h1>
-					<ul>
-						<li><a href="#">Testlink</a></li>
-						<li><a href="#">Testlink</a></li>
-						<li><a href="#">Testlink</a></li>
-						<li><a href="#">Testlink</a></li>
-					</ul>
+					<?php
+					$parent = $this->navigation->byId(\NavigationModel::ID_FOOTERLEFT);
+					if ($parent) {
+						$children = $this->navigation->byParentId($parent->id);
+						?>
+						<h1><?php echo $parent->name; ?></h1>
+						<ul>
+							<?php
+							foreach ($children as $child) {
+								$blank = $child->flags->check(\NavigationModel::FLAG_BLANK) ? ' target="_blank"': '';
+								?>
+								<li><a href="<?php echo $child->link; ?>" <?php echo $blank; ?>><?php echo $child->name; ?></a></li>
+								<?php }; ?>
+						</ul>
+						<?php }; ?>
 				</div>
 			</div>
 			<div class="rcol">
 				<div class="footerblock">
-					<h1>Полезная информация</h1>
-					<ul>
-						<?php
-						//var_dump($this->articlesUsefull->data);
-						/** @noinspection PhpUndefinedVariableInspection */foreach ($this->articlesUsefull as $article) {
+					<?php
+					$parent = $this->navigation->byId(\NavigationModel::ID_FOOTERRIGHT);
+					if ($parent) {
+						$children = $this->navigation->byParentId($parent->id);
 						?>
-						<li><a href="/article"><?php echo $article->name; ?></a></li>
-						<?php
-					};
-						?>
-					</ul>
+						<h1><?php echo $parent->name; ?></h1>
+						<ul>
+							<?php
+							foreach ($children as $child) {
+								$blank = $child->flags->check(\NavigationModel::FLAG_BLANK) ? ' target="_blank"': '';
+								?>
+								<li><a href="<?php echo $child->link; ?>" <?php echo $blank; ?>><?php echo $child->name; ?></a></li>
+								<?php }; ?>
+						</ul>
+						<?php }; ?>
 				</div>
 			</div>
 			<div class="rcol" id="contacts">
@@ -228,7 +245,7 @@ class TemplateView extends BaseView {
 		foreach ($this->bannersHead as $banner) {
 			$i++;
 			$target = '';
-			if ($banner->flags->check(\BannerModel::FLAG_NEWWINDOW)) $target=' target="_blank"';
+			if ($banner->flags->check(\BannerModel::FLAG_NEWWINDOW)) $target = ' target="_blank"';
 			?>
 		<div class="bannercol">
 			<a href="<?php echo $banner->link; ?>" <?php echo $target; ?>><img
