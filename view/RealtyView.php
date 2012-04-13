@@ -29,14 +29,20 @@ class RealtyView extends BaseView {
 			<div style="width:202px; float:left;position: relative; margin-right: 1em;">
 				<script type="text/javascript">
 					$(function () {
-						// This, or...
-						$('a.lightbox<?php echo 'realty' . $this->realty->id; ?>').lightBox(
+						// lightbox
+						$('a.lightbox').lightBox(
 							{
 								txtImage:'Фото',
 								txtOf:'из'
 							}
 						); // Select all links with lightbox class
-						// This, or...
+						$('a.lightbox').imgPreview({
+							containerID:'imgPreviewWithStyles',
+							imgCSS:{
+								// Limit preview size:
+								height:200
+							},
+						});
 					});
 				</script>
 				<?php
@@ -50,7 +56,7 @@ class RealtyView extends BaseView {
 				if (isset($mainImg)) {
 					?>
 					<a href="<?php echo \Ctl\StaticCtl::link('get', array('key' => $mainImg->image)); ?>"
-					   class="lightbox<?php echo 'realty' . $this->realty->id; ?>"><img
+					   class="lightbox"><img
 						src="<?php echo \Ctl\StaticCtl::link('get', array('key' => $mainImg->thumbnail200)); ?>"
 						width="200" height="200" style="border: solid 1px #808080"></a>
 					<?php
@@ -79,7 +85,7 @@ class RealtyView extends BaseView {
 						?>
 						<div class="thumbnail">
 							<a href="/s/<?php echo $image->image; ?>"
-							   class="lightbox<?php echo 'realty' . $this->realty->id; ?>">
+							   class="lightbox">
 								<img src="/s/<?php echo $image->thumbnail50; ?>" width="50" height="50">
 							</a>
 						</div>

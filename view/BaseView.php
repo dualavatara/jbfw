@@ -85,6 +85,24 @@ class BaseView implements IView {
 		?>
 	<div class="pic_cont" style="width: <?php echo $w+2; ?>px">
 
+		<script type="text/javascript">
+			$(function () {
+				// lightbox
+				$('a.lightbox<?php echo $id; ?>').lightBox(
+					{
+						txtImage:'Фото',
+						txtOf:'из'
+					}
+				); // Select all links with lightbox class
+				$('a.lightbox<?php echo $id; ?>').imgPreview({
+					containerID:'imgPreviewWithStyles',
+					imgCSS:{
+						// Limit preview size:
+						height:200
+					},
+				});
+			});
+		</script>
 		<?php
 		if ($isHit) {
 			?><img class="badge" src="/static/img/badge/hit.png"><?php
@@ -115,6 +133,26 @@ class BaseView implements IView {
 	}
 
 	public function blockOtherImg($id, $images, $num = 6) {
+		?>
+	<script type="text/javascript">
+		$(function () {
+			// lightbox
+			$('a.lightbox<?php echo $id; ?>').lightBox(
+				{
+					txtImage:'Фото',
+					txtOf:'из'
+				}
+			); // Select all links with lightbox class
+			$('a.lightbox<?php echo $id; ?>').imgPreview({
+				containerID:'imgPreviewWithStyles',
+				imgCSS:{
+					// Limit preview size:
+					height:200
+				},
+			});
+		});
+	</script>
+		<?php
 		$i = 0;
 		foreach ($images as $image) {
 			$i++;

@@ -120,6 +120,10 @@ class DIContainer extends Singletone{
 	public function CarCtl($dispatcher) {
 		return new \Ctl\CarCtl($dispatcher);
 	}
+
+	public function ArticleCtl($dispatcher) {
+		return new \Ctl\ArticleCtl($dispatcher);
+	}
 	// Views **************************************************************************************************** //
 
 	/**
@@ -170,6 +174,14 @@ class DIContainer extends Singletone{
 	 */
 	public function CarListView($ctl) {
 		return new View\CarListView($ctl);
+	}
+
+	/**
+	 * @param $ctl
+	 * @return View\ArticleView
+	 */
+	public function ArticleView($ctl) {
+		return new View\ArticleView($ctl);
 	}
 	// Request matchers ********************************************************************************************* //
 
