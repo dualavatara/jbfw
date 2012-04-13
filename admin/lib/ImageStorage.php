@@ -49,12 +49,13 @@ class ImageStorage extends DataStorageMedia {
 		$w = $image->getimagewidth();
 		$h = $image->getimageheight();
 
+		//recal empty params
+		$width = !$width ? (floatval($w)/$h) * $height : $width; //if $with=0 then use image width
+		$height = !$height ? (floatval($h)/$w) * $width : $height; //if $height=0 then use image height
+
 		//normalize params
 		$width = $width > $w ? $w : $width;
 		$height = $height > $h ? $h : $height;
-		$width = !$width ? $height : $width;
-		$height = !$height ? $width : $height;
-
 		//calculate crop size
 
 		$aw = $w / floatval($width);//во сколько раз запрошенное меньше ширины

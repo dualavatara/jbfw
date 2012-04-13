@@ -434,7 +434,7 @@ class BackrefAdminField extends AdminField {
 class ImageAdminField extends AdminField {
 	public function inputHtml($modelRow) {
 		$this->template->insertTemplate('Form\ImageField', array(
-			'name' => $this->name, 'key' => $modelRow->image,
+			'name' => $this->name, 'key' => $modelRow->{$this->name},
 		));
 	}
 
@@ -513,4 +513,29 @@ class DateTimeAdminField extends AdminField {
 		$arr = $modelRow->getModel()->{$this->callback}();
 		if (isset($arr[$modelRow->{$this->name}])) echo $arr[$modelRow->{$this->name}];
 	}*/
+}
+
+class FieldInfoAdminField extends AdminField {
+	public $pattern;
+
+	function __construct($pattern, $adminName, $isList = false, $isListEdit = false, $isMinWidth = false, $size = 50) {
+		parent::__construct('', $adminName, $isList, $isListEdit, $isMinWidth);
+		$this->pattern = $pattern;
+	}
+
+	public function inputHtml($modelRow) {
+		$m = $modelRow->getModel()->getRaw();
+		$pattern = $this->pattern;
+		foreach($m->getFields() as $field) {
+			$v = $modelRow->getRaw()->{$field->name};
+			$pattern = preg_replace('/{'. $field->name .'}/', $v, $pattern);
+		}
+		?>
+		<a href="<?php echo $pattern; ?>"><?php echo $pattern; ?></a>
+		<?php
+	}
+
+	public function listTextHtml($modelRow) {
+		$this->inputHtml($modelRow);
+	}
 }

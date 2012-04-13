@@ -134,6 +134,11 @@ class FlagsField extends Field {
 	
 	public function value($rawvalue) { return new static($this->name, $this->flags, $rawvalue); }
 	public function get() { return $this->rawvalue; }
+
+	function __toString() {
+		return $this->rawvalue;
+	}
+
 	/**
 	 * Checks is flag bit = 1 in mask
 	 * @param integer $flag
