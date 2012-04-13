@@ -140,6 +140,13 @@ return array(
 		'car_add' => array('/car/add',              'Car', 'add'),
 		'car_delete' => array('/car/delete/{id}',   'Car', 'delete'),
 		'car_save' => array('/car/save',            'Car', 'save'),
+
+		'navigation_edit' => array('/navigation/edit/{id}',       'Navigation', 'edit'),
+		'navigation_list' => array('/navigation/list',            'Navigation', 'list'),
+		'navigation_add' => array('/navigation/add',              'Navigation', 'add'),
+		'navigation_delete' => array('/navigation/delete/{id}',   'Navigation', 'delete'),
+		'navigation_save' => array('/navigation/save',            'Navigation', 'save'),
+
 	),
 
 	'menu' => array(
@@ -169,6 +176,7 @@ return array(
 				'Article' => array('title' => 'Статьи', 'route' => 'article_list', 'params' => array()),
 				//'discount_list' => array('title' => 'Скидки', 'route' => 'discount_list', 'params' => array()),
 				'Customer' => array('title' => 'Клиенты', 'route' => 'customer_list', 'params' => array()),
+				'Navigation' => array('title' => 'Навигация',     'route' => 'navigation_list',   'params' => array('parent_field' => 'parent_id')),
 			)
 		),
 		/*'modules' => array(

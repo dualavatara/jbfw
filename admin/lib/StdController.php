@@ -52,7 +52,12 @@ class StdController extends Controller {
 	public function do_delete(\Admin\Request $request) {
 		$id = $request['id'];
 
-		$this->model->delById($id);
+		$fixed = array();
+		$m = $this->model->getModel();
+		if (method_exists($m, 'fixedIds')) {
+			$fixed = $m->fixedIds();
+		}
+		if (!in_array($id, $fixed)) $this->model->delById($id);
 
 		$url = $this->app->getUrl(strtolower($this->objectName) . '_list');
 		return $this->app->redirect($_SESSION['listurl']);

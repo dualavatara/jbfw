@@ -87,7 +87,7 @@ class ParentChildParams implements \IChildParams {
 
 	function __construct($request) {
 		$this->parentField = $request['parent_field'];
-		$this->parentId = $request['parent_id'];
+		$this->parentId = isset($request['parent_id']) ? $request['parent_id'] : 0;
 	}
 
 	/**

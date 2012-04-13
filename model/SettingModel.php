@@ -54,6 +54,22 @@ class SettingModel extends Model {
 		$this->field(new Charfield('value'));
 	}
 
+	public function fixedIds() {
+		return array(
+			self::PHONE_1	 ,
+			self::PHONE_2	 ,
+			self::FAX		 ,
+			self::SKYPE		 ,
+			self::ADDRESS	 ,
+			self::EMAIL		 ,
+			self::DESCRIPTION,
+			self::TITLE		 ,
+			self::SEOTEXT	 ,
+			self::KEYWORDS	 ,
+			self::CLOSED	 ,
+		);
+	}
+
 	/**
 	 * @param $id
 	 * @return null
