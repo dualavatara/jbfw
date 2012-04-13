@@ -38,7 +38,11 @@ class CarListView extends BaseView {
 	<?php
 		$this->navBar(ceil(floatval($this->allCars->count()) / (self::PAGE_SIZE * 2)));
 		echo '<div style="width: 41em">&nbsp</div>';
-		foreach ($this->cars as $car) $this->carsBlock($car, false);
+		$i = 0;
+		foreach ($this->cars as $car) {
+			$i++;
+			$this->carsBlock($car, $i % 2);
+		}
 		echo '<div style="width: 41em">&nbsp</div>';
 		echo '<div class="down">';
 		$this->navBar(ceil(floatval($this->allCars->count()) / (self::PAGE_SIZE * 2)));
