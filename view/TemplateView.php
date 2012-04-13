@@ -268,31 +268,72 @@ class TemplateView extends BaseView {
 		?>
 	<script type="text/javascript">
 		$(function () {
-			$('.menuitem').each(function () {
+			$('.menuitem,.submenuitem').each(function () {
 				$(this).mouseout(function () {
 					$(this).removeClass('selected');
 				})
 			});
-			$('.menuitem').mouseover(function () {
+			$('.menuitem,.submenuitem').mouseover(function () {
 				$(this).addClass('selected');
 			});
 		});
+		function showSubmenu(id) {
+			parent = $('#menu' + id);
+			submenu = $('#submenu' + id);
+			var eo = parent.offset();
+			eo.top += parent.innerHeight();
+			//eo["min-width"] = $(this).width()+$(this).outerHeight();
+			eo.visibility = 'visible';
+			submenu.css(eo);
+			parent.addClass('selected');
+		}
+		function hideSubmenu(id) {
+			parent = $('#menu' + id);
+			submenu = $('#submenu' + id);
+			submenu.css('visibility', 'hidden');
+			parent.removeClass('selected');
+		}
 	</script>
 
-	<a style="text-decoration: none;" href="<?php echo \Ctl\CarCtl::link('index', array('type' => 'rent'));?>">
-		<div class="menuitem">Аренда авто</div>
-	</a>
+	<?php
+		$parent = $this->navigation->byId(\NavigationModel::ID_MENU);
+		if ($parent) {
+			$children = $this->navigation->byParentId($parent->id);
 
-	<div class="menuitem">Аренда жилья</div>
-	<a style="text-decoration: none;" href="<?php echo \Ctl\CarCtl::link('index', array('type' => 'sell'));?>">
-		<div class="menuitem">Продажа авто</div>
-	</a>
-
-	<a style="text-decoration: none;" href="<?php echo \Ctl\RealtyCtl::link('index', array());?>">
-		<div class="menuitem">Недвижимость</div>
-	</a>
-	<div class="menuitem">Услуги</div>
-	<div class="menuitem">Советы</div>
+			foreach ($children as $child) {
+				$blank = $child->flags->check(\NavigationModel::FLAG_BLANK) ? ' target="_blank"': '';
+				?>
+			<a
+			   style="text-decoration: none;"
+			   href="<?php echo $child->link; ?>"
+				<?php echo $blank; ?>
+			   onmouseover="showSubmenu('<?php echo $child->id; ?>');"
+				onmouseout="hideSubmenu('<?php echo $child->id; ?>');"
+				>
+				<div class="menuitem" id="menu<?php echo $child->id; ?>"><?php echo $child->name; ?></div>
+			</a>
+				<div id="submenu<?php echo $child->id; ?>"
+					 style="position: absolute; padding: 1em 0em; background-color: #ffcf00; visibility: hidden;
+					 box-shadow: 3px 3px 10px rgba(0,0,0,0.5);
+    -moz-box-shadow: 3px 3px 3px rgba(0,0,0,0.5);
+    -webkit-box-shadow: 3px 3px 3px rgba(0,0,0,0.5);"
+					 onmouseover="showSubmenu('<?php echo $child->id; ?>');"
+					 onmouseout="hideSubmenu('<?php echo $child->id; ?>');"
+					>
+				<?php
+				$subs = $this->navigation->byParentId($child->id);
+				foreach($subs as $sub) {
+					$blank = $sub->flags->check(\NavigationModel::FLAG_BLANK) ? ' target="_blank"': '';
+					?>
+					<a style="text-decoration: none;" href="<?php echo $sub->link; ?>" <?php echo $blank; ?>>
+						<div class="submenuitem"><?php echo $sub->name; ?></div>
+					</a>
+					<?php
+				} ?>
+				</div>
+				<?php
+			};
+		}; ?>
 	<?php
 	}
 

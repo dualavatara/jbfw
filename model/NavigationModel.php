@@ -20,6 +20,7 @@ class NavigationModel extends Model {
 		$this->field(new IntField('parent_id'));
 		$this->field(new CharField('name'));
 		$this->field(new CharField('link'));
+		$this->field(new IntField('ord'));
 		$this->field(new FlagsField('flags'));
 	}
 

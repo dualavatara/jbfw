@@ -12,9 +12,10 @@ class Navigation extends \AdminModel {
 		parent::__construct(new \NavigationModel($db), '\ParentChildParams');
 		$this->fields['id'] = new \DefaultAdminField('id','Id', true, true, true);
 		//$this->fields['parent_id'] = new \DefaultAdminField('parent_id','Parent_id', false);
-		$this->fields['name'] = new \DefaultAdminField('name','Name', true, true);
-		$this->fields['link'] = new \DefaultAdminField('link','Link', true);
-		$this->fields['flags'] = new \FlagsAdminField('flags','Flags', true);
+		$this->fields['name'] = new \DefaultAdminField('name','Текст', true, true);
+		$this->fields['link'] = new \DefaultAdminField('link','Ссылка', true);
+		$this->fields['flags'] = new \FlagsAdminField('flags','Флаги', true);
+		$this->fields['ord'] = new \DefaultAdminField('ord','Порядок', true);
 
 		$this->fields['parent_id'] = new \BackrefAdminField('parent_id', 'ID объекта недвижимости', $_SESSION['urlparams']['parent_id'], false);
 		$this->fields['childs'] = new \RefAdminField('childs','Подчиненные', new \ParentChildParams(array('parent_field' => 'parent_id')), true);

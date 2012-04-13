@@ -22,7 +22,7 @@ class TemplateCtl extends BaseCtl {
 		$view->navigation = $this->disp->di()->NavigationModel();
 		$view->navigation->get()->filter(
 			$view->navigation->filterExpr()->eq('flags', \NavigationModel::FLAG_VISIBLE)
-		)->exec();
+		)->order('ord', true)->exec();
 
 		//articles to the footer
 		$view->articlesUsefull = $this->disp->di()->ArticleModel();
