@@ -61,8 +61,8 @@ class PriceModel extends Model {
 		$c = $row->getCurrency();
 		if (!isset($c)) return '';
 		$oldCourse = $c->course;
-		$ret = ($oldCourse * $row->value) / $newCourse;
-		return sprintf("%.2f", $ret);
+		$ret = ceil(($oldCourse * $row->value) / $newCourse);
+		return sprintf("%d", $ret);
 	}
 
 	public static function getClassId($object) {
