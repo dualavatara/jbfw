@@ -524,6 +524,7 @@ class FieldInfoAdminField extends AdminField {
 	}
 
 	public function inputHtml($modelRow) {
+		if ($modelRow) {
 		$m = $modelRow->getModel()->getRaw();
 		$pattern = $this->pattern;
 		foreach($m->getFields() as $field) {
@@ -533,6 +534,7 @@ class FieldInfoAdminField extends AdminField {
 		?>
 		<a href="<?php echo $pattern; ?>"><?php echo $pattern; ?></a>
 		<?php
+		}
 	}
 
 	public function listTextHtml($modelRow) {
