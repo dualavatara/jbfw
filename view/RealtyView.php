@@ -97,7 +97,7 @@ class RealtyView extends BaseView {
 				$prices = $this->realty->getPrices(\PriceModel::TYPE_SELL);
 				if ($prices->count()) {
 					?>
-					<div style="float:left; width: 10em; font-size: 1.8em; padding: 1em 0em; ">
+					<div style="float:left; width: 14em; font-size: 1.8em; padding: 1em 0em; ">
 						<span style="font-size: 1.2em"><?php echo \Session::obj()->currency['sign']; ?>
 							&nbsp;<span
 								style="color:red;"><b><?php echo $prices[0]->calcValue(\Session::obj()->currency['course']); ?></b></span></span>

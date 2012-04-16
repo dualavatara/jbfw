@@ -509,8 +509,9 @@ class DateTimeAdminField extends AdminField {
 			'selected' => $modelRow->type,
 			'values' => $this->adminModel->getModel()->{$this->callback}(),
 		));*/
+		$now = new DateTime();
 		$date = array(
-			'name' => $this->name, 'value' => $modelRow->{$this->name}
+			'name' => $this->name, 'value' => $modelRow? $modelRow->{$this->name} : $now->format(DateTime::ISO8601)
 		);
 		$this->template->insertTemplate('Form\DateTimeField', $date);
 	}
