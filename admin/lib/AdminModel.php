@@ -379,6 +379,12 @@ class SearchSelectAdminField extends AdminField {
 	}
 
 	public function listTextHtml($modelRow) {
+		$class = '\\model\\' . $this->class;
+		$basemodel = $modelRow->getModel()->getRaw();
+		$m = new $class($basemodel->db);
+		$m = $m->getModel();
+		$m->get($modelRow->{$this->name})->exec();
+		if ($m->count()) echo $m[0]->name;
 		//$arr = $modelRow->getModel()->{$this->callback}();
 		//if (isset($arr[$modelRow->{$this->name}])) echo $arr[$modelRow->{$this->name}];
 	}

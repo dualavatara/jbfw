@@ -46,10 +46,6 @@ class FormTemplate extends Template {
 						<td><textarea cols="40" rows="10" name="form[description]" ><?php echo $carrentoffice->description; ?></textarea></td>
 					</tr>
 					<tr>
-						<td>Процент залога</td>
-						<td><input name="form[percent]" value="<?php echo floatval($carrentoffice->percent); ?>"/></td>
-					</tr>
-					<tr>
 						<td>Клиент</td>
 						<td><?php
 							$this->insertTemplate('Form\SearchSelectField', array(

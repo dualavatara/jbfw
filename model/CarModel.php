@@ -52,6 +52,7 @@ class CarModel extends Model {
 
 		$this->field(new RealField('price_addseat'));
 		$this->field(new RealField('price_insure'));
+		$this->field(new RealField('zalog_percent'));
 		$this->field(new RealField('price_franchise'));
 		$this->field(new RealField('price_seat1'));
 		$this->field(new RealField('price_seat2'));

@@ -28,6 +28,7 @@ class Car extends \AdminModel {
 		$this->fields['volume'] = new \FloatAdminField('volume','Объем двигалетя');
 		$this->fields['price_addseat'] = new \FloatAdminField('price_addseat','Стоимость доп. пассажира, руб.');
 		$this->fields['price_insure'] = new \FloatAdminField('price_insure','Страховка, руб.');
+		$this->fields['price_insure'] = new \FloatAdminField('zalog_percent','Залог, %');
 		$this->fields['price_franchise'] = new \FloatAdminField('price_franchise','Франшиза, руб.');
 		$this->fields['price_seat1'] = new \FloatAdminField('price_seat1','Стоимость автокресла 0+, руб.');
 		$this->fields['price_seat2'] = new \FloatAdminField('price_seat2','Стоимость автокресла 1, руб.');
