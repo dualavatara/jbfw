@@ -15,7 +15,7 @@ class BaseView implements IView {
 
 	public $ctl;
 
-	const PAGE_SIZE = 5;
+	//const PAGE_SIZE = 5;
 
 	public function start() {
 		ob_start();
@@ -115,7 +115,7 @@ class BaseView implements IView {
 			?>
 			<a href="<?php echo $profileLink; ?>"  onclick="<?php echo $onClick; ?>"><img
 				src="<?php echo \Ctl\StaticCtl::link('get', array('key' => $img->{$field})); ?>"
-				width="<?php echo $h; ?>" height="<?php echo $w; ?>"></a>
+				width="<?php echo $h; ?>" height="<?php echo $w; ?>" style="border: solid 1px #cfcfcf;"></a>
 			<?php
 		} else {
 			?>

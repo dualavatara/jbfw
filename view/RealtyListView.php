@@ -21,8 +21,8 @@ class RealtyListView extends BaseView {
 		if (!$this->page) $this->page = 1;
 		$this->allRealties = $this->realties;
 		if ($this->page != 'all') {
-			$from = ($this->page - 1) * self::PAGE_SIZE;
-			$to = $from + self::PAGE_SIZE -1;
+			$from = ($this->page - 1) * \Settings::obj()->get()->getPerPage();
+			$to = $from + \Settings::obj()->get()->getPerPage() -1;
 			$this->realties = $this->realties->slice($from, $to);
 			$this->realties->loadDependecies();
 		}
@@ -37,12 +37,12 @@ class RealtyListView extends BaseView {
 			class="selected">недвижимость</span>
 	</div>
 	<?php
-		$this->navBar(ceil(floatval($this->allRealties->count()) / self::PAGE_SIZE));
+		$this->navBar(ceil(floatval($this->allRealties->count()) / \Settings::obj()->get()->getPerPage()));
 		echo '<div style="width: 41em">&nbsp</div>';
 		foreach ($this->realties as $realty) $this->realtyBlock($realty, false);
 		echo '<div style="width: 41em">&nbsp</div>';
 		echo '<div class="down">';
-		$this->navBar(ceil(floatval($this->allRealties->count()) / self::PAGE_SIZE));
+		$this->navBar(ceil(floatval($this->allRealties->count()) / \Settings::obj()->get()->getPerPage()));
 		echo '</div> ';
 		$this->end();
 		return parent::show();

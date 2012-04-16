@@ -344,6 +344,9 @@ class TemplateView extends BaseView {
 		<div>
 			<div class="hfold selected">RU</div>
 		</div>
+		<div style="width: 2em;">
+		&nbsp;
+	</div>
 		<div>
 			<?php
 			foreach ($this->currencies as $currency) {

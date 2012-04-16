@@ -41,6 +41,7 @@ class SettingModel extends Model {
 	const EMAIL			= 9;
 	const DESCRIPTION	= 10;
 	const TITLE			= 11;
+	const PER_PAGE		= 12;
 	const SEOTEXT		= 13;
 	const KEYWORDS		= 14;
 	const CLOSED		= 15;
@@ -64,6 +65,7 @@ class SettingModel extends Model {
 			self::EMAIL		 ,
 			self::DESCRIPTION,
 			self::TITLE		 ,
+			self::PER_PAGE	 ,
 			self::SEOTEXT	 ,
 			self::KEYWORDS	 ,
 			self::CLOSED	 ,
@@ -122,6 +124,12 @@ class SettingModel extends Model {
 	 * @return mixed
 	 */
 	public function getTitle() { return $this->atId(SettingModel::TITLE)->value; }
+
+	/**
+	 * @return mixed
+	 */
+	public function getPerPage() { return $this->atId(SettingModel::PER_PAGE)->value; }
+
 
 	/**
 	 * @return mixed
