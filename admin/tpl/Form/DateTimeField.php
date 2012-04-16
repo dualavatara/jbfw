@@ -22,8 +22,8 @@ class DateTimeField extends Template {
 		if (null == $.timepicker) {
 			$('body').append('<script type="text/javascript" src="<?=$config->baseUrl?>/static/jquery/jquery-ui-timepicker-addon.min.js" />');
 		}
-		var date = '<?php echo $value; ?>';
-		date = ('' == date) ? null : new Date(date);
+		var date = new Date('<?php $d = new \DateTime($value); echo $d->format("F d, Y H:i:s"); ?>');
+		//date = ('' == date) ? null : new Date(date);
 		<?php echo '$(\'#'.$name.'\')'; ?>.datetimepicker({
 			dateFormat:'dd.mm.yy',
 			timeFormat: 'hh:mm:ss',
