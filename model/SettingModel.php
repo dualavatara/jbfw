@@ -52,7 +52,7 @@ class SettingModel extends Model {
 		parent::__construct('settings', $db);
 
 		$this->field(new CharField('name'));
-		$this->field(new Charfield('value'));
+		$this->field(new Charfield('value',Field::STRIP_SLASHES));
 	}
 
 	public function fixedIds() {

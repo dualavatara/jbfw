@@ -27,8 +27,8 @@ class ArticleModel extends Model {
 		$this->field(new CharField('name'));
 		$this->field(new CharField('photo'));
 		$this->field(new CharField('photo_preview'));
-		$this->field(new CharField('content'));
-		$this->field(new CharField('content_short'));
+		$this->field(new CharField('content', Field::STRIP_SLASHES));
+		$this->field(new CharField('content_short', Field::STRIP_SLASHES));
 		$this->field(new IntField('type'));
 		$this->field(new IntField('ord'));
 		$this->field(new FlagsField('flags'));

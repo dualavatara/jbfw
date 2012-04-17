@@ -6,6 +6,7 @@
  */
 abstract class Field {
 	const PRIMARY_KEY 		= 0x0001;
+	const STRIP_SLASHES		= 0x0002;
 
 	const ORDER_ASC		= 0x0001;
 	const ORDER_DESC	= 0x0002;
@@ -197,8 +198,9 @@ class FlagsField extends Field {
 }
 
 class CharField extends Field {
-	public function value($rawvalue) { 
-		return strval($rawvalue); 
+	public function value($rawvalue) {
+		if ($this->flags & Field::STRIP_SLASHES) return stripslashes(strval($rawvalue));
+		else return strval($rawvalue);
 	}
 	
 	public function definition(IDatabase $db, $tablename) {
