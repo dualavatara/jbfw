@@ -43,7 +43,7 @@ class FormTemplate extends Template {
 					</tr>
 					<tr>
 						<td>Значение</td>
-						<td><textarea rows="10" cols="40" name="form[value]"><?php echo $setting->value; ?></textarea></td>
+						<td><textarea rows="10" cols="40" name="form[value]"><?php echo stripslashes($setting->value); ?></textarea></td>
 					</tr>
 				</table>
 			</div>
