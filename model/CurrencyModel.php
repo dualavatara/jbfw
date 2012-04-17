@@ -8,6 +8,7 @@
 require_once 'lib/model.lib.php';
 
 class CurrencyModel extends Model {
+	const FLAG_DEFAULT		= 0x0001;
 	/**
 	 * @param IDatabase $db
 	 */
@@ -16,5 +17,12 @@ class CurrencyModel extends Model {
 		$this->field(new CharField('name'));
 		$this->field(new CharField('sign'));
 		$this->field(new RealField('course'));
+		$this->field(new FlagsField('flags'));
+	}
+
+	public function getFlags() {
+		return array(
+			self::FLAG_DEFAULT => 'По умолчанию',
+		);
 	}
 }

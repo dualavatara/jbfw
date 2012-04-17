@@ -10,5 +10,6 @@ class Setting extends \AdminModel {
 	 */
 	public function __construct(\IDatabase $db) {
 		parent::__construct(new \SettingModel($db));
+		$this->noEscape = true;
 	}
 }

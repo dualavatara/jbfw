@@ -25,8 +25,9 @@ class FormTemplate extends Template {
 		});
 	</script>
 	<div class="submenubar">
-		<?php $this->listLink(); ?>
-		<a href="<?php echo $this->getUrl('price_add') ?>">[Добавить]</a>
+		<?php $this->toParentLink(); ?>
+		<?php $this->listLink();?>
+		<?php $this->showLink('[Добавить]','price_add')?>
 	</div>
 	<div class="group">
 		<div class="capture"><?php echo $price ? 'Редактирование' : 'Создание';?></div>

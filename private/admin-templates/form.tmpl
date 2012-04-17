@@ -25,8 +25,9 @@ class FormTemplate extends Template {
 		});
 	</script>
 	<div class="submenubar">
-		<a href="[%php echo $this->getUrl('<?php echo strtolower($className); ?>_list') %]">[Список]</a>
-		<a href="[%php echo $this->getUrl('<?php echo strtolower($className); ?>_add') %]">[Добавить]</a>
+		[%php /*$this->toParentLink();*/ %]
+		[%php $this->listLink();%]
+		[%php $this->showLink('[Добавить]','<?php echo strtolower($className); ?>_add')%]
 	</div>
 	<div class="group">
 		<div class="capture">[%php echo $<?php echo strtolower($className); ?> ? 'Редактирование' : 'Создание';%]</div>

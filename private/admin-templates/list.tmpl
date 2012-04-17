@@ -15,6 +15,7 @@ class ListTemplate extends Template {
 		$data['model']->setTemplate($this);
 		%]
 	<div class="submenubar">
+		[%php /*$this->toParentLink();*/ %]
         [%php $this->listLink();%]
         [%php $this->showLink('[Добавить]','<?php echo strtolower($className); ?>_add')%]
 	</div>

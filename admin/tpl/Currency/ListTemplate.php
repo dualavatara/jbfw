@@ -36,8 +36,8 @@ class ListTemplate extends Template {
 				if ($field->isListEdit) {
 					if ($this->app['user']->checkRoute('currency_edit'))
 						$this->showLink($item->{$field->name}, 'currency_edit', array('id' => $item->id));
-					else echo $item->{$field->name};
-				} else echo $item->{$field->name};
+					else echo $field->listText($item);
+				} else echo $field->listText($item);
 				echo '</td>';
 			}
 			?>

@@ -20,4 +20,10 @@ class CarImage extends \AdminModel {
 		$this->fields['flags'] = new \FlagsAdminField('flags','Флаги', true);
 		$this->fields['car_id'] = new \BackrefAdminField('car_id', 'ID автомобиля', $_SESSION['urlparams']['parent_id'], false);
 	}
+
+	public function onSave($form) {
+		$result = '';
+		if ($form['flags'] & \CarImageModel::FLAG_MAIN )
+			$this->getModel()->db->getQueryArray('UPDATE `car_image` SET `flags` = `flags` & (0xffff ^ '. \CarImageModel::FLAG_MAIN .') WHERE `car_id` = \''.$form['car_id'].'\';', false, $result);
+	}
 }

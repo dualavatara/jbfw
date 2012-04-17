@@ -16,7 +16,7 @@ abstract class BaseDecorator {
 		$this->value = $value;
 		$this->escaper = $escaper;
 	}
-	
+
 	public function getRaw() {
 		return $this->value;
 	}

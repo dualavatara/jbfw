@@ -127,7 +127,6 @@ abstract class AdminModel implements IAdminModel {
 	 * @var Model
 	 */
 	private $model;
-
 	/**
 	 * @var array
 	 */
@@ -143,6 +142,9 @@ abstract class AdminModel implements IAdminModel {
 		$this->childParamsClass = $childParamsClass;
 	}
 
+	public function onSave($form) {
+
+	}
 
 	function setTemplate($template) {
 		foreach ($this->fields as $field) {

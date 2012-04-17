@@ -20,4 +20,10 @@ class RealtyImage extends \AdminModel {
 		$this->fields['flags'] = new \FlagsAdminField('flags','Флаги', true);
 		$this->fields['realty_id'] = new \BackrefAdminField('realty_id', 'ID объекта недвижимости', $_SESSION['urlparams']['parent_id'], false);
 	}
+
+	public function onSave($form) {
+		$result = '';
+		if ($form['flags'] & \RealtyImageModel::FLAG_MAIN )
+			$this->getModel()->db->getQueryArray('UPDATE `realty_image` SET `flags` = `flags` & (0xffff ^ '. \RealtyImageModel::FLAG_MAIN .') WHERE `realty_id` = \''.$form['realty_id'].'\';', false, $result);
+	}
 }

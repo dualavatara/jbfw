@@ -118,7 +118,7 @@ class SettingModel extends Model {
 	/**
 	 * @return mixed
 	 */
-	public function getSEOText() { return $this->atId(SettingModel::SEOTEXT)->value; }
+	public function getSEOText() { return stripslashes($this->atId(SettingModel::SEOTEXT)->value); }
 
 	/**
 	 * @return mixed

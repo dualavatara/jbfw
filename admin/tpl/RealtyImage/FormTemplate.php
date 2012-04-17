@@ -25,8 +25,9 @@ class FormTemplate extends Template {
 		});
 	</script>
 	<div class="submenubar">
-		<?php $this->listLink(); ?>
-		<a href="<?php echo $this->getUrl('realtyimage_add') ?>">[Добавить]</a>
+		<?php $this->toParentLink(); ?>
+		<?php $this->listLink();?>
+		<?php $this->showLink('[Добавить]','realtyimage_add')?>
 	</div>
 	<div class="group">
 		<div class="capture"><?php echo $realtyimage ? 'Редактирование' : 'Создание';?></div>

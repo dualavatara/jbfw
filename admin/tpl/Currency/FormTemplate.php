@@ -12,6 +12,7 @@ class FormTemplate extends Template {
 
 	protected function show($data, $content = null) {
 		$currency = isset($data['object']) ? $data['object'] : null;
+		$data['model']->setTemplate($this);
 		?>
 	<script type="text/javascript">
 		$(function () {

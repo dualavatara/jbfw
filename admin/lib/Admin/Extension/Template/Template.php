@@ -22,7 +22,8 @@ abstract class Template {
 	
 	final public function render($data, $content = null) {
 		$escaper = new HtmlEscaper();
-		$data = $escaper->escape($data);
+		if ($data['model'] && isset($data['model']->noEscape) && $data['model']->noEscape) {}
+		else $data = $escaper->escape($data);
 		
 		ob_start();
 		$this->show($data, $content);

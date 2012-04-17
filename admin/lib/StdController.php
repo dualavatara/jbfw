@@ -100,6 +100,8 @@ class StdController extends Controller {
 			unset($form['routes']);
 		} else $routes = array();
 
+		$this->model->onSave($form);
+
 		foreach ($this->model->fields as $field) {
 			$field->onSave($form);
 		}
