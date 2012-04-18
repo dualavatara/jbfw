@@ -147,6 +147,11 @@ return array(
 		'navigation_delete' => array('/navigation/delete/{id}',   'Navigation', 'delete'),
 		'navigation_save' => array('/navigation/save',            'Navigation', 'save'),
 
+		'articleimage_edit' => array('/articleimage/edit/{id}',       'ArticleImage', 'edit'),
+		'articleimage_list' => array('/articleimage/list',            'ArticleImage', 'list'),
+		'articleimage_add' => array('/articleimage/add',              'ArticleImage', 'add'),
+		'articleimage_delete' => array('/articleimage/delete/{id}',   'ArticleImage', 'delete'),
+		'articleimage_save' => array('/articleimage/save',            'ArticleImage', 'save'),
 	),
 
 	'menu' => array(

@@ -116,8 +116,7 @@ class ParentChildParams implements \IChildParams {
 	 */
 	public function getRequestParams($request) {
 		return array(
-			'parent_id' => $request['parent_id'],
-			'parent_field' => $request['parent_field'],
+			'parent_id' => $request['parent_id'], 'parent_field' => $request['parent_field'],
 		);
 	}
 }
@@ -300,24 +299,30 @@ class TextAdminField extends AdminField {
 
 class FlagsAdminField extends AdminField {
 	public function inputHtml($modelRow) {
-		$this->template->insertTemplate('Form\FlagsField', array(
-			//'title' => $this->adminName,
-			'name' => "form[{$this->name}]",
-			'value' => $modelRow->flags,
-			'flags' => $this->adminModel->getModel()->getFlags()
-		));
+		if ($this->adminModel->getModel()->getFlags()) {
+			$this->template->insertTemplate('Form\FlagsField', array(
+				//'title' => $this->adminName,
+				'name' => "form[{$this->name}]",
+				'value' => $modelRow->flags,
+				'flags' => $this->adminModel->getModel()->getFlags()
+			));
+		}
 	}
 
 	public function listTextHtml($modelRow) {
-		$flags = $modelRow->getModel()->getFlags();
-		$flag = array();
-		foreach ($flags as $k => $v) if ($modelRow->flags->check($k)) $flag[] = $v;
-		echo implode(',', $flag);
+		if ($this->adminModel->getModel()->getFlags()) {
+			$flags = $modelRow->getModel()->getFlags();
+			$flag = array();
+			foreach ($flags as $k => $v) if ($modelRow->flags->check($k)) $flag[] = $v;
+			echo implode(',', $flag);
+		}
+		;
 	}
 }
 
-class CustomFlagsField extends  AdminField {
+class CustomFlagsField extends AdminField {
 	public $func;
+
 	function __construct($name, $adminName, $func, $isList, $isListEdit = false, $isMinWidth = false) {
 		parent::__construct($name, $adminName, $isList, $isListEdit, $isMinWidth);
 		$this->func = $func;
@@ -374,9 +379,9 @@ class SearchSelectAdminField extends AdminField {
 
 	public function inputHtml($modelRow) {
 		$this->template->insertTemplate('Form\SearchSelectField', array(
-			'name'		=> "form[{$this->name}]",
-			'value'		=> $modelRow->{$this->name},
-			'rest_url' => '/admin/'.strtolower($this->class).'/json'
+			'name' => "form[{$this->name}]",
+			'value' => $modelRow->{$this->name},
+			'rest_url' => '/admin/' . strtolower($this->class) . '/json'
 		));
 	}
 
@@ -461,7 +466,7 @@ class ImageAdminField extends AdminField {
 			}
 		}
 		 */
-		foreach($_FILES as $key => $fparam) {
+		foreach ($_FILES as $key => $fparam) {
 			if ($this->name == $key) {
 				$is = new \ImageStorage(getcwd() . '/../' . PATH_DATA);
 				$imgkey = $is->storeImage($key);
@@ -476,6 +481,7 @@ class ImageThumbnailAdminField extends AdminField {
 	public $refName;
 	public $width;
 	public $height;
+
 	function __construct($name, $refName, $width, $height, $adminName, $isList = false) {
 		parent::__construct($name, $adminName, $isList, false, false);
 		$this->refName = $refName;
@@ -493,7 +499,7 @@ class ImageThumbnailAdminField extends AdminField {
 
 	public function onSave(&$form) {
 		parent::onSave($form);
-		foreach($_FILES as $key => $fparam) {
+		foreach ($_FILES as $key => $fparam) {
 			if ($this->refName == $key) {
 				$is = new \ImageStorage(getcwd() . '/../' . PATH_DATA);
 				$imgkey = $is->storeImageThumbnail($key, $this->width, $this->height);
@@ -513,7 +519,7 @@ class DateTimeAdminField extends AdminField {
 		));*/
 		$now = new DateTime();
 		$date = array(
-			'name' => $this->name, 'value' => $modelRow? $modelRow->{$this->name} : $now->format(DateTime::ISO8601)
+			'name' => $this->name, 'value' => $modelRow ? $modelRow->{$this->name} : $now->format(DateTime::ISO8601)
 		);
 		$this->template->insertTemplate('Form\DateTimeField', $date);
 	}
@@ -534,13 +540,13 @@ class FieldInfoAdminField extends AdminField {
 
 	public function inputHtml($modelRow) {
 		if ($modelRow) {
-		$m = $modelRow->getModel()->getRaw();
-		$pattern = $this->pattern;
-		foreach($m->getFields() as $field) {
-			$v = $modelRow->getRaw()->{$field->name};
-			$pattern = preg_replace('/{'. $field->name .'}/', $v, $pattern);
-		}
-		?>
+			$m = $modelRow->getModel()->getRaw();
+			$pattern = $this->pattern;
+			foreach ($m->getFields() as $field) {
+				$v = $modelRow->getRaw()->{$field->name};
+				$pattern = preg_replace('/{' . $field->name . '}/', $v, $pattern);
+			}
+			?>
 		<a href="<?php echo $pattern; ?>"><?php echo $pattern; ?></a>
 		<?php
 		}

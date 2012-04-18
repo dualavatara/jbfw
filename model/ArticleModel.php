@@ -6,6 +6,7 @@
  */
 
 require_once 'lib/model.lib.php';
+require_once 'model/ArticleImageModel.php';
 
 class ArticleModel extends Model {
 	const TYPE_ARTICLE 		= 1;
@@ -18,6 +19,12 @@ class ArticleModel extends Model {
 	const FLAG_VISIBLE		= 0x0001;
 	const FLAG_FOOTER		= 0x0002;
 	const FLAG_TOINDEX		= 0x0004;
+
+	/**
+	 * @var ArticleImageModel
+	 */
+	public $image;
+
 	/**
 	 * @param IDatabase $db
 	 */
@@ -32,6 +39,8 @@ class ArticleModel extends Model {
 		$this->field(new IntField('type'));
 		$this->field(new IntField('ord'));
 		$this->field(new FlagsField('flags'));
+
+		$this->image = new ArticleImageModel($db);
 	}
 
 	public function getTypes() {
@@ -50,5 +59,14 @@ class ArticleModel extends Model {
 			self::FLAG_VISIBLE => 'Видимый',
 			self::FLAG_TOINDEX => 'На главную',
 		);
+	}
+
+	public function getOtherImages($idx) {
+		$this->image->get()->filter(
+			$this->image->filterExpr()->notEq('flags', ArticleImageModel::FLAG_MAIN)->_and()
+				->eq('article_id', $this[$idx]->id)
+		)->exec();
+		if ($this->image->count()) return $this->image;
+		return array();
 	}
 }

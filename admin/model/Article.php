@@ -27,5 +27,9 @@ class Article extends \AdminModel {
 		$this->fields['created'] = new \DateTimeAdminField('created','Дата создания', true);
 		$this->fields['ord'] = new \DefaultAdminField('ord','Порядок', true);
 		$this->fields['flags'] = new \FlagsAdminField('flags','Флаги', true);
+
+		$this->fields['images'] = new \RefAdminField('images','Картинки', new \ParentChildParams(array('parent_field' => 'article_id')), true);
+		$this->fields['images']->class = 'ArticleImage';
+		$this->fields['images']->fromRoute = 'article	_list';
 	}
 }

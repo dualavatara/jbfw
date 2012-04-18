@@ -21,6 +21,7 @@ class ArticleView extends BaseView {
 		//$mainImg = $this->article->getMainImage();
 		?>
 	<div style="margin-left: 0.5em">
+
 		<script type="text/javascript">
 			$(function () {
 				// lightbox
@@ -48,6 +49,10 @@ class ArticleView extends BaseView {
 		float: left;
 		">
 			</a>
+		<div style="overflow: hidden;">
+		<?php
+		echo $this->blockOtherImg($this->article->id, $this->article->getOtherImages(), 10000);
+		?></div>
 		<?php echo $this->article->content; ?>
 		<p style="text-align: right;"><?php $d = new \DateTime($this->article->created); echo $d->format('d/m/Y'); ?></p>
 	</div>
