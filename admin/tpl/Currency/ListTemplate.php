@@ -12,6 +12,7 @@ class ListTemplate extends Template {
 	}
 
 	protected function show($data, $content = null) {
+		$data['model']->setTemplate($this);
 		?>
 	<div class="submenubar">
 		<?php $this->listLink();?>
