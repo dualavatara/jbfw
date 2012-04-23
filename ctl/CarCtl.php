@@ -31,9 +31,35 @@ class CarCtl extends BaseCtl {
 
 		$ptype = \PriceModel::TYPE_RENT;
 		if ($_REQUEST['type'] == 'sell') $ptype = \PriceModel::TYPE_SELL;
-		$realty = $this->disp->di()->CarModel();
-		$mainView->cars = $realty->getList(array(), array($_REQUEST['sort'] => $_REQUEST['dir']), $ptype);
+		if ($_REQUEST['form']) { //search form incoming
+			$form = $_REQUEST[$_REQUEST['form']];
+			if ($form['price_type'] == 'sell') $ptype = \PriceModel::TYPE_SELL;
+		}
+		$car = $this->disp->di()->CarModel();
+		$mainView->cars = $car->getList(array(), array($_REQUEST['sort'] => $_REQUEST['dir']), $ptype);
 		$mainView->type = $_REQUEST['type'];
+
+		if ($_REQUEST['form']) { //search form incoming
+			$form = $_REQUEST[$_REQUEST['form']];
+			if ($form['type']) $mainView->cars->filterByField('type_id', function ($val) use ($form) { return $val == $form['type'];});
+			if ($form['fuel']) $mainView->cars->filterByField('fuel', function ($val) use ($form) { return $val >= $form['fuel']['from'] && $val <= $form['fuel']['to'];});
+			if ($form['seats']) $mainView->cars->filterByField('seats', function ($val) use ($form) { return $val >= $form['seats']['from'] && $val <= $form['seats']['to'];});
+			if ($form['volume']) $mainView->cars->filterByField('volume', function ($val) use ($form) { return $val >= $form['volume']['from'] && $val <= $form['volume']['to'];});
+			if ($form['baggage']) $mainView->cars->filterByField('baggage', function ($val) use ($form) { return $val >= $form['baggage']['from'] && $val <= $form['baggage']['to'];});
+			if ($form['doors']) $mainView->cars->filterByField('doors', function ($val) use ($form) { return $val >= $form['doors']['from'] && $val <= $form['doors']['to'];});
+			if ($form['min_age']) $mainView->cars->filterByField('min_age', function ($val) use ($form) { return $val >= $form['min_age']['from'] && $val <= $form['min_age']['to'];});
+
+			if ($form['flags'][\CarModel::FLAG_SPUTNIK]) $mainView->cars->filterByField('flags',
+				function ($val) use ($form) { return $val & \CarModel::FLAG_SPUTNIK;});
+			if ($form['flags'][\CarModel::FLAG_CONDITIONER]) $mainView->cars->filterByField('flags',
+				function ($val) use ($form) { return $val & \CarModel::FLAG_CONDITIONER;});
+			if ($form['flags'][\CarModel::FLAG_DIESEL]) $mainView->cars->filterByField('flags',
+				function ($val) use ($form) { return $val & \CarModel::FLAG_DIESEL;});
+			if ($form['flags'][\CarModel::FLAG_AUTOMAT]) $mainView->cars->filterByField('flags',
+				function ($val) use ($form) { return $val & \CarModel::FLAG_AUTOMAT;});
+			if ($form['flags'][\CarModel::FLAG_DESCOUNT]) $mainView->cars->filterByField('flags',
+				function ($val) use ($form) { return $val & \CarModel::FLAG_DESCOUNT;});
+		}
 
 		$mainView->currencies = $this->disp->di()->CurrencyModel();
 		$mainView->currencies->get()->all()->order('id')->exec();

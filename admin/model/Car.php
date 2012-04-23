@@ -34,7 +34,7 @@ class Car extends \AdminModel {
 		$this->fields['price_seat2'] = new \FloatAdminField('price_seat2','Стоимость автокресла 1, руб.');
 		$this->fields['price_seat3'] = new \FloatAdminField('price_seat3','Стоимость автокресла 2-3, руб.');
 		$this->fields['price_chains'] = new \FloatAdminField('price_chains','Стоимость цепей, руб.');
-		$this->fields['price_navigator'] = new \FloatAdminField('price_navigator','Стоимость нафигатора, руб.');
+		$this->fields['price_navigator'] = new \FloatAdminField('price_navigator','Стоимость навигатора, руб.');
 		$this->fields['price_zalog'] = new \FloatAdminField('price_zalog','Стоимость залога, руб.');
 		$this->fields['discount1'] = new \FloatAdminField('discount1','Скидка 3-6, руб.');
 		$this->fields['discount2'] = new \FloatAdminField('discount2','Скидка 7-8, руб.');

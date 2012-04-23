@@ -10,10 +10,9 @@ require_once 'model/RealtyImageModel.php';
 require_once 'model/ResortModel.php';
 require_once 'model/PriceModel.php';
 require_once 'model/AppartmentModel.php';
+require_once 'model/RealtyTypeModel.php';
 
 class RealtyModel extends Model {
-	const TYPE_VILLA = 1;
-	const TYPE_HOTEL = 2;
 
 	const FLAG_VISIBLE = 0x0001;
 	const FLAG_BEST = 0x0002;
@@ -23,10 +22,11 @@ class RealtyModel extends Model {
 	const MISCFLAG_SAFEDOOR = 0x0001;
 	const MISCFLAG_GARDEN = 0x0002;
 
-	private $imgModel;
-	private $resort;
-	private $price;
-	private $app;
+	public $imgModel;
+	public $resort;
+	public $price;
+	public $app;
+	public $type;
 
 
 	public function __construct(IDatabase $db) {
@@ -39,6 +39,8 @@ class RealtyModel extends Model {
 		$this->field(new CharField('age'));
 		$this->field(new IntField('type'));
 		$this->field(new IntField('rooms'));
+		$this->field(new IntField('adults'));
+		$this->field(new IntField('kids'));
 		$this->field(new IntField('bedrooms'));
 		$this->field(new CharField('floor'));
 		$this->field(new IntField('total_floors'));
@@ -54,12 +56,19 @@ class RealtyModel extends Model {
 		$this->resort = new ResortModel($db);
 		$this->price = new PriceModel($db);
 		$this->app = new AppartmentModel($db);
+		$this->type = new RealtyTypeModel($db);
 	}
 
-	public function getTypes() {
-		return array(
-			self::TYPE_VILLA => 'Вилла', self::TYPE_HOTEL => 'Отель'
-		);
+	public function getTypes($flag = false) {
+		$this->type->get();
+
+		if (!$flag) $this->type->all();
+		else $this->type->filter($this->type->filterExpr()->eq('flags', $flag));
+
+		$this->type->exec();
+		$res = array();
+		foreach($this->type as $type) $res[$type->id] = $type->name;
+		return $res;
 	}
 
 	public function getFlags() {
@@ -82,6 +91,61 @@ class RealtyModel extends Model {
 		$this->resort->get()->filter($this->resort->filterExpr()->eq('id', $this->resort_id))->exec();
 		$this->price->get()->filter($this->price->filterExpr()->eq('class_id', $this->price->getClassId($this))->_and()
 			->eq('object_id', $this->id))->exec();
+		$this->app->get()->filter($this->app->filterExpr()->eq('realty_id', $this->id)->_and()->eq('flags', AppartmentModel::FLAG_VISIBLE))->exec();
+	}
+
+	public function filterType($typeId) {
+		$newdata = array();
+		foreach($this->data as $row) {
+			if ($row['type'] == $typeId) $newdata[] = $row;
+		}
+		$this->data = $newdata;
+	}
+
+	public function filterByField($field, $func) {
+		$newdata = array();
+		foreach($this->data as $row) {
+			if ($func($row[$field])) $newdata[] = $row;
+		}
+		$this->data = $newdata;
+	}
+
+	public function filterByPrice($type, $func) {
+		$newdata = array();
+		foreach($this->data as $row) {
+			foreach($this->price as $price) {
+				if ($price->class_id == $this->price->getClassId($this) && $price->object_id == $row['id']) {
+					if ($price->type == $type && $func($price->calcValue(\Session::obj()->currency['course']))) $newdata[] = $row;
+				}
+			}
+		}
+		$this->data = $newdata;
+	}
+
+
+	public function filterHasApp() {
+		$newdata = array();
+		foreach($this->data as $row) {
+			if ($this->hasApp($row['id'])) $newdata[] = $row;
+		}
+		$this->data = $newdata;
+	}
+
+	public function filterPricesDate($from, $to) {
+		$newdata = array();
+		foreach($this->data as $row) {
+			foreach($this->price as $price) {
+				if ($price->class_id == $this->price->getClassId($this) && $price->object_id == $row['id']) {
+					if ($price->isActive(new DateTime($from), new DateTime($to))) $newdata[] = $row;
+				}
+			}
+		}
+		$this->data = $newdata;
+	}
+
+	public function hasApp($id) {
+		foreach($this->app as $app) if ($app->realty_id == $id) return true;
+		return false;
 	}
 
 	public function getMainImage($idx) {

@@ -12,6 +12,7 @@ require_once 'model/BannerModel.php';
 require_once 'model/RealtyModel.php';
 require_once 'model/CarModel.php';
 require_once 'model/NavigationModel.php';
+require_once 'model/ResortModel.php';
 
 //view classes
 require_once 'view/TemplateView.php';
@@ -235,6 +236,13 @@ class DIContainer extends Singletone{
 	}
 
 	/**
+	 * @return RealtyModel
+	 */
+	public function AppartmentModel() {
+		return new AppartmentModel($this->PDODatabase());
+	}
+
+	/**
 	 * @return CarModel
 	 */
 	public function CarModel() {
@@ -246,6 +254,13 @@ class DIContainer extends Singletone{
 	 */
 	public function NavigationModel() {
 		return new NavigationModel($this->PDODatabase());
+	}
+
+	/**
+	 * @return NavigationModel
+	 */
+	public function ResortModel() {
+		return new ResortModel($this->PDODatabase());
 	}
 
 	// Misc ********************************************************************************************************* //

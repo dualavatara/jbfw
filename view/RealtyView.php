@@ -123,8 +123,10 @@ class RealtyView extends BaseView {
 					'Этаж:' => $this->realty->floor,
 					'Спальни:' => $this->realty->bedrooms,
 					'Время постройки:' => $this->realty->age,
+					'При аренде, взрослых не более:' => $this->realty->adults,
+					'При аренде, детей не более:' => $this->realty->kids,
 				);
-				if ($this->realty->type == \RealtyModel::TYPE_VILLA) $hdr = 'Аренда этой Виллы:'; else $hdr = 'Аренда этого отеля:';
+				$hdr = 'Аренда:';
 				?>
 				<table class="properties" border="0" cellpadding="3" cellspacing="0" width="100%">
 
@@ -197,7 +199,7 @@ font-weight: bold;"><?php echo $hdr; ?></td>
 		$apps = $this->realty->getAppartments();
 		$rent = array();
 		if ($apps->count()) {
-			if ($this->realty->type == \RealtyModel::TYPE_VILLA) $hdr = 'Аренда аппартаментов на этой Вилле:'; else $hdr = 'Аренда аппартаменты в этом отеле:';
+			$hdr = 'Аренда аппартаментов:';
 			foreach ($apps as $app) {
 				$prices = $app->getPrices(\PriceModel::TYPE_RENT);
 				if ($prices->count()) $rent[] = array(
@@ -235,7 +237,7 @@ font-weight: bold;"><?php echo $hdr; ?></td>
 		$apps = $this->realty->getAppartments();
 		$rent = array();
 		if ($apps->count()) {
-			if ($this->realty->type == \RealtyModel::TYPE_VILLA) $hdr = 'Продажа аппартаментов на этой Вилле:'; else $hdr = 'Продажа аппартаменты в этом отеле:';
+			$hdr = 'Продажа аппартаментов:';
 			foreach ($apps as $app) {
 				$prices = $app->getPrices(\PriceModel::TYPE_SELL);
 				if ($prices->count()) $rent[] = array(

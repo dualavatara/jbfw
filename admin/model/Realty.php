@@ -18,6 +18,8 @@ class Realty extends \AdminModel {
 		$this->fields['features'] = new \DefaultAdminField('features','Особенности', false);
 		$this->fields['type'] = new \SelectAdminField('type','Тип', 'getTypes', true, false, false, 10);
 		$this->fields['rooms'] = new \DefaultAdminField('rooms','Комнат', false, false, false, 10);
+		$this->fields['adults'] = new \DefaultAdminField('adults','Взрослых', true);
+		$this->fields['kids'] = new \DefaultAdminField('kids','Детей', true);
 		$this->fields['gmap'] = new \DefaultAdminField('gmap','Google maps IFRAME src', false, false, false, 60);
 		$this->fields['condstate'] = new \DefaultAdminField('condstate','Состояние', false, false, false, 10);
 		$this->fields['gmageap'] = new \DefaultAdminField('age','Время постройки', false, false, false, 10);

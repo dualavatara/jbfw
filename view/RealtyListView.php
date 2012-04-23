@@ -39,7 +39,7 @@ class RealtyListView extends BaseView {
 	<?php
 		$this->navBar(ceil(floatval($this->allRealties->count()) / \Settings::obj()->get()->getPerPage()));
 		echo '<div style="width: 41em">&nbsp</div>';
-		foreach ($this->realties as $realty) $this->realtyBlock($realty, false);
+		foreach ($this->realties as $realty) $this->realtyBlock($realty, true);
 		echo '<div style="width: 41em">&nbsp</div>';
 		echo '<div class="down">';
 		$this->navBar(ceil(floatval($this->allRealties->count()) / \Settings::obj()->get()->getPerPage()));

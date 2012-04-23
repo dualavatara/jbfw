@@ -15,8 +15,10 @@ class Appartment extends \AdminModel {
 		$this->fields['name'] = new \DefaultAdminField('name','Название', true, true);
 		$this->fields['description'] = new \TextAdminField('description','Описание', true);
 		$this->fields['features'] = new \DefaultAdminField('features','Особенности', true);
-		//$this->fields['type'] = new \SelectAdminField('type','Тип', 'getTypes', true, false, false, 10);
+		$this->fields['type'] = new \SelectAdminField('type','Тип', 'getTypes', true, false, false, 10);
 		$this->fields['rooms'] = new \DefaultAdminField('rooms','Комнат', true);
+		$this->fields['adults'] = new \DefaultAdminField('adults','Взрослых', true);
+		$this->fields['kids'] = new \DefaultAdminField('kids','Детей', true);
 		$this->fields['bedrooms'] = new \DefaultAdminField('bedrooms','Спален', true);
 		$this->fields['floor'] = new \DefaultAdminField('floor','Этаж', true);
 		$this->fields['ord'] = new \DefaultAdminField('ord','Порядок', true);

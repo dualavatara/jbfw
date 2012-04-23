@@ -52,3 +52,7 @@ function loadCarProfile(name, url, winW, winH, id) {
     });
 }
 ;
+
+function submit(formname) {
+    $('form[name="'+formname+'"]').submit();
+}

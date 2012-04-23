@@ -386,6 +386,12 @@ class Model extends ModelData {
 		$this->_offset = $offset;
 		return $this; 
 	}
+
+	public function getArray($keyField, $valueField, $keyPrefix = false) {
+		$res = array();
+		foreach($this as $row) if ($keyPrefix) $res[$keyPrefix . $row->$keyField] = $row->$valueField; else $res[$row->$keyField] = $row->$valueField;
+		return $res;
+	}
 }
 
 /**

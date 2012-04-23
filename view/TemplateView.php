@@ -42,7 +42,9 @@ class TemplateView extends BaseView {
 		<meta name="keywords" content="<?php echo $this->settings->getKeywords(); ?>">
 		<title><?php echo $this->settings->getTitle(); ?></title>
 		<script type="text/javascript" src="/static/js/jquery.js"></script>
-		<script type="text/javascript" src="/static/js/jquery-ui.js"></script>
+		<!--<script type="text/javascript" src="/static/js/jquery-ui.js"></script>-->
+		<script type="text/javascript" src="/static/js/jquery-ui-1.8.19.custom.min.js"></script>
+		<script type="text/javascript" src="/static/js/jquery.ui.datepicker-ru.js"></script>
 		<script type="text/javascript" src="/static/js/imgpreview.full.jquery.js"></script>
 		<script type="text/javascript" src="/static/js/lightbox/jquery.lightbox-0.5.min.js"></script>
 		<script type="text/javascript" src="/static/js/jquery-window-5.03/jquery.window.min.js"></script>
@@ -51,6 +53,7 @@ class TemplateView extends BaseView {
 		</script>
 
 		<link rel="stylesheet" type="text/css" href="/static/js/lightbox/css/jquery.lightbox-0.5.css" media="screen"/>
+		<link rel="stylesheet" type="text/css" href="/static/jquery-ui-1.8.19.custom.css" media="screen"/>
 		<link rel="stylesheet" type="text/css" href="/static/js/jquery-window-5.03/css/jquery.window.css"
 			  media="screen"/>
 		<link rel="stylesheet" href="/static/main.css" type="text/css">

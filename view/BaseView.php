@@ -270,7 +270,7 @@ class BaseView implements IView {
 			$apps = $realty->getAppartments();
 			$rent = array();
 			if ($apps->count()) {
-				if ($realty->type == \RealtyModel::TYPE_VILLA) $hdr = 'Аренда аппартаментов на этой Вилле:'; else $hdr = 'Аренда аппартаменты в этом отеле:';
+				$hdr = 'Аренда аппартаментов:';
 				foreach ($apps as $app) {
 					$prices = $app->getPrices(\PriceModel::TYPE_RENT);
 					if ($prices->count()) $rent[] = array(

@@ -152,11 +152,25 @@ return array(
 		'articleimage_add' => array('/articleimage/add',              'ArticleImage', 'add'),
 		'articleimage_delete' => array('/articleimage/delete/{id}',   'ArticleImage', 'delete'),
 		'articleimage_save' => array('/articleimage/save',            'ArticleImage', 'save'),
+
+		'realtytype_edit' => array('/realtytype/edit/{id}',       'RealtyType', 'edit'),
+		'realtytype_list' => array('/realtytype/list',            'RealtyType', 'list'),
+		'realtytype_add' => array('/realtytype/add',              'RealtyType', 'add'),
+		'realtytype_delete' => array('/realtytype/delete/{id}',   'RealtyType', 'delete'),
+		'realtytype_save' => array('/realtytype/save',            'RealtyType', 'save'),
+
+		'appartmenttype_edit' => array('/appartmenttype/edit/{id}',       'AppartmentType', 'edit'),
+		'appartmenttype_list' => array('/appartmenttype/list',            'AppartmentType', 'list'),
+		'appartmenttype_add' => array('/appartmenttype/add',              'AppartmentType', 'add'),
+		'appartmenttype_delete' => array('/appartmenttype/delete/{id}',   'AppartmentType', 'delete'),
+		'appartmenttype_save' => array('/appartmenttype/save',            'AppartmentType', 'save'),
 	),
 
 	'menu' => array(
 		'realty' => array(
 			'title' => 'Недвижимость', 'sections' => array(
+				'RealtyType' => array('title' => 'Типы объектов недвижимости',     'route' => 'realtytype_list',   'params' => array()),
+				'AppartmentType' => array('title' => 'Типы аппартаментов',     'route' => 'appartmenttype_list',   'params' => array()),
 				'Beach' => array('title' => 'Пляжи', 'route' => 'beach_list', 'params' => array()),
 				'Resort' => array('title' => 'Курорты', 'route' => 'resort_list', 'params' => array()),
 				'Realty' => array(

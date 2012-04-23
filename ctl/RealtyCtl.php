@@ -41,6 +41,54 @@ class RealtyCtl extends BaseCtl {
 		$mainView->realties = $realty->getList(array(), array($_REQUEST['sort'] => $_REQUEST['dir']));
 		$mainView->realties->loadDependecies();
 
+		if ($_REQUEST['form']) { //search form incoming
+			$form = $_REQUEST[$_REQUEST['form']];
+			list($obj, $id) = explode('_', $form['type']);
+			if ($obj == 'realty') {
+				$mainView->realties->filterType($id);
+				if ($form['from'] || $form['to']) $mainView->realties->filterPricesDate($form['from'], $form['to']);
+				if ($form['rooms']) $mainView->realties->filterByField('rooms', function ($val) use ($form) { return $val == $form['rooms'];});
+				if ($form['adults']) $mainView->realties->filterByField('adults', function ($val) use ($form) { return $val >= $form['adults'];});
+				if ($form['kids']) $mainView->realties->filterByField('kids', function ($val) use ($form) { return $val >= $form['kids'];});
+
+				if ($form['price_sell']) $mainView->realties->filterByPrice(\PriceModel::TYPE_SELL,
+					function ($val) use ($form) { return $val >= $form['price_sell']['from'] && $val <= $form['price_sell']['to'];});
+
+				if ($form['area']) $mainView->realties->filterByField('area',
+					function ($val) use ($form) { return $val >= $form['area']['from'] && $val <= $form['area']['to'];});
+				if ($form['plotarea']) $mainView->realties->filterByField('plotarea',
+					function ($val) use ($form) {
+						return $val >= $form['plotarea']['from'] && $val <= $form['plotarea']['to'];
+					});
+
+				if ($form['miscflags'][\RealtyModel::MISCFLAG_GARDEN]) $mainView->realties->filterByField('miscflags',
+					function ($val) use ($form) {
+						return $val & \RealtyModel::MISCFLAG_GARDEN;
+					});
+				if ($form['miscflags'][\RealtyModel::MISCFLAG_SAFEDOOR]) $mainView->realties->filterByField('miscflags',
+					function ($val) use ($form) { return $val & \RealtyModel::MISCFLAG_SAFEDOOR;});
+
+				if ($form['flags'][\RealtyModel::FLAG_DISCOUNT]) $mainView->realties->filterByField('flags',
+					function ($val) use ($form) { return $val & \RealtyModel::FLAG_DISCOUNT;});
+			}
+			if ($obj == 'app') {
+				$mainView->realties->app->filterType($id);
+				if ($form['from'] || $form['to']) $mainView->realties->app->filterPricesDate($form['from'], $form['to']);
+				if ($form['rooms']) $mainView->realties->app->filterByField('rooms', function ($val) use ($form) { return $val == $form['rooms'];});
+				if ($form['adults']) $mainView->realties->app->filterByField('adults', function ($val) use ($form) { return $val == $form['adults'];});
+				if ($form['kids']) $mainView->realties->app->filterByField('kids', function ($val) use ($form) { return $val == $form['kids'];});
+
+				if ($form['price_sell']) $mainView->realties->app->filterByPrice(\PriceModel::TYPE_SELL,
+					function ($val) use ($form) { return $val >= $form['price_sell']['from'] && $val <= $form['price_sell']['to'];});
+
+				if ($form['flags'][\RealtyModel::FLAG_DISCOUNT]) $mainView->realties->app->filterByField('flags',
+					function ($val) use ($form) { return $val & \RealtyModel::FLAG_DISCOUNT;});
+				$mainView->realties->filterHasApp();
+			}
+
+
+		}
+
 		$mainView->currencies = $this->disp->di()->CurrencyModel();
 		$mainView->currencies->get()->all()->order('id')->exec();
 

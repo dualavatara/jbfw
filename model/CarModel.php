@@ -8,6 +8,7 @@
 require_once 'lib/model.lib.php';
 require_once 'model/PriceModel.php';
 require_once 'model/CarImageModel.php';
+require_once 'model/CarTypeModel.php';
 
 class CarModel extends Model {
 	const FLAG_VISIBLE 		=0x0001;
@@ -28,6 +29,8 @@ class CarModel extends Model {
 	 * @var CarImageModel
 	 */
 	public $image;
+
+	public $type;
 
 	public function __construct(IDatabase $db) {
 		parent::__construct('car', $db);
@@ -73,6 +76,7 @@ class CarModel extends Model {
 
 		$this->price = new PriceModel($db);
 		$this->image = new CarImageModel($db);
+		$this->type = new CarTypeModel($db);
 	}
 	public function getFlags() {
 		return array(
@@ -85,6 +89,18 @@ class CarModel extends Model {
 			self::FLAG_HIT 			=> 'Хит',
 			self::FLAG_DESCOUNT 	=> 'Скидки',
 		);
+	}
+
+	public function getTypes($flag = false) {
+		$this->type->get();
+
+		if (!$flag) $this->type->all();
+		else $this->type->filter($this->type->filterExpr()->eq('flags', $flag));
+
+		$this->type->exec();
+		$res = array();
+		foreach($this->type as $type) $res[$type->id] = $type->name;
+		return $res;
 	}
 
 	public function getList($flags = array(), $sort = array(), $priceType = false) {
@@ -168,5 +184,13 @@ class CarModel extends Model {
 			->exec();
 		if (!$this->count()) throw new NotFoundException();
 		return $this[0];
+	}
+
+	public function filterByField($field, $func) {
+		$newdata = array();
+		foreach($this->data as $row) {
+			if ($func($row[$field])) $newdata[] = $row;
+		}
+		$this->data = $newdata;
 	}
 }
