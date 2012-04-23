@@ -82,12 +82,14 @@ float: left;<?php if ($left) echo 'margin-right:0.5em'; ?>">
 		</div>
 		<div>
 			<?php
+			$type = $this->car->getTypes();
+			$type = $type[$car->type_id];
 			$props = array(
 				'кол-во пассажиров' => $car->seats,
 				'кол-во дверей' => $car->doors,
 				'коробка передач' => $car->flags->check(\CarModel::FLAG_AUTOMAT) ? 'АКП' : 'МКП',
 				'кондиционер' => $car->flags->check(\CarModel::FLAG_CONDITIONER) ? 'да' : 'нет',
-				'тип' => $car->type_id,
+				'тип' => $type,
 				'расход топлива, л' => $car->fuel,
 				'кол-во пассажиров' => $car->seats,
 				'кол-во багажа' => $car->baggage,

@@ -46,6 +46,7 @@ class RealtyCtl extends BaseCtl {
 			list($obj, $id) = explode('_', $form['type']);
 			if ($obj == 'realty') {
 				$mainView->realties->filterType($id);
+				if ($form['resort']) $mainView->realties->filterByField('resort_id', function ($val) use ($form) { return $val == $form['resort_id'];});
 				if ($form['from'] || $form['to']) $mainView->realties->filterPricesDate($form['from'], $form['to']);
 				if ($form['rooms']) $mainView->realties->filterByField('rooms', function ($val) use ($form) { return $val == $form['rooms'];});
 				if ($form['adults']) $mainView->realties->filterByField('adults', function ($val) use ($form) { return $val >= $form['adults'];});
