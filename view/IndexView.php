@@ -28,13 +28,10 @@ class IndexView extends BaseView {
 
 		$this->columnHeader('Лучшие предложения по Черногории');
 
-		foreach ($this->realties as $realty) {
-			$this->realtyBlock($realty);
-		}
-		;
+
 
 		?>
-	<div id="cars_block">
+	<div id="cars_block" style="display: block;float:left;">
 		<?php
 		$i = 0;
 		foreach ($this->cars as $car) {
@@ -43,6 +40,17 @@ class IndexView extends BaseView {
 		};
 		?>
 	</div><?php
+
+		?>
+	<div id="realty_block" style="display: block; float:left;">
+		<?php
+		foreach ($this->realties as $realty) {
+			$this->realtyBlock($realty);
+		};
+		?>
+	</div><?php
+
+
 
 		$artOut = function ($article) {
 			?>
@@ -56,7 +64,7 @@ class IndexView extends BaseView {
 		/** @noinspection PhpUndefinedVariableInspection */
 		if ($this->articles->count()) {
 			?>
-		<div id="article_block" style="clear: both;">
+		<div id="article_block" style="float: left;width: 60em;">
 			<div class="alcol frame"><?php $artOut($this->articles[0]);?></div>
 			<?php
 			if ($this->articles->count() == 3) {
