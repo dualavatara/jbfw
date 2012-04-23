@@ -37,6 +37,7 @@ class RealtyListView extends BaseView {
 			class="selected">недвижимость</span>
 	</div>
 	<?php
+	if ($this->realties->count()) {
 		$this->navBar(ceil(floatval($this->allRealties->count()) / \Settings::obj()->get()->getPerPage()));
 		echo '<div style="width: 41em">&nbsp</div>';
 		foreach ($this->realties as $realty) $this->realtyBlock($realty, true);
@@ -44,6 +45,13 @@ class RealtyListView extends BaseView {
 		echo '<div class="down">';
 		$this->navBar(ceil(floatval($this->allRealties->count()) / \Settings::obj()->get()->getPerPage()));
 		echo '</div> ';
+	} else {
+		?>
+	<div style="padding: 2em;font-size: 1.5em;">К сожалению мы не нашли предложений по вашему запросу.
+		Попробуйте изменить параметры поиска или свяжитесь с нами по телефону <?php echo \Settings::obj()->get()->getPhone1();?> или email
+		<a href="mailo:<?php  echo \Settings::obj()->get()->getEmail();?>"><?php  echo \Settings::obj()->get()->getEmail();?></a>, мы обязательно подберем подходящий Вам вариант!</div>
+	<?
+	}
 		$this->end();
 		return parent::show();
 	}

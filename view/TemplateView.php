@@ -316,7 +316,7 @@ class TemplateView extends BaseView {
 				<div class="menuitem" id="menu<?php echo $child->id; ?>"><?php echo $child->name; ?></div>
 			</a>
 				<div id="submenu<?php echo $child->id; ?>"
-					 style="position: absolute; padding: 1em 0em; background-color: #ffcf00; visibility: hidden;
+					 style="position: absolute; padding: 1em 0em; background-color: #ffcf00; visibility: hidden;z-index: 99999;
 					 box-shadow: 3px 3px 10px rgba(0,0,0,0.5);
     -moz-box-shadow: 3px 3px 3px rgba(0,0,0,0.5);
     -webkit-box-shadow: 3px 3px 3px rgba(0,0,0,0.5);"

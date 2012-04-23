@@ -36,6 +36,8 @@ class CarListView extends BaseView {
 			class="selected">автомобили</span>
 	</div>
 	<?php
+	if ($this->cars->count()) {
+
 		$this->navBar(ceil(floatval($this->allCars->count()) / (\Settings::obj()->get()->getPerPage() * 2)));
 		echo '<div style="width: 41em">&nbsp</div>';
 		$i = 0;
@@ -47,6 +49,13 @@ class CarListView extends BaseView {
 		echo '<div class="down">';
 		$this->navBar(ceil(floatval($this->allCars->count()) / (\Settings::obj()->get()->getPerPage() * 2)));
 		echo '</div> ';
+	} else {
+		?>
+		<div style="padding: 2em;font-size: 1.5em;">К сожалению мы не нашли предложений по вашему запросу.
+			Попробуйте изменить параметры поиска или свяжитесь с нами по телефону <?php echo \Settings::obj()->get()->getPhone1();?> или email
+			<a href="mailo:<?php  echo \Settings::obj()->get()->getEmail();?>"><?php  echo \Settings::obj()->get()->getEmail();?></a>, мы обязательно подберем подходящий Вам вариант!</div>
+		<?
+	}
 		$this->end();
 		return parent::show();
 	}
