@@ -199,8 +199,9 @@ class FlagsField extends Field {
 
 class CharField extends Field {
 	public function value($rawvalue) {
-		if ($this->flags & Field::STRIP_SLASHES) return stripslashes(strval($rawvalue));
-		else return strval($rawvalue);
+		/*if ($this->flags & Field::STRIP_SLASHES) return stripslashes(strval($rawvalue));
+		else return strval($rawvalue);*/
+		return stripslashes(strval($rawvalue));
 	}
 	
 	public function definition(IDatabase $db, $tablename) {
