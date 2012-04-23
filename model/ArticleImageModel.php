@@ -17,6 +17,7 @@ class ArticleImageModel extends Model {
 		$this->field(new CharField('thumbnail125'));
 		$this->field(new CharField('thumbnail200'));
 		$this->field(new CharField('image'));
+		$this->field(new CharField('alt'));
 		$this->field(new IntField('article_id'));
 		$this->field(new FlagsField('flags'));
 	}

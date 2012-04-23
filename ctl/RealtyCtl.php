@@ -67,6 +67,8 @@ class RealtyCtl extends BaseCtl {
 					});
 				if ($form['miscflags'][\RealtyModel::MISCFLAG_SAFEDOOR]) $mainView->realties->filterByField('miscflags',
 					function ($val) use ($form) { return $val & \RealtyModel::MISCFLAG_SAFEDOOR;});
+				if ($form['miscflags'][\RealtyModel::MISCFLAG_FIRSTLINE]) $mainView->realties->filterByField('miscflags',
+					function ($val) use ($form) { return $val & \RealtyModel::MISCFLAG_FIRSTLINE;});
 
 				if ($form['flags'][\RealtyModel::FLAG_DISCOUNT]) $mainView->realties->filterByField('flags',
 					function ($val) use ($form) { return $val & \RealtyModel::FLAG_DISCOUNT;});

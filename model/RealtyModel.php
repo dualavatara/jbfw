@@ -19,8 +19,10 @@ class RealtyModel extends Model {
 	const FLAG_DISCOUNT = 0x0004;
 	const FLAG_HIT = 0x0008;
 
+
 	const MISCFLAG_SAFEDOOR = 0x0001;
 	const MISCFLAG_GARDEN = 0x0002;
+	const MISCFLAG_FIRSTLINE = 0x0004;
 
 	public $imgModel;
 	public $resort;
@@ -77,12 +79,15 @@ class RealtyModel extends Model {
 			self::FLAG_BEST => 'Лучшее предложение',
 			self::FLAG_DISCOUNT => 'Скидка',
 			self::FLAG_HIT => 'Хит',
+
 		);
 	}
 
 	public function getMiscFlags() {
 		return array(
-			self::MISCFLAG_SAFEDOOR => 'Сейф дверь', self::MISCFLAG_GARDEN => 'Сад',
+			self::MISCFLAG_SAFEDOOR => 'Сейф дверь',
+			self::MISCFLAG_GARDEN => 'Сад',
+			self::MISCFLAG_FIRSTLINE => 'Первая линия',
 		);
 	}
 

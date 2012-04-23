@@ -11,6 +11,7 @@ class ArticleImage extends \AdminModel {
 	public function __construct(\IDatabase $db) {
 		parent::__construct(new \ArticleImageModel($db), '\ParentChildParams');
 		$this->fields['id'] = new \DefaultAdminField('id', 'Id', true, true, true);
+		$this->fields['alt'] = new \DefaultAdminField('alt','Альт', true, true);
 		$this->fields['image'] = new \ImageAdminField('image', 'Изображение', true);
 		$this->fields['thumbnail'] = new \ImageAdminField('thumbnail', 'Предпросмотр 320x200', true);
 		$this->fields['thumbnail50'] = new \ImageThumbnailAdminField('thumbnail50', 'image', 50, 50, 'Предпросмотр 50x50', true);

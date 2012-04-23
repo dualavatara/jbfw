@@ -14,6 +14,7 @@ class Article extends \AdminModel {
 		$this->fields['link'] = new \FieldInfoAdminField('/article/{id}', 'Ссылка для навигации', true);
 		$this->fields['name'] = new \DefaultAdminField('name','Заголовок', true, true);
 		$this->fields['photo'] = new \ImageAdminField('photo','Фото', false);
+		$this->fields['alt'] = new \DefaultAdminField('alt','Альт', true, true);
 		$this->fields['photo_preview'] = new \ImageThumbnailAdminField(
 			'photo_preview',
 			'photo',

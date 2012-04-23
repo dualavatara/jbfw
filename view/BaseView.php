@@ -115,7 +115,10 @@ class BaseView implements IView {
 			?>
 			<a href="<?php echo $profileLink; ?>"  onclick="<?php echo $onClick; ?>"><img
 				src="<?php echo \Ctl\StaticCtl::link('get', array('key' => $img->{$field})); ?>"
-				width="<?php echo $h; ?>" height="<?php echo $w; ?>" style="border: solid 1px #cfcfcf;"></a>
+				width="<?php echo $h; ?>"
+				height="<?php echo $w; ?>"
+				style="border: solid 1px #cfcfcf;"
+				alt="<?php echo $img->alt; ?>"></a>
 			<?php
 		} else {
 			?>
@@ -161,7 +164,7 @@ class BaseView implements IView {
 		<div class="thumbnail">
 			<a href="/s/<?php echo $image->image; ?>"
 			   class="lightbox<?php echo $id; ?>">
-				<img src="/s/<?php echo $image->thumbnail50; ?>" width="50" height="50">
+				<img src="/s/<?php echo $image->thumbnail50; ?>" width="50" height="50" alt="<?php echo $image->alt; ?>">
 			</a>
 		</div>
 		<?php

@@ -40,15 +40,15 @@ class ArticleView extends BaseView {
 				});*/
 			});
 		</script>
-		<a href="/s/<?php echo $this->article->photo; ?>"
-		   class="lightboxarticle">
+
 		<img src="/s/<?php echo $this->article->photo_preview; ?>" style="
 		border: 1px #555555 solid;
 		margin-right: 1em;
 		margin-bottom: 1em;
 		float: left;
-		">
-			</a>
+		"
+			 alt="<?php echo $this->article->alt; ?>">
+
 		<div style="overflow: hidden;">
 		<?php
 		echo $this->blockOtherImg($this->article->id, $this->article->getOtherImages(), 10000);

@@ -40,6 +40,7 @@ class SearchColumnCtl extends BaseCtl {
 
 		$view->rentSearchForm->add(new \View\Form\FlagField('Сейфовая дверь', 'miscflags', \RealtyModel::MISCFLAG_SAFEDOOR, '0.5em 0em 0em 0em'));
 		$view->rentSearchForm->add(new \View\Form\FlagField('Сад', 'miscflags', \RealtyModel::MISCFLAG_GARDEN, '0.5em 0em 0em 0em'));
+		$view->rentSearchForm->add(new \View\Form\FlagField('Первая линия', 'miscflags', \RealtyModel::MISCFLAG_FIRSTLINE, '0.5em 0em 0em 0em'));
 		$view->rentSearchForm->add(new \View\Form\FlagField('Скидка', 'flags', \RealtyModel::FLAG_DISCOUNT, '0.5em 0em 0em 0em'));
 
 
@@ -61,6 +62,7 @@ class SearchColumnCtl extends BaseCtl {
 
 		$view->sellSearchForm->add(new \View\Form\FlagField('Сейфовая дверь', 'miscflags', \RealtyModel::MISCFLAG_SAFEDOOR, '0.5em 0em 0em 0em'));
 		$view->sellSearchForm->add(new \View\Form\FlagField('Сад', 'miscflags', \RealtyModel::MISCFLAG_GARDEN, '0.5em 0em 0em 0em'));
+		$view->sellSearchForm->add(new \View\Form\FlagField('Первая линия', 'miscflags', \RealtyModel::MISCFLAG_FIRSTLINE, '0.5em 0em 0em 0em'));
 		$view->sellSearchForm->add(new \View\Form\FlagField('Скидка', 'flags', \RealtyModel::FLAG_DISCOUNT, '0.5em 0em 0em 0em'));
 
 
