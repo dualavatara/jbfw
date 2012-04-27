@@ -16,6 +16,7 @@ class Car extends \AdminModel {
 		$this->fields['description'] = new \TextAdminField('description','Описание', false);
 		$this->fields['age'] = new \DefaultAdminField('age','Год выпуска', true);
 		$this->fields['min_rent'] = new \DefaultAdminField('min_rent','Мин. дней аренды', true, false, false, 10);
+		$this->fields['resort_id'] = new \SearchSelectAdminField('resort_id','Родной город', 'Resort', false);
 
 		$this->fields['type_id'] = new \SearchSelectAdminField('type_id','Тип', 'CarType', true);
 		$this->fields['fuel'] = new \DefaultAdminField('fuel','Расход топлива, л', false, false, 10);

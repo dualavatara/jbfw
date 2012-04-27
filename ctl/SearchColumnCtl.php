@@ -81,14 +81,14 @@ class SearchColumnCtl extends BaseCtl {
 			'Город получения авто',
 			'Дата',
 			'Время получения',
-		), 'place_from', $resort->getArray('id', 'name'), ''), true);
+		), 'place_from', $resort->getArray('id', 'name'), '', array('date' => date_format(date_create('tomorrow'), "d.m.Y"))), true);
 		$view->autoSearchForm->add(new \View\Form\Separator(), true);
 		$view->autoSearchForm->add(new \View\Form\PlaceDateFieldGroup(array(
 			'Возврат',
 			'Город возврата авто',
 			'Дата',
 			'Время возврата',
-		), 'place_to', $resort->getArray('id', 'name'), ''), true);
+		), 'place_to', $resort->getArray('id', 'name'), '', array('date' => date_format(date_create('+2 day'), "d.m.Y"))), true);
 		$view->autoSearchForm->add(new \View\Form\RangeSliderField('Расход топлива, л', 'fuel', 1, 100,  ' ', '0.5em 0.5em 0.5em 0.5em'));
 		$view->autoSearchForm->add(new \View\Form\RangeSliderField('Мест', 'seats', 1, 20,  ' ', '0.5em 0.5em 0.5em 0.5em'));
 		$view->autoSearchForm->add(new \View\Form\RangeSliderField('Объем двигалетя, см&#179;', 'volume', 200, 10000,  ' ', '0.5em 0.5em 0.5em 0.5em'));

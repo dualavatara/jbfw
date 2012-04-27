@@ -43,6 +43,7 @@ class CarModel extends Model {
 		$this->field(new FlagsField('flags'));
 		$this->field(new IntField('type_id'));
 		$this->field(new IntField('fuel'));
+		$this->field(new IntField('resort_id'));
 
 
 		$this->field(new IntField('seats'));

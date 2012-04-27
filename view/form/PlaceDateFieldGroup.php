@@ -9,13 +9,21 @@ namespace View\Form;
 
 class PlaceDateFieldGroup extends Field {
 	public $items;
+	public $defaults;
 
-	public function __construct($labels, $name, $items, $padding = false) {
+	public function __construct($labels, $name, $items, $padding = false, $defaults = array()) {
 		parent::__construct($labels, $name, $padding);
 		$this->items = $items;
+		$this->defaults = array('date' => '', 'hour' => 11, 'minute' => 0);
+		foreach ($defaults as $k => $v) {
+			$this->defaults[$k] = $v;
+		};
 	}
 
 	public function html() {
+		$this->value['date'] = $this->value['date'] ? $this->value['date'] : $this->defaults['date'];
+		$this->value['hour'] = $this->value['hour'] ? $this->value['hour'] : $this->defaults['hour'];
+		$this->value['minute'] = $this->value['minute'] ? $this->value['minute'] : $this->defaults['minute'];
 		ob_start();
 		?>
 	<div style="position: relative;margin-top: 0.5em;text-align: right;" >
