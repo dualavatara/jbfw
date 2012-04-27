@@ -63,7 +63,7 @@ class PlaceDateFieldGroup extends Field {
 					$( "#" + name ).datepicker();
 				});
 			</script>
-			<input type="text" id="<?php echo $this->fieldName(); ?>[date]" name="<?php echo $this->fieldName(); ?>[date]" value="<?php echo $this->value['date']; ?>" style="width: 7em;">
+			<input type="text" id="<?php echo $this->fieldName(); ?>[date]" name="<?php echo $this->fieldName(); ?>[date]" value="<?php echo $this->value['date']; ?>" style="width: 6em;padding-left:1em;">
 			<select name="<?php echo $this->fieldName(); ?>[hour]" id="<?php echo $this->fieldName(); ?>[hour]"
 					style="width: 4.5em;">
 				<?php
