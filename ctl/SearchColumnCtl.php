@@ -79,14 +79,14 @@ class SearchColumnCtl extends BaseCtl {
 		$view->autoSearchForm->add(new \View\Form\PlaceDateFieldGroup(array(
 			'Получение',
 			'Город получения авто',
-			'Получение',
+			'Дата',
 			'Время получения',
 		), 'place_from', $resort->getArray('id', 'name'), ''), true);
 		$view->autoSearchForm->add(new \View\Form\Separator(), true);
 		$view->autoSearchForm->add(new \View\Form\PlaceDateFieldGroup(array(
 			'Возврат',
 			'Город возврата авто',
-			'Возврат',
+			'Дата',
 			'Время возврата',
 		), 'place_to', $resort->getArray('id', 'name'), ''), true);
 		$view->autoSearchForm->add(new \View\Form\RangeSliderField('Расход топлива, л', 'fuel', 1, 100,  ' ', '0.5em 0.5em 0.5em 0.5em'));

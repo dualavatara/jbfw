@@ -19,7 +19,7 @@ class PlaceDateFieldGroup extends Field {
 		ob_start();
 		?>
 	<div style="position: relative;margin-top: 0.5em;text-align: right;" >
-		<label for="<?php echo $this->fieldName(); ?>[city]" style="color: red;"><?php echo $this->label[0]; ?>:</label>
+		<label for="<?php echo $this->fieldName(); ?>[city]" style="font-weight: bold; color: black;"><?php echo $this->label[0]; ?>:</label>
 		<span style="position: absolute;top: -1.5em;left: 9.5em;font-size: 0.8em;">
 			<i>
 				<?php echo $this->label[1]; ?>
