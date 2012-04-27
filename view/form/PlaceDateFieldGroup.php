@@ -27,7 +27,7 @@ class PlaceDateFieldGroup extends Field {
 		</span>
 
 		<select name="<?php echo $this->fieldName(); ?>[city]" id="<?php echo $this->fieldName(); ?>[city]"
-				style="width: 12em;">
+				style="width: 11em;">
 			<?php
 			foreach ($this->items as $k => $v) {
 				$selected = ($k == $this->value['city']) ? 'selected' : '';
