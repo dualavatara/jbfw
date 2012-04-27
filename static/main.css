@@ -267,7 +267,7 @@ h1 {
 }
 .tabfold {
     background: #eeeeee;
-    padding: 5px 1em;
+    padding: 5px 14px;
     border-radius: 9px 9px 0 0;
     -moz-border-radius: 9px 9px 0 0;
     -webkit-border-radius: 9px 9px 0 0;
@@ -275,7 +275,7 @@ h1 {
     text-align: center;
     color: #555555;
     height: 2em;
-    min-width: 50px;
+    //min-width: 50px;
     float:left;
     cursor: pointer;
 }
@@ -283,7 +283,7 @@ h1 {
     cursor: pointer;
 }
 .tabfold.selected{
-    background:#ffcf00;
+    background:#FECD36;
     color: black;
 }
 
@@ -292,7 +292,7 @@ h1 {
 }
 
 .searchcontent{
-    background:#ffcf00;
+    background:#fecd36;
     color: #000;
     border-radius: 9px 9px 0 0;
     padding-top: 10px;
@@ -684,12 +684,12 @@ table.appartlist td:nth-child(3){
 }
 
 select {
-    border-radius: 0.7em;
-    -moz-border-radius: 0.7em;
-    -webkit-border-radius: 0.7em;
-    border: #aaaaaa solid 1px;
-    height: 2em;
-    vertical-align: middle;
+    color: black;//#003580;
+    font-family: Arial,Helvetica,sans-serif;
+    font-size: 1em;
+    margin: 0;
+    padding: 0.3em;
+    height: 2.3em;
 }
 input {
     border-radius: 0.7em;
@@ -701,7 +701,7 @@ input {
 }
 
 label {
-    padding-right: 10px;
+   // padding-right: 10px;
     white-space: nowrap;
     vertical-align: middle;
 }
