@@ -70,7 +70,7 @@ class SearchColumnCtl extends BaseCtl {
 		$car = $this->disp->di()->CarModel();
 
 		$resort = $this->disp->di()->ResortModel();
-		$resort->get()->all()->exec();
+		$resort->get()->all()->order('name')->exec();
 
 		//$view->autoSearchForm->add(new \View\Form\SelectField('Предложение', 'price_type', array('rent'=> 'Аренда', 'sell' => 'Продажа'), '0.5em 0 0.5em 2.5em'), true);
 		$view->autoSearchForm->add(new \View\Form\HiddenField('price_type', 'rent'), true);
