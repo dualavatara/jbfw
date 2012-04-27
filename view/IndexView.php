@@ -42,7 +42,7 @@ class IndexView extends BaseView {
 	</div><?php
 
 		?>
-	<div id="realty_block" style="display: block; float:left;">
+	<div id="realty_block" style="display: block; float:left;width: 60em;">
 		<?php
 		foreach ($this->realties as $realty) {
 			$this->realtyBlock($realty);
