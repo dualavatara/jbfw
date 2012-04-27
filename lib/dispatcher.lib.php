@@ -79,7 +79,7 @@ class Dispatcher implements IDispatcher {
 	}
 
 	/**
-	 * @throws FunzayAPIException
+	 * @throws JBFWAPIException
 	 * @return void
 	 */
 	public function main() {

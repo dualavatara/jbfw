@@ -3,7 +3,7 @@
 /**
  * Base exception class
  */
-class FunzayAPIException extends Exception {}
+class JBFWAPIException extends Exception {}
 
 /**#@+
  * Interfaces
@@ -46,7 +46,7 @@ interface IRPCException {
  * Base Exception classes
  */
 abstract class WebException
-	extends FunzayAPIException
+	extends JBFWAPIException
 	implements IHttpException
 {
 	public function getHttpCode() {
@@ -60,7 +60,7 @@ abstract class WebException
 }
 
 class RPCException
-	extends FunzayAPIException
+	extends JBFWAPIException
 	implements IRPCException
 {
 	public function getRpcCode() {
@@ -73,7 +73,7 @@ class RPCException
 }
 
 class CommonException 
-	extends FunzayAPIException
+	extends JBFWAPIException
 	implements IHttpException, IRPCException
 {
 	public function getHttpCode() {
@@ -194,10 +194,10 @@ class RPCInternalException extends RPCException {
 /**
  * Implementation-defined errors
  */
-class FunzayLogicException extends FunzayAPIException {}
+class JBFWLogicException extends JBFWAPIException {}
 
 class InvalidParameters 
-	extends FunzayLogicException
+	extends JBFWLogicException
 	implements IHttpException, IRPCException
 {
 	public function getHttpCode() {
@@ -217,7 +217,7 @@ class InvalidParameters
 	}
 }
 
-class AccessDenied extends FunzayLogicException implements IHttpException, IRPCException {
+class AccessDenied extends JBFWLogicException implements IHttpException, IRPCException {
 
 	public function getHttpCode() {
 		return self::ACCESS_DENIED_HTTP;
@@ -236,7 +236,7 @@ class AccessDenied extends FunzayLogicException implements IHttpException, IRPCE
 	}
 }
 
-class TooLargeData extends FunzayLogicException implements IHttpException, IRPCException {
+class TooLargeData extends JBFWLogicException implements IHttpException, IRPCException {
 
 	public function getHttpCode() {
 		return self::TOO_LARGE_DATA_HTTP;

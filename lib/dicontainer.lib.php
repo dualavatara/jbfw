@@ -300,11 +300,11 @@ class DIContainer extends Singletone{
 	 * @param $name
 	 * @param $arguments
 	 * @return mixed
-	 * @throws FunzayLogicException
+	 * @throws JBFWLogicException
 	 */
 	public function __call($name, $arguments) {
 		if (!method_exists('DIContainer', $name))
-			throw new FunzayLogicException("Undefined DIContainer method call: " . $name);
+			throw new JBFWLogicException("Undefined DIContainer method call: " . $name);
 		
 		return call_user_func_array(array('DIContainer', $name), $arguments);
     }
