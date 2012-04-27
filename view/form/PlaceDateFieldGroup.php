@@ -39,6 +39,16 @@ class PlaceDateFieldGroup extends Field {
 		</select>
 	</div>
 		<div style="position: relative;padding-top: 1em;text-align: right;" >
+			<span style="position: absolute;top: 0;left: 4.5em;font-size: 0.8em;">
+			<i>
+				<?php echo $this->label[3]; ?>
+			</i>
+		</span>
+			<span style="position: absolute;top: 0;left: 13em;font-size: 0.8em;">
+			<i>
+				<?php echo $this->label[4]; ?>
+			</i>
+		</span>
 			<label for="<?php echo $this->fieldName(); ?>[date]"><?php echo $this->label[2]; ?>:</label>
 			<script>
 				$(function() {
@@ -46,9 +56,9 @@ class PlaceDateFieldGroup extends Field {
 					$( "#" + name ).datepicker();
 				});
 			</script>
-			<input type="text" id="<?php echo $this->fieldName(); ?>[date]" name="<?php echo $this->fieldName(); ?>[date]" value="<?php echo $this->value['date']; ?>" style="width: 5.8em;">
+			<input type="text" id="<?php echo $this->fieldName(); ?>[date]" name="<?php echo $this->fieldName(); ?>[date]" value="<?php echo $this->value['date']; ?>" style="width: 5em;">
 			<select name="<?php echo $this->fieldName(); ?>[hour]" id="<?php echo $this->fieldName(); ?>[hour]"
-					style="width: 4em;">
+					style="width: 4.5em;">
 				<?php
 				for ($i = 0; $i < 24; $i++) {
 					$selected = ($i == $this->value['hour']) ? 'selected' : '';
@@ -59,7 +69,7 @@ class PlaceDateFieldGroup extends Field {
 				?>
 			</select>
 			<select name="<?php echo $this->fieldName(); ?>[minute]" id="<?php echo $this->fieldName(); ?>[minute]"
-					style="width: 4em;">
+					style="width: 4.5em;">
 				<?php
 				for ($i = 0; $i < 60; $i++) {
 					$selected = ($i == $this->value['minute']) ? 'selected' : '';
