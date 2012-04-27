@@ -69,11 +69,31 @@ class SearchColumnCtl extends BaseCtl {
 		$view->autoSearchForm = new \View\Form\SearchForm('auto', '/car');
 		$car = $this->disp->di()->CarModel();
 
-		$view->autoSearchForm->add(new \View\Form\SelectField('Предложение', 'price_type', array('rent'=> 'Аренда', 'sell' => 'Продажа'), '0.5em 0 0.5em 2.5em'), true);
-		$view->autoSearchForm->add(new \View\Form\SelectField('Тип', 'type', $car->getTypes(), '0.5em 0 0.5em 2.5em'), true);
-		$view->autoSearchForm->add(new \View\Form\RangeSliderField('Расход топлива, л', 'fuel', 1, 100,  ' ', '0.5em 0.5em 0.5em 0.5em'), true);
-		$view->autoSearchForm->add(new \View\Form\RangeSliderField('Мест', 'seats', 1, 20,  ' ', '0.5em 0.5em 0.5em 0.5em'), true);
-		$view->autoSearchForm->add(new \View\Form\RangeSliderField('Объем двигалетя, см&#179;', 'volume', 200, 10000,  ' ', '0.5em 0.5em 0.5em 0.5em'), true);
+		$resort = $this->disp->di()->ResortModel();
+		$resort->get()->all()->exec();
+
+		//$view->autoSearchForm->add(new \View\Form\SelectField('Предложение', 'price_type', array('rent'=> 'Аренда', 'sell' => 'Продажа'), '0.5em 0 0.5em 2.5em'), true);
+		$view->autoSearchForm->add(new \View\Form\HiddenField('price_type', 'rent'), true);
+		$view->autoSearchForm->add(new \View\Form\SelectField('Класс авто', 'type', $car->getTypes(), '0.5em 0 0.5em 0em'), true);
+		$view->autoSearchForm->add(new \View\Form\Separator(), true);
+		$view->autoSearchForm->add(new \View\Form\PlaceDateFieldGroup(array(
+			'Получение',
+			'Город получения авто',
+			'Дата',
+			'Получение',
+			'Время получения',
+		), 'place_from', $resort->getArray('id', 'name'), ''), true);
+		$view->autoSearchForm->add(new \View\Form\Separator(), true);
+		$view->autoSearchForm->add(new \View\Form\PlaceDateFieldGroup(array(
+			'Возврат',
+			'Город возврата авто',
+			'Дата',
+			'Возврат',
+			'Время возврата',
+		), 'place_to', $resort->getArray('id', 'name'), ''), true);
+		$view->autoSearchForm->add(new \View\Form\RangeSliderField('Расход топлива, л', 'fuel', 1, 100,  ' ', '0.5em 0.5em 0.5em 0.5em'));
+		$view->autoSearchForm->add(new \View\Form\RangeSliderField('Мест', 'seats', 1, 20,  ' ', '0.5em 0.5em 0.5em 0.5em'));
+		$view->autoSearchForm->add(new \View\Form\RangeSliderField('Объем двигалетя, см&#179;', 'volume', 200, 10000,  ' ', '0.5em 0.5em 0.5em 0.5em'));
 		//extended fields
 		$view->autoSearchForm->add(new \View\Form\RangeSliderField('Мест багажа', 'baggage', 1, 30,  ' ', '0.5em 0.5em 0.5em 0.5em'));
 		$view->autoSearchForm->add(new \View\Form\RangeSliderField('Дверей', 'doors', 1, 10,  ' ', '0.5em 0.5em 0.5em 0.5em'));

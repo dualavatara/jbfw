@@ -37,10 +37,11 @@ class CarCtl extends BaseCtl {
 		}
 		$car = $this->disp->di()->CarModel();
 		$mainView->cars = $car->getList(array(), array($_REQUEST['sort'] => $_REQUEST['dir']), $ptype);
-		$mainView->type = $_REQUEST['type'];
+
 
 		if ($_REQUEST['form']) { //search form incoming
 			$form = $_REQUEST[$_REQUEST['form']];
+			$mainView->type = $form['price_type'];
 			if ($form['type']) $mainView->cars->filterByField('type_id', function ($val) use ($form) { return $val == $form['type'];});
 			if ($form['fuel']) $mainView->cars->filterByField('fuel', function ($val) use ($form) { return $val >= $form['fuel']['from'] && $val <= $form['fuel']['to'];});
 			if ($form['seats']) $mainView->cars->filterByField('seats', function ($val) use ($form) { return $val >= $form['seats']['from'] && $val <= $form['seats']['to'];});

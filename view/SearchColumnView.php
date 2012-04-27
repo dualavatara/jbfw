@@ -19,14 +19,16 @@ class SearchColumnView extends BaseView{
 	<div id="searchpad" style="position: relative">
 		<?php
 
-		$rentTab = new Tab('rent', 'аренда', $this->rentSearchForm->html(), '0px');
-		$sellTab = new Tab('sell', 'продажа', $this->sellSearchForm->html(), '9px');
-		$autoTab = new Tab('auto', 'авто', $this->autoSearchForm->html(), '7px');
+		$autoTab = new Tab('auto', 'авто', $this->autoSearchForm->html(), '0px');
+		$rentTab = new Tab('rent', 'отдых', $this->rentSearchForm->html(), '6px');
+		$sellTab = new Tab('sell', 'недвижимость', $this->sellSearchForm->html(), '2px');
+
 
 		$tabView = new TabView('searchtabview');
+		$tabView->addTab($autoTab);
 		$tabView->addTab($rentTab);
 		$tabView->addTab($sellTab);
-		$tabView->addTab($autoTab);
+
 		$tabView->selected = $_REQUEST['form'];
 		echo $tabView->show();
 		?>

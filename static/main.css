@@ -696,12 +696,12 @@ input {
     -moz-border-radius: 0.7em;
     -webkit-border-radius: 0.7em;
     border: #aaaaaa solid 1px;
-    height: 2em;
-    vertical-align: middle;
+    height: 1.7em;
+    //vertical-align: middle;
 }
 
 label {
    // padding-right: 10px;
     white-space: nowrap;
-    vertical-align: middle;
+    //vertical-align: middle;
 }
