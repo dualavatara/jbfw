@@ -79,7 +79,6 @@ class SearchColumnCtl extends BaseCtl {
 		$view->autoSearchForm->add(new \View\Form\PlaceDateFieldGroup(array(
 			'Получение',
 			'Город получения авто',
-			'Дата',
 			'Получение',
 			'Время получения',
 		), 'place_from', $resort->getArray('id', 'name'), ''), true);
@@ -87,7 +86,6 @@ class SearchColumnCtl extends BaseCtl {
 		$view->autoSearchForm->add(new \View\Form\PlaceDateFieldGroup(array(
 			'Возврат',
 			'Город возврата авто',
-			'Дата',
 			'Возврат',
 			'Время возврата',
 		), 'place_to', $resort->getArray('id', 'name'), ''), true);

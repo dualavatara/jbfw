@@ -18,9 +18,9 @@ class PlaceDateFieldGroup extends Field {
 	public function html() {
 		ob_start();
 		?>
-	<div style="position: relative;padding-top: 1em;text-align: right;" >
+	<div style="position: relative;margin-top: 0.5em;text-align: right;" >
 		<label for="<?php echo $this->fieldName(); ?>[city]" style="color: red;"><?php echo $this->label[0]; ?>:</label>
-		<span style="position: absolute;top: 0;left: 9.5em;font-size: 0.8em;">
+		<span style="position: absolute;top: -1.5em;left: 9.5em;font-size: 0.8em;">
 			<i>
 				<?php echo $this->label[1]; ?>
 			</i>
@@ -38,25 +38,24 @@ class PlaceDateFieldGroup extends Field {
 			?>
 		</select>
 	</div>
-		<div style="position: relative;padding-top: 1em;text-align: right;" >
+		<div style="position: relative;margin-top: 1em;padding-top: 1em; text-align: right;" >
 			<span style="position: absolute;top: 0;left: 4.5em;font-size: 0.8em;">
 			<i>
-				<?php echo $this->label[3]; ?>
+				<?php echo $this->label[2]; ?>
 			</i>
 		</span>
 			<span style="position: absolute;top: 0;left: 13em;font-size: 0.8em;">
 			<i>
-				<?php echo $this->label[4]; ?>
+				<?php echo $this->label[3]; ?>
 			</i>
 		</span>
-			<label for="<?php echo $this->fieldName(); ?>[date]"><?php echo $this->label[2]; ?>:</label>
 			<script>
 				$(function() {
 					var name = '<?php echo addcslashes(addcslashes($this->fieldName().'[date]', '[]'), '\\'); ?>';
 					$( "#" + name ).datepicker();
 				});
 			</script>
-			<input type="text" id="<?php echo $this->fieldName(); ?>[date]" name="<?php echo $this->fieldName(); ?>[date]" value="<?php echo $this->value['date']; ?>" style="width: 5em;">
+			<input type="text" id="<?php echo $this->fieldName(); ?>[date]" name="<?php echo $this->fieldName(); ?>[date]" value="<?php echo $this->value['date']; ?>" style="width: 7em;">
 			<select name="<?php echo $this->fieldName(); ?>[hour]" id="<?php echo $this->fieldName(); ?>[hour]"
 					style="width: 4.5em;">
 				<?php
