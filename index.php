@@ -1,11 +1,12 @@
 <?
-require_once 'lib/ClassLoader.php';
+require_once 'swift_required.php';
+require_once 'lib/JBFWClassLoader.php';
 
 require_once 'config/config.php';
 require_once 'lib/dicontainer.lib.php';
 require_once 'lib/logger.lib.php';
 
-ClassLoader::addException('/admin/i');
+JBFWClassLoader::addException('/admin/i');
 
 
 /*

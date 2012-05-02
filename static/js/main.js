@@ -103,7 +103,7 @@ function orderSubmitstep1(id) {
         return false;
     };
     //if (!$('#age').val()) { alert('Поля отмеченные * должны быть заполнены.');return false;};
-    openPopup('/carorder2/' + id + '?' + $('#step1form').serialize(), {id:'step1popup', width:450, height:570, title:'test window'});
+    openPopup('/carorder2/' + id + '?' + $('#step1form').serialize(), {id:'step1popup', width:450, height:570, title:'Аренда авто. Шаг 2.'});
     closePopup('step1popup');
     return true;
 }

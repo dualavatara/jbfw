@@ -8,9 +8,6 @@
 
 namespace Ctl;
 
-require_once 'lib/email.lib.php';
-
-
 class CarCtl extends BaseCtl {
 	static public function link($method, $params) {
 		switch($method) {
@@ -110,20 +107,44 @@ class CarCtl extends BaseCtl {
 	}
 
 	public function finish($carId) {
-		$form = $_REQUEST['order'];
-
-		$order = \Session::obj()->order;
-
 		$view = $this->disp->di()->CarOrderView($this->disp);
-		$view->step = 'finish';
-
-		$params = array(
-			'from' => array('email' => 'info@jb-travel.com', 'user' => 'Site')
-		);
-		sendMail('testsubj', 'test body', 'dualavatara@gmail.com', $params);
-
 		$car = $this->disp->di()->CarModel();
 		$view->car = $car->getCar($carId);
+		$view->resorts = $this->disp->di()->ResortModel();
+		$view->places = $this->disp->di()->PlaceModel();
+		$body = $view->email();
+
+
+		$message = \Swift_Message::newInstance()
+
+		// Give the message a subject
+			->setSubject('Order')
+
+		// Set the From address with an associative array
+			->setFrom(array('info@jb-travel.com' => 'JB-Travel site'))
+
+		// Set the To addresses with an associative array
+			->setTo(array('dualavatara@gmail.com'))
+
+		// Give it a body
+			->setBody($body, 'text/html')
+
+		;
+		$transport = \Swift_SmtpTransport::newInstance('smtp.gmail.com',465, 'ssl')
+			->setUsername('kindcasper@jb-travel.com')
+			->setPassword('Lj,hsqRfcgth')
+		;
+		$mailer = \Swift_Mailer::newInstance($transport);
+
+		// Send the message
+		$result = $mailer->send($message);
+		/*$params = array(
+			'from' => array('email' => 'info@jb-travel.com', 'user' => 'Site')
+		);
+		sendMail('testsubj', 'test body', 'dualavatara@gmail.com', $params);*/
+
+
+		$view->step = 'finish';
 		return $view;
 	}
 

@@ -379,7 +379,7 @@ float: left;<?php if($left) echo 'margin-right:0.3em'; ?>">
 						if ($type == \PriceModel::TYPE_RENT) {
 							$orderLink = '/carorder/' . $car->id;
 							?>
-							<?php $this->orderButton('javascript:void(0);', "openPopup('".$orderLink."', {id:'step1popup', width:450, height:600, title:'test window'});") ?>
+							<?php $this->orderButton('javascript:void(0);', "openPopup('".$orderLink."', {id:'step1popup', width:450, height:600, title:'Аренда авто. Шаг 1.'});") ?>
 							<?php
 						} else {
 							$this->requestButton('#');

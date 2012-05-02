@@ -65,7 +65,7 @@ float: left;<?php if ($left) echo 'margin-right:0.5em'; ?>">
 					if ($type) {
 						if ($type == \PriceModel::TYPE_RENT) {
 							?>
-							<?php $this->orderButton('javascript:void(0);', "openPopup('/', {id:'testpopup', width:300, height:200, title:'test window'});"); ?>
+							<?php $this->orderButton('javascript:void(0);', "openPopup('/', {id:'testpopup', width:300, height:200, title:'Аренда авто. Шаг 1.'});"); ?>
 							<?php
 						} else {
 							$this->requestButton('#');

@@ -4,7 +4,7 @@
  * Date: 4/1/12
  * Time: 12:59 AM
  */
-class ClassLoader {
+class JBFWClassLoader {
 	static public $exceptions = array();
 
 	static public function addException($regexp) {
@@ -19,4 +19,4 @@ class ClassLoader {
 	}
 }
 
-spl_autoload_register(__NAMESPACE__ . '\ClassLoader::load'); // As of PHP 5.3.0
+spl_autoload_register(__NAMESPACE__ . '\JBFWClassLoader::load'); // As of PHP 5.3.0

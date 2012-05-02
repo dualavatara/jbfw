@@ -10,6 +10,7 @@ class CarOrderView extends BaseView {
 	public $step;
 	public $car;
 	public $resorts;
+	public $places;
 
 	function __construct($step = '') {
 		if (!$this->step) $this->step = 'step1'; else $this->step = $step;
@@ -18,13 +19,21 @@ class CarOrderView extends BaseView {
 
 	public function show() {
 		$this->start();
+
+		$fn = $this->step;
+		$this->$fn();
+
+		$this->end();
+		return parent::show();
+	}
+
+	public function step1() {
 		?>
 	<div style="background-color: #efefef;padding: 1em;">
 		<h2><?php echo $this->car->name; ?></h2>
 		<img src="/static/img/badge/order_banner.png">
 		<?php
-		$fn = $this->step;
-		$this->$fn();
+		$this->step1top();
 		?>
 	</div>
 	<div class="carorder" style="
@@ -36,11 +45,29 @@ class CarOrderView extends BaseView {
 	</div>
 	<hr size="1px">
 	<?php
-		$this->end();
-		return parent::show();
 	}
 
-	public function step1() {
+	public function step2() {
+		?>
+	<div style="background-color: #efefef;padding: 1em;">
+		<h2><?php echo $this->car->name; ?></h2>
+		<img src="/static/img/badge/order_banner.png">
+		<?php
+		$this->step2top();
+		?>
+	</div>
+	<div class="carorder" style="
+		background: url('/static/img/bg/popup_topshade.png') repeat-x top;
+		padding: 1em;
+		overflow: auto;
+		height: 180px;
+		"><?php $this->info(); ?>
+	</div>
+	<hr size="1px">
+	<?php
+	}
+
+	public function step1top() {
 		$fromDate = \Session::obj()->form['place_from']['date'];
 		$toDate = \Session::obj()->form['place_to']['date'];
 		?>
@@ -105,7 +132,7 @@ class CarOrderView extends BaseView {
 	<?php
 	}
 
-	public function step2() {
+	public function step2top() {
 		$form = \Session::obj()->order;
 		$fromDate = $form['place_from']['date'];
 		$toDate = $form['place_to']['date'];
@@ -141,26 +168,84 @@ class CarOrderView extends BaseView {
 							if (\Session::obj()->order['chair']) $perDayAdd += $this->car->price_seat1;
 							if (\Session::obj()->order['driver']) $perDayAdd += $this->car->trans_driver;
 							$baseprice = $this->car->calcPricesDated($fromDate, $toDate, \Session::obj()->currency['course'], \PriceModel::TYPE_RENT, $perDayAdd);
+							$order = \Session::obj()->order;
+							if ($order['place_from']['city'] != $this->car->resort_id) $baseprice += $this->car->trans_airport;
+							else if ($order['place_from']['place'] != $this->car->place_id) $baseprice += $this->car->trans_hotel;
+							if ($order['place_to']['city'] != $this->car->resort_id) $baseprice += $this->car->trans_airport;
+							else if ($order['place_to']['place'] != $this->car->place_id) $baseprice += $this->car->trans_hotel;
 							$text = '<span
 					style="color:red;"><b>' . $baseprice . '</b></span> ' . \Session::obj()->currency['sign'].'<br>';
 						}
 					}
 					?>
 					<span style="font-size: 1.6em; "><?php echo $text;?></span>
-					<input type="hidden" name="totalprice" value="<?php echo $baseprice;?>">
+					<input type="hidden" name="totalprice" value="<?php echo $baseprice.' '.\Session::obj()->currency['sign'];?>">
 					<?php $this->orderButton('javascript:void(0);', "
 					if (!$('#name').val()) { alert('Поля отмеченные * должны быть заполнены.');return false;};
 					if (!$('#age').val()) { alert('Поля отмеченные * должны быть заполнены.');return false;};
 					if (!$('#email').val()) { alert('Поля отмеченные * должны быть заполнены.');return false;};
 					if (!$('#phone1').val() && !$('#phone2').val()) { alert('Поля отмеченные * должны быть заполнены.');return false;};
 					if (!$('#agreed').attr('checked')) { alert('Для оформления заказа вы должны согласиться с правилами аренды.');return false;};
-				openPopup('/carorderfinish/" . $this->car->id . "?' + $('#step1form').serialize(), {id:'step1popup', width:450, height:600, title:'test window'});
+				openPopup('/carorderfinish/" . $this->car->id . "?' + $('#step1form').serialize(), {id:'step1popup', width:450, height:90, title:'Аренда авто.'});
 				closePopup('step1popup')
 				") ?></td>
 			</tr>
 		</table>
 	</form>
 	<?php
+	}
+
+	public function email() {
+		$this->start();
+		$form = $_REQUEST;
+		$order = \Session::obj()->order;
+
+		$resortS = '';
+		$resortE = '';
+		$placeS = '';
+		$placeE = '';
+
+		$this->resorts->get($order['place_from']['city'])->exec();
+		if ($this->resorts->count()) $resortS = $this->resorts[0]->name;
+		$this->resorts->get($order['place_to']['city'])->exec();
+		if ($this->resorts->count()) $resortE = $this->resorts[0]->name;
+		$this->places->get($order['place_from']['place'])->exec();
+		if ($this->places->count()) $placeS = $this->places[0]->name;
+		$this->places->get($order['place_to']['place'])->exec();
+		if ($this->places->count()) $placeE = $this->places[0]->name;
+
+
+
+
+		?>
+		<div>ID <?php echo $this->car->id.": ". $this->car->name; ?></div>
+		<div>Расчитанная сумма: <?php echo $form['totalprice']; ?></div>
+		<div>Получение: <?php echo $resortS . ', ' . $order['place_from']['date'] .' ' . $order['place_from']['hour'] . ':' . $order['place_from']['minute']; ?></div>
+		<div>Возврат: <?php echo $resortS . ', ' . $order['place_to']['date'] .' ' . $order['place_to']['hour'] . ':' . $order['place_to']['minute']; ?></div>
+		<div><?php if ($order['navigator']) echo "Навигатор"; ?></div>
+		<div><?php if ($order['chair']) echo "Детское кресло"; ?></div>
+		<div><?php if ($order['driver']) echo "Водитель"; ?></div>
+		<div>ФИО <?php echo $form['name'];?></div>
+		<div>Возраст <?php echo $form['age'];?></div>
+		<div>E-mail <?php echo $form['email'];?></div>
+		<div>Телефон 1 <?php echo $form['phone1'];?></div>
+		<div>Телефон 2 <?php echo $form['phone2'];?></div>
+		<div></div>
+		<?php
+
+		$this->end();
+		return parent::show();
+	}
+
+	public function finish() {
+		?>
+	<div style="
+    padding: 1em;
+    color: red;
+    text-align: center;
+">Спасибо за заказ. <br>
+		Заявка принята и в ближайшее время наш менеджер свяжется с Вами.</div>
+		<?php
 	}
 
 	public function credetialsForm() {
