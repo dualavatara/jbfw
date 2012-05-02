@@ -1,6 +1,6 @@
 <?php
 
-namespace Resort;
+namespace Place;
 
 use Admin\Extension\Template\Template;
 
@@ -15,9 +15,9 @@ class ListTemplate extends Template {
 		$data['model']->setTemplate($this);
 		?>
 	<div class="submenubar">
-		<?php /*$this->toParentLink();*/ ?>
+		<?php $this->toParentLink(); ?>
         <?php $this->listLink();?>
-        <?php $this->showLink('[Добавить]','resort_add')?>
+        <?php $this->showLink('[Добавить]','place_add')?>
 	</div>
 	<table class="list">
 		<tr>
@@ -36,14 +36,14 @@ class ListTemplate extends Template {
 					foreach ($dRaw['model']->fields as $field) {
 						if (!$field->isList) continue;
 						echo '<td>';
-						if (($field->isListEdit) && ($this->app['user']->checkRoute('resort_edit'))) {
-							$this->showLink($field->listText($item), 'resort_edit', array('id' => $item->id));
+						if (($field->isListEdit) && ($this->app['user']->checkRoute('place_edit'))) {
+							$this->showLink($field->listText($item), 'place_edit', array('id' => $item->id));
 						} else  echo $field->listText($item);
 						echo '</td>';
 					}
 				?>
 				<td>
-                    <?php $this->showLink('&nbsp;X&nbsp;','resort_delete', array('id' => $item->id),
+                    <?php $this->showLink('&nbsp;X&nbsp;','place_delete', array('id' => $item->id),
                                        'onClick="return AdminJS.deleteConfirmation();"');?>
                 </td>
 			</tr>
