@@ -124,7 +124,7 @@ class CarCtl extends BaseCtl {
 			->setFrom(array('info@jb-travel.com' => 'JB-Travel site'))
 
 		// Set the To addresses with an associative array
-			->setTo(array('info@gmail.com'))
+			->setTo(array('info@jb-travel.com'))
 
 		// Give it a body
 			->setBody($body, 'text/html')
