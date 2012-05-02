@@ -58,9 +58,6 @@ class PriceModel extends Model {
 
 	public function calcValue($idx, $newCourse) {
 		$row = $this[$idx];
-		/*$c = $row->getCurrency();
-		if (!isset($c)) return '';
-		$oldCourse = $c->course;*/
 		$ret = ceil(floatval($row->value) / $newCourse);
 		return sprintf("%d", $ret);
 	}
@@ -72,10 +69,6 @@ class PriceModel extends Model {
 		return self::CLASS_UNDEFINED;
 	}
 
-	/*public function getCurrency($idx) {
-		foreach ($this->currency as $curr) if ($this[$idx]->currency_id == $curr->id) return $curr;
-		return null;
-	}*/
 
 	public function getCurrencies() {
 		$ret = array();

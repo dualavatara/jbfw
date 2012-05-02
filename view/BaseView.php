@@ -315,6 +315,8 @@ class BaseView implements IView {
 
 	public function carsBlock($car, $left = false) {
 		$mainImg = $car->getMainImage();
+		$fromDate = $_REQUEST['auto']['place_from']['date'];
+		$toDate = $_REQUEST['auto']['place_to']['date'];
 		?>
 	<div class="itemblock" style="width: 29.2em; height: 15em;
 float: left;<?php if($left) echo 'margin-right:0.3em'; ?>">
@@ -358,15 +360,26 @@ float: left;<?php if($left) echo 'margin-right:0.3em'; ?>">
 						if ($price[0]->type == \PriceModel::TYPE_SELL) $type = \PriceModel::TYPE_SELL;
 						if ($price[0]->type == \PriceModel::TYPE_RENT) $type = \PriceModel::TYPE_RENT;
 					}
-					if ($priceValue) { ?>
-					<span style="font-size: 1.6em; margin-left: 1em;"><?php echo \Session::obj()->currency['sign']; ?> <span
-						style="color:red;"><b><?php echo $price[0]->calcValue(\Session::obj()->currency['course']);?></b></span>
+					if ($priceValue) {
+						if ($fromDate && $toDate){
+							$text = '<span
+						style="color:red;"><b>' . $car->calcPricesDated($fromDate, $toDate, \Session::obj()->currency['course'], $type) . '</b></span> ' . \Session::obj()->currency['sign'] ;
+							$text .= '<div style="font-size: 0.6em; color: #555;text-align: right;">с '.$fromDate.' по '.$toDate.' </div>';
+						}
+						else {
+							$text = 'от <span
+						style="color:red;"><b>' . $price[0]->calcValue(\Session::obj()->currency['course']) . '</b></span> ' . \Session::obj()->currency['sign'] . ' в сутки';
+							$text .= '<div style="font-size: 0.6em; color: #555;text-align: right;">до 01.03.2012 </div>';
+						}
+						?>
+					<span style="font-size: 1.6em; "><?php echo $text;?></span>
 					<?php } else echo "&nbsp;"; ?></div>
 				<div><?php
 					if ($type) {
 						if ($type == \PriceModel::TYPE_RENT) {
+							$orderLink = '/carorder/' . $car->id;
 							?>
-							<?php $this->orderButton('#'); ?>
+							<?php $this->orderButton('javascript:void(0);', "openPopup('".$orderLink."', {id:'step1popup', width:450, height:600, title:'test window'});") ?>
 							<?php
 						} else {
 							$this->requestButton('#');

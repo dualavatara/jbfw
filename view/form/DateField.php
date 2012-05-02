@@ -21,7 +21,7 @@ class DateField extends Field {
 			$( "#" + name ).datepicker();
 		});
 	</script>
-	<input type="text" id="<?php echo $this->fieldName(); ?>" name="<?php echo $this->fieldName(); ?>" value="<?php echo $this->value; ?>">
+	<input type="text" class="textinput" id="<?php echo $this->fieldName(); ?>" name="<?php echo $this->fieldName(); ?>" value="<?php echo $this->value; ?>">
 	<?php
 		return ob_get_clean();
 	}

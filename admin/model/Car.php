@@ -17,13 +17,15 @@ class Car extends \AdminModel {
 		$this->fields['age'] = new \DefaultAdminField('age','Год выпуска', true);
 		$this->fields['min_rent'] = new \DefaultAdminField('min_rent','Мин. дней аренды', true, false, false, 10);
 		$this->fields['resort_id'] = new \SearchSelectAdminField('resort_id','Родной город', 'Resort', false);
+		$this->fields['place_id'] = new \SearchSelectAdminField('place_id','Место', 'Place', false);
 
 		$this->fields['type_id'] = new \SearchSelectAdminField('type_id','Тип', 'CarType', true);
 		$this->fields['fuel'] = new \DefaultAdminField('fuel','Расход топлива, л', false, false, 10);
 		$this->fields['seats'] = new \DefaultAdminField('seats','Кол-во пассажиров', false, false, 10);
 		$this->fields['baggage'] = new \DefaultAdminField('baggage','Кол-во багажа', false, false, 10);
 		$this->fields['doors'] = new \DefaultAdminField('doors','Дверей', false, false, 10);
-		$this->fields['min_age'] = new \DefaultAdminField('min_age','Мин. возраст', false, false, 10);
+		$this->fields['min_age'] = new \DefaultAdminField('min_age','Мин. возраст, лет', false, false, 10);
+		$this->fields['min_exp'] = new \DefaultAdminField('min_exp','Мин. стаж, лет', false, false, 10);
 		$this->fields['office_id'] = new \SearchSelectAdminField('office_id','Контора проката', 'CarRentOffice', true);
 		$this->fields['customer_id'] = new \SearchSelectAdminField('customer_id','Клиент', 'Customer', true);
 		$this->fields['volume'] = new \FloatAdminField('volume','Объем двигалетя');
@@ -31,9 +33,9 @@ class Car extends \AdminModel {
 		$this->fields['price_insure'] = new \FloatAdminField('price_insure','Страховка, EURO');
 		$this->fields['price_insure'] = new \FloatAdminField('zalog_percent','Залог, %');
 		$this->fields['price_franchise'] = new \FloatAdminField('price_franchise','Франшиза, EURO');
-		$this->fields['price_seat1'] = new \FloatAdminField('price_seat1','Стоимость автокресла 0+, EURO');
-		$this->fields['price_seat2'] = new \FloatAdminField('price_seat2','Стоимость автокресла 1, EURO');
-		$this->fields['price_seat3'] = new \FloatAdminField('price_seat3','Стоимость автокресла 2-3, EURO');
+		$this->fields['price_seat1'] = new \FloatAdminField('price_seat1','Стоимость детского кресла, EURO');
+		/*$this->fields['price_seat2'] = new \FloatAdminField('price_seat2','Стоимость автокресла 1, EURO');
+		$this->fields['price_seat3'] = new \FloatAdminField('price_seat3','Стоимость автокресла 2-3, EURO');*/
 		$this->fields['price_chains'] = new \FloatAdminField('price_chains','Стоимость цепей, EURO');
 		$this->fields['price_navigator'] = new \FloatAdminField('price_navigator','Стоимость навигатора, EURO');
 		$this->fields['price_zalog'] = new \FloatAdminField('price_zalog','Стоимость залога, EURO');
@@ -49,6 +51,7 @@ class Car extends \AdminModel {
 
 		$this->fields['ord'] = new \DefaultAdminField('ord','Ord', true, false, false, 10);
 		$this->fields['flags'] = new \FlagsAdminField('flags','Flags', true);
+		$this->fields['rent_include_flags'] = new \CustomFlagsField('rent_include_flags','В стоимость аренды включено:', 'getRentIncludedFlags', false);
 
 		$this->fields['prices'] = new \RefAdminField('prices','Цены',
 			new \ClassObjectChildParams(

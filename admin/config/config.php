@@ -164,6 +164,14 @@ return array(
 		'appartmenttype_add' => array('/appartmenttype/add',              'AppartmentType', 'add'),
 		'appartmenttype_delete' => array('/appartmenttype/delete/{id}',   'AppartmentType', 'delete'),
 		'appartmenttype_save' => array('/appartmenttype/save',            'AppartmentType', 'save'),
+
+		'place_edit' => array('/place/edit/{id}',       'Place', 'edit'),
+		'place_list' => array('/place/list',            'Place', 'list'),
+		'place_add' => array('/place/add',              'Place', 'add'),
+		'place_delete' => array('/place/delete/{id}',   'Place', 'delete'),
+		'place_save' => array('/place/save',            'Place', 'save'),
+		'place_json' => array('/place/json/{name}', 'Place', 'json'),
+
 	),
 
 	'menu' => array(

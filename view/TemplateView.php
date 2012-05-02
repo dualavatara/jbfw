@@ -47,7 +47,6 @@ class TemplateView extends BaseView {
 		<script type="text/javascript" src="/static/js/jquery.ui.datepicker-ru.js"></script>
 		<script type="text/javascript" src="/static/js/imgpreview.full.jquery.js"></script>
 		<script type="text/javascript" src="/static/js/lightbox/jquery.lightbox-0.5.min.js"></script>
-		<script type="text/javascript" src="/static/js/jquery-window-5.03/jquery.window.min.js"></script>
 		<script type="text/javascript" src="/static/js/main.js"></script>
 		<script type="text/javascript" src="https://maps.google.com/maps/api/js?sensor=false">
 		</script>

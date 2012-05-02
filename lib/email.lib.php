@@ -1,11 +1,11 @@
 <?
 require_once('config/config.php');
 
-function common_subjectEncode($text) {
+function subjectEncode($text) {
 	return '=?'.CHARSET_HTML.'?B?'.base64_encode($text).'?=';
 }
 
-function common_sendMail($subject, $body, $to, $param = array()) {
+function sendMail($subject, $body, $to, $param = array()) {
 
 	$cMail = new EMail();
 	$cMail->SetCharset(CHARSET_HTML);
@@ -37,7 +37,7 @@ function common_sendMail($subject, $body, $to, $param = array()) {
 		}
 	}
 
-	$cMail->SetSubject(common_subjectEncode($subject));
+	$cMail->SetSubject(subjectEncode($subject));
 
 	$cMail->SetBodyHTML($body);
 	$cMail->SetEncodingBit(8);

@@ -5,7 +5,11 @@
  * Time: 9:09 AM
  */
 
+
 namespace Ctl;
+
+require_once 'lib/email.lib.php';
+
 
 class CarCtl extends BaseCtl {
 	static public function link($method, $params) {
@@ -41,6 +45,9 @@ class CarCtl extends BaseCtl {
 
 		if ($_REQUEST['form']) { //search form incoming
 			$form = $_REQUEST[$_REQUEST['form']];
+
+			\Session::obj()->form = $form;
+
 			$mainView->type = $form['price_type'];
 			if ($form['type']) $mainView->cars->filterByField('type_id', function ($val) use ($form) { return $val == $form['type'];});
 			if ($form['fuel']) $mainView->cars->filterByField('fuel', function ($val) use ($form) { return $val >= $form['fuel']['from'] && $val <= $form['fuel']['to'];});
@@ -75,6 +82,59 @@ class CarCtl extends BaseCtl {
 
 		$car = $this->disp->di()->CarModel();
 		$view->car = $car->getCar($carId);
+		return $view;
+	}
+
+	public function order($carId) {
+		$view = $this->disp->di()->CarOrderView($this->disp);
+
+		$car = $this->disp->di()->CarModel();
+		$view->car = $car->getCar($carId);
+		$resort = $this->disp->di()->ResortModel();
+		$resort->get()->all()->order('name')->exec();
+		$view->resorts = $resort;
+		return $view;
+	}
+
+	public function order2($carId) {
+		$form = $_REQUEST['order'];
+
+		\Session::obj()->order = $form;
+
+		$view = $this->disp->di()->CarOrderView($this->disp);
+		$view->step = 'step2';
+
+		$car = $this->disp->di()->CarModel();
+		$view->car = $car->getCar($carId);
+		return $view;
+	}
+
+	public function finish($carId) {
+		$form = $_REQUEST['order'];
+
+		$order = \Session::obj()->order;
+
+		$view = $this->disp->di()->CarOrderView($this->disp);
+		$view->step = 'finish';
+
+		$params = array(
+			'from' => array('email' => 'info@jb-travel.com', 'user' => 'Site')
+		);
+		sendMail('testsubj', 'test body', 'dualavatara@gmail.com', $params);
+
+		$car = $this->disp->di()->CarModel();
+		$view->car = $car->getCar($carId);
+		return $view;
+	}
+
+
+	public function places($resortId) {
+		$view = $this->disp->di()->PlacesView($this->disp);
+		$view->step = 'places';
+
+		$place = $this->disp->di()->PlaceModel();
+		$place->get()->filter($place->filterExpr()->eq('resort_id', $resortId))->exec();
+		$view->places = $place;
 		return $view;
 	}
 }

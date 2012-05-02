@@ -18,7 +18,7 @@ class TextField extends Field{
 		?>
 	<label for="<?php echo $this->fieldName(); ?>"><?php echo $this->label; ?>:</label>
 
-	<input type="text" id="<?php echo $this->fieldName(); ?>"
+	<input type="text" class="textinput" id="<?php echo $this->fieldName(); ?>"
 		   name="<?php echo $this->fieldName(); ?>"
 		   value="<?php echo $this->value; ?>"
 		<?php if ($this->size) echo 'size="' . $this->size . '"'; ?>>

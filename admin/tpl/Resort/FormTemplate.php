@@ -12,6 +12,7 @@ class FormTemplate extends Template {
 
 	protected function show($data, $content = null) {
 		$resort = isset($data['object']) ? $data['object'] : null;
+		$data['model']->setTemplate($this);
 		?>
 	<script type="text/javascript">
 		$(function () {
@@ -24,11 +25,12 @@ class FormTemplate extends Template {
 		});
 	</script>
 	<div class="submenubar">
-		<?php $this->listLink(); ?>
-		<a href="<?php echo $this->getUrl('resort_add') ?>">[Добавить]</a>
+		<?php /*$this->toParentLink();*/ ?>
+		<?php $this->listLink();?>
+		<?php $this->showLink('[Добавить]','resort_add')?>
 	</div>
 	<div class="group">
-		<div class="capture"><?php echo $resort ? 'Редактирование курорт' : 'Создание курорт';?></div>
+		<div class="capture"><?php echo $resort ? 'Редактирование' : 'Создание';?></div>
 		<div id="tabs">
 			<a href="#general">Общие</a>
 		</div>
@@ -37,18 +39,16 @@ class FormTemplate extends Template {
 
 			<div id="general">
 				<table>
-					<tr>
-						<td>Название</td>
-						<td><input name="form[name]" class="required" minlength="2" value="<?php echo $resort->name; ?>"/></td>
-					</tr>
-					<tr>
-						<td>Ссылка на описание</td>
-						<td><input name="form[link]" minlength="2" value="<?php echo $resort->link; ?>"/></td>
-					</tr>
-					<tr>
-						<td>Ссылка на maps.google.com</td>
-						<td><input name="form[gmaplink]" minlength="2" value="<?php echo $resort->gmaplink; ?>"/></td>
-					</tr>
+
+						<?php
+							$dRaw = $data->getRaw();
+							foreach($dRaw['model']->fields as $field) {
+								if (($field->name == id) || (!$field->isForm)) continue;
+								echo '<tr><td>' .$field->adminName. '</td>';
+								echo '<td>' .$field->input($resort). '</td></tr>';
+							}
+						?>
+
 				</table>
 			</div>
 

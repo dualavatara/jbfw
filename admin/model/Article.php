@@ -31,6 +31,6 @@ class Article extends \AdminModel {
 
 		$this->fields['images'] = new \RefAdminField('images','Картинки', new \ParentChildParams(array('parent_field' => 'article_id')), true);
 		$this->fields['images']->class = 'ArticleImage';
-		$this->fields['images']->fromRoute = 'article	_list';
+		$this->fields['images']->fromRoute = 'article_list';
 	}
 }

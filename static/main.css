@@ -691,7 +691,7 @@ select {
     padding: 0.3em;
     height: 2.3em;
 }
-input {
+.textinput {
     border-radius: 0.7em;
     -moz-border-radius: 0.7em;
     -webkit-border-radius: 0.7em;
@@ -704,4 +704,66 @@ label {
    // padding-right: 10px;
     white-space: nowrap;
     //vertical-align: middle;
+}
+
+.popup {
+    background-color: #ffffff;
+    border: none;
+    border-radius: 0.5em;
+    -moz-border-radius: 0.5em;
+    -webkit-border-radius: 0.5em;
+    overflow: hidden;
+   // overflow-style: marquee;
+    -webkit-box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    -moz-box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    z-index: 20000;
+}
+
+.popup .titlebar{
+    background-image: url("/static/img/bg/popup_title_bg.png");
+    height: 25px;
+    border-radius: 0.5em 0.5em 0 0;
+    -moz-border-radius: 0.5em 0.5em 0 0;
+    -webkit-border-radius: 0.5em 0.5em 0 0;
+    text-align: center;
+    color: white;
+    font-weight: bold;
+    font-size: 1.3em;
+    padding-top: 0.3em;
+}
+
+.popup .cross{
+    float: right;
+    height: 20px;
+    width: 30px;
+    background-image: url("/static/img/buttons/popup_cross.png");
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.carorder h2 {
+    margin: 0;
+    color: #222222;
+
+}
+
+.carorder h3 {
+    color: #639f29;
+    margin: 0;
+    font-size: 1em;
+}
+.carorder ul {
+    float: left;
+    width: 180px;
+    list-style-image: url("/static/img/icons/order_bullet.png");
+    padding-left: 2em;
+}
+
+.carorder tbody tr:nth-child(even){
+    background-color: #eee;
+}
+
+.carorder tbody tr:nth-child(odd){
+    background-color: #ddd;
 }

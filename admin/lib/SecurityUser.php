@@ -1,5 +1,4 @@
 <?php
-
 require_once 'model/adminuser.model.php';
 require_once 'model/adminaccess.model.php';
 

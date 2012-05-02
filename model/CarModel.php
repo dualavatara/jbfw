@@ -19,7 +19,18 @@ class CarModel extends Model {
 	const FLAG_BEST 		=0x0020;
 	const FLAG_HIT 			=0x0040;
 	const FLAG_DESCOUNT 	=0x0080;
+	const FLAG_CAMERA	 	=0x0100;
+	const FLAG_PASSPORT		=0x0200;
 
+
+	const RIFLAG_INSURE			=0x0001;
+	const RIFLAG_INSURETHIRD	=0x0002;
+	const RIFLAG_INSUREROBBERY	=0x0004;
+	const RIFLAG_TAX			=0x0008;
+	const RIFLAG_GREENCARD		=0x0010;
+	const RIFLAG_AVIA			=0x0020;
+	const RIFLAG_UNLIMITED		=0x0040;
+	const RIFLAG_HELP			=0x0080;
 	/**
 	 * @var PriceModel
 	 */
@@ -41,15 +52,18 @@ class CarModel extends Model {
 		$this->field(new IntField('min_rent'));
 		$this->field(new IntField('ord'));
 		$this->field(new FlagsField('flags'));
+		$this->field(new FlagsField('rent_include_flags'));
 		$this->field(new IntField('type_id'));
 		$this->field(new IntField('fuel'));
 		$this->field(new IntField('resort_id'));
+		$this->field(new IntField('place_id'));
 
 
 		$this->field(new IntField('seats'));
 		$this->field(new IntField('baggage'));
 		$this->field(new IntField('doors'));
 		$this->field(new IntField('min_age'));
+		$this->field(new IntField('min_exp'));
 		$this->field(new IntField('office_id'));
 		$this->field(new IntField('customer_id'));
 		$this->field(new RealField('volume')); //Объем двигателя (число)
@@ -86,9 +100,24 @@ class CarModel extends Model {
 			self::FLAG_CONDITIONER 	=> 'Кондиционер',
 			self::FLAG_DIESEL 		=> 'Дизельный автомобиль',
 			self::FLAG_AUTOMAT 		=> 'Автоматическая трансмиссия',
+			self::FLAG_CAMERA		=> 'Камера заднего вида',
+			self::FLAG_PASSPORT		=> 'Обязательное наличие паспорта',
 			self::FLAG_BEST 		=> 'Лучшая цена',
 			self::FLAG_HIT 			=> 'Хит',
 			self::FLAG_DESCOUNT 	=> 'Скидки',
+		);
+	}
+
+	public function getRentIncludedFlags() {
+		return array(
+			self::RIFLAG_INSURE		=> 'Страхование ущерба',
+			self::RIFLAG_INSURETHIRD	=> 'Страхование третьего лица',
+			self::RIFLAG_INSUREROBBERY=> 'Страхование от ограбления',
+			self::RIFLAG_TAX			=> 'Налог',
+			self::RIFLAG_GREENCARD	=> 'Green карта',
+			self::RIFLAG_AVIA			=> 'Авиасбор',
+			self::RIFLAG_UNLIMITED	=> 'Неограниченный пробег',
+			self::RIFLAG_HELP			=> 'Помощь в разбивке счета',
 		);
 	}
 
@@ -147,6 +176,51 @@ class CarModel extends Model {
 			if (isset($sortFuncs[$sk])) usort($this->data, $sortFuncs[$sk]);
 		}
 		return $this;
+	}
+
+	public function calcPricesDated($idx, $from, $to, $course, $type, $perDayAdd = 0) {
+		$id = $this[$idx]->id;
+		$this->price->get()->filter($this->price->filterExpr()->eq('class_id', $this->price->getClassId($this))->_and()
+			->eq('object_id', $id));
+		if ($type) $this->price->filter($this->price->filterExpr()->eq('type', $type));
+		$this->price->order('value')->exec();
+		$f = new DateTime($from);
+		$t = new DateTime($to);
+
+		$int = $f->diff($t, true)->days;
+		if ($int < 1) $int = 1;
+		$days = array();
+		for ($i = 0; $i < $int; $i++) $days[$i] = 0;
+
+		foreach($this->price as $price) {
+			$pf = new DateTime($price->start);
+			$pt = new DateTime($price->end);
+			if (($pf > $t && $pt > $t && !$price->flags->check(PriceModel::START_INVALID)) || ($pf < $f && $pt < $f && !$price->flags->check(PriceModel::END_INVALID))) continue;
+			if ($price->flags->check(PriceModel::START_INVALID)) $if = 0;
+			else if ($pf < $f) $if = 0;
+			else {
+				$if = $f->diff($pf,true)->days;
+			}
+
+			if ($price->flags->check(PriceModel::END_INVALID)) $it = $int;
+			else if ($pt > $t) $it = $int;
+			else {
+				$it = $f->diff($pt,true)->days;
+			}
+			$value = $price->calcValue($course);
+			for($i = $if; $i < $it; $i++) {
+				if ($days[$i] == 0 || $days[$i] > $value) $days[$i] = $value;
+			}
+		}
+		$disc = 0;
+		if ($int > 29) $disc = $this[$idx]->discount5;
+		elseif ($int > 15) $disc = $this[$idx]->discount4;
+		elseif ($int > 8) $disc = $this[$idx]->discount3;
+		elseif ($int > 6) $disc = $this[$idx]->discount2;
+		elseif ($int > 2) $disc = $this[$idx]->discount2;
+		$sum = 0;
+		for ($i = 0; $i < $int; $i++) $sum += ($days[$i] - $disc + $perDayAdd) / $course;
+		return $sum;
 	}
 
 	public function getPrices($idx, $type = false) {
