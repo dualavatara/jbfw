@@ -70,7 +70,7 @@ class SearchColumnCtl extends BaseCtl {
 		$car = $this->disp->di()->CarModel();
 
 		$resort = $this->disp->di()->ResortModel();
-		$resort->get()->all()->order('name')->exec();
+		$resort->get()->filter($resort->filterExpr()->eq('flags', \ResortModel::TYPE_AUTOSEARCH))->order('name')->exec();
 
 		//$view->autoSearchForm->add(new \View\Form\SelectField('Предложение', 'price_type', array('rent'=> 'Аренда', 'sell' => 'Продажа'), '0.5em 0 0.5em 2.5em'), true);
 		$view->autoSearchForm->add(new \View\Form\HiddenField('price_type', 'rent'), true);
@@ -89,18 +89,10 @@ class SearchColumnCtl extends BaseCtl {
 			'Дата',
 			'Время возврата',
 		), 'place_to', $resort->getArray('id', 'name'), '', array('date' => date_format(date_create('+2 day'), "d.m.Y"))), true);
-		$view->autoSearchForm->add(new \View\Form\RangeSliderField('Расход топлива, л', 'fuel', 1, 100,  ' ', '0.5em 0.5em 0.5em 0.5em'));
-		$view->autoSearchForm->add(new \View\Form\RangeSliderField('Мест', 'seats', 1, 20,  ' ', '0.5em 0.5em 0.5em 0.5em'));
-		$view->autoSearchForm->add(new \View\Form\RangeSliderField('Объем двигалетя, см&#179;', 'volume', 200, 10000,  ' ', '0.5em 0.5em 0.5em 0.5em'));
 		//extended fields
-		$view->autoSearchForm->add(new \View\Form\RangeSliderField('Мест багажа', 'baggage', 1, 30,  ' ', '0.5em 0.5em 0.5em 0.5em'));
-		$view->autoSearchForm->add(new \View\Form\RangeSliderField('Дверей', 'doors', 1, 10,  ' ', '0.5em 0.5em 0.5em 0.5em'));
-		$view->autoSearchForm->add(new \View\Form\RangeSliderField('Мин. возраст водителя', 'min_age', 18, 100,  ' ', '0.5em 0.5em 0.5em 0.5em'));
 
-		$view->autoSearchForm->add(new \View\Form\FlagField('Спутниковая навигация', 'flags', \CarModel::FLAG_SPUTNIK, '0.5em 0em 0em 0em'));
-		$view->autoSearchForm->add(new \View\Form\FlagField('Кондиционер', 'flags', \CarModel::FLAG_CONDITIONER, '0.5em 0em 0em 0em'));
-		$view->autoSearchForm->add(new \View\Form\FlagField('Дизельный автомобиль', 'flags', \CarModel::FLAG_DIESEL, '0.5em 0em 0em 0em'));
 		$view->autoSearchForm->add(new \View\Form\FlagField('Автоматическая трансмиссия', 'flags', \CarModel::FLAG_AUTOMAT, '0.5em 0em 0em 0em'));
+		$view->autoSearchForm->add(new \View\Form\FlagField('Камера заднего вида', 'flags', \CarModel::FLAG_CAMERA, '0.5em 0em 0em 0em'));
 		$view->autoSearchForm->add(new \View\Form\FlagField('Скидки', 'flags', \CarModel::FLAG_DESCOUNT, '0.5em 0em 0.5em 0em'));
 
 		$view->autoSearchForm->add(new \View\Form\SubmitImgButton('/static/img/buttons/search_r.png', '0.5em 0 0.5em 6.3em'), true);

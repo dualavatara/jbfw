@@ -12,6 +12,7 @@ require_once 'lib/model.lib.php';
  */
 class ResortModel extends Model {
 
+	const TYPE_AUTOSEARCH 		= 1;
 	/**
 	 * @param IDatabase $db
 	 */
@@ -21,6 +22,12 @@ class ResortModel extends Model {
 		$this->field(new CharField('name'));
 		$this->field(new CharField('link'));
 		$this->field(new CharField('gmaplink'));
+		$this->field(new FlagsField('flags'));
 	}
 
+	public function getFlags() {
+		return array(
+			self::TYPE_AUTOSEARCH => 'Участвует в автомобильном заказе',
+		);
+	}
 }

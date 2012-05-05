@@ -9,6 +9,7 @@ require_once 'lib/model.lib.php';
 require_once 'model/PriceModel.php';
 require_once 'model/CarImageModel.php';
 require_once 'model/CarTypeModel.php';
+require_once 'model/CarRentOfficeModel.php';
 
 class CarModel extends Model {
 	const FLAG_VISIBLE 		=0x0001;
@@ -42,6 +43,7 @@ class CarModel extends Model {
 	public $image;
 
 	public $type;
+	public $carrentoffice;
 
 	public function __construct(IDatabase $db) {
 		parent::__construct('car', $db);
@@ -255,9 +257,12 @@ class CarModel extends Model {
 	}
 
 	public function getCar($id) {
+
+
 		$this->get()->filter($this->filterExpr()->eq('flags', self::FLAG_VISIBLE)->_and()->eq(MODEL_ID_FIELD_NAME, $id))
 			->exec();
 		if (!$this->count()) throw new NotFoundException();
+
 		return $this[0];
 	}
 

@@ -80,6 +80,8 @@ function openPopup(url, data) {
     popup.find('.cross').click(function () {
         closePopup(data.id);
     })
+    popup.children('.content').empty();
+    popup.children('.content').append($('<div style="padding: 1em;color: green;text-align: center;">Обработка...</div>'));
     $.ajax({
         url: url,
         context: popup.children('.content'),

@@ -14,6 +14,7 @@ class Resort extends \AdminModel {
 		$this->fields['name'] = new \DefaultAdminField('name','Название', true, true);
 		$this->fields['link'] = new \DefaultAdminField('link','Ссылка', true);
 		$this->fields['gmaplink'] = new \DefaultAdminField('gmaplink','Google map link', true);
+		$this->fields['flags'] = new \FlagsAdminField('flags','Флаги', true);
 
 		$this->fields['places'] = new \RefAdminField('places','Места', new \ParentChildParams(array('parent_field' => 'resort_id')), true);
 		$this->fields['places']->class = 'Place';

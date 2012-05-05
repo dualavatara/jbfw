@@ -11,6 +11,7 @@ class CarOrderView extends BaseView {
 	public $car;
 	public $resorts;
 	public $places;
+	public $carrentoffice;
 
 	function __construct($step = '') {
 		if (!$this->step) $this->step = 'step1'; else $this->step = $step;
@@ -101,7 +102,7 @@ class CarOrderView extends BaseView {
 						<?php echo \Session::obj()->currency['sign']; ?> / сутки
 					</label><br>
 				</td>
-				<td>
+				<td valign="center" align="center">
 					<?php
 					$price = $this->car->getPrices();
 					$priceValue = '';
@@ -117,11 +118,11 @@ class CarOrderView extends BaseView {
 							$text = '<span
 					style="color:red;"><b>' . $this->car->calcPricesDated($fromDate, $toDate, \Session::obj()->currency['course'], \PriceModel::TYPE_RENT) . '</b></span> ' . \Session::obj()->currency['sign'];
 							$text .= '<div style="font-size: 0.6em; color: #555;text-align: right;">с ' . $fromDate . ' по ' . $toDate . ' </div>';
-						} else */{
+						} else {
 							$text = 'от <span
 					style="color:red;"><b>' . $price[0]->calcValue(\Session::obj()->currency['course']) . '</b></span> ' . \Session::obj()->currency['sign'] . ' в сутки';
 							$text .= '<div style="font-size: 0.6em; color: #555;text-align: right;">до 01.03.2012 </div>';
-						}
+						}*/
 					}
 					?>
 					<span style="font-size: 1.6em; "><?php echo $text;?></span>
@@ -144,9 +145,40 @@ class CarOrderView extends BaseView {
 			</tr>
 			<tr>
 				<td nowrap>
-					<a href="#">Правила аренды</a><br>
+					<table width="100%">
+					<?php
+					$f = new \DateTime($fromDate);
+					$t = new \DateTime($toDate);
+
+					$days = $f->diff($t, true)->days;
+
+					if (\Session::obj()->order['navigator']) {
+						$p = ($this->car->price_navigator/ \Session::obj()->currency['course']) * $days;
+						echo '<tr><td>Навигатор</td><td align="right"><span style="font-weight: bold; color: red">'.$p.'</span> '.\Session::obj()->currency['sign'] . '</td></tr>';
+					}
+					if (\Session::obj()->order['chair'])
+					{
+						$p = ($this->car->price_seat1/ \Session::obj()->currency['course']) * $days;
+						echo '<tr><td>Детское кресло </td><td align="right"><span style="font-weight: bold; color: red">'.$p.'</span> '.\Session::obj()->currency['sign'] . '</td></tr>';
+					}
+					if (\Session::obj()->order['driver'])
+					{
+						$p = ($this->car->trans_driver/ \Session::obj()->currency['course']) * $days;
+						echo '<tr><td>Водитель </td><td align="right"><span style="font-weight: bold; color: red">'.$p.'</span> '.\Session::obj()->currency['sign'] . '</td></tr>';
+					}
+					$order = \Session::obj()->order;
+					$p = 0;
+					if ($order['place_from']['city'] != $this->car->resort_id) $p = $this->car->trans_airport / \Session::obj()->currency['course'];
+					else if ($order['place_from']['place'] != $this->car->place_id) $p += $this->car->trans_hotel / \Session::obj()->currency['course'];
+
+					if ($order['place_to']['city'] != $this->car->resort_id) $p += $this->car->trans_airport /\Session::obj()->currency['course'];
+					else if ($order['place_to']['place'] != $this->car->place_id) $p += $this->car->trans_hotel / \Session::obj()->currency['course'];
+
+					if ($p) echo '<tr><td>Доставка </td><td align="right"><span style="font-weight: bold; color: red">'.$p.'</span> '.\Session::obj()->currency['sign'] . '</td></tr>';
+					?>
+		</table>
 					<input type="checkbox" name="agreed" id="agreed" value="1">
-					<label for="agreed">С правилами аренды согласен
+					<label for="agreed">С <a href="<?php echo $this->carrentoffice->rent_rules_link; ?>">правилами аренды</a> согласен
 					</label>
 				</td>
 				<td align="center">
@@ -169,10 +201,10 @@ class CarOrderView extends BaseView {
 							if (\Session::obj()->order['driver']) $perDayAdd += $this->car->trans_driver;
 							$baseprice = $this->car->calcPricesDated($fromDate, $toDate, \Session::obj()->currency['course'], \PriceModel::TYPE_RENT, $perDayAdd);
 							$order = \Session::obj()->order;
-							if ($order['place_from']['city'] != $this->car->resort_id) $baseprice += $this->car->trans_airport;
-							else if ($order['place_from']['place'] != $this->car->place_id) $baseprice += $this->car->trans_hotel;
-							if ($order['place_to']['city'] != $this->car->resort_id) $baseprice += $this->car->trans_airport;
-							else if ($order['place_to']['place'] != $this->car->place_id) $baseprice += $this->car->trans_hotel;
+							if ($order['place_from']['city'] != $this->car->resort_id) $baseprice += $this->car->trans_airport / \Session::obj()->currency['course'];
+							else if ($order['place_from']['place'] != $this->car->place_id) $baseprice += $this->car->trans_hotel / \Session::obj()->currency['course'];
+							if ($order['place_to']['city'] != $this->car->resort_id) $baseprice += $this->car->trans_airport /\Session::obj()->currency['course'];
+							else if ($order['place_to']['place'] != $this->car->place_id) $baseprice += $this->car->trans_hotel /\Session::obj()->currency['course'];
 							$text = '<span
 					style="color:red;"><b>' . $baseprice . '</b></span> ' . \Session::obj()->currency['sign'].'<br>';
 						}
@@ -241,7 +273,7 @@ class CarOrderView extends BaseView {
 		?>
 	<div style="
     padding: 1em;
-    color: red;
+    color: green;
     text-align: center;
 ">Спасибо за заказ. <br>
 		Заявка принята и в ближайшее время наш менеджер свяжется с Вами.</div>
@@ -285,7 +317,7 @@ class CarOrderView extends BaseView {
 				основной (будет в Черногории)
 			</i>
 		</span>
-		<span style="position: absolute;top: -1.5em;left: 26.3em;font-size: 0.8em;">
+		<span style="position: absolute;top: -1.5em;left: 27.5em;font-size: 0.8em;">
 			<i>
 				резервный номер
 			</i>
@@ -294,10 +326,10 @@ class CarOrderView extends BaseView {
 				   style="font-weight: bold; color: black;min-width: 10em; text-align: right;">Телефон <span style="color: red;">*</span></label>
 			<input type="text" class="textinput" id="phone1"
 				   name="phone1"
-				   value="" style="width: 12.6em;padding-left:0.5em;">
+				   value="" style="width: 155px;padding-left:0.5em;"><b> или </b>
 		<input type="text" class="textinput" id="phone2"
 			   name="phone2"
-			   value="" style="width: 12.7em;padding-left:0.5em;">
+			   value="" style="width:  155px;padding-left:0.5em;">
 		</div>
 			<?php
 	}
@@ -363,8 +395,8 @@ float: left;">
 				'Ед. багажа' => $this->car->baggage,
 				'Двери' => $this->car->doors,
 				'Год выпуска' => $this->car->age,
-				'Расход топлива' => $this->car->fuel . 'л/100км',
-				'Объем двигателя' => $this->car->volume . 'cм&#179;',
+				'Расход топлива' => $this->car->fuel ? $this->car->fuel . 'л/100км' : '',
+				'Объем двигателя' => $this->car->volume? $this->car->volume . 'cм&#179;' : '',
 			);
 			foreach ($desc as $k => $v) {
 				if ($v) echo '<div style="float:left; width:10em;">' . $k . '</div><div style="margin-left:10em">' . $v . '</div>';
@@ -391,9 +423,9 @@ float: left;">
 		<h3>Условия аренды:</h3>
 		<?php
 		$desc = array(
-			'минимальный возраст водителя' => $this->car->min_age . ' лет',
-			'минимальный стаж' => $this->car->min_exp . ' лет',
-			'Залог' => ceil($this->car->price_zalog / \Session::obj()->currency['course']) . ' ' . \Session::obj()->currency['sign'],
+			'минимальный возраст водителя' => $this->car->min_age ? $this->car->min_age . ' г.': '',
+			'минимальный стаж' => $this->car->min_exp ? $this->car->min_exp . ' г.' : '',
+			'Залог' => ceil($this->car->price_zalog / \Session::obj()->currency['course']) ? ceil($this->car->price_zalog / \Session::obj()->currency['course']) . ' ' . \Session::obj()->currency['sign'] : '',
 			'Наличие паспорта' => $this->car->flags->check(\CarModel::FLAG_PASSPORT) ? ' обязательно' : '',
 		);
 		foreach ($desc as $k => $v) {
@@ -409,13 +441,13 @@ float: left;">
 		<table width="100%" cellspacing="2px" cellpadding="2px">
 			<thead style="background-color: #fecd36; font-weight: bold;" align="center">
 			<tr>
-				<td>Даты сезона:</td>
-				<td>29+</td>
-				<td>16-29</td>
-				<td>15-9</td>
-				<td>8-7</td>
-				<td>6-3</td>
-				<td>2-1</td>
+				<td>Цены сезона:</td>
+				<td>29+ дн.</td>
+				<td>16-29 дн.</td>
+				<td>15-9 дн.</td>
+				<td>8-7 дн.</td>
+				<td>6-3 дн.</td>
+				<td>2-1 дн.</td>
 			</tr>
 			</thead>
 			<tbody>

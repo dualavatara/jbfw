@@ -87,8 +87,12 @@ class CarCtl extends BaseCtl {
 
 		$car = $this->disp->di()->CarModel();
 		$view->car = $car->getCar($carId);
+		$cro = $this->disp->di()->CarRentOfficeModel();
+		$cro->get($view->car->office_id)->exec();
+		if ($cro->count()) $view->carrentoffice = $cro[0];
+
 		$resort = $this->disp->di()->ResortModel();
-		$resort->get()->all()->order('name')->exec();
+		$resort->get()->filter($resort->filterExpr()->eq('flags', \ResortModel::TYPE_AUTOSEARCH))->order('name')->exec();
 		$view->resorts = $resort;
 		return $view;
 	}
@@ -103,6 +107,10 @@ class CarCtl extends BaseCtl {
 
 		$car = $this->disp->di()->CarModel();
 		$view->car = $car->getCar($carId);
+		$cro = $this->disp->di()->CarRentOfficeModel();
+		$cro->get($view->car->office_id)->exec();
+		if ($cro->count()) $view->carrentoffice = $cro[0];
+
 		return $view;
 	}
 

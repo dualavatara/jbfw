@@ -91,7 +91,7 @@ class PlaceDateOrderFieldGroup extends Field {
 		</script>
 		<input type="text" class="textinput datepicker" id="<?php echo $this->fieldName(); ?>[date]"
 			   name="<?php echo $this->fieldName(); ?>[date]"
-			   value="<?php echo $this->value['date']; ?>" style="width: 5.5em;padding-left:0.5em;">
+			   value="<?php echo $this->value['date']; ?>" style="width: 75px;padding-left:0.5em;">
 		<select name="<?php echo $this->fieldName(); ?>[hour]" id="<?php echo $this->fieldName(); ?>[hour]"
 				style="width: 4.5em;">
 			<?php

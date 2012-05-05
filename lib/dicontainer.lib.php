@@ -265,6 +265,13 @@ class DIContainer extends Singletone{
 	}
 
 	/**
+	 * @return CarRentOfficeModel
+	 */
+	public function CarRentOfficeModel() {
+		return new CarRentOfficeModel($this->PDODatabase());
+	}
+
+	/**
 	 * @return NavigationModel
 	 */
 	public function NavigationModel() {

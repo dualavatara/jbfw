@@ -13,6 +13,7 @@ class CarRentOfficeModel extends Model {
 
 		$this->field(new CharField('name'));
 		$this->field(new CharField('description'));
+		$this->field(new CharField('rent_rules_link'));
 		$this->field(new RealField('percent'));
 		$this->field(new IntField('customer_id'));
 		$this->field(new IntField('rating'));

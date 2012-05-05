@@ -46,6 +46,10 @@ class FormTemplate extends Template {
 						<td><textarea cols="40" rows="10" name="form[description]" ><?php echo $carrentoffice->description; ?></textarea></td>
 					</tr>
 					<tr>
+						<td>Ссылка на правила аренды</td>
+						<td><input name="form[rent_rules_link]" class="required" minlength="2" value="<?php echo $carrentoffice->rent_rules_link; ?>"/></td>
+					</tr>
+					<tr>
 						<td>Клиент</td>
 						<td><?php
 							$this->insertTemplate('Form\SearchSelectField', array(

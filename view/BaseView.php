@@ -315,6 +315,7 @@ class BaseView implements IView {
 
 	public function carsBlock($car, $left = false) {
 		$mainImg = $car->getMainImage();
+		$orderLink = '/carorder/' . $car->id;
 		$fromDate = $_REQUEST['auto']['place_from']['date'];
 		$toDate = $_REQUEST['auto']['place_to']['date'];
 		?>
@@ -328,7 +329,7 @@ float: left;<?php if($left) echo 'margin-right:0.3em'; ?>">
 				'javascript:void(0)',
 				$car->flags->check(\CarModel::FLAG_HIT),
 				$car->flags->check(\CarModel::FLAG_DESCOUNT),
-				'loadCarProfile(\''.$car->name.'\',\''.SERVER_URL . $link.'\', 700, 400, \'lightboxcarsprofile'.$car->id.'\')',
+				"openPopup('".$orderLink."', {id:'step1popup', width:450, height:600, title:'Аренда авто. Шаг 1.'});",
 				true,
 				'thumbnail125', 125,125
 			);
@@ -367,9 +368,11 @@ float: left;<?php if($left) echo 'margin-right:0.3em'; ?>">
 							$text .= '<div style="font-size: 0.6em; color: #555;text-align: right;">с '.$fromDate.' по '.$toDate.' </div>';
 						}
 						else {
+							$e = new \DateTime($price[0]->end);
+							$td = $price[0]->flags->check(\PriceModel::END_INVALID) ? '' : 'до '. $e->format('d.m.Y');
 							$text = 'от <span
 						style="color:red;"><b>' . $price[0]->calcValue(\Session::obj()->currency['course']) . '</b></span> ' . \Session::obj()->currency['sign'] . ' в сутки';
-							$text .= '<div style="font-size: 0.6em; color: #555;text-align: right;">до 01.03.2012 </div>';
+							$text .= '<div style="font-size: 0.6em; color: #555;text-align: right;">'.$td.'</div>';
 						}
 						?>
 					<span style="font-size: 1.6em; "><?php echo $text;?></span>
@@ -377,7 +380,7 @@ float: left;<?php if($left) echo 'margin-right:0.3em'; ?>">
 				<div><?php
 					if ($type) {
 						if ($type == \PriceModel::TYPE_RENT) {
-							$orderLink = '/carorder/' . $car->id;
+
 							?>
 							<?php $this->orderButton('javascript:void(0);', "openPopup('".$orderLink."', {id:'step1popup', width:450, height:600, title:'Аренда авто. Шаг 1.'});") ?>
 							<?php
