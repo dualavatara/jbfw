@@ -252,8 +252,8 @@ class CarOrderView extends BaseView {
 		?>
 		<div>ID <?php echo $this->car->id.": ". $this->car->name; ?></div>
 		<div>Расчитанная сумма: <?php echo $form['totalprice']; ?></div>
-		<div>Получение: <?php echo $resortS . ', ' . $order['place_from']['date'] .' ' . $order['place_from']['hour'] . ':' . $order['place_from']['minute']; ?></div>
-		<div>Возврат: <?php echo $resortS . ', ' . $order['place_to']['date'] .' ' . $order['place_to']['hour'] . ':' . $order['place_to']['minute']; ?></div>
+		<div>Получение: <?php echo $resortS . ', ' . $placeS . ', '. $order['place_from']['date'] .' ' . $order['place_from']['hour'] . ':' . $order['place_from']['minute']; ?></div>
+		<div>Возврат: <?php echo $resortE . ', ' . $placeE . ', ' . $order['place_to']['date'] .' ' . $order['place_to']['hour'] . ':' . $order['place_to']['minute']; ?></div>
 		<div><?php if ($order['navigator']) echo "Навигатор"; ?></div>
 		<div><?php if ($order['chair']) echo "Детское кресло"; ?></div>
 		<div><?php if ($order['driver']) echo "Водитель"; ?></div>
