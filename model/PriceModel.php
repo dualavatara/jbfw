@@ -59,7 +59,7 @@ class PriceModel extends Model {
 	public function calcValue($idx, $newCourse) {
 		$row = $this[$idx];
 		$ret = ceil(floatval($row->value) / $newCourse);
-		return sprintf("%d", $ret);
+		return sprintf("%d", ceil($ret));
 	}
 
 	public static function getClassId($object) {

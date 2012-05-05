@@ -206,12 +206,12 @@ class CarOrderView extends BaseView {
 							if ($order['place_to']['city'] != $this->car->resort_id) $baseprice += $this->car->trans_airport /\Session::obj()->currency['course'];
 							else if ($order['place_to']['place'] != $this->car->place_id) $baseprice += $this->car->trans_hotel /\Session::obj()->currency['course'];
 							$text = '<span
-					style="color:red;"><b>' . $baseprice . '</b></span> ' . \Session::obj()->currency['sign'].'<br>';
+					style="color:red;"><b>' . ceil($baseprice) . '</b></span> ' . \Session::obj()->currency['sign'].'<br>';
 						}
 					}
 					?>
 					<span style="font-size: 1.6em; "><?php echo $text;?></span>
-					<input type="hidden" name="totalprice" value="<?php echo $baseprice.' '.\Session::obj()->currency['sign'];?>">
+					<input type="hidden" name="totalprice" value="<?php echo ceil($baseprice).' '.\Session::obj()->currency['sign'];?>">
 					<?php $this->orderButton('javascript:void(0);', "
 					if (!$('#name').val()) { alert('Поля отмеченные * должны быть заполнены.');return false;};
 					if (!$('#age').val()) { alert('Поля отмеченные * должны быть заполнены.');return false;};

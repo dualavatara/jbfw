@@ -222,7 +222,7 @@ class CarModel extends Model {
 		elseif ($int > 2) $disc = $this[$idx]->discount2;
 		$sum = 0;
 		for ($i = 0; $i < $int; $i++) $sum += ($days[$i] - $disc + $perDayAdd) / $course;
-		return $sum;
+		return ceil($sum);
 	}
 
 	public function getPrices($idx, $type = false) {
