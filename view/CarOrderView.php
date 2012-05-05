@@ -83,21 +83,21 @@ class CarOrderView extends BaseView {
 					<input type="checkbox" name="order[navigator]" value="1">
 					<label for="order[navigator]">Навигатор
 						<span style="font-weight: bold; color: red">
-							<?php echo $this->car->price_navigator / \Session::obj()->currency['course'];?>
+							<?php echo ceil($this->car->price_navigator / \Session::obj()->currency['course']);?>
 						</span>
 						<?php echo \Session::obj()->currency['sign']; ?> / сутки
 					</label><br>
 					<input type="checkbox" name="order[chair]" value="1">
 					<label for="order[chair]">Детское кресло
 						<span style="font-weight: bold; color: red">
-							<?php echo $this->car->price_seat1 / \Session::obj()->currency['course'];?>
+							<?php echo ceil($this->car->price_seat1 / \Session::obj()->currency['course']);?>
 						</span>
 						<?php echo \Session::obj()->currency['sign']; ?> / сутки
 					</label><br>
 					<input type="checkbox" name="order[driver]" value="1">
 					<label for="order[driver]">Водитель
 						<span style="font-weight: bold; color: red">
-							<?php echo $this->car->trans_driver / \Session::obj()->currency['course'];?>
+							<?php echo ceil($this->car->trans_driver / \Session::obj()->currency['course']);?>
 						</span>
 						<?php echo \Session::obj()->currency['sign']; ?> / сутки
 					</label><br>
@@ -154,17 +154,17 @@ class CarOrderView extends BaseView {
 
 					if (\Session::obj()->order['navigator']) {
 						$p = ($this->car->price_navigator/ \Session::obj()->currency['course']) * $days;
-						echo '<tr><td>Навигатор</td><td align="right"><span style="font-weight: bold; color: red">'.$p.'</span> '.\Session::obj()->currency['sign'] . '</td></tr>';
+						echo '<tr><td>Навигатор</td><td align="right"><span style="font-weight: bold; color: red">'.ceil($p).'</span> '.\Session::obj()->currency['sign'] . '</td></tr>';
 					}
 					if (\Session::obj()->order['chair'])
 					{
 						$p = ($this->car->price_seat1/ \Session::obj()->currency['course']) * $days;
-						echo '<tr><td>Детское кресло </td><td align="right"><span style="font-weight: bold; color: red">'.$p.'</span> '.\Session::obj()->currency['sign'] . '</td></tr>';
+						echo '<tr><td>Детское кресло </td><td align="right"><span style="font-weight: bold; color: red">'.ceil($p).'</span> '.\Session::obj()->currency['sign'] . '</td></tr>';
 					}
 					if (\Session::obj()->order['driver'])
 					{
 						$p = ($this->car->trans_driver/ \Session::obj()->currency['course']) * $days;
-						echo '<tr><td>Водитель </td><td align="right"><span style="font-weight: bold; color: red">'.$p.'</span> '.\Session::obj()->currency['sign'] . '</td></tr>';
+						echo '<tr><td>Водитель </td><td align="right"><span style="font-weight: bold; color: red">'.ceil($p).'</span> '.\Session::obj()->currency['sign'] . '</td></tr>';
 					}
 					$order = \Session::obj()->order;
 					$p = 0;
@@ -174,7 +174,7 @@ class CarOrderView extends BaseView {
 					if ($order['place_to']['city'] != $this->car->resort_id) $p += $this->car->trans_airport /\Session::obj()->currency['course'];
 					else if ($order['place_to']['place'] != $this->car->place_id) $p += $this->car->trans_hotel / \Session::obj()->currency['course'];
 
-					if ($p) echo '<tr><td>Доставка </td><td align="right"><span style="font-weight: bold; color: red">'.$p.'</span> '.\Session::obj()->currency['sign'] . '</td></tr>';
+					if ($p) echo '<tr><td>Доставка </td><td align="right"><span style="font-weight: bold; color: red">'.ceil($p).'</span> '.\Session::obj()->currency['sign'] . '</td></tr>';
 					?>
 		</table>
 					<input type="checkbox" name="agreed" id="agreed" value="1">
