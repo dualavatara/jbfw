@@ -219,7 +219,7 @@ class CarModel extends Model {
 		elseif ($int > 15) $disc = $this[$idx]->discount4;
 		elseif ($int > 8) $disc = $this[$idx]->discount3;
 		elseif ($int > 6) $disc = $this[$idx]->discount2;
-		elseif ($int > 2) $disc = $this[$idx]->discount2;
+		elseif ($int > 2) $disc = $this[$idx]->discount1;
 		$sum = 0;
 		for ($i = 0; $i < $int; $i++) $sum += ($days[$i] - $disc + $perDayAdd) / $course;
 		return ceil($sum);
