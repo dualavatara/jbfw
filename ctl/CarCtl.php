@@ -139,8 +139,8 @@ class CarCtl extends BaseCtl {
 
 		;
 		$transport = \Swift_SmtpTransport::newInstance('smtp.gmail.com',465, 'ssl')
-			->setUsername('kindcasper@jb-travel.com')
-			->setPassword('Lj,hsqRfcgth')
+			->setUsername(EMAIL_USER)
+			->setPassword(EMAIL_PASSWORD)
 		;
 		$mailer = \Swift_Mailer::newInstance($transport);
 
