@@ -90,8 +90,23 @@ function openPopup(url, data) {
             $(this).empty();
             $(this).append(data);
             $('.resort').change();
-            $('.datepicker').each(function() {
+            /*$('.datepicker').each(function() {
                 $(this).datepicker();
+            });*/
+
+            //for order form only
+            $('#order\\[place_from\\]\\[date\\]').datepicker({
+                minDate: new Date(),
+                onSelect: function(dateText, inst) {
+                    $('#order\\[place_to\\]\\[date\\]').datepicker( "option", "minDate",  $(this).datepicker( "getDate" ));
+                }
+            });
+
+            $('#order\\[place_to\\]\\[date\\]').datepicker({
+                minDate: new Date(),
+                onSelect: function(dateText, inst) {
+                    $('#order\\[place_from\\]\\[date\\]').datepicker( "option", "maxDate", $(this).datepicker( "getDate" ) );
+                }
             });
         }
     })
@@ -110,3 +125,10 @@ function orderSubmitstep1(id) {
     return true;
 }
 
+function orderSubmit(id) {
+
+    //if (!$('#age').val()) { alert('Поля отмеченные * должны быть заполнены.');return false;};
+    openPopup('/carorder/' + id + '?' + $('#step1form').serialize(), {id:'step1popup', width:450, height:620, title:'Аренда авто. Шаг 1.'});
+    closePopup('step1popup');
+    return true;
+}

@@ -141,14 +141,26 @@ class CarOrderView extends BaseView {
 	<form action="/carorder3/<?php echo $this->car->id; ?>" id="step1form">
 		<table width="100%" cellspacong="0" cellpadding="0" border="0">
 			<tr>
+				<td align="center"><a href="javascript:void(0);" onclick="return orderSubmit(<?php echo $this->car->id; ?>);"><?php echo $fromDate; ?></a> </td>
+				<td align="center"><a href="javascript:void(0);" onclick="return orderSubmit(<?php echo $this->car->id; ?>);"><?php echo $toDate; ?></a> </td>
+			</tr>
+			<tr>
 				<td colspan="2"><?php $this->credetialsForm(); ?></td>
 			</tr>
 			<tr>
 				<td nowrap>
 					<table width="100%">
 					<?php
+					$order = \Session::obj()->order;
+					if (($order['place_to']['hour']>12)
+						|| ($order['place_to']['hour'] == 12 && $order['place_to']['minute'] > 0)) {
+						$td = new \DateTime($toDate);
+						$td->add(new \DateInterval('P1D'));
+						$toDate = $td->format('d.m.Y');
+					}
 					$f = new \DateTime($fromDate);
 					$t = new \DateTime($toDate);
+
 
 					$days = $f->diff($t, true)->days;
 
@@ -166,7 +178,7 @@ class CarOrderView extends BaseView {
 						$p = ($this->car->trans_driver/ \Session::obj()->currency['course']) * $days;
 						echo '<tr><td>Водитель </td><td align="right"><span style="font-weight: bold; color: red">'.ceil($p).'</span> '.\Session::obj()->currency['sign'] . '</td></tr>';
 					}
-					$order = \Session::obj()->order;
+
 					$p = 0;
 					if ($order['place_from']['city'] != $this->car->resort_id) $p = $this->car->trans_airport / \Session::obj()->currency['course'];
 					else if ($order['place_from']['place'] != $this->car->place_id) $p += $this->car->trans_hotel / \Session::obj()->currency['course'];
@@ -178,7 +190,7 @@ class CarOrderView extends BaseView {
 					?>
 		</table>
 					<input type="checkbox" name="agreed" id="agreed" value="1">
-					<label for="agreed">С <a href="<?php echo $this->carrentoffice->rent_rules_link; ?>">правилами аренды</a> согласен
+					<label for="agreed">С <a href="<?php echo $this->carrentoffice->rent_rules_link; ?>" target="_blank">правилами аренды</a> согласен
 					</label>
 				</td>
 				<td align="center">
@@ -215,6 +227,7 @@ class CarOrderView extends BaseView {
 					<?php $this->orderButton('javascript:void(0);', "
 					if (!$('#name').val()) { alert('Поля отмеченные * должны быть заполнены.');return false;};
 					if (!$('#age').val()) { alert('Поля отмеченные * должны быть заполнены.');return false;};
+					if (!$('#age').val() <" .$this->car->min_age. ") { alert('Возраст водителя меньше допустимого для данного предложения.');return false;};
 					if (!$('#email').val()) { alert('Поля отмеченные * должны быть заполнены.');return false;};
 					if (!$('#phone1').val() && !$('#phone2').val()) { alert('Поля отмеченные * должны быть заполнены.');return false;};
 					if (!$('#agreed').attr('checked')) { alert('Для оформления заказа вы должны согласиться с правилами аренды.');return false;};
@@ -314,12 +327,12 @@ class CarOrderView extends BaseView {
 	<div style="position: relative;margin-top: 1.5em;">
 			<span style="position: absolute;top: -1.5em;left: 7.5em;font-size: 0.8em;">
 			<i>
-				основной (будет в Черногории)
+				основной
 			</i>
 		</span>
 		<span style="position: absolute;top: -1.5em;left: 27.5em;font-size: 0.8em;">
 			<i>
-				резервный номер
+				дополнительный
 			</i>
 		</span>
 			<label for="phone1"
@@ -339,8 +352,8 @@ class CarOrderView extends BaseView {
 			'Выберите город получения авто',
 			'Выберите место встречи',
 			'Доставка к месту',
-			'Дата встречи',
-			'Время встречи'
+			'Дата получения',
+			'Время получения'
 		), 'place_from', $this->resorts->getArray('id', 'name'));
 		$fg->formname = 'order';
 		$fg->value = \Session::obj()->form['place_from'];
@@ -352,8 +365,8 @@ class CarOrderView extends BaseView {
 			'Выберите город возврата авто',
 			'Выберите место встречи',
 			'Доставка к месту',
-			'Дата встречи',
-			'Время встречи'
+			'Дата возврата',
+			'Время возврата'
 		), 'place_to', $this->resorts->getArray('id', 'name'));
 		$fg->formname = 'order';
 		$fg->value = \Session::obj()->form['place_to'];
@@ -391,7 +404,7 @@ float: left;">
 			<h3>Описание автомобиля:</h3>
 			<?php
 			$desc = array(
-				'Пассажира (-ов)' => $this->car->seats,
+				'Пассажиров' => $this->car->seats,
 				'Ед. багажа' => $this->car->baggage,
 				'Двери' => $this->car->doors,
 				'Год выпуска' => $this->car->age,
