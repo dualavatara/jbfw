@@ -14,7 +14,7 @@ class ModelDataWrapper {
 	/**
 	 * @var int
 	 */
-	private $offset = 0;
+	public  $offset = 0;
 	/**
 	 * @var ModelData|null
 	 */

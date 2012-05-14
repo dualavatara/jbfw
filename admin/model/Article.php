@@ -26,6 +26,8 @@ class Article extends \AdminModel {
 		$this->fields['content_short'] = new \TextAdminField('content_short','Короткое содержание', false);
 		$this->fields['type'] = new \SelectAdminField('type','Тип', 'getTypes', true);
 		$this->fields['created'] = new \DateTimeAdminField('created','Дата создания', true);
+		$this->fields['maintag'] = new \TagsAdminField('maintag','Основной тэг', true);
+		$this->fields['tags'] = new \TagsAdminField('tags','Тэги', true);
 		$this->fields['ord'] = new \DefaultAdminField('ord','Порядок', true);
 		$this->fields['flags'] = new \FlagsAdminField('flags','Флаги', true);
 

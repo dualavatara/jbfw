@@ -10,6 +10,8 @@ namespace View;
 class ArticleView extends BaseView {
 	public $article;
 	public $ctl;
+	public $mtArticles;
+	public $tArticles;
 
 	public function __construct($ctl) {
 		$this->ctl = $ctl;
@@ -17,10 +19,28 @@ class ArticleView extends BaseView {
 
 	public function show() {
 		$this->start();
+
+		$i = 1;
+		echo '<div style="margin-left: 0.5em; min-width:59em;float:left;">';
+		$tag = unserialize($this->article->maintag);
+		if (is_array($tag)) $tag = join(',', $tag);
+		$this->columnHeader($tag, 'center', 'color: #808080');
+		echo '</div>';
+
+		echo '<div>';
+		foreach($this->mtArticles as $mta) {
+			if ($i % 2)$style = 'style="float:left"';
+			else $style = 'style="float:right"';
+			echo '<div class="tagmenu" '.$style.' onClick="document.location.href=\'/article/'.$mta->id.'\';">'.$mta->name.'</div>';
+			$i++;
+		}
+		echo '</div>';
+		echo '<div style="margin-left: 0.5em; min-width:59em;float:left">';
 		$this->columnHeader($this->article->name);
+		echo '</div>';
 		//$mainImg = $this->article->getMainImage();
 		?>
-	<div style="margin-left: 0.5em">
+	<div style="margin-left: 0.5em; min-width:50em;float:left">
 
 		<script type="text/javascript">
 			$(function () {
@@ -57,6 +77,10 @@ class ArticleView extends BaseView {
 		<p style="text-align: right;"><?php $d = new \DateTime($this->article->created); echo $d->format('d/m/Y'); ?></p>
 	</div>
 	<?php
+		if ($this->tArticles->count()) echo "<div style='width: 60em; float:left;text-align: center'><h2 >Похожие статьи:</h2></div>";
+		shuffle($this->tArticles->data);
+		$this->articlesPreviewBlock($this->tArticles);
+		//foreach($this->tArticles as $ta) echo $ta->name.'<br>';
 		$this->end();
 		return parent::show();
 	}

@@ -18,6 +18,11 @@ class ArticleCtl extends BaseCtl {
 
 		if ($article->count()) $mainView->article = $article[0];
 
+		$mainView->mtArticles = $this->disp->di()->ArticleModel();
+		$mainView->mtArticles->getByTags($mainView->article->maintag, 'maintag', $mainView->article->id);
+
+		$mainView->tArticles = $this->disp->di()->ArticleModel();
+		$mainView->tArticles->getByTags($mainView->article->tags, 'tags', $mainView->article->id);
 
 		$tpl->setLeftColumn($leftCol->show());
 		$tpl->setMainContent($mainView->show());

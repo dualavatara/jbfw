@@ -592,6 +592,7 @@ table.appartlist td:nth-child(3){
 }
 .arcol {
     margin-left:242px;
+    width: 226px;
 }
 #article_block h2{
     color: red;
@@ -766,4 +767,24 @@ label {
 
 .carorder tbody tr:nth-child(odd){
     background-color: #ddd;
+}
+
+.tagmenu {
+    width: 23em;
+    -webkit-box-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+    -moz-box-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+    box-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+    background-color: #fdfdfd;
+    border-radius: 0.2em;
+    -moz-border-radius: 0.2em;
+    -webkit-border-radius: 0.2em;
+    margin: 0.5em;
+    padding: 0.2em;
+    font-size: 1.2em;
+    cursor: pointer;
+}
+
+
+.tagmenu:hover {
+    background-color: #fecd36;
 }

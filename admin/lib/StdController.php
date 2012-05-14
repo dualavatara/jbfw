@@ -92,7 +92,7 @@ class StdController extends Controller {
 		return $this->app['template']->render($this->objectName.'\ListTemplate', $this->data);
 	}
 
-	public function do_save(\Admin\Request $request) {
+	public function do_save($request) {
 		$form = $request['form'];
 		//var_dump($request); var_dump($_FILES);return;
 		if (count($form['routes'])) {

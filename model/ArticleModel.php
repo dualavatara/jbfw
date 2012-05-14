@@ -9,16 +9,16 @@ require_once 'lib/model.lib.php';
 require_once 'model/ArticleImageModel.php';
 
 class ArticleModel extends Model {
-	const TYPE_ARTICLE 		= 1;
-	const TYPE_NEWS 		= 2;
-	const TYPE_USEFULL 		= 3;
-	const TYPE_INFO 		= 4;
-	const TYPE_CONTACTS		= 5;
-	const TYPE_MISC 		= 6;
+	const TYPE_ARTICLE = 1;
+	const TYPE_NEWS = 2;
+	const TYPE_USEFULL = 3;
+	const TYPE_INFO = 4;
+	const TYPE_CONTACTS = 5;
+	const TYPE_MISC = 6;
 
-	const FLAG_VISIBLE		= 0x0001;
-	const FLAG_FOOTER		= 0x0002;
-	const FLAG_TOINDEX		= 0x0004;
+	const FLAG_VISIBLE = 0x0001;
+	const FLAG_FOOTER = 0x0002;
+	const FLAG_TOINDEX = 0x0004;
 
 	/**
 	 * @var ArticleImageModel
@@ -38,6 +38,8 @@ class ArticleModel extends Model {
 		$this->field(new CharField('content', Field::STRIP_SLASHES));
 		$this->field(new CharField('content_short', Field::STRIP_SLASHES));
 		$this->field(new IntField('type'));
+		$this->field(new CharField('maintag'));
+		$this->field(new CharField('tags'));
 		$this->field(new IntField('ord'));
 		$this->field(new FlagsField('flags'));
 
@@ -57,17 +59,45 @@ class ArticleModel extends Model {
 
 	public function getFlags() {
 		return array(
-			self::FLAG_VISIBLE => 'Видимый',
-			self::FLAG_TOINDEX => 'На главную',
+			self::FLAG_VISIBLE => 'Видимый', self::FLAG_TOINDEX => 'На главную',
 		);
 	}
 
 	public function getOtherImages($idx) {
-		$this->image->get()->filter(
-			$this->image->filterExpr()->notEq('flags', ArticleImageModel::FLAG_MAIN)->_and()
-				->eq('article_id', $this[$idx]->id)
-		)->exec();
+		$this->image->get()->filter($this->image->filterExpr()->notEq('flags', ArticleImageModel::FLAG_MAIN)->_and()
+			->eq('article_id', $this[$idx]->id))->exec();
 		if ($this->image->count()) return $this->image;
 		return array();
+	}
+
+	public function getByTags($tags, $tagsField, $skipId = '') {
+		if (is_array(unserialize($tags))) $tarr = unserialize($tags);
+		else {
+			$tarr = explode(',', $tags);
+			array_walk($tarr, function(&$val, $key) {
+				$val = trim($val);
+			});
+		}
+		$filter = $this->filterExpr();
+		$first = true;
+		foreach ($tarr as $tag) {
+			if ($first) $first = false; else $filter->_or();
+			$filter->like($tagsField, "%$tag%");
+		}
+		$this->get()->filter($filter)->exec();
+
+		$newdata = array();
+		$addedIdx = array();
+		foreach ($this as $row) {
+			$arr = unserialize($row->$tagsField);
+			foreach ($tarr as $tag) {
+				if (is_array($arr) && in_array($tag, $arr) && !in_array($row->offset, $addedIdx) && $skipId != $row->id) {
+					$newdata[] = $this->data[$row->offset];
+					$addedIdx[] = $row->offset;
+				}
+			}
+		}
+		$this->data = $newdata;
+		return $this;
 	}
 }

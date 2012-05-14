@@ -42,9 +42,9 @@ class BaseView implements IView {
 	<?php
 	}
 
-	public function columnHeader($header, $align = 'center') {
+	public function columnHeader($header, $align = 'center', $color = '') {
 		?>
-	<div class="title black" style="line-height:64px;">
+	<div class="title black" style="line-height:64px;<?php echo $color; ?>">
 		<div id="hrcol" style="text-align:<?php echo $align; ?>"><?php echo $header; ?></div>
 	</div>
 	<?php
@@ -482,5 +482,41 @@ float: left;<?php if($left) echo 'margin-right:0.3em'; ?>">
 	</table>
 		</div>
 	<?php
+	}
+	
+	function articlesPreviewBlock($articles) {
+		$artOut = function ($article) {
+			?>
+		<a href="<?php echo \Ctl\ArticleCtl::link('article', array('id' => $article->id));?>">
+			<h2 class="red"><?php echo $article->name;?></h2>
+			<img src="/s/<?php echo $article->photo_preview;?>" alt="<?php echo $article->alt; ?>">
+			<p><?php echo $article->content_short;?></p>
+		</a>
+		<?php
+		};
+		/** @noinspection PhpUndefinedVariableInspection */
+		if ($articles->count()) {
+			?>
+		<div id="article_block" style="float: left;width: 60em;">
+			<div class="alcol frame"><?php $artOut($articles[0]);?></div>
+			<?php
+			if ($articles->count() == 3) {
+				?>
+				<div class="arcol">
+					<div class="alcol frame"><?php $artOut($articles[1]);?></div>
+					<div class="arcol frame"><?php $artOut($articles[2]);?></div>
+				</div>
+				<?php
+			} else if ($articles->count() == 2) {
+				?>
+				<div class="arcol frame"><?php $artOut($articles[1]);?></div>
+				<?php
+			};
+			?>
+		</div>
+
+		<?php
+		}
+		;
 	}
 }
