@@ -79,6 +79,7 @@ class ArticleView extends BaseView {
 	<?php
 		if ($this->tArticles->count()) echo "<div style='width: 60em; float:left;text-align: center'><h2 >Похожие статьи:</h2></div>";
 		shuffle($this->tArticles->data);
+
 		$this->articlesPreviewBlock($this->tArticles);
 		//foreach($this->tArticles as $ta) echo $ta->name.'<br>';
 		$this->end();
