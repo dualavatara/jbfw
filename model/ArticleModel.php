@@ -88,7 +88,8 @@ class ArticleModel extends Model {
 			if ($first) $first = false; else $filter->_or();
 			$filter->like($tagsField, "%$tag%");
 		}
-		$this->get()->filter($filter)->exec();
+
+		$this->get()->filter($filter)->filter($this->filterExpr()->eq('flags', ArticleModel::FLAG_VISIBLE))->exec();
 
 		$newdata = array();
 		$addedIdx = array();
