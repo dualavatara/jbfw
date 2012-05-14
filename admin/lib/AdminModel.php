@@ -283,7 +283,7 @@ class TagsAdminField extends DefaultAdminField {
 	public $size;
 
 	public function inputHtml($modelRow) {
-		$val = unserialize($modelRow->getRaw()->{$this->name});
+		if ($modelRow) $val = unserialize($modelRow->getRaw()->{$this->name});
 		if (is_array($val)) $val = join(',', $val);
 		?>
 	<input id="<?php echo $this->name; ?>" size="<?php echo $this->size; ?>" name="form[<?php echo $this->name; ?>]"
@@ -292,7 +292,7 @@ class TagsAdminField extends DefaultAdminField {
 	}
 
 	public function listTextHtml($modelRow) {
-		$val = unserialize($modelRow->getRaw()->{$this->name});
+		if ($modelRow) $val = unserialize($modelRow->getRaw()->{$this->name});
 		if (is_array($val)) $val = join(',', $val);
 		echo $val;
 	}

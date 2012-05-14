@@ -500,7 +500,7 @@ float: left;<?php if($left) echo 'margin-right:0.3em'; ?>">
 		<div id="article_block" style="float: left;width: 60em;">
 			<div class="alcol frame"><?php $artOut($articles[0]);?></div>
 			<?php
-			if ($articles->count() == 3) {
+			if ($articles->count() >= 3) {
 				?>
 				<div class="arcol">
 					<div class="alcol frame"><?php $artOut($articles[1]);?></div>
