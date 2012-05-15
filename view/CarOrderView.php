@@ -227,7 +227,7 @@ class CarOrderView extends BaseView {
 					<?php $this->orderButton('javascript:void(0);', "
 					if (!$('#name').val()) { alert('Поля отмеченные * должны быть заполнены.');return false;};
 					if (!$('#age').val()) { alert('Поля отмеченные * должны быть заполнены.');return false;};
-					if (!$('#age').val() <" .$this->car->min_age. ") { alert('Возраст водителя меньше допустимого для данного предложения.');return false;};
+					if (parseInt($('#age').val()) <" .$this->car->min_age. ") { alert('Возраст водителя меньше допустимого для данного предложения.');return false;};
 					if (!$('#email').val()) { alert('Поля отмеченные * должны быть заполнены.');return false;};
 					if (!$('#phone1').val() && !$('#phone2').val()) { alert('Поля отмеченные * должны быть заполнены.');return false;};
 					if (!$('#agreed').attr('checked')) { alert('Для оформления заказа вы должны согласиться с правилами аренды.');return false;};
