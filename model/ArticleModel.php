@@ -77,10 +77,10 @@ class ArticleModel extends Model {
 			array_walk($tarr, function(&$val, $key) {
 				$val = trim($val);
 			});
-			$nt = array();
-			foreach($tarr as $t) if ($t) $nt[] = $t;
-			$tarr = $nt;
 		}
+		$nt = array();
+                foreach($tarr as $t) if ($t) $nt[] = $t;
+                $tarr = $nt;
 		if(empty($tarr)) return $this;
 
 		$filter = $this->filterExpr();
