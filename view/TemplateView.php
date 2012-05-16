@@ -40,6 +40,8 @@ class TemplateView extends BaseView {
 			  content="<?php /** @noinspection PhpUndefinedVariableInspection */echo $this->settings->getTitle(); ?>">
 		<meta name="description" content="<?php echo $this->settings->getDescription(); ?>">
 		<meta name="keywords" content="<?php echo $this->settings->getKeywords(); ?>">
+		<meta name='yandex-verification' content='79d05fe69f813238' />
+
 		<title><?php echo $this->settings->getTitle(); ?></title>
 		<script type="text/javascript" src="/static/js/jquery.js"></script>
 		<!--<script type="text/javascript" src="/static/js/jquery-ui.js"></script>-->

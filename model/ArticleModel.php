@@ -82,6 +82,7 @@ class ArticleModel extends Model {
 			$tarr = $nt;
 		}
 		if(empty($tarr)) return $this;
+
 		$filter = $this->filterExpr();
 		$first = true;
 		foreach ($tarr as $tag) {
