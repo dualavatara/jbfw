@@ -26,6 +26,7 @@ class ArticleCtl extends BaseCtl {
 
 		$tpl->setLeftColumn($leftCol->show());
 		$tpl->setMainContent($mainView->show());
+		$tpl->settings->setAtId(\SettingModel::TITLE, $mainView->article->name);
 		return $tpl;
 	}
 

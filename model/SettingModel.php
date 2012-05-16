@@ -81,6 +81,18 @@ class SettingModel extends Model {
 		return null;
 	}
 
+	public function setAtId($id,  $value) {
+		$found = false;
+		foreach($this->data as &$row) if ($row['id'] == $id) {
+			$found = true;
+			$row['value'] = $value;
+		}
+
+		if(!$found) {
+			$this->data[] = array('value' => $value);
+		}
+		return null;
+	}
 	/**
 	 * Coverage of getters is unnecessary
 	 * @codeCoverageIgnore
