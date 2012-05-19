@@ -19,13 +19,25 @@ set_error_handler(function ($errno, $errstr, $errfile, $errline) {
 }, E_ALL + E_STRICT);
 
 try {*/
+session_start();
+if (isset($_SESSION['user']) and in_array('closed_index',$_SESSION['routes'])) {
+function vardump($obj) {
+var_dump($obj);
+};
+} else {
+function vardump($obj) {
+}
+}
+
 	$di = new DIContainer();
 	$disp = $di->Dispatcher();
 	Settings::obj()->set($di->SettingModel());
 if (Settings::obj()->get()->getClosed() and (!isset($_SESSION['user']) or !in_array('closed_index',$_SESSION['routes']))) {
 	require('static/html/maitenance.html');
 	return;
-} else $disp->main();
+} else {
+$disp->main();
+}
 /*} catch (Exception $e) {
 	header('HTTP/1.1 500 Internal Server Error');
 	Logger::obj()->error($e->getMessage());

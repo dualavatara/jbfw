@@ -206,8 +206,8 @@ class CarModel extends Model {
 
 			if ($price->flags->check(PriceModel::END_INVALID)) $it = $int;
 			else if ($pt > $t) $it = $int;
-			else {
-				$it = $f->diff($pt,true)->days;
+			else { // $pt <= $t, end index is difference between period beginning and price finish
+				$it = $f->diff($pt,true)->days ;
 			}
 			$value = $price->calcValue($course);
 			for($i = $if; $i < $it; $i++) {

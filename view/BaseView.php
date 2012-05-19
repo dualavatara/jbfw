@@ -318,6 +318,13 @@ class BaseView implements IView {
 		$orderLink = '/carorder/' . $car->id;
 		$fromDate = $_REQUEST['auto']['place_from']['date'];
 		$toDate = $_REQUEST['auto']['place_to']['date'];
+		$order=$_REQUEST['auto'];
+		if (($order['place_to']['hour']>12)
+                                                || ($order['place_to']['hour'] == 12 && $order['place_to']['minute'] > 0)) {
+                                                $td = new \DateTime($toDate);
+                                                $td->add(new \DateInterval('P1D'));
+                                                $toDate = $td->format('d.m.Y');
+                                        }
 		?>
 	<div class="itemblock" style="width: 29.2em; height: 15em;
 float: left;<?php if($left) echo 'margin-right:0.3em'; ?>">
