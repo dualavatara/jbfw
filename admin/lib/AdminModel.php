@@ -390,17 +390,23 @@ class SelectAdminField extends AdminField {
 class SearchSelectAdminField extends AdminField {
 	//public $callback;
 	public $class;
+	public $linkField;
+	public $linkParam;
 
-	function __construct($name, $adminName, $class, $isList, $isListEdit = false, $isMinWidth = false) {
+	function __construct($name, $adminName, $class, $isList, $isListEdit = false, $isMinWidth = false, $linkField = '', $linkParam = '') {
 		parent::__construct($name, $adminName, $isList, $isListEdit, $isMinWidth);
 		$this->class = $class;
+		$this->linkField = $linkField;
+		$this->linkParam = $linkParam;
 	}
 
 	public function inputHtml($modelRow) {
 		$this->template->insertTemplate('Form\SearchSelectField', array(
 			'name' => "form[{$this->name}]",
 			'value' => $modelRow->{$this->name},
-			'rest_url' => '/admin/' . strtolower($this->class) . '/json'
+			'rest_url' => '/admin/' . strtolower($this->class) . '/json',
+			'linked_field' => $this->linkField,
+			'linked_param' => $this->linkParam
 		));
 	}
 

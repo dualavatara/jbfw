@@ -36,7 +36,13 @@ if (Settings::obj()->get()->getClosed() and (!isset($_SESSION['user']) or !in_ar
 	require('static/html/maitenance.html');
 	return;
 } else {
-$disp->main();
+	try {
+	$disp->main();
+	} catch (\NotFoundException $e) {
+		header('HTTP/1.1 404 Not Found');
+		$_SERVER['REQUEST_URI'] = Settings::obj()->get()->get404();
+		$disp->main();
+	}
 }
 /*} catch (Exception $e) {
 	header('HTTP/1.1 500 Internal Server Error');

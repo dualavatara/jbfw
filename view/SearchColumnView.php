@@ -17,6 +17,24 @@ class SearchColumnView extends BaseView{
 		$this->columnHeader('Искать на сайте:', 'left');
 		?>
 	<div id="searchpad" style="position: relative">
+		<script>
+			$(function () {
+				$('#auto\\[place_from\\]\\[date\\]').datepicker({
+					minDate: new Date(),
+					onSelect: function(dateText, inst) {
+						$('#auto\\[place_to\\]\\[date\\]').datepicker( "option", "minDate",  $(this).datepicker( "getDate" ));
+					}
+				});
+
+				$('#auto\\[place_to\\]\\[date\\]').datepicker({
+					minDate: new Date(),
+					onSelect: function(dateText, inst) {
+						$('#auto\\[place_from\\]\\[date\\]').datepicker( "option", "maxDate", $(this).datepicker( "getDate" ) );
+					}
+				});
+			});
+		</script>
+
 		<?php
 
 		$autoTab = new Tab('auto', 'авто', $this->autoSearchForm->html(), '0px');

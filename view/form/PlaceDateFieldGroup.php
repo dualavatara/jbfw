@@ -63,6 +63,20 @@ class PlaceDateFieldGroup extends Field {
 			$(function () {
 				var name = '<?php echo addcslashes(addcslashes($this->fieldName() . '[date]', '[]'), '\\'); ?>';
 				$("#" + name).datepicker();
+
+				/*$('#auto\\[place_from\\]\\[date\\]').datepicker({
+					minDate: new Date(),
+					onSelect: function(dateText, inst) {
+						$('#auto\\[place_to\\]\\[date\\]').datepicker( "option", "minDate",  $(this).datepicker( "getDate" ));
+					}
+				});
+
+				$('#auto\\[place_to\\]\\[date\\]').datepicker({
+					minDate: new Date(),
+					onSelect: function(dateText, inst) {
+						$('#auto\\[place_from\\]\\[date\\]').datepicker( "option", "maxDate", $(this).datepicker( "getDate" ) );
+					}
+				});*/
 			});
 		</script>
 		<input type="text" class="textinput" id="<?php echo $this->fieldName(); ?>[date]" name="<?php echo $this->fieldName(); ?>[date]"

@@ -137,12 +137,32 @@ class CarOrderView extends BaseView {
 		$form = \Session::obj()->order;
 		$fromDate = $form['place_from']['date'];
 		$toDate = $form['place_to']['date'];
+
+		$order = \Session::obj()->order;
+		if (($order['place_to']['hour']>12)
+			|| ($order['place_to']['hour'] == 12 && $order['place_to']['minute'] > 0)) {
+			$td = new \DateTime($toDate);
+			$td->add(new \DateInterval('P1D'));
+			$toDate = $td->format('d.m.Y');
+		}
+		$f = new \DateTime($fromDate);
+		$t = new \DateTime($toDate);
+
+
+		$days = $f->diff($t, true)->days;
 		?>
 	<form action="/carorder3/<?php echo $this->car->id; ?>" id="step1form">
 		<table width="100%" cellspacong="0" cellpadding="0" border="0">
-			<tr>
-				<td align="center"><a href="javascript:void(0);" onclick="return orderSubmit(<?php echo $this->car->id; ?>);"><?php echo $fromDate; ?></a> </td>
-				<td align="center"><a href="javascript:void(0);" onclick="return orderSubmit(<?php echo $this->car->id; ?>);"><?php echo $toDate; ?></a> </td>
+			<tr colspan="2">
+				<td colspan="2">
+				<table width="100%" cellspacong="0" cellpadding="0" border="0">
+					<tr>
+						<td align="center"><a href="javascript:void(0);" onclick="return orderSubmit(<?php echo $this->car->id; ?>);"><?php echo $fromDate; ?></a> </td>
+						<td align="center">Дней: <?php echo $days; ?></td>
+						<td align="center"><a href="javascript:void(0);" onclick="return orderSubmit(<?php echo $this->car->id; ?>);"><?php echo $toDate; ?></a> </td>
+					</tr>
+				</table>
+				</td>
 			</tr>
 			<tr>
 				<td colspan="2"><?php $this->credetialsForm(); ?></td>
@@ -151,18 +171,7 @@ class CarOrderView extends BaseView {
 				<td nowrap>
 					<table width="100%">
 					<?php
-					$order = \Session::obj()->order;
-					if (($order['place_to']['hour']>12)
-						|| ($order['place_to']['hour'] == 12 && $order['place_to']['minute'] > 0)) {
-						$td = new \DateTime($toDate);
-						$td->add(new \DateInterval('P1D'));
-						$toDate = $td->format('d.m.Y');
-					}
-					$f = new \DateTime($fromDate);
-					$t = new \DateTime($toDate);
 
-
-					$days = $f->diff($t, true)->days;
 
 					if (\Session::obj()->order['navigator']) {
 						$p = ($this->car->price_navigator/ \Session::obj()->currency['course']) * $days;

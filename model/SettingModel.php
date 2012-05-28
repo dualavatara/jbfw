@@ -45,6 +45,7 @@ class SettingModel extends Model {
 	const SEOTEXT		= 13;
 	const KEYWORDS		= 14;
 	const CLOSED		= 15;
+	const ERR404			= 16;
 	/**
 	 * @param IDatabase $db
 	 */
@@ -69,6 +70,7 @@ class SettingModel extends Model {
 			self::SEOTEXT	 ,
 			self::KEYWORDS	 ,
 			self::CLOSED	 ,
+			self::ERR404	 ,
 		);
 	}
 
@@ -157,5 +159,11 @@ class SettingModel extends Model {
 	 * @return mixed
 	 */
 	public function getClosed() { return $this->atId(SettingModel::CLOSED)->value; }
+	//@codeCoverageIgnoreEnd
+
+	/**
+	 * @return mixed
+	 */
+	public function get404() { return $this->atId(SettingModel::ERR404)->value; }
 	//@codeCoverageIgnoreEnd
 }

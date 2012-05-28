@@ -30,20 +30,8 @@ class WebRequestHandler extends RequestHandler implements IRequestHandler {
 	 * @return bool
 	 */
 	public function handle($requestUri) {
-		try {
-			$path = parse_url($requestUri, PHP_URL_PATH);
-			// TODO: Do not return false but show 404 error page
-			return $this->callCtlMethod($path);
-		}  catch (IHttpException $e) {
-			header(sprintf('HTTP/1.1 %s %s', $e->getHttpCode(), $e->getHttpText()));
-			// TODO: replace to ErrorView implementation
-			error_log($e->getMessage());
-			//$view = new ErrorsView();
-			//$view->setErrors($e->getHttpCode());
-			//$view->show();
-		}
-		
-		return true;
+		$path = parse_url($requestUri, PHP_URL_PATH);
+		return $this->callCtlMethod($path);
 	}
 }
 ?>

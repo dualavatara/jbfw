@@ -13,7 +13,7 @@ class Resort extends \Admin\StdController {
 		$filter = $this->model->getModel()->filterExpr();
 		if (isset($request['id'])) $filter->eq('id', $request['id']);
 		else $filter->like('name', $name . '%');
-		$this->model->getModel()->get()->filter($filter)->exec();
+		$this->model->getModel()->get()->filter($filter)->order('name')->exec();
 		$data = array();
 		foreach($this->model->getModel() as $row) $data[$row->id] = $row->name;
 		return json_encode($this->model->getModel()->data);

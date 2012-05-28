@@ -165,7 +165,7 @@ $(document).ready(function () {
             hidden.attr('type', 'hidden');
             hidden.attr('name', $(this).attr('name'));
             hidden.attr('value', $(this).attr('value'));
-            $(this).after(hidden);
+
 
 
 
@@ -180,9 +180,10 @@ $(document).ready(function () {
                 }
             });
 
-        //    edit.attr('value', $(this).attr('display-value'));
-
+            hidden[0].edit = edit[0];
             edit[0].url = $(this).attr('rest-url');
+            edit[0].linked = $(this).attr('linked-field');
+            edit[0].param = $(this).attr('linked-param');
             edit.css('float', 'left');
             edit.attr('size', '30');
 
@@ -194,8 +195,12 @@ $(document).ready(function () {
             edit.keyup(
                 function (event) {
                     var dropbox = this.dropbox;
+                    var params = '';
+                    if (this.urlparam) {
+                        params = '?' + this.urlparam;
+                    }
                     if (this.url /*&& $(this).val()*/) $.ajax({
-                        url:this.url + '/' + $(this).val(),
+                        url:this.url + '/' + $(this).val() + params,
                         dataType:'json',
                         context:dropbox,
                         success:function (data) {
@@ -217,7 +222,15 @@ $(document).ready(function () {
                     var dropbox = this.dropbox;
                     $(dropbox).toggle(false);
                 }
+            ).change(
+                function () {
+                    var hidden = $("input[name=" + this.linked + "]");
+                    hidden.val('0');
+                    $(hidden[0].edit).val('');
+                    hidden[0].edit.urlparam = this.param + '=' + $(this.hiddenedit).val();
+                }
             );
+            $(this).after(hidden);
             $(this).after(dropbox);
             $(this).after(edit);
             var button = $('<div class="combobtn">&nbsp;</div>');
@@ -257,5 +270,6 @@ function makeDropbox(cont, data) {
         var edit = $(this).parent()[0].edit;
         $(edit.hiddenedit).val(id);
         $(edit).val($(this).text());
+        $(edit).change();
     });
 }

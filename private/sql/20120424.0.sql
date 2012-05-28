@@ -1,0 +1,1 @@
+INSERT INTO `settings` (`id`, `name`, `value`) VALUES(16, 'Страница 404', '');

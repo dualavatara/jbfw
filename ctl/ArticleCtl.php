@@ -17,6 +17,7 @@ class ArticleCtl extends BaseCtl {
 		$article->get($id)->exec();
 
 		if ($article->count()) $mainView->article = $article[0];
+		else throw new \NotFoundException();
 
 		$mainView->mtArticles = $this->disp->di()->ArticleModel();
 		$mainView->mtArticles->getByTags($mainView->article->maintag, 'maintag', $mainView->article->id);

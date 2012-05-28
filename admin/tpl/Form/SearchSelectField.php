@@ -16,7 +16,9 @@ class SearchSelectField extends Template {
 		$value = $data['value'];
 		$display_value = $data['display_value'];
 		$label = $data['label'];
-		$url = $data['rest_url']
+		$url = $data['rest_url'];
+		$linkedField = $data['linked_field'];
+		$linkedParam = $data['linked_param'];
 		?>
 	<input class="searchselect"
 		   name="<?php echo $name; ?>"
@@ -24,6 +26,8 @@ class SearchSelectField extends Template {
 		   value="<?php echo $value; ?>"
 		   display-value="<?php echo $display_value; ?>"
 		   rest-url="<?php echo $url; ?>"
+		   linked-field="<?php echo $linkedField; ?>"
+		   linked-param="<?php echo $linkedParam; ?>"
 		   size="30"
 		/>
 	<?php
