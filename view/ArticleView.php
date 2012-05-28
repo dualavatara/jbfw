@@ -60,7 +60,7 @@ class ArticleView extends BaseView {
 				});*/
 			});
 		</script>
-
+		<?php if ($this->article->photo_preview) { ?>
 		<img src="/s/<?php echo $this->article->photo_preview; ?>" style="
 		border: 1px #555555 solid;
 		margin-right: 1em;
@@ -68,7 +68,7 @@ class ArticleView extends BaseView {
 		float: left;
 		"
 			 alt="<?php echo $this->article->alt; ?>">
-
+		<?php }; ?>
 		<div style="overflow: hidden;">
 		<?php
 		echo $this->blockOtherImg($this->article->id, $this->article->getOtherImages(), 10000);
