@@ -65,6 +65,8 @@ class Model extends ModelData {
 	 */
 	public $args = array();
 
+    public $fUseInQuery = false;
+
 	/**
 	 * @return array
 	 */

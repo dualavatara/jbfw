@@ -10,7 +10,8 @@ abstract class Field {
 
 	const ORDER_ASC		= 0x0001;
 	const ORDER_DESC	= 0x0002;
-	
+
+    public      $fInQuery = true;
 	protected $_name = '';
 	protected $flags = 0;
 	protected $adminName = '';

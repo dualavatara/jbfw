@@ -34,5 +34,7 @@ class Article extends \AdminModel {
 		$this->fields['images'] = new \RefAdminField('images','Картинки', new \ParentChildParams(array('parent_field' => 'article_id')), true);
 		$this->fields['images']->class = 'ArticleImage';
 		$this->fields['images']->fromRoute = 'article_list';
+
+        foreach($this->fields as $key => $field) if (!$field->isList) $this->getModel()->$key->fInQuery = false;
 	}
 }

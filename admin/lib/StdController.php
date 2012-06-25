@@ -78,6 +78,7 @@ class StdController extends Controller {
 	}
 
 	public function do_list(\Admin\Request $request = null) {
+        $this->model->getModel()->fUseInQuery = true;
 		$this->model->getFiltered($request);
 
 		$class = $this->model->childParamsClass;
@@ -89,6 +90,7 @@ class StdController extends Controller {
 		$this->data['model'] = $this->model;
 		$_SESSION['listurl'] = $_SERVER['REQUEST_URI'];
 
+        $this->model->getModel()->fUseInQuery = false;
 		return $this->app['template']->render($this->objectName.'\ListTemplate', $this->data);
 	}
 
