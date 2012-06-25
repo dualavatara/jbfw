@@ -25,6 +25,8 @@ class SecurityUser implements \Admin\Extension\Security\SecurityUserInterface {
 	 * @var array Routes that are allowed always for any user
 	 */
 	private $defaultRoutes;
+
+    private $sessRoutes;
 	
 	public function __construct(\Admin\Application $app) {
 		$config = $app->getConfig();
@@ -61,6 +63,7 @@ class SecurityUser implements \Admin\Extension\Security\SecurityUserInterface {
 		if (1 == $this->user->count()) {
 			$this->app['session']->write($this->key, $this->user[0]);
             $routes = $this->getRoutes($this->user[0]->id);
+            $this->sessRoutes = $routes;
             $this->app['session']->write(self::ROUTES, $routes);
 			return true;
 		}
@@ -114,7 +117,7 @@ class SecurityUser implements \Admin\Extension\Security\SecurityUserInterface {
 		} else {
 //			$user_id = 2;
 //			var_dump($user);
-			if (null == $user_id) $user_id = $this->id;
+			if (null == $user_id) return $this->sessRoutes; //$user_id = $this->id;
 			$accessModel = new \AdminAccessModel($this->app['db']);
 			$route_names = $accessModel->getRouteNames($user_id);
 			return array_merge($route_names->route_name, $this->defaultRoutes);
