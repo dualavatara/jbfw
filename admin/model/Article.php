@@ -35,11 +35,12 @@ class Article extends \AdminModel {
 		$this->fields['images']->class = 'ArticleImage';
 		$this->fields['images']->fromRoute = 'article_list';
 
-        var_dump($this->getModel());
+        $m = $this->getModel();
+        var_dump($m->fields);
         foreach($this->fields as $key => $field) if (!$field->isList) {
-            $this->getModel()->$key->fInQuery = false;
+            $m->fields[$key]->fInQuery = false;
             echo $key;
-            var_dump($this->getModel()->$key);
+            var_dump($m->fields[$key]);
         }
 	}
 }
