@@ -35,7 +35,7 @@ class ListTemplate extends Template {
 					foreach ($dRaw['model']->fields as $field) {
 						if (!$field->isList) continue;
 						echo '<td>';
-						if (($field->isListEdit) && ($this->app['user']->checkRoute('article_edit'))) {
+						if (($field->isListEdit)) {
 							$this->showLink($field->listText($item), 'article_edit', array('id' => $item->id));
 						} else  echo $field->listText($item);
 						echo '</td>';
