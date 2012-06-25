@@ -63,7 +63,6 @@ class SecurityUser implements \Admin\Extension\Security\SecurityUserInterface {
 		if (1 == $this->user->count()) {
 			$this->app['session']->write($this->key, $this->user[0]);
             $routes = $this->getRoutes($this->user[0]->id);
-            $this->sessRoutes = $routes;
             $this->app['session']->write(self::ROUTES, $routes);
 			return true;
 		}
@@ -117,7 +116,16 @@ class SecurityUser implements \Admin\Extension\Security\SecurityUserInterface {
 		} else {
 //			$user_id = 2;
 //			var_dump($user);
-			if (null == $user_id) return $this->sessRoutes; //$user_id = $this->id;
+			if (null == $user_id) {
+                if ($this->sessRoutes) return $this->sessRoutes;
+                else {
+                    $user_id = $this->id;
+                    $accessModel = new \AdminAccessModel($this->app['db']);
+                    $route_names = $accessModel->getRouteNames($user_id);
+                    $this->sessRoutes = array_merge($route_names->route_name, $this->defaultRoutes);
+                    return $this->sessRoutes;
+                }
+            } //$user_id = $this->id;
 			$accessModel = new \AdminAccessModel($this->app['db']);
 			$route_names = $accessModel->getRouteNames($user_id);
 			return array_merge($route_names->route_name, $this->defaultRoutes);
