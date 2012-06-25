@@ -34,7 +34,6 @@ class SelectSqlCmd implements ISqlCmd {
 		}
 		if (!empty($ords)) $sql .= ' ORDER BY ' . implode(', ', $ords);
 		$sql .= ' LIMIT '.$model->_limit.' OFFSET '.$model->_offset;
-        var_dump($sql);
 		return $sql.';';
 	}
 
