@@ -79,7 +79,6 @@ class StdController extends Controller {
 
 	public function do_list(\Admin\Request $request = null) {
         $this->model->getModel()->fUseInQuery = true;
-        var_dump($this->model->getModel());
 		$this->model->getFiltered($request);
 
 		$class = $this->model->childParamsClass;
