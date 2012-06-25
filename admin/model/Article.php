@@ -35,8 +35,10 @@ class Article extends \AdminModel {
 		$this->fields['images']->class = 'ArticleImage';
 		$this->fields['images']->fromRoute = 'article_list';
 
+        var_dump($this->getModel());
         foreach($this->fields as $key => $field) if (!$field->isList) {
             $this->getModel()->$key->fInQuery = false;
+            echo $key;
             var_dump($this->getModel()->$key);
         }
 	}
