@@ -6,6 +6,7 @@ require_once 'lib/PDODatabase.php';
 
 //model classes
 require_once 'model/SettingModel.php';
+require_once 'model/UrlAliasesModel.php';
 require_once 'model/CurrencyModel.php';
 require_once 'model/ArticleModel.php';
 require_once 'model/BannerModel.php';
@@ -221,6 +222,14 @@ class DIContainer extends Singletone{
 	public function SettingModel() {
 		return new SettingModel($this->PDODatabase());
 	}
+
+	/**
+	 * @return SettingModel
+	 */
+	public function UrlAliasesModel() {
+		return new UrlAliasesModel($this->PDODatabase());
+	}
+
 
 	/**
 	 * @return CurrencyModel

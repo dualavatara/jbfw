@@ -32,6 +32,7 @@ function vardump($obj) {
 	$di = new DIContainer();
 	$disp = $di->Dispatcher();
 	Settings::obj()->set($di->SettingModel());
+	UrlAliases::obj()->set($di->UrlAliasesModel());
 if (Settings::obj()->get()->getClosed() and (!isset($_SESSION['user']) or !in_array('closed_index',$_SESSION['routes']))) {
 	require('static/html/maitenance.html');
 	return;

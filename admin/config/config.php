@@ -172,6 +172,13 @@ return array(
 		'place_save' => array('/place/save',            'Place', 'save'),
 		'place_json' => array('/place/json/{name}', 'Place', 'json'),
 
+		'urlaliases_edit' => array('/urlaliases/edit/{id}',       'UrlAliases', 'edit'),
+		'urlaliases_list' => array('/urlaliases/list',            'UrlAliases', 'list'),
+		'urlaliases_add' => array('/urlaliases/add',              'UrlAliases', 'add'),
+		'urlaliases_delete' => array('/urlaliases/delete/{id}',   'UrlAliases', 'delete'),
+		'urlaliases_save' => array('/urlaliases/save',            'UrlAliases', 'save'),
+
+
 	),
 
 	'menu' => array(
@@ -204,6 +211,7 @@ return array(
 				//'discount_list' => array('title' => 'Скидки', 'route' => 'discount_list', 'params' => array()),
 				'Customer' => array('title' => 'Клиенты', 'route' => 'customer_list', 'params' => array()),
 				'Navigation' => array('title' => 'Навигация',     'route' => 'navigation_list',   'params' => array('parent_field' => 'parent_id')),
+				'UrlAliases' => array('title' => 'Алиасы URL',     'route' => 'urlaliases_list',   'params' => array()),
 			)
 		),
 		/*'modules' => array(
