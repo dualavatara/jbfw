@@ -45,4 +45,14 @@ class UrlAliasesModel extends Model {
 		$this->field(new CharField('alias'));
 		$this->field(new Charfield('url'/*,Field::STRIP_SLASHES*/));
 	}
+
+    public function alias($url) {
+        foreach($this as $row) if ($row->url == $url) return $row->alias;
+        return false;
+    }
+
+    public function url($alias) {
+        foreach($this as $row) if ($row->alias == $alias) return $row->url;
+        return false;
+    }
 }

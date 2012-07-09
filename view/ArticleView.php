@@ -28,10 +28,22 @@ class ArticleView extends BaseView {
 		echo '</div>';
 
 		echo '<div>';
+
+        $aliases = \UrlAliases::obj()->get();
+        $bUrls = array();
+        foreach($this->mtArticles as $mta) {
+            $bUrl[] = '/article/'.$mta->id;
+        }
+
+        $aliases->get()->filter($aliases->filterExpr()->eq('url', $bUrls))->exec();
+
 		foreach($this->mtArticles as $mta) {
+            $bUrl = $aliases->alias('/article/'.$mta->id);
+            if (!$bUrl) $bUrl = '/article/'.$mta->id;
+
 			if ($i % 2)$style = 'style="float:left"';
 			else $style = 'style="float:right"';
-			echo '<div class="tagmenu" '.$style.' onClick="document.location.href=\'/article/'.$mta->id.'\';">'.$mta->name.'</div>';
+			echo '<div class="tagmenu" '.$style.' onClick="document.location.href=\''.$bUrl.'\';">'.$mta->name.'</div>';
 			$i++;
 		}
 		echo '</div>';
