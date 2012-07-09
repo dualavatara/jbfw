@@ -32,7 +32,7 @@ class ArticleView extends BaseView {
         $aliases = \UrlAliases::obj()->get();
         $bUrls = array();
         foreach($this->mtArticles as $mta) {
-            $bUrl[] = '/article/'.$mta->id;
+            $bUrls[] = '/article/'.$mta->id;
         }
 
         $aliases->get()->filter($aliases->filterExpr()->eq('url', $bUrls))->exec();
