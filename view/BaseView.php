@@ -45,7 +45,7 @@ class BaseView implements IView {
 	public function columnHeader($header, $align = 'center', $color = '') {
 		?>
 	<div class="title black" style="line-height:64px;<?php echo $color; ?>">
-		<h1 id="hrcol" style="text-align:<?php echo $align; ?>"><?php echo $header; ?></h1>
+		<h1 class="smalltitle" style="text-align:<?php echo $align; ?>"><?php echo $header; ?></h1>
 	</div>
 	<?php
 	}

@@ -788,3 +788,7 @@ label {
 .tagmenu:hover {
     background-color: #fecd36;
 }
+
+.smalltitle {
+    font-size: 1em;
+}
