@@ -32,8 +32,15 @@ class ArticleCtl extends BaseCtl {
 	}
 
 	static public function link($method, $params) {
+
 		switch($method) {
-			case 'article' : return '/article/' . $params['id'];
+			case 'article' : {
+                $aliases = \UrlAliases::obj()->get();
+                $aliases->get()->filter($aliases->filterExpr()->eq('url', '/article/' . $params['id']))->exec();
+                if ($aliases->count()) $url = $aliases->alias('/article/' . $params['id']);
+                else $url = '/article/' . $params['id'];
+                return $url;
+            };
 			//case 'index' : return '/realty'. '?' . http_build_query($params);
 			default: throw new \NotFoundException();
 		}
