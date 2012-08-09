@@ -209,7 +209,7 @@ class CarModel extends Model {
 			else { // $pt <= $t, end index is difference between period beginning and price finish
 				$it = $f->diff($pt,true)->days ;
 			}
-			$value = $price->calcValue($course);
+			$value = $price->value;//$price->calcValue($course);
 			for($i = $if; $i < $it; $i++) {
 				if ($days[$i] == 0 || $days[$i] > $value) $days[$i] = $value;
 			}
