@@ -44,8 +44,8 @@ class SearchColumnView extends BaseView{
 
 		$tabView = new TabView('searchtabview');
 		$tabView->addTab($autoTab);
-		$tabView->addTab($rentTab);
-		$tabView->addTab($sellTab);
+		//$tabView->addTab($rentTab);
+		//$tabView->addTab($sellTab);
 
 		$tabView->selected = $_REQUEST['form'];
 		echo $tabView->show();
