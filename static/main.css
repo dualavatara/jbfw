@@ -287,9 +287,9 @@ h1 {
     color: black;
 }
 
-.tabfold:last-child{
-    float:right;
-}
+/*.tabfold:last-child{*/
+    /*float:right;*/
+/*}*/
 
 .searchcontent{
     background:#fecd36;
