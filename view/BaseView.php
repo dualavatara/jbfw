@@ -380,7 +380,7 @@ float: left;<?php if($left) echo 'margin-right:0.3em'; ?>">
                             $td .= $price[0]->flags->check(\PriceModel::END_INVALID) ? '' : ' до '. $e->format('m.Y');
                             $pval = $price[0]->calcValue(\Session::obj()->currency['course']);
                             $disc = $price[0]->week_disc > $price[0]->month_disc ? $price[0]->week_disc/100.0 : $price[0]->month_disc/100.0;
-                            $disc = $pval * $disc;
+                            $disc = ceil($pval * $disc);
                             $pval -= $disc;
 							$text = 'от <span
 						style="color:red;"><b>' . $pval . '</b></span> ' . \Session::obj()->currency['sign'] . ' в сутки';
