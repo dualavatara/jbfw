@@ -376,7 +376,8 @@ float: left;<?php if($left) echo 'margin-right:0.3em'; ?>">
 						}
 						else {
 							$e = new \DateTime($price[0]->end);
-							$td = 'цена действительна';//$price[0]->flags->check(\PriceModel::END_INVALID) ? '' : 'до '. $e->format('d.m.Y');
+							$td = 'цена действительна';
+                            $td .= $price[0]->flags->check(\PriceModel::END_INVALID) ? '' : 'до '. $e->format('d.m.Y');
 							$text = 'от <span
 						style="color:red;"><b>' . $price[0]->calcValue(\Session::obj()->currency['course']) . '</b></span> ' . \Session::obj()->currency['sign'] . ' в сутки';
 							$text .= '<div style="font-size: 0.6em; color: #555;text-align: right;">'.$td.'</div>';
