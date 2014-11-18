@@ -1,5 +1,5 @@
 <?
-require_once 'swift_required.php';
+require_once(__DIR__ . '/vendor/autoload.php');
 require_once 'lib/JBFWClassLoader.php';
 
 require_once 'config/config.php';
